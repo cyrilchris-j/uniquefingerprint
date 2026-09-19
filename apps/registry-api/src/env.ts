@@ -14,7 +14,10 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().int().positive().default(8787),
 
-  DATABASE_URL: z.string().min(1, "DATABASE_URL is required."),
+  DATABASE_URL: z
+    .string()
+    .min(1)
+    .default("postgresql://postgres:postgres@127.0.0.1:54322/postgres"),
 
   SUPABASE_URL: z.string().url().optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),

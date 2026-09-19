@@ -1,14 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "https://uniquefingerprint.web.app/$1",
-      "permanent": false
-    }
-  ],
+
   "rewrites": [
     { "source": "/r/:path*", "destination": "/r/:path*" },
+    { "source": "/api/:path*", "destination": "https://uniquefingerprint-registry-api.vercel.app/api/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
