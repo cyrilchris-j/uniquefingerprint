@@ -6,6 +6,7 @@
  */
 
 import type { AdvancedCategorySlug, AdvancedTechnology } from "./types.js";
+import { UI_ELEMENT_SOURCE_CODES } from "./ui-element-source-codes.js";
 
 export function generateSourceCode(
   category: AdvancedCategorySlug,
@@ -449,6 +450,11 @@ export function ${name}({
 }
 
 function generateUIElementCode(name: string, slug: string, title: string): string {
+  // Use unique per-slug implementation if available
+  const unique = UI_ELEMENT_SOURCE_CODES[slug as keyof typeof UI_ELEMENT_SOURCE_CODES];
+  if (unique) return unique;
+
+  // Fallback generic template
   return `import * as React from "react";
 
 export interface ${name}Props {
