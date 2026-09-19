@@ -1,10 +1,11 @@
 {
-  "name": "openui",
+  "name": "uniquefingerprint",
   "version": "0.1.0",
-  "description": "OpenUI CLI — install open-code UI components from the registry",
+  "description": "UniqueFingerprint CLI — install open-code UI components from the registry",
   "license": "MIT",
   "type": "module",
   "bin": {
+    "uniquefingerprint": "./src/index.ts",
     "openui": "./src/index.ts"
   },
   "scripts": {

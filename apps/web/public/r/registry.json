@@ -3,7 +3,7 @@
   "name": "openui",
   "homepage": "https://openui.dev",
   "version": "0.1.0",
-  "generatedAt": "2026-09-17T19:16:54.463Z",
+  "generatedAt": "2026-09-19T20:11:10.593Z",
   "namespaces": [
     "default"
   ],
@@ -18141,6 +18141,50 @@
         "motionModel": "interpolated-geometry-spring",
         "layoutModel": "thumbnail-to-overlay-morph",
         "semanticPurpose": "shared-element-expander"
+      }
+    },
+    {
+      "name": "liquid-chrome-fluid",
+      "namespace": "default",
+      "type": "registry:background",
+      "title": "Liquid Chrome Fluid",
+      "description": "Viscous metallic fluid reacting to mouse drag turbulence.",
+      "category": "backgrounds",
+      "resourceType": "background",
+      "tags": [
+        "liquid",
+        "chrome",
+        "fluid",
+        "metallic",
+        "canvas",
+        "interactive"
+      ],
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "url": "https://openui.dev/r/liquid-chrome-fluid.json",
+      "integrity": "sha256-vlJhxjCJCHYuDI2mXhnEwFFqo+Ez9jqtINbtfRTO8zY=",
+      "license": "MIT",
+      "difficulty": "intermediate",
+      "dna": {
+        "genre": "luxury",
+        "macrostructure": "full-bleed",
+        "density": "airy",
+        "shapeLanguage": "soft",
+        "motionLanguage": "kinetic",
+        "typographyStyle": "monospace",
+        "colorStrategy": "monochrome"
+      },
+      "subcategory": "interactive",
+      "fingerprint": {
+        "interactionModel": "pointer-reactive",
+        "visualModel": "liquid-chrome-specular",
+        "motionModel": "spring-physics",
+        "layoutModel": "full-viewport-underlay",
+        "semanticPurpose": "metallic-surface-canvas"
       }
     },
     {

@@ -22,9 +22,9 @@
     {
       "path": "demo.tsx",
       "type": "registry:motion",
-      "content": "import { useEffect, useState } from \"react\";\nimport { MorphingHamburger } from \"./morphing-hamburger\";\n\nexport default function Demo() {\n  const [open, setOpen] = useState(false);\n  useEffect(() => {\n    const t = setInterval(() => setOpen((prev) => !prev), 1800);\n    return () => clearInterval(t);\n  }, []);\n\n  return (\n    <div className=\"flex min-h-[14rem] flex-col items-center justify-center bg-paper p-8\">\n      <div className=\"flex flex-col items-center gap-3\">\n        <div className=\"p-4 rounded-xl border border-line bg-surface shadow-xs flex items-center justify-center\">\n          <MorphingHamburger open={open} onToggle={setOpen} />\n        </div>\n        <span className=\"font-mono text-[10px] tracking-widest text-graphite uppercase font-bold\">\n          {open ? \"STATE: ACTIVE (X)\" : \"STATE: MENU (BURGER)\"}\n        </span>\n      </div>\n    </div>\n  );\n}\n",
+      "content": "import { MorphingHamburger } from \"./morphing-hamburger\";\n\nexport default function Demo() {\n  return (\n    <div className=\"flex min-h-[12rem] items-center justify-center bg-paper p-10\">\n      <MorphingHamburger />\n    </div>\n  );\n}\n",
       "contentHash": "0a62511ccd75cc522d8fe70d49cec44dbdff9a35c5639ae47abc12b747c63716",
-      "sizeBytes": 872
+      "sizeBytes": 232
     }
   ],
   "tags": [

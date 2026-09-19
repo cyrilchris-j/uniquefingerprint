@@ -22,9 +22,9 @@
     {
       "path": "demo.tsx",
       "type": "registry:motion",
-      "content": "import { useEffect, useState } from \"react\";\nimport { SpringDrawer } from \"./spring-drawer\";\n\nexport default function Demo() {\n  const [open, setOpen] = useState(false);\n  useEffect(() => {\n    const t = setInterval(() => setOpen((prev) => !prev), 2000);\n    return () => clearInterval(t);\n  }, []);\n\n  return (\n    <div className=\"flex min-h-[16rem] items-center justify-center bg-paper p-6\">\n      <SpringDrawer className=\"w-full max-w-md\">\n        <div className=\"p-4\">\n          <p className=\"font-display text-lg font-bold text-ink\">Velocity-Aware Spring</p>\n          <p className=\"mt-2 text-xs text-graphite leading-relaxed\">\n            Flick gesture completes past 40% travel; slow drags require majority displacement.\n          </p>\n          <span className=\"inline-block mt-3 px-2 py-1 rounded bg-oxide/10 text-oxide font-mono text-[10px] font-bold\">\n            SPRING_STIFFNESS: 0.2\n          </span>\n        </div>\n      </SpringDrawer>\n    </div>\n  );\n}\n",
+      "content": "import { SpringDrawer } from \"./spring-drawer\";\n\nexport default function Demo() {\n  return (\n    <div className=\"flex min-h-[20rem] items-center justify-center bg-paper p-10\">\n      <SpringDrawer className=\"w-full max-w-md\">\n        <p className=\"font-display text-lg text-ink\">Velocity-aware</p>\n        <p className=\"mt-2 text-sm text-ink/70\">Flick me and I finish the gesture. Drag slowly and I need majority travel.</p>\n      </SpringDrawer>\n    </div>\n  );\n}\n",
       "contentHash": "8e13220deac5dfacf4a126c466027e67f0dc9e4a4ee43148c32c95f3eb27894f",
-      "sizeBytes": 970
+      "sizeBytes": 464
     }
   ],
   "tags": [

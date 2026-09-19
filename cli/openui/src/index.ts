@@ -66,16 +66,17 @@ async function runAdd(rawArgs: string[]) {
   }
 
   const registryBaseUrl =
+    process.env["UNIQUEFINGERPRINT_REGISTRY"] ??
     process.env["OPENUI_REGISTRY"] ??
     process.env["REGISTRY_BASE_URL"] ??
-    "http://localhost:8787/r";
+    "https://uniquefingerprint.vercel.app/r";
 
   const client = new RegistryClient({
     baseUrl: registryBaseUrl,
     logger: (msg) => dim(`  ${msg}`),
   });
 
-  info(`\n${c.bold}OpenUI Registry${c.reset}  ${c.grey}${registryBaseUrl}${c.reset}\n`);
+  info(`\n${c.bold}UniqueFingerprint Registry${c.reset}  ${c.grey}${registryBaseUrl}${c.reset}\n`);
 
   // Resolve the full closure (transitive registry deps)
   let resolved;
@@ -151,18 +152,18 @@ async function runAdd(rawArgs: string[]) {
 // ─── Help ────────────────────────────────────────────────────────────────────
 function printHelp() {
   process.stdout.write(`
-${c.bold}openui${c.reset} — OpenUI Design Registry CLI
+${c.bold}uniquefingerprint${c.reset} — UniqueFingerprint Design Registry CLI
 
 ${c.bold}Commands:${c.reset}
   ${c.cyan}add <resource…>${c.reset}   Install one or more registry resources
-                   ${c.grey}Example: openui add magnetic-button copy-button${c.reset}
+                   ${c.grey}Example: uniquefingerprint add magnetic-button liquid-chrome-fluid${c.reset}
 
 ${c.bold}Flags:${c.reset}
   ${c.cyan}--overwrite, -f${c.reset}  Replace existing files that have been modified
   ${c.cyan}--help, -h${c.reset}       Show this help message
 
 ${c.bold}Environment:${c.reset}
-  OPENUI_REGISTRY  Override the registry base URL
-                   ${c.grey}Default: https://openui.dev/r${c.reset}
+  UNIQUEFINGERPRINT_REGISTRY  Override the registry base URL
+                             ${c.grey}Default: https://uniquefingerprint.vercel.app/r${c.reset}
 `);
 }
