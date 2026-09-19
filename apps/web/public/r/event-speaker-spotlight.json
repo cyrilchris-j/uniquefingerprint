@@ -61,6 +61,6 @@
       "semanticPurpose": "event-speaker-spotlight-section"
     }
   },
-  "url": "https://openui.dev/r/event-speaker-spotlight.json",
+  "url": "https://uniquefingerprint.web.app/r/event-speaker-spotlight.json",
   "designRules": "# Design System\n\nGenre: Swiss\nMacrostructure: Mosaic\nDensity: Medium\nShape: Sharp\nMotion: Subtle\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Event Speaker Spotlight Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

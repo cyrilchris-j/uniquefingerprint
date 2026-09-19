@@ -2316,6 +2316,7 @@ const PREVIEWS_MAP: Record<string, () => React.JSX.Element> = {
   "physics-rope-pulley": PhysicsRopePulleyPreview,
   "spring-drawer": SpringDrawerPreview,
   "interactive-diff-slider": InteractiveDiffSliderPreview,
+  "interactive-map-split": InteractiveMapSplitPreview,
 };
 
 /**
@@ -2333,10 +2334,83 @@ export function getCatalogueVisualPreview(name: string, category?: string): Reac
   if (Component) return <Component />;
 
   // Guaranteed, instantaneous 60fps native specimen for all interactions
-  if (category === "interactions") {
+  if (category === "interactions" || category === "ui-elements") {
     return <GenericInteractionPreview title={name} subcategory={category} />;
   }
 
   return null;
 }
+
+// ─── InteractiveMapSplitPreview ──────────────────────────────────────────────
+export function InteractiveMapSplitPreview() {
+  const [activeNode, setActiveNode] = React.useState(0);
+  React.useEffect(() => {
+    const t = setInterval(() => setActiveNode((n) => (n + 1) % 2), 1500);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="w-full h-full grid grid-cols-12 bg-paper border border-line/30 rounded-xl overflow-hidden select-none font-sans text-xs">
+      <div className="col-span-5 p-3 border-r border-line/40 bg-paper flex flex-col justify-center gap-1.5">
+        <div className="font-mono text-[8px] uppercase tracking-wider text-graphite font-bold mb-0.5">
+          REGIONS
+        </div>
+        <div
+          className={`p-2 rounded-lg border transition-all duration-200 ${
+            activeNode === 0
+              ? "border-oxide bg-oxide/5 shadow-2xs"
+              : "border-line/40 bg-surface/30 opacity-70"
+          }`}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />
+            <span className="font-bold text-[10px] text-ink">US-East</span>
+          </div>
+          <div className="font-mono text-[8px] text-graphite mt-0.5">Virginia · 14ms</div>
+        </div>
+        <div
+          className={`p-2 rounded-lg border transition-all duration-200 ${
+            activeNode === 1
+              ? "border-oxide bg-oxide/5 shadow-2xs"
+              : "border-line/40 bg-surface/30 opacity-70"
+          }`}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-moss" />
+            <span className="font-bold text-[10px] text-ink">EU-Central</span>
+          </div>
+          <div className="font-mono text-[8px] text-graphite mt-0.5">Frankfurt · 28ms</div>
+        </div>
+      </div>
+
+      <div className="col-span-7 bg-[#0b0c10] p-3 flex flex-col items-center justify-center relative overflow-hidden text-white">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2430_1px,transparent_1px),linear-gradient(to_bottom,#1f2430_1px,transparent_1px)] bg-[size:14px_14px] opacity-40" />
+        <div className="absolute w-28 h-28 rounded-full border border-cyan-500/20" />
+        <div className="absolute w-16 h-16 rounded-full border border-cyan-500/30" />
+
+        <div className="absolute top-6 left-6 flex items-center gap-1">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500" />
+          </span>
+          <span className="font-mono text-[7px] text-cyan-300 font-bold bg-black/60 px-1 py-0.5 rounded">US-E</span>
+        </div>
+
+        <div className="absolute bottom-6 right-8 flex items-center gap-1">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+          </span>
+          <span className="font-mono text-[7px] text-emerald-300 font-bold bg-black/60 px-1 py-0.5 rounded">EU-C</span>
+        </div>
+
+        <div className="relative z-10 font-mono text-[8px] text-slate-400 bg-black/70 px-2 py-1 rounded-md border border-slate-700/60">
+          CARTOGRAPHIC SPLIT
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 

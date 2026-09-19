@@ -61,6 +61,6 @@
       "semanticPurpose": "financial-subscription-console"
     }
   },
-  "url": "https://openui.dev/r/billing-subscription-manager.json",
+  "url": "https://uniquefingerprint.web.app/r/billing-subscription-manager.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Stack\nDensity: Medium\nShape: Rounded\nMotion: None\nTypography: Grotesk\nColor: Accent Only\n\n## Rules\n\n- Plan Management And Invoicing: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

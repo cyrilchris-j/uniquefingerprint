@@ -60,6 +60,6 @@
       "semanticPurpose": "primary-site-navigation"
     }
   },
-  "url": "https://openui.dev/r/editorial-navigation.json",
+  "url": "https://uniquefingerprint.web.app/r/editorial-navigation.json",
   "designRules": "# Editorial Navigation\n\nGenre: Editorial\nMacrostructure: Rail\nDensity: Compact\nShape: Sharp\nMotion: Subtle\nTypography: Serif Display\nColor: Monochrome\n\n## Motion\n\nFast: 140ms\nNormal: 200ms\nSlow: 320ms\n\n## Rules\n\n- Two tiers: a utility strip in monospace, an identity row in the display face.\n- The active route is marked by a rule, not a filled pill.\n- Keep primary navigation to seven items at most.\n- The mobile disclosure is a labelled text control, never an icon alone.\n\n## Avoid\n\n- Sticky headers that consume more than 80px of viewport.\n- Transparent headers that become opaque on scroll.\n- Search fields inside the primary navigation row.\n"
 }

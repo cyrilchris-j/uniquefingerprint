@@ -61,6 +61,6 @@
       "semanticPurpose": "feature-storytelling"
     }
   },
-  "url": "https://openui.dev/r/sticky-stack.json",
+  "url": "https://uniquefingerprint.web.app/r/sticky-stack.json",
   "designRules": "# Sticky Stack\n\nGenre: Industrial\nMacrostructure: Stack\nDensity: Medium\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Motion\n\nFast: 140ms\nNormal: 240ms\nSlow: 420ms\n\n## Rules\n\n- Each card pins a step further down so the previous edge stays visible.\n- Keep the offset step under 20px; larger steps read as drift.\n- Collapse to a normal list under 640px and under reduced motion.\n- Zero JavaScript: sticky is a layout property, not an animation.\n\n## Avoid\n\n- Scale-down transforms on the pinned cards.\n- More than five cards in one stack.\n- Stacks inside a container with its own scroll.\n"
 }

@@ -39,6 +39,6 @@
       "semanticPurpose": "ui-component"
     }
   },
-  "url": "https://openui.dev/r/cn.json",
+  "url": "https://uniquefingerprint.web.app/r/cn.json",
   "designRules": "# Class Name Merge\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Monochrome\n\n## Rules\n\n- A utility carries no styling of its own.\n- Prefer explicit variant props over long conditional class lists.\n- Never sort or deduplicate classes by hand; that is `cn`'s job.\n\n## Avoid\n\n- Hiding layout decisions inside a utility.\n- Re-exporting a UI component from a utility module.\n"
 }

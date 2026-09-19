@@ -62,6 +62,6 @@
       "semanticPurpose": "system-observability"
     }
   },
-  "url": "https://openui.dev/r/industrial-dashboard.json",
+  "url": "https://uniquefingerprint.web.app/r/industrial-dashboard.json",
   "designRules": "# Industrial Dashboard\n\nGenre: Industrial\nMacrostructure: Mosaic\nDensity: Dense\nShape: Sharp\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Motion\n\nFast: 120ms\nNormal: 200ms\nSlow: 320ms\n\n## Rules\n\n- Regions differ by weight, not elevation: hairlines, not shadows.\n- Metrics are monospace, tabular, and aligned on a shared baseline.\n- Trend glyphs are signs, not judgements; up is not automatically good.\n- Every panel states its unit or its scope in the header.\n\n## Avoid\n\n- A grid of equally weighted rounded tiles.\n- Sparklines without axes or units.\n- Colour as the only indicator of a threshold breach.\n"
 }

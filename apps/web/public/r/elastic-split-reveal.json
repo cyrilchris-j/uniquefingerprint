@@ -63,6 +63,6 @@
       "semanticPurpose": "canvas-content-unveil"
     }
   },
-  "url": "https://openui.dev/r/elastic-split-reveal.json",
+  "url": "https://uniquefingerprint.web.app/r/elastic-split-reveal.json",
   "designRules": "# Design System\n\nGenre: Editorial\nMacrostructure: Full Bleed\nDensity: Medium\nShape: Sharp\nMotion: Kinetic\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Toggle Split Parting: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

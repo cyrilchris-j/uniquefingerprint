@@ -61,6 +61,6 @@
       "semanticPurpose": "hero-title-reveal"
     }
   },
-  "url": "https://openui.dev/r/split-text.json",
+  "url": "https://uniquefingerprint.web.app/r/split-text.json",
   "designRules": "# Split Text\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: Expressive\nTypography: Serif Display\nColor: Monochrome\n\n## Motion\n\nFast: 180ms\nNormal: 320ms\nSlow: 620ms\n\n## Rules\n\n- Split on words, never letters; letters break find-in-page and screen readers.\n- Reveal once, on the sentence that carries the argument.\n- Keep the travel under 0.5em so the paragraph does not reflow.\n- The wrapper's accessible name must be the whole sentence.\n\n## Avoid\n\n- Reveals longer than 900ms total.\n- Per-character stagger on paragraphs.\n- Reveals that replay when scrolling back up.\n"
 }

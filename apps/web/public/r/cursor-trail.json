@@ -61,6 +61,6 @@
       "semanticPurpose": "pointer-accentuation"
     }
   },
-  "url": "https://openui.dev/r/cursor-trail.json",
+  "url": "https://uniquefingerprint.web.app/r/cursor-trail.json",
   "designRules": "# Cursor Trail\n\nGenre: Industrial\nMacrostructure: Scatter\nDensity: Dense\nShape: Cut\nMotion: Kinetic\nTypography: Monospace\nColor: Neon On Dark\n\n## Motion\n\nFast: 90ms\nNormal: 160ms\nSlow: 280ms\n\n## Rules\n\n- One trail per page, and only on dark or high-contrast surfaces.\n- The trail must fade toward the tail, not toward the head.\n- Never on coarse pointers or under reduced motion.\n- The layer is inert: no pointer events, no layout impact.\n\n## Avoid\n\n- Trails that change size on every dot.\n- Coloured confetti variations.\n- Trails bright enough to reduce the contrast of text above them.\n"
 }
