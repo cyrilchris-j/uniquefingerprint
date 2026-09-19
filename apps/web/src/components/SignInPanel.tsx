@@ -32,26 +32,32 @@ export function SignInPanel({
           "An account saves favourites, collections and submissions. Reading and installing resources never requires one."
         }
         action={
-          <div className="flex flex-wrap gap-2">
-            <Button
-              onClick={() =>
-                void signInWithGitHub().catch((cause: unknown) =>
-                  setError(cause instanceof Error ? cause.message : "Sign-in failed."),
-                )
-              }
-            >
-              Continue with GitHub
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() =>
-                void signInWithGoogle().catch((cause: unknown) =>
-                  setError(cause instanceof Error ? cause.message : "Sign-in failed."),
-                )
-              }
-            >
-              Continue with Google
-            </Button>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={() =>
+                  void signInWithGitHub().catch((cause: unknown) =>
+                    setError(cause instanceof Error ? cause.message : "Sign-in failed."),
+                  )
+                }
+              >
+                Continue with GitHub
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  void signInWithGoogle().catch((cause: unknown) =>
+                    setError(cause instanceof Error ? cause.message : "Sign-in failed."),
+                  )
+                }
+              >
+                Continue with Google
+              </Button>
+            </div>
+            <p className="text-[10px] text-graphite/70 font-mono flex items-center gap-1.5 mt-1">
+              <span>🔒</span>
+              <span>Encrypted OAuth sign-in · Private keys & passwords never exposed</span>
+            </p>
           </div>
         }
       />

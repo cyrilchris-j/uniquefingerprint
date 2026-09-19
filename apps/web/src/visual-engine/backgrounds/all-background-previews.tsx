@@ -859,3 +859,83 @@ export function LiquidChromeFluidPreview() {
     </div>
   );
 }
+
+export function GenericBackgroundPreview({ title }: { title: string }) {
+  const canvasRef = useCanvasLoop((ctx, w, h, time) => {
+    ctx.fillStyle = "#0a0a0f";
+    ctx.fillRect(0, 0, w, h);
+
+    // Subtle atmospheric grid
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+    ctx.lineWidth = 1;
+    const step = 24;
+    for (let x = 0; x < w; x += step) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += step) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    // Undulating sine waves
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.strokeStyle = i === 0 ? "rgba(186, 68, 44, 0.45)" : i === 1 ? "rgba(56, 189, 248, 0.35)" : "rgba(168, 85, 247, 0.25)";
+      ctx.lineWidth = 1.5;
+      const cy = h * (0.35 + i * 0.15);
+      for (let x = 0; x <= w; x += 4) {
+        const y = cy + Math.sin(x * 0.02 + time * 1.5 + i * 1.2) * 16 * Math.cos(x * 0.008 + time * 0.6);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+  });
+
+  return (
+    <div className="relative w-full h-full bg-[#0a0a0f] overflow-hidden flex items-center justify-center">
+      <canvas ref={canvasRef} width={320} height={200} className="w-full h-full object-cover" />
+      <div className="absolute top-2.5 right-3 font-mono text-[9px] text-oxide font-bold tracking-widest uppercase">
+        PROCEDURAL BG
+      </div>
+      <div className="absolute bottom-2.5 left-3 font-mono text-[9px] text-zinc-400 font-medium truncate max-w-[200px]">
+        {title.replace(/-/g, " ")}
+      </div>
+    </div>
+  );
+}
+
+export const BACKGROUNDS_PREVIEWS_MAP: Record<string, React.ComponentType> = {
+  "shape-waves-canvas": ShapeWavesCanvasPreview,
+  "shape-waves": ShapeWavesCanvasPreview,
+  "aero-shards-svg": AeroShardsSvgPreview,
+  "aero-shards": AeroShardsSvgPreview,
+  "ghost-fibers-stream": GhostFibersStreamPreview,
+  "molten-metal-flow": MoltenMetalFlowPreview,
+  "gradient-waves-sine": GradientWavesSinePreview,
+  "sliced-waves-depth": SlicedWavesDepthPreview,
+  "lightfall-stream": LightfallStreamPreview,
+  "liquid-ether-canvas": LiquidEtherCanvasPreview,
+  "light-pillar-ambient": LightPillarAmbientPreview,
+  "silk-flow-harmonic": SilkFlowHarmonicPreview,
+  "floating-lines-vector": FloatingLinesVectorPreview,
+  "side-rays-ambient": SideRaysAmbientPreview,
+  "light-rays-shimmer": LightRaysShimmerPreview,
+  "color-bends-flow": ColorBendsFlowPreview,
+  "evil-eye-geometry": EvilEyeGeometryPreview,
+  "line-waves-procedural": LineWavesProceduralPreview,
+  "gradient-blinds-slats": GradientBlindsSlatsPreview,
+  "galaxy-spiral-points": GalaxySpiralPointsPreview,
+  "iridescence-sheen-fresnel": IridescenceSheenFresnelPreview,
+  "sine-waves-smooth": SineWavesSmoothPreview,
+  "grid-distortion-pointer": GridDistortionPointerPreview,
+  "grid-motion-pan": GridMotionPanPreview,
+  "shape-grid-cells": ShapeGridCellsPreview,
+  "liquid-chrome-fluid": LiquidChromeFluidPreview,
+};
+

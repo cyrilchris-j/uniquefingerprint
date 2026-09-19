@@ -103,25 +103,36 @@ export function AccountMenu(): React.JSX.Element {
               <Button
                 variant="primary"
                 className="w-full justify-center"
-                onClick={() =>
-                  void signInWithGitHub().catch((cause: unknown) =>
-                    setError(cause instanceof Error ? cause.message : "GitHub sign-in failed."),
-                  )
-                }
+                onClick={() => {
+                  setError(null);
+                  void signInWithGitHub()
+                    .then(() => setDialogOpen(false))
+                    .catch((cause: unknown) =>
+                      setError(cause instanceof Error ? cause.message : "GitHub sign-in failed."),
+                    );
+                }}
               >
                 Continue with GitHub
               </Button>
               <Button
                 variant="outline"
                 className="w-full justify-center"
-                onClick={() =>
-                  void signInWithGoogle().catch((cause: unknown) =>
-                    setError(cause instanceof Error ? cause.message : "Google sign-in failed."),
-                  )
-                }
+                onClick={() => {
+                  setError(null);
+                  void signInWithGoogle()
+                    .then(() => setDialogOpen(false))
+                    .catch((cause: unknown) =>
+                      setError(cause instanceof Error ? cause.message : "Google sign-in failed."),
+                    );
+                }}
               >
                 Continue with Google
               </Button>
+            </div>
+
+            <div className="pt-1 text-center text-[10.5px] text-graphite/75 flex items-center justify-center gap-1.5 font-mono">
+              <span>🔒</span>
+              <span>Encrypted OAuth · Confidential keys never exposed</span>
             </div>
 
             {error ? (

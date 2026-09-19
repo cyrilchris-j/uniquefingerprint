@@ -1,6 +1,8 @@
 import * as React from "react";
 import { COMPONENTS_PREVIEWS_MAP } from "./components-previews.js";
 import { MOTION_PREVIEWS_MAP } from "./motion-previews.js";
+import { INTERACTIONS_PREVIEWS_MAP, GenericInteractionPreview } from "./interactions-previews.js";
+import { BACKGROUNDS_PREVIEWS_MAP, GenericBackgroundPreview } from "./backgrounds/all-background-previews.js";
 
 /* -------------------------------------------------------------------------- */
 /* CATALOGUE BESPOKE VISUAL PREVIEWS                                         */
@@ -2318,10 +2320,28 @@ const PREVIEWS_MAP: Record<string, () => React.JSX.Element> = {
 
 /**
  * Returns a bespoke, ultra-fast, 60fps native visual preview for catalogue items
- * if available, otherwise returns null so standard TileSandbox can render.
+ * if available, otherwise returns category specimen so empty black iframes never occur.
  */
-export function getCatalogueVisualPreview(name: string, _category?: string): React.JSX.Element | null {
-  const Component = PREVIEWS_MAP[name] ?? COMPONENTS_PREVIEWS_MAP[name] ?? MOTION_PREVIEWS_MAP[name];
-  if (!Component) return null;
-  return <Component />;
+export function getCatalogueVisualPreview(name: string, category?: string): React.JSX.Element | null {
+  const Component =
+    PREVIEWS_MAP[name] ??
+    COMPONENTS_PREVIEWS_MAP[name] ??
+    MOTION_PREVIEWS_MAP[name] ??
+    INTERACTIONS_PREVIEWS_MAP[name] ??
+    BACKGROUNDS_PREVIEWS_MAP[name];
+
+  if (Component) return <Component />;
+
+  // Guaranteed, instantaneous 60fps native specimen for all interactions
+  if (category === "interactions") {
+    return <GenericInteractionPreview title={name} subcategory={category} />;
+  }
+
+  // Guaranteed, instantaneous 60fps native specimen for all backgrounds
+  if (category === "backgrounds") {
+    return <GenericBackgroundPreview title={name} />;
+  }
+
+  return null;
 }
+
