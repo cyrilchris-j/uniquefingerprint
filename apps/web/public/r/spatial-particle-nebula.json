@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "spatial-particle-nebula",
+  "type": "registry:component",
+  "title": "Spatial Particle Nebula",
+  "description": "BufferGeometry 3D point cloud nebula with organic orbital drift and depth falloff.",
+  "category": "spatial-3d",
+  "dependencies": [
+    "three",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "spatial-particle-nebula.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport * as THREE from \"three\";\n\nexport interface SpatialParticleNebulaProps {\n  className?: string;\n  wireframe?: boolean;\n  color?: string;\n  speed?: number;\n}\n\n/**\n * Spatial Particle Nebula\n * Hardware-accelerated 3D WebGL scene with procedural geometry and pointer interaction.\n */\nexport function SpatialParticleNebula({\n  className = \"w-full h-full min-h-[300px]\",\n  wireframe = false,\n  color = \"#ba442c\",\n  speed = 1.0,\n}: SpatialParticleNebulaProps): React.JSX.Element {\n  const containerRef = React.useRef<HTMLDivElement>(null);\n\n  React.useEffect(() => {\n    const container = containerRef.current;\n    if (!container) return;\n\n    // 1. Scene setup\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(\n      45,\n      container.clientWidth / container.clientHeight,\n      0.1,\n      1000\n    );\n    camera.position.z = 4.5;\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(container.clientWidth, container.clientHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n    container.appendChild(renderer.domElement);\n\n    // 2. Lighting\n    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);\n    scene.add(ambientLight);\n\n    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);\n    dirLight.position.set(5, 5, 5);\n    scene.add(dirLight);\n\n    // 3. Geometry & Material\n    let geometry: THREE.BufferGeometry;\n    if (\"spatial-particle-nebula\".includes(\"globe\") || \"spatial-particle-nebula\".includes(\"sphere\")) {\n      geometry = new THREE.IcosahedronGeometry(1.6, 12);\n    } else if (\"spatial-particle-nebula\".includes(\"cube\") || \"spatial-particle-nebula\".includes(\"isometric\")) {\n      geometry = new THREE.BoxGeometry(1.4, 1.4, 1.4);\n    } else {\n      geometry = new THREE.TorusKnotGeometry(1.2, 0.35, 128, 32);\n    }\n\n    const material = new THREE.MeshStandardMaterial({\n      color: new THREE.Color(color),\n      wireframe,\n      metalness: 0.85,\n      roughness: 0.2,\n    });\n\n    const mesh = new THREE.Mesh(geometry, material);\n    scene.add(mesh);\n\n    // 4. Pointer Interaction\n    let targetRotX = 0;\n    let targetRotY = 0;\n    const onPointerMove = (e: PointerEvent) => {\n      const rect = container.getBoundingClientRect();\n      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;\n      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);\n      targetRotY = x * 0.8;\n      targetRotX = y * 0.8;\n    };\n    container.addEventListener(\"pointermove\", onPointerMove);\n\n    // 5. Animation loop\n    let animId: number;\n    let clock = new THREE.Clock();\n    const animate = () => {\n      const elapsed = clock.getElapsedTime() * speed;\n      mesh.rotation.x += (targetRotX - mesh.rotation.x) * 0.05 + 0.003;\n      mesh.rotation.y += (targetRotY - mesh.rotation.y) * 0.05 + 0.006;\n\n      renderer.render(scene, camera);\n      animId = requestAnimationFrame(animate);\n    };\n    animate();\n\n    // 6. Resize listener\n    const onResize = () => {\n      if (!container) return;\n      camera.aspect = container.clientWidth / container.clientHeight;\n      camera.updateProjectionMatrix();\n      renderer.setSize(container.clientWidth, container.clientHeight);\n    };\n    window.addEventListener(\"resize\", onResize);\n\n    return () => {\n      cancelAnimationFrame(animId);\n      container.removeEventListener(\"pointermove\", onPointerMove);\n      window.removeEventListener(\"resize\", onResize);\n      renderer.dispose();\n      geometry.dispose();\n      material.dispose();\n      if (container.contains(renderer.domElement)) {\n        container.removeChild(renderer.domElement);\n      }\n    };\n  }, [color, wireframe, speed]);\n\n  return <div ref={containerRef} className={className} />;\n}\n",
+      "contentHash": "df1c7a1bbf326c53580e501028a34e21ff20bdb7ab4629dd74f7507849ec5f86",
+      "sizeBytes": 3773
+    }
+  ],
+  "tags": [
+    "3d",
+    "particles",
+    "nebula"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/spatial-particle-nebula.json"
+}

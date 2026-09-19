@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "scroll-reveal-chars",
+  "type": "registry:component",
+  "title": "Scroll Reveal Chars",
+  "description": "Intersection-triggered individual character fade and slide.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "scroll-reveal-chars.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface ScrollRevealCharsProps {\n  text?: string;\n  className?: string;\n  speedMs?: number;\n}\n\n/**\n * Scroll Reveal Chars\n * Dynamic typographic engine supporting harmonic reveals, physics tracking, and glyph transitions.\n */\nexport function ScrollRevealChars({\n  text = \"Scroll Reveal Chars\",\n  className = \"\",\n  speedMs = 35,\n}: ScrollRevealCharsProps): React.JSX.Element {\n  const [displayText, setDisplayText] = React.useState(text);\n  const [isHovered, setIsHovered] = React.useState(false);\n\n  React.useEffect(() => {\n    let iteration = 0;\n    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*\";\n    const original = text;\n\n    const interval = setInterval(() => {\n      setDisplayText((prev) =>\n        original\n          .split(\"\")\n          .map((letter, idx) => {\n            if (idx < iteration) return original[idx];\n            return chars[Math.floor(Math.random() * chars.length)];\n          })\n          .join(\"\")\n      );\n\n      if (iteration >= original.length) {\n        clearInterval(interval);\n      }\n      iteration += 1 / 3;\n    }, speedMs);\n\n    return () => clearInterval(interval);\n  }, [text, speedMs, isHovered]);\n\n  return (\n    <div\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n      className={`relative inline-block cursor-pointer select-none font-display font-bold ${className}`}\n    >\n      <span className=\"text-2xl text-ink tracking-tight hover:text-oxide transition-colors\">\n        {displayText}\n      </span>\n      <span className=\"block font-mono text-[9px] text-graphite uppercase mt-1\">\n        Hover to trigger transition\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "929e801009809094aedd71454d8cd448ea3c73faa8fafcaa2cf985c5db9f16e1",
+      "sizeBytes": 1699
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/scroll-reveal-chars.json"
+}

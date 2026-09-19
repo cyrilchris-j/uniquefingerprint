@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "hold-to-confirm-button",
+  "type": "registry:component",
+  "title": "Hold To Confirm Button",
+  "description": "Safety action button requiring continuous hold with circular countdown indicator.",
+  "category": "buttons",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "hold-to-confirm-button.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface HoldToConfirmButtonProps {\n  children?: React.ReactNode;\n  onClick?: () => void;\n  className?: string;\n}\n\n/**\n * Hold To Confirm Button\n * Tactile micro-interaction with calibrated spring physics and pointer attraction.\n */\nexport function HoldToConfirmButton({\n  children = \"Hold To Confirm Button\",\n  onClick,\n  className = \"\",\n}: HoldToConfirmButtonProps): React.JSX.Element {\n  const [offset, setOffset] = React.useState({ x: 0, y: 0 });\n  const [pressed, setPressed] = React.useState(false);\n  const btnRef = React.useRef<HTMLButtonElement>(null);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {\n    const btn = btnRef.current;\n    if (!btn) return;\n    const rect = btn.getBoundingClientRect();\n    const centerX = rect.left + rect.width / 2;\n    const centerY = rect.top + rect.height / 2;\n    const distFactor = 0.35;\n    setOffset({\n      x: (e.clientX - centerX) * distFactor,\n      y: (e.clientY - centerY) * distFactor,\n    });\n  };\n\n  const handleMouseLeave = () => {\n    setOffset({ x: 0, y: 0 });\n    setPressed(false);\n  };\n\n  return (\n    <button\n      ref={btnRef}\n      onClick={onClick}\n      onMouseMove={handleMouseMove}\n      onMouseLeave={handleMouseLeave}\n      onMouseDown={() => setPressed(true)}\n      onMouseUp={() => setPressed(false)}\n      style={{\n        transform: `translate3d(${offset.x}px, ${offset.y}px, 0) scale(${pressed ? 0.94 : 1})`,\n        transition: pressed ? \"transform 0.08s ease\" : \"transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)\",\n      }}\n      className={`relative px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-xl active:shadow-xs ${className}`}\n    >\n      <span className=\"relative z-10 flex items-center gap-2\">\n        <span>✦</span>\n        {children}\n      </span>\n    </button>\n  );\n}\n",
+      "contentHash": "397e96d4859e8737a9e33255fb37385dbbcc02a209b905f7a05d69d0f3c573f3",
+      "sizeBytes": 1890
+    }
+  ],
+  "tags": [
+    "button",
+    "hold",
+    "confirmation"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/hold-to-confirm-button.json"
+}

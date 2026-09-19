@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glow-cursor-trail",
+  "type": "registry:component",
+  "title": "Glow Cursor Trail",
+  "description": "Soft radial glow orb smoothly interpolating behind pointer position.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glow-cursor-trail.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface GlowCursorTrailProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Glow Cursor Trail\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function GlowCursorTrail({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: GlowCursorTrailProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Glow Cursor Trail\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "0b66e45db5ad635df8e8daf34785230e18cf964b648ba34d9b0d4b90e7e6c017",
+      "sizeBytes": 1236
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glow-cursor-trail.json"
+}

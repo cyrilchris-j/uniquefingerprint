@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "flowing-menu-hover",
+  "type": "registry:component",
+  "title": "Flowing Menu Hover",
+  "description": "Menu items revealing flowing image preview ribbons on hover.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "flowing-menu-hover.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface FlowingMenuHoverProps {\n  className?: string;\n  title?: string;\n}\n\n/**\n * Flowing Menu Hover\n * Interactive interface widget engineered with tactile response and fluid state transitions.\n */\nexport function FlowingMenuHover({\n  className = \"\",\n  title = \"Flowing Menu Hover\",\n}: FlowingMenuHoverProps): React.JSX.Element {\n  const [active, setActive] = React.useState(0);\n  const [tilt, setTilt] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setTilt({\n          x: ((e.clientX - rect.left) / rect.width - 0.5) * 16,\n          y: ((e.clientY - rect.top) / rect.height - 0.5) * -16,\n        });\n      }}\n      onMouseLeave={() => setTilt({ x: 0, y: 0 })}\n      style={{\n        transform: `perspective(800px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,\n        transition: \"transform 0.15s ease-out\",\n      }}\n      className={`p-4 rounded-2xl bg-paper border border-line shadow-md flex flex-col justify-between select-none ${className}`}\n    >\n      <div className=\"flex items-center justify-between\">\n        <span className=\"font-mono text-[9px] text-oxide font-bold uppercase\">UI WIDGET</span>\n        <span className=\"font-mono text-xs text-graphite\">◈</span>\n      </div>\n\n      <div className=\"my-4\">\n        <h3 className=\"font-display font-bold text-base text-ink\">{title}</h3>\n        <p className=\"font-mono text-[10px] text-graphite mt-1\">\n          Fluid interactive state with dynamic Z-perspective tracking.\n        </p>\n      </div>\n\n      <div className=\"flex gap-2\">\n        {[1, 2, 3].map((step, idx) => (\n          <button\n            key={step}\n            onClick={() => setActive(idx)}\n            className={`flex-1 py-1.5 rounded-lg font-mono text-[10px] transition-all ${\n              active === idx ? \"bg-ink text-paper font-bold shadow-xs\" : \"bg-surface text-graphite hover:text-ink\"\n            }`}\n          >\n            Step 0{step}\n          </button>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c693a60bd7d2e5ca8d3c2ef34fdb30dc4b9eac98c100038f232fa7613d56bb04",
+      "sizeBytes": 2088
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/flowing-menu-hover.json"
+}

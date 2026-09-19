@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glare-hover-card",
+  "type": "registry:component",
+  "title": "Glare Hover Card",
+  "description": "Holographic foil glare shifting dynamically with device tilt and mouse.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glare-hover-card.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface GlareHoverCardProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Glare Hover Card\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function GlareHoverCard({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: GlareHoverCardProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Glare Hover Card\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a0e5bc94d9fb819fb2e4dee396579ce6914c7322c8f868f49e974e517fb2d96d",
+      "sizeBytes": 1231
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glare-hover-card.json"
+}

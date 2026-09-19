@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "scrub-field-timeline",
+  "type": "registry:component",
+  "title": "Scrub Field Timeline",
+  "description": "Audio/video scrubber with micro-waveform preview spikes.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "scrub-field-timeline.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface ScrubFieldTimelineProps {\n  className?: string;\n  title?: string;\n}\n\n/**\n * Scrub Field Timeline\n * Interactive interface widget engineered with tactile response and fluid state transitions.\n */\nexport function ScrubFieldTimeline({\n  className = \"\",\n  title = \"Scrub Field Timeline\",\n}: ScrubFieldTimelineProps): React.JSX.Element {\n  const [active, setActive] = React.useState(0);\n  const [tilt, setTilt] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setTilt({\n          x: ((e.clientX - rect.left) / rect.width - 0.5) * 16,\n          y: ((e.clientY - rect.top) / rect.height - 0.5) * -16,\n        });\n      }}\n      onMouseLeave={() => setTilt({ x: 0, y: 0 })}\n      style={{\n        transform: `perspective(800px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,\n        transition: \"transform 0.15s ease-out\",\n      }}\n      className={`p-4 rounded-2xl bg-paper border border-line shadow-md flex flex-col justify-between select-none ${className}`}\n    >\n      <div className=\"flex items-center justify-between\">\n        <span className=\"font-mono text-[9px] text-oxide font-bold uppercase\">UI WIDGET</span>\n        <span className=\"font-mono text-xs text-graphite\">◈</span>\n      </div>\n\n      <div className=\"my-4\">\n        <h3 className=\"font-display font-bold text-base text-ink\">{title}</h3>\n        <p className=\"font-mono text-[10px] text-graphite mt-1\">\n          Fluid interactive state with dynamic Z-perspective tracking.\n        </p>\n      </div>\n\n      <div className=\"flex gap-2\">\n        {[1, 2, 3].map((step, idx) => (\n          <button\n            key={step}\n            onClick={() => setActive(idx)}\n            className={`flex-1 py-1.5 rounded-lg font-mono text-[10px] transition-all ${\n              active === idx ? \"bg-ink text-paper font-bold shadow-xs\" : \"bg-surface text-graphite hover:text-ink\"\n            }`}\n          >\n            Step 0{step}\n          </button>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a31fd2f09de4bedc90b8a3fbc1ab401d420cd5e02341b59101a0e099807ba607",
+      "sizeBytes": 2098
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/scrub-field-timeline.json"
+}

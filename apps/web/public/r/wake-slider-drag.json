@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "wake-slider-drag",
+  "type": "registry:component",
+  "title": "Wake Slider Drag",
+  "description": "Vertical slider displacing fluid wakes as the thumb moves.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "wake-slider-drag.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface WakeSliderDragProps {\n  className?: string;\n  title?: string;\n}\n\n/**\n * Wake Slider Drag\n * Interactive interface widget engineered with tactile response and fluid state transitions.\n */\nexport function WakeSliderDrag({\n  className = \"\",\n  title = \"Wake Slider Drag\",\n}: WakeSliderDragProps): React.JSX.Element {\n  const [active, setActive] = React.useState(0);\n  const [tilt, setTilt] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setTilt({\n          x: ((e.clientX - rect.left) / rect.width - 0.5) * 16,\n          y: ((e.clientY - rect.top) / rect.height - 0.5) * -16,\n        });\n      }}\n      onMouseLeave={() => setTilt({ x: 0, y: 0 })}\n      style={{\n        transform: `perspective(800px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,\n        transition: \"transform 0.15s ease-out\",\n      }}\n      className={`p-4 rounded-2xl bg-paper border border-line shadow-md flex flex-col justify-between select-none ${className}`}\n    >\n      <div className=\"flex items-center justify-between\">\n        <span className=\"font-mono text-[9px] text-oxide font-bold uppercase\">UI WIDGET</span>\n        <span className=\"font-mono text-xs text-graphite\">◈</span>\n      </div>\n\n      <div className=\"my-4\">\n        <h3 className=\"font-display font-bold text-base text-ink\">{title}</h3>\n        <p className=\"font-mono text-[10px] text-graphite mt-1\">\n          Fluid interactive state with dynamic Z-perspective tracking.\n        </p>\n      </div>\n\n      <div className=\"flex gap-2\">\n        {[1, 2, 3].map((step, idx) => (\n          <button\n            key={step}\n            onClick={() => setActive(idx)}\n            className={`flex-1 py-1.5 rounded-lg font-mono text-[10px] transition-all ${\n              active === idx ? \"bg-ink text-paper font-bold shadow-xs\" : \"bg-surface text-graphite hover:text-ink\"\n            }`}\n          >\n            Step 0{step}\n          </button>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c37fec3fe2e91e238cfe3a4eebfcb1d38aa952a194d19fa23a9ac372c18cf343",
+      "sizeBytes": 2078
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/wake-slider-drag.json"
+}

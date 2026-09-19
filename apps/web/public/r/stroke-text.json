@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "stroke-text",
+  "type": "registry:component",
+  "title": "Stroke Text",
+  "description": "Animated SVG path outline stroke drawing with variable line width.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "stroke-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface StrokeTextProps {\n  text?: string;\n  className?: string;\n  speedMs?: number;\n}\n\n/**\n * Stroke Text\n * Dynamic typographic engine supporting harmonic reveals, physics tracking, and glyph transitions.\n */\nexport function StrokeText({\n  text = \"Stroke Text\",\n  className = \"\",\n  speedMs = 35,\n}: StrokeTextProps): React.JSX.Element {\n  const [displayText, setDisplayText] = React.useState(text);\n  const [isHovered, setIsHovered] = React.useState(false);\n\n  React.useEffect(() => {\n    let iteration = 0;\n    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*\";\n    const original = text;\n\n    const interval = setInterval(() => {\n      setDisplayText((prev) =>\n        original\n          .split(\"\")\n          .map((letter, idx) => {\n            if (idx < iteration) return original[idx];\n            return chars[Math.floor(Math.random() * chars.length)];\n          })\n          .join(\"\")\n      );\n\n      if (iteration >= original.length) {\n        clearInterval(interval);\n      }\n      iteration += 1 / 3;\n    }, speedMs);\n\n    return () => clearInterval(interval);\n  }, [text, speedMs, isHovered]);\n\n  return (\n    <div\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n      className={`relative inline-block cursor-pointer select-none font-display font-bold ${className}`}\n    >\n      <span className=\"text-2xl text-ink tracking-tight hover:text-oxide transition-colors\">\n        {displayText}\n      </span>\n      <span className=\"block font-mono text-[9px] text-graphite uppercase mt-1\">\n        Hover to trigger transition\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "28ca60dae85df155dec2fbe1259d00ebb4ce76fe7ebbcff3ef7f8198552b7a3d",
+      "sizeBytes": 1662
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/stroke-text.json"
+}

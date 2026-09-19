@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "gradient-contour-text",
+  "type": "registry:component",
+  "title": "Gradient Contour Text",
+  "description": "Multi-stop harmonic gradient contour tracing letter edges.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "gradient-contour-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface GradientContourTextProps {\n  text?: string;\n  className?: string;\n  speedMs?: number;\n}\n\n/**\n * Gradient Contour Text\n * Dynamic typographic engine supporting harmonic reveals, physics tracking, and glyph transitions.\n */\nexport function GradientContourText({\n  text = \"Gradient Contour Text\",\n  className = \"\",\n  speedMs = 35,\n}: GradientContourTextProps): React.JSX.Element {\n  const [displayText, setDisplayText] = React.useState(text);\n  const [isHovered, setIsHovered] = React.useState(false);\n\n  React.useEffect(() => {\n    let iteration = 0;\n    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*\";\n    const original = text;\n\n    const interval = setInterval(() => {\n      setDisplayText((prev) =>\n        original\n          .split(\"\")\n          .map((letter, idx) => {\n            if (idx < iteration) return original[idx];\n            return chars[Math.floor(Math.random() * chars.length)];\n          })\n          .join(\"\")\n      );\n\n      if (iteration >= original.length) {\n        clearInterval(interval);\n      }\n      iteration += 1 / 3;\n    }, speedMs);\n\n    return () => clearInterval(interval);\n  }, [text, speedMs, isHovered]);\n\n  return (\n    <div\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n      className={`relative inline-block cursor-pointer select-none font-display font-bold ${className}`}\n    >\n      <span className=\"text-2xl text-ink tracking-tight hover:text-oxide transition-colors\">\n        {displayText}\n      </span>\n      <span className=\"block font-mono text-[9px] text-graphite uppercase mt-1\">\n        Hover to trigger transition\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "add7a0bf99b1474b817b21380cd176b0fa74f622efcf71330508532b1a5ae3b4",
+      "sizeBytes": 1709
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/gradient-contour-text.json"
+}

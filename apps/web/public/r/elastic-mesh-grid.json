@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "elastic-mesh-grid",
+  "type": "registry:component",
+  "title": "Elastic Mesh Grid",
+  "description": "Interactive cloth mesh lattice deforming under pointer drag.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "elastic-mesh-grid.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface ElasticMeshGridProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Elastic Mesh Grid\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function ElasticMeshGrid({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: ElasticMeshGridProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Elastic Mesh Grid\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "abd314a53e57b55d4238de0a5a2e64d874b3305609586ce407a9fb06a21a7577",
+      "sizeBytes": 1236
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/elastic-mesh-grid.json"
+}

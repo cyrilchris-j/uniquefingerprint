@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "conic-energy-border",
+  "type": "registry:component",
+  "title": "Conic Gradient Energy Border",
+  "description": "Continuous rotating conic gradient border highlight powered by pure CSS.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "conic-energy-border.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface ConicGradientEnergyBorderProps {\n  className?: string;\n}\n\n/**\n * Conic Gradient Energy Border\n * Modern pure CSS visual layout utilizing glassmorphism, conic energy borders, and superellipses.\n */\nexport function ConicGradientEnergyBorder({ className = \"\" }: ConicGradientEnergyBorderProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">\n          Conic Gradient Energy Border\n        </h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "cd8f085c5067940da7ef1a504f41603c21da3d1879b8a5d37e56e02d33b70d91",
+      "sizeBytes": 998
+    }
+  ],
+  "tags": [
+    "css",
+    "border",
+    "gradient"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/conic-energy-border.json"
+}

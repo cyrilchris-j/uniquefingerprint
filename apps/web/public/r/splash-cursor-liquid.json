@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "splash-cursor-liquid",
+  "type": "registry:component",
+  "title": "Splash Cursor Liquid",
+  "description": "Navier-Stokes fluid dynamics simulation reacting to touch impulses.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "splash-cursor-liquid.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface SplashCursorLiquidProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Splash Cursor Liquid\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function SplashCursorLiquid({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: SplashCursorLiquidProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Splash Cursor Liquid\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "9571b550568aee7acc95c54bb4322c8c201e8b367f95af894bcf7f82eb675731",
+      "sizeBytes": 1251
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/splash-cursor-liquid.json"
+}

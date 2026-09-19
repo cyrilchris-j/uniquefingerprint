@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "chromatic-glitch-css",
+  "type": "registry:component",
+  "title": "CSS Chromatic Glitch",
+  "description": "Pure CSS pseudo-element color split aberration with animated keyframe shifts.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "chromatic-glitch-css.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface CSSChromaticGlitchProps {\n  className?: string;\n}\n\n/**\n * CSS Chromatic Glitch\n * Modern pure CSS visual layout utilizing glassmorphism, conic energy borders, and superellipses.\n */\nexport function CSSChromaticGlitch({ className = \"\" }: CSSChromaticGlitchProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">\n          CSS Chromatic Glitch\n        </h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "7ebf6731f29473983169afc000c5283101e245082a90ae1c3485dd3fbdcd215b",
+      "sizeBytes": 961
+    }
+  ],
+  "tags": [
+    "css",
+    "glitch",
+    "animation"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/chromatic-glitch-css.json"
+}

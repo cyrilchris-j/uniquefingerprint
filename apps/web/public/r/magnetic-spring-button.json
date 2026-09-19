@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "magnetic-spring-button",
+  "type": "registry:component",
+  "title": "Magnetic Spring Button",
+  "description": "Tactile button drawn towards the pointer within a bounded spring attraction field.",
+  "category": "buttons",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "magnetic-spring-button.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface MagneticSpringButtonProps {\n  children?: React.ReactNode;\n  onClick?: () => void;\n  className?: string;\n}\n\n/**\n * Magnetic Spring Button\n * Tactile micro-interaction with calibrated spring physics and pointer attraction.\n */\nexport function MagneticSpringButton({\n  children = \"Magnetic Spring Button\",\n  onClick,\n  className = \"\",\n}: MagneticSpringButtonProps): React.JSX.Element {\n  const [offset, setOffset] = React.useState({ x: 0, y: 0 });\n  const [pressed, setPressed] = React.useState(false);\n  const btnRef = React.useRef<HTMLButtonElement>(null);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {\n    const btn = btnRef.current;\n    if (!btn) return;\n    const rect = btn.getBoundingClientRect();\n    const centerX = rect.left + rect.width / 2;\n    const centerY = rect.top + rect.height / 2;\n    const distFactor = 0.35;\n    setOffset({\n      x: (e.clientX - centerX) * distFactor,\n      y: (e.clientY - centerY) * distFactor,\n    });\n  };\n\n  const handleMouseLeave = () => {\n    setOffset({ x: 0, y: 0 });\n    setPressed(false);\n  };\n\n  return (\n    <button\n      ref={btnRef}\n      onClick={onClick}\n      onMouseMove={handleMouseMove}\n      onMouseLeave={handleMouseLeave}\n      onMouseDown={() => setPressed(true)}\n      onMouseUp={() => setPressed(false)}\n      style={{\n        transform: `translate3d(${offset.x}px, ${offset.y}px, 0) scale(${pressed ? 0.94 : 1})`,\n        transition: pressed ? \"transform 0.08s ease\" : \"transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)\",\n      }}\n      className={`relative px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-xl active:shadow-xs ${className}`}\n    >\n      <span className=\"relative z-10 flex items-center gap-2\">\n        <span>✦</span>\n        {children}\n      </span>\n    </button>\n  );\n}\n",
+      "contentHash": "c981ce4f99a1a1aa967f3c0f06810c0780beed96b4f2538127166c9dd2da2a4f",
+      "sizeBytes": 1893
+    }
+  ],
+  "tags": [
+    "button",
+    "magnetic",
+    "physics"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/magnetic-spring-button.json"
+}

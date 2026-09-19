@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "metallic-paint-canvas",
+  "type": "registry:component",
+  "title": "Metallic Paint Canvas",
+  "description": "Liquid mercury metallic surface swirling with mouse turbulence.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "metallic-paint-canvas.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface MetallicPaintCanvasProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Metallic Paint Canvas\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function MetallicPaintCanvas({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: MetallicPaintCanvasProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Metallic Paint Canvas\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "cde2cc0e54110cecbb5eb9a7dc835c1d1ca21d35c4b6f89b3d559368c56dec6c",
+      "sizeBytes": 1256
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/metallic-paint-canvas.json"
+}
