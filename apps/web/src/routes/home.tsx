@@ -2,12 +2,12 @@ import { Download } from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
-import { Badge, Button, EmptyState, Skeleton } from "@openui/ui";
+import { Button, EmptyState, Skeleton } from "@openui/ui";
 
 import { CodeBlock } from "../components/CodeBlock.js";
 import { usePWA } from "../components/PWAInstall.js";
 import { ResourceTile } from "../components/ResourceTile.js";
-import { Section, SectionHeader } from "../components/SectionHeader.js";
+import { SectionHeader } from "../components/SectionHeader.js";
 import { useRegistryIndex } from "../features/resources/use-catalogue.js";
 import { CATALOGUE_CATEGORIES, itemsInCategory, itemsWithDesignRules } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
@@ -353,110 +353,6 @@ Motion: subtle
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* The anti-slop rule, as content                                    */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="mt-12 sm:mt-24 border-y border-line py-10 sm:py-20 lg:mt-32">
-        <div className="shell">
-          <SectionHeader
-            eyebrow="04 — Why"
-            title="Generated interfaces converge. A fingerprint is how you refuse."
-            description="This is the actual opening of the anti-slop rule shipped in this registry. It is written for a model to read before it writes a line of JSX — and for a person to read before they accept one."
-          />
-
-          <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-            <CodeBlock
-              className="min-w-0"
-              tone="light"
-              caption="ai/design-rules/anti-slop/anti-slop.md"
-              language="markdown"
-              maxLines={18}
-              code={`# Anti-slop
-
-An interface reads as generated when it makes the same
-five decisions every time:
-
-1. A centred hero with a gradient behind it.
-2. Three equal cards in a row, each with an icon.
-3. Everything rounded by the same radius.
-4. One typeface at three sizes, none of them used
-   for structure.
-5. No interaction beyond a hover colour change.
-
-None of these is a mistake in isolation. Together they
-are a fingerprint — and it is the wrong one.`}
-            />
-
-            <div className="flex flex-col justify-between gap-8 min-w-0">
-              <div className="flex flex-col gap-4">
-                {[
-                  ["Design rules", "Editorial rules, brutalist rules, composition rules."],
-                  ["Skills", "Compose a page, audit a UI, redesign a layout."],
-                  ["Agents", "A UI designer that must consult the registry first."],
-                  ["Prompts", "Structured briefs that produce a fingerprint, not a template."],
-                ].map(([title, body]) => (
-                  <div key={title} className="border-t border-line pt-3">
-                    <p className="eyebrow">{title}</p>
-                    <p className="mt-1 text-[0.88rem] leading-relaxed text-graphite">{body}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <Badge tone="ink">40 rules</Badge>
-                <Badge>7 skills</Badge>
-                <Badge>4 agents</Badge>
-                <Badge tone="moss">machine-readable</Badge>
-              </div>
-
-              <Button variant="outline" asChild>
-                <Link to="/ai">Browse the AI resources</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* How it works                                                      */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <SectionHeader
-          eyebrow="05 — The path"
-          title="From a registry URL to code in your project."
-          description="The CLI resolves the item, validates it against the published schema, resolves its dependencies, checks for conflicts with files you already have, and only then writes. It never silently overwrites your work."
-        />
-
-        <Section label="Install" className="mt-12">
-          <CodeBlock
-            className="min-w-0"
-            caption="terminal"
-            language="bash"
-            code={`# Add a component and everything it needs
-pnpm dlx openui add magnetic-button
-
-# Search the registry from the terminal
-pnpm dlx openui search "editorial hero"
-
-# Apply a design system as a theme
-pnpm dlx openui theme add swiss-editorial`}
-          />
-
-          <div className="mt-8 grid gap-6 sm:grid-cols-3">
-            {[
-              ["Resolve", "Fetch the artifact and verify its integrity digest matches the index."],
-              ["Plan", "Resolve registry and npm dependencies, then diff against your files."],
-              ["Write", "Apply the changes, or report every conflict and change nothing."],
-            ].map(([title, body], position) => (
-              <div key={title} className="border-t border-line pt-4">
-                <p className="eyebrow">{String(position + 1).padStart(2, "0")}</p>
-                <p className="mt-2 font-display text-step-2 tracking-tight text-ink">{title}</p>
-                <p className="mt-2 text-[0.88rem] leading-relaxed text-graphite">{body}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-      </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Closing                                                           */}
