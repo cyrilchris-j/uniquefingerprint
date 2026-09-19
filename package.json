@@ -37,7 +37,7 @@
     "cli:build": "turbo run build --filter=openui"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp", "supabase"]
+    "onlyBuiltDependencies": ["esbuild", "sharp"]
   },
   "devDependencies": {
     "@openui/design-system": "workspace:*",
