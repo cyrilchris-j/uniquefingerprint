@@ -991,7 +991,7 @@ export function ReorderableTabStripPreview() {
   const [order, setOrder] = React.useState(["Overview", "Metrics", "Settings"]);
   React.useEffect(() => {
     const t = setInterval(() => {
-      setOrder((o) => [o[1], o[0], o[2]]);
+      setOrder((o) => [o[1] ?? "Metrics", o[0] ?? "Overview", o[2] ?? "Settings"]);
     }, 1800);
     return () => clearInterval(t);
   }, []);
@@ -1424,7 +1424,7 @@ export function CardNavExpandPreview() {
 
 export function StackCardsDragPreview() {
   const [deck, setDeck] = React.useState([0,1,2,3]);
-  React.useEffect(() => { const t = setInterval(() => setDeck(d => [...d.slice(1), d[0]]), 1000); return () => clearInterval(t); }, []);
+  React.useEffect(() => { const t = setInterval(() => setDeck(d => [...d.slice(1), d[0] ?? 0]), 1000); return () => clearInterval(t); }, []);
   const colors = ["#4f46e5","#059669","#dc2626","#d97706"];
   return (
     <div className="w-full h-full flex items-center justify-center bg-paper select-none">
@@ -1695,7 +1695,7 @@ export function FlyingPostersGalleryPreview() {
 
 export function CardSwapDeckPreview() {
   const [deck, setDeck] = React.useState([0,1,2,3]);
-  React.useEffect(() => { const t = setInterval(() => setDeck(d => [...d.slice(1), d[0]]), 1000); return () => clearInterval(t); }, []);
+  React.useEffect(() => { const t = setInterval(() => setDeck(d => [...d.slice(1), d[0] ?? 0]), 1000); return () => clearInterval(t); }, []);
   const colors = ["#4f46e5","#059669","#dc2626","#d97706"];
   const labels = ["Design","Build","Test","Ship"];
   return (
@@ -1781,7 +1781,7 @@ export function ElasticSliderReboundPreview() {
             <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${vals[i]}%`, background: colors[i], borderRadius: 2, transition: "width 0.3s cubic-bezier(0.34,1.56,0.64,1)" }} />
             <div style={{ position: "absolute", top: "50%", left: `${vals[i]}%`, transform: "translate(-50%,-50%)", width: 12, height: 12, borderRadius: "50%", background: colors[i], border: "2px solid #fff", transition: "left 0.3s cubic-bezier(0.34,1.56,0.64,1)" }} />
           </div>
-          <span style={{ color: colors[i], fontSize: 9, fontFamily: "monospace", width: 22 }}>{Math.round(vals[i])}</span>
+          <span style={{ color: colors[i], fontSize: 9, fontFamily: "monospace", width: 22 }}>{Math.round(vals[i] ?? 0)}</span>
         </div>
       ))}
     </div>
@@ -2047,7 +2047,7 @@ export function StatusMarkBadgePreview() {
   const [idx, setIdx] = React.useState(0);
   React.useEffect(() => { const t = setInterval(() => setIdx(i => (i + 1) % 5), 800); return () => clearInterval(t); }, []);
   const statuses = [["Active","#10b981","●"],["Pending","#f59e0b","◼"],["Offline","#6b7280","—"],["Error","#ef4444","✕"],["Draft","#8b5cf6","◆"]];
-  const [label, color, icon] = statuses[idx];
+  const [label, color, icon] = statuses[idx] ?? ["Active", "#10b981", "●"];
   return (
     <div className="w-full h-full flex flex-col items-center justify-center bg-paper select-none gap-3">
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 16px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: `1px solid ${color}33` }}>
@@ -2236,9 +2236,9 @@ export function WarmTooltipFloatPreview() {
   return (
     <div className="w-full h-full flex items-center justify-center bg-paper select-none">
       <div style={{ position: "relative", display: "inline-block" }}>
-        <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateY(-8px) scale(1)" : "translateY(0px) scale(0.85)", transition: "all 0.4s cubic-bezier(0.34,1.56,0.64,1)", position: "absolute", bottom: "calc(100% + 8px)", left: "50%", transform: `translateX(-50%) ${vis ? "translateY(-8px) scale(1)" : "translateY(0) scale(0.85)"}`, whiteSpace: "nowrap", background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 10, padding: "6px 12px", color: "#fff", fontSize: 10, boxShadow: "0 8px 24px rgba(0,0,0,0.3)", pointerEvents: "none" }}>
+        <div style={{ opacity: vis ? 1 : 0, transition: "all 0.4s cubic-bezier(0.34,1.56,0.64,1)", position: "absolute", bottom: "calc(100% + 8px)", left: "50%", transform: `translateX(-50%) ${vis ? "translateY(-8px) scale(1)" : "translateY(0) scale(0.85)"}`, whiteSpace: "nowrap", background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 10, padding: "6px 12px", color: "#fff", fontSize: 10, boxShadow: "0 8px 24px rgba(0,0,0,0.3)", pointerEvents: "none" }}>
           Tooltip with spring entrance
-          <div style={{ position: "absolute", bottom: -5, left: "50%", transform: "translateX(-50%)", width: 8, height: 8, background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.15)", borderTop: "none", borderLeft: "none", transform: `translateX(-50%) rotate(45deg)` }} />
+          <div style={{ position: "absolute", bottom: -5, left: "50%", width: 8, height: 8, background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.15)", borderTop: "none", borderLeft: "none", transform: `translateX(-50%) rotate(45deg)` }} />
         </div>
         <div style={{ padding: "8px 16px", borderRadius: 10, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#fff", fontSize: 11, fontWeight: 600 }}>Hover me</div>
       </div>
@@ -2295,7 +2295,7 @@ export function PulseHeartMicroPreview() {
   const [liked, setLiked] = React.useState(false);
   const [count, setCount] = React.useState(142);
   const [particles, setParticles] = React.useState<{id:number;x:number;y:number;c:string}[]>([]);
-  React.useEffect(() => { const t = setInterval(() => { const nl = !liked; setLiked(nl); setCount(c => nl ? c + 1 : c - 1); if (nl) { setParticles(Array.from({length:8},(_,i)=>({id:Date.now()+i,x:Math.cos(i/8*Math.PI*2)*28,y:Math.sin(i/8*Math.PI*2)*28,c:["#f43f5e","#fb7185","#fda4af"][i%3]})));  setTimeout(() => setParticles([]), 600); } }, 1200); return () => clearInterval(t); }, [liked]);
+  React.useEffect(() => { const t = setInterval(() => { const nl = !liked; setLiked(nl); setCount(c => nl ? c + 1 : c - 1); if (nl) { setParticles(Array.from({length:8},(_,i)=>({id:Date.now()+i,x:Math.cos(i/8*Math.PI*2)*28,y:Math.sin(i/8*Math.PI*2)*28,c:(["#f43f5e","#fb7185","#fda4af"][i%3]) ?? "#f43f5e"})));  setTimeout(() => setParticles([]), 600); } }, 1200); return () => clearInterval(t); }, [liked]);
   return (
     <div className="w-full h-full flex items-center justify-center bg-paper select-none">
       <div style={{ position: "relative" }}>
@@ -2334,7 +2334,7 @@ export function SpringCheckBoxPreview() {
 
 export function PeekRatingStarsPreview() {
   const [hover, setHover] = React.useState(0);
-  React.useEffect(() => { const vals = [0,1,2,3,4,5,4,3]; let i = 0; const t = setInterval(() => { setHover(vals[i % vals.length]); i++; }, 400); return () => clearInterval(t); }, []);
+  React.useEffect(() => { const vals = [0,1,2,3,4,5,4,3]; let i = 0; const t = setInterval(() => { setHover(vals[i % vals.length] ?? 0); i++; }, 400); return () => clearInterval(t); }, []);
   return (
     <div className="w-full h-full flex flex-col items-center justify-center bg-paper select-none gap-3">
       <div style={{ display: "flex", gap: 6 }}>
