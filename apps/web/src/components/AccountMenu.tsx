@@ -146,24 +146,36 @@ export function AccountMenu(): React.JSX.Element {
     );
   }
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          title={user.username ? `@${user.username}` : "Account"}
-          aria-label="Account"
-          className="h-8 sm:h-9 px-2.5 sm:px-3 text-[11px] font-mono uppercase tracking-wider gap-1.5 border-line text-ink hover:border-ink hover:bg-surface/50 shrink-0"
-        >
-          <User aria-hidden className="h-3.5 w-3.5" />
-          <span>{user.username ? `@${user.username}` : "Account"}</span>
-        </Button>
-      </DropdownMenuTrigger>
+    const displayName = user.displayName || user.username || user.email || "Account";
+    const initial = (user.displayName || user.username || user.email || "U")
+      .replace(/^@/, "")
+      .trim()
+      .charAt(0)
+      .toUpperCase();
 
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{user.email ?? "Signed in"}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="outline"
+            size="sm"
+            title={displayName}
+            aria-label={`Account: ${displayName}`}
+            className="h-8 sm:h-9 px-2.5 text-[11px] font-mono uppercase tracking-wider gap-1.5 border-line text-ink hover:border-ink hover:bg-surface/50 shrink-0"
+          >
+            <User aria-hidden className="h-3.5 w-3.5 text-graphite" />
+            <span className="font-bold">{initial}</span>
+          </Button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel className="font-mono text-xs">
+            <div className="font-bold text-ink">{displayName}</div>
+            {user.email && user.email !== displayName ? (
+              <div className="text-[10px] text-graphite font-normal truncate max-w-[200px] mt-0.5">{user.email}</div>
+            ) : null}
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
           <Link to="/account/profile" className="w-full">

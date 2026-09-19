@@ -106,7 +106,7 @@ export default function HomePage(): React.JSX.Element {
               <Button
                 variant="outline"
                 asChild
-                className="w-full h-12 justify-center font-mono text-xs uppercase tracking-widest border-line text-ink hover:bg-surface/50 font-medium"
+                className="w-full h-12 justify-center font-mono text-xs uppercase tracking-widest border-line text-ink hover:border-ink hover:bg-ink hover:text-paper font-medium transition-colors"
               >
                 <Link to="/docs/registry">How the registry works</Link>
               </Button>
