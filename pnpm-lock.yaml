@@ -222,7 +222,7 @@ importers:
         version: 2.1.9(@types/node@22.20.2)(jsdom@25.0.1)
 
   cli/openui:
-    dependencies:
+    devDependencies:
       '@openui/registry-client':
         specifier: workspace:*
         version: link:../../packages/registry-client
@@ -235,7 +235,6 @@ importers:
       '@openui/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-    devDependencies:
       '@types/node':
         specifier: ^22.10.2
         version: 22.20.2
