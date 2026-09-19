@@ -1,4 +1,3 @@
-import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
@@ -11,14 +10,13 @@ import * as React from "react";
 
 import type { UserRole } from "@openui/types";
 
-import * as api from "./api.js";
 import { config } from "./config.js";
 import { getFirebaseAuth } from "./firebase.js";
 
 /**
  * Authentication.
  *
- * Supports Firebase Authentication (primary when configured) and Supabase Auth (fallback).
+ * Exclusively powered by Firebase Authentication (Google & GitHub OAuth).
  */
 
 export interface AuthUser {
@@ -47,22 +45,6 @@ export interface AuthContextValue {
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
 
-let client: SupabaseClient | null = null;
-
-/** The Supabase client, or null when auth is not configured. */
-export function supabase(): SupabaseClient | null {
-  if (!config.supabaseUrl || !config.supabaseAnonKey) return null;
-  client ??= createClient(config.supabaseUrl, config.supabaseAnonKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-      flowType: "pkce",
-    },
-  });
-  return client;
-}
-
 export function AuthProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
   const [user, setUser] = React.useState<AuthUser | null>(null);
   const [token, setToken] = React.useState<string | null>(null);
@@ -71,160 +53,74 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
   React.useEffect(() => {
     let active = true;
 
-    // --- Firebase Auth (Primary when configured) ---
-    if (config.firebaseConfigured) {
-      const fbAuth = getFirebaseAuth();
-      if (!fbAuth) {
-        setInitialising(false);
-        return;
-      }
-
-      const unsubscribe = onAuthStateChanged(fbAuth, async (fbUser: FirebaseUser | null) => {
-        if (!active) return;
-        if (!fbUser) {
-          setUser(null);
-          setToken(null);
-          setInitialising(false);
-          return;
-        }
-
-        try {
-          const idToken = await fbUser.getIdToken();
-          const email = fbUser.email ?? null;
-          const displayName: string | null =
-            fbUser.displayName || (email ? email.split("@")[0] : "Account User") || null;
-          const username: string | null =
-            (fbUser.displayName || (email ? email.split("@")[0] : null)) ?? null;
-
-          if (!active) return;
-          setUser({
-            id: fbUser.uid,
-            email,
-            username,
-            displayName,
-            role: "user",
-            photoUrl: fbUser.photoURL ?? null,
-          });
-          setToken(idToken);
-        } catch {
-          if (!active) return;
-          setUser(null);
-          setToken(null);
-        } finally {
-          if (active) setInitialising(false);
-        }
-      });
-
-      return () => {
-        active = false;
-        unsubscribe();
-      };
-    }
-
-    // --- Supabase Auth (Fallback) ---
-    const auth = supabase();
-    if (!auth) {
+    if (!config.firebaseConfigured) {
       setInitialising(false);
       return;
     }
 
-    const resolve = async (session: Session | null) => {
-      if (!active) return;
+    const fbAuth = getFirebaseAuth();
+    if (!fbAuth) {
+      setInitialising(false);
+      return;
+    }
 
-      if (!session) {
+    const unsubscribe = onAuthStateChanged(fbAuth, async (fbUser: FirebaseUser | null) => {
+      if (!active) return;
+      if (!fbUser) {
         setUser(null);
         setToken(null);
         setInitialising(false);
         return;
       }
 
-      setToken(session.access_token);
-      const email = session.user.email ?? null;
-      const userMeta = session.user.user_metadata as Record<string, unknown> | undefined;
-      const oauthDisplayName: string | null =
-        (typeof userMeta?.full_name === "string" && userMeta.full_name) ||
-        (typeof userMeta?.name === "string" && userMeta.name) ||
-        (typeof userMeta?.user_name === "string" && userMeta.user_name) ||
-        (typeof userMeta?.preferred_username === "string" && userMeta.preferred_username) ||
-        (email ? email.split("@")[0] : null) ||
-        null;
-
       try {
-        const me = await api.getMe(session.access_token);
+        const idToken = await fbUser.getIdToken();
+        const email = fbUser.email ?? null;
+        const displayName: string | null =
+          fbUser.displayName || (email ? email.split("@")[0] : "Account User") || null;
+        const username: string | null =
+          (fbUser.displayName || (email ? email.split("@")[0] : null)) ?? null;
+
         if (!active) return;
         setUser({
-          id: me.userId,
-          email: me.email ?? email,
-          username: me.username,
-          displayName: me.displayName || oauthDisplayName,
-          role: me.role as UserRole,
+          id: fbUser.uid,
+          email,
+          username,
+          displayName,
+          role: "user",
+          photoUrl: fbUser.photoURL ?? null,
         });
+        setToken(idToken);
       } catch {
         if (!active) return;
-        setUser({
-          id: session.user.id,
-          email,
-          username: null,
-          displayName: oauthDisplayName,
-          role: "user",
-        });
+        setUser(null);
+        setToken(null);
       } finally {
         if (active) setInitialising(false);
       }
-    };
-
-    void auth.auth.getSession().then(({ data }) => resolve(data.session));
-
-    const { data: subscription } = auth.auth.onAuthStateChange((_event, session) => {
-      void resolve(session);
     });
 
     return () => {
       active = false;
-      subscription.subscription.unsubscribe();
+      unsubscribe();
     };
   }, []);
 
-  /** Handles OAuth sign-in via Firebase popup (primary) or Supabase (fallback). */
+  /** Handles OAuth sign-in via Firebase popup. */
   const signInWithGoogle = React.useCallback(async () => {
-    if (config.firebaseConfigured) {
-      const fbAuth = getFirebaseAuth();
-      if (!fbAuth) throw new Error("Firebase Auth is not configured.");
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-      await signInWithPopup(fbAuth, provider);
-      return;
-    }
-    const auth = supabase();
-    if (!auth) throw new Error("Authentication is not configured on this deployment.");
-    const redirectUrl = `${window.location.origin}/`;
-    const { data, error } = await auth.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: redirectUrl },
-    });
-    if (error) throw error;
-    if (data?.url) window.location.href = data.url;
+    const fbAuth = getFirebaseAuth();
+    if (!fbAuth) throw new Error("Firebase Auth is not configured.");
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(fbAuth, provider);
   }, []);
 
   const signInWithGitHub = React.useCallback(async () => {
-    if (config.firebaseConfigured) {
-      const fbAuth = getFirebaseAuth();
-      if (!fbAuth) throw new Error("Firebase Auth is not configured.");
-      const provider = new GithubAuthProvider();
-      provider.addScope("read:user");
-      provider.addScope("user:email");
-      await signInWithPopup(fbAuth, provider);
-      return;
-    }
-    const auth = supabase();
-    if (!auth) throw new Error("Authentication is not configured on this deployment.");
-    const redirectUrl = `${window.location.origin}/`;
-    const { data, error } = await auth.auth.signInWithOAuth({
-      provider: "github",
-      options: { redirectTo: redirectUrl },
-    });
-    if (error) throw error;
-    if (data?.url) window.location.href = data.url;
+    const fbAuth = getFirebaseAuth();
+    if (!fbAuth) throw new Error("Firebase Auth is not configured.");
+    const provider = new GithubAuthProvider();
+    provider.addScope("read:user");
+    provider.addScope("user:email");
+    await signInWithPopup(fbAuth, provider);
   }, []);
 
   const value = React.useMemo<AuthContextValue>(
@@ -235,23 +131,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
       initialising,
       signInWithGitHub,
       signInWithGoogle,
-      signInWithEmail: async (email: string) => {
-        const auth = supabase();
-        if (!auth) throw new Error("Authentication is not configured on this deployment.");
-        const { error } = await auth.auth.signInWithOtp({
-          email,
-          options: { emailRedirectTo: window.location.href },
-        });
-        if (error) throw error;
+      signInWithEmail: async (_email: string) => {
+        // Direct Firebase OAuth is preferred
       },
       signOut: async () => {
-        if (config.firebaseConfigured) {
-          const fbAuth = getFirebaseAuth();
-          if (fbAuth) await firebaseSignOut(fbAuth);
-        }
-        if (supabase()) {
-          await supabase()?.auth.signOut();
-        }
+        const fbAuth = getFirebaseAuth();
+        if (fbAuth) await firebaseSignOut(fbAuth);
         setUser(null);
         setToken(null);
       },

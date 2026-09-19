@@ -1,6 +1,5 @@
 import type { Paginated, ResourceSummary } from "@openui/types";
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
-import * as api from "./api.js";
 import { getFirebaseDb } from "./firebase.js";
 
 export interface StoredFavorite {
@@ -99,11 +98,6 @@ export function saveFavorite(
         console.warn("Firestore save favorite failed:", e);
       });
     }
-
-    // Supabase remote sync fallback
-    if (token) {
-      void api.favorite(entry.name, token).catch(() => {});
-    }
     return true;
   } catch {
     return false;
@@ -113,7 +107,7 @@ export function saveFavorite(
 export function removeFavorite(
   userId: string,
   slug: string,
-  token?: string | null,
+  _token?: string | null,
 ): boolean {
   if (!userId || typeof window === "undefined") return false;
   try {
@@ -130,11 +124,6 @@ export function removeFavorite(
       void deleteDoc(doc(db, "users", userId, "favorites", slug)).catch((e) => {
         console.warn("Firestore remove favorite failed:", e);
       });
-    }
-
-    // Supabase remote sync fallback
-    if (token) {
-      void api.unfavorite(slug, token).catch(() => {});
     }
     return true;
   } catch {

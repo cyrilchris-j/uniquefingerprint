@@ -31,7 +31,7 @@ import { useHasRole } from "../lib/auth.js";
  *    *API-derived* role permits it; the navigation is a convenience, and the
  *    route itself is guarded server-side regardless.
  *
- * When the deployment has no Supabase project configured, the control explains
+ * When the deployment has no authentication configured, the control explains
  * that rather than opening a dialog that cannot work.
  */
 export function AccountMenu(): React.JSX.Element {

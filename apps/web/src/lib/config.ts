@@ -29,11 +29,9 @@ export interface AppConfig {
   apiBaseUrl: string;
   /** Where built registry artifacts are served from. */
   registryBaseUrl: string;
-  supabaseUrl: string | null;
-  supabaseAnonKey: string | null;
   firebase: FirebaseConfig;
   firebaseConfigured: boolean;
-  /** True when auth (Firebase or Supabase) is configured. */
+  /** True when auth is configured. */
   authEnabled: boolean;
   environment: "development" | "production";
 }
@@ -50,11 +48,6 @@ export const config: AppConfig = {
       ? "/r"
       : read("VITE_REGISTRY_BASE_URL", "/r")
   ).replace(/\/+$/, ""),
-  supabaseUrl: read("VITE_SUPABASE_URL", "https://hkzacjeplcmyexqmzyqn.supabase.co"),
-  supabaseAnonKey: read(
-    "VITE_SUPABASE_ANON_KEY",
-    "sb_publishable_IsfEdcoPgI5Vu6SbcXSoXA_hLdp_CC6",
-  ),
   firebase: {
     apiKey: read("VITE_FIREBASE_API_KEY", "AIzaSyC46YYMRXtFm-xuL3gQJr4fnFdnjl2VSmc"),
     authDomain: read("VITE_FIREBASE_AUTH_DOMAIN", "uniquefingerprint.firebaseapp.com"),
@@ -67,7 +60,7 @@ export const config: AppConfig = {
     return Boolean(this.firebase.apiKey && this.firebase.projectId);
   },
   get authEnabled(): boolean {
-    return this.firebaseConfigured || Boolean(this.supabaseUrl && this.supabaseAnonKey);
+    return this.firebaseConfigured;
   },
   environment: import.meta.env.PROD ? "production" : "development",
 };
@@ -88,22 +81,13 @@ export function registryUrl(path: string): string {
 
 /**
  * Configuration that is absent or suspicious, for the diagnostics page.
- *
- * Returning this instead of throwing is deliberate: a missing API URL should
- * degrade the community features, not take the whole catalogue offline.
  */
 export function configurationIssues(): Array<{ key: string; problem: string }> {
   const issues: Array<{ key: string; problem: string }> = [];
-  if (!config.supabaseUrl) {
+  if (!config.firebaseConfigured) {
     issues.push({
-      key: "VITE_SUPABASE_URL",
-      problem: "Not set. Authentication, favourites and collections are disabled.",
-    });
-  }
-  if (!config.supabaseAnonKey) {
-    issues.push({
-      key: "VITE_SUPABASE_ANON_KEY",
-      problem: "Not set. Authentication, favourites and collections are disabled.",
+      key: "VITE_FIREBASE_API_KEY",
+      problem: "Firebase credentials not set. Authentication and favourites are disabled.",
     });
   }
   return issues;

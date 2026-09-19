@@ -24,7 +24,6 @@
     "@openui/types": "workspace:*",
     "@openui/ui": "workspace:*",
     "@openui/utils": "workspace:*",
-    "@supabase/supabase-js": "^2.47.10",
     "firebase": "^12.19.0",
     "lucide-react": "^0.469.0",
     "motion": "^11.15.0",

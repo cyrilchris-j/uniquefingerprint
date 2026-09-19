@@ -84,7 +84,7 @@ export default function SubmitPage(): React.JSX.Element {
         <EmptyState
           eyebrow="Submissions unavailable"
           title="This deployment has no authentication configured."
-          description="Contributions need an account so the registry can attribute the work and contact you about a review. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable it."
+          description="Contributions need an account so the registry can attribute the work and contact you about a review. Sign in with Google or GitHub to enable it."
           action={
             <Button variant="outline" asChild>
               <Link to="/docs/contributing">Read the contributing guide</Link>

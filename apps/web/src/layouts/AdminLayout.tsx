@@ -45,7 +45,7 @@ export function AdminLayout(): React.JSX.Element {
         <EmptyState
           eyebrow="Moderation unavailable"
           title="This deployment has no authentication configured."
-          description="Moderation requires Supabase Auth and a database with the RLS policies applied."
+          description="Moderation requires an administrator account."
         />
       </div>
     );

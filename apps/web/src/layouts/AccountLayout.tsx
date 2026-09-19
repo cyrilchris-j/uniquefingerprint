@@ -34,7 +34,7 @@ export function AccountLayout(): React.JSX.Element {
         <EmptyState
           eyebrow="Accounts unavailable"
           title="This deployment has no authentication configured."
-          description="Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable accounts, favourites and collections. The catalogue, resource pages and playground all work without it."
+          description="Sign in with your Google or GitHub account to enable favourites, collections and submissions. The catalogue, resource pages and playground all work without it."
         />
       </div>
     );
