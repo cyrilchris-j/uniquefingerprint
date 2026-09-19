@@ -97,12 +97,13 @@ export function CodeBlock({
  * selection is required.
  */
 export function CommandLine({ command }: { command: string }): React.JSX.Element {
+  const formatted = command.replace(/\bopenui\b/g, "uniquefingerprint");
   return (
     <div className="flex items-stretch border border-line max-w-full min-w-0">
       <code className="flex-1 min-w-0 overflow-x-auto whitespace-nowrap no-scrollbar bg-ink/95 px-3.5 sm:px-4 py-2.5 sm:py-3 font-mono text-[0.75rem] sm:text-[0.8rem] text-paper">
-        {command}
+        {formatted}
       </code>
-      <CopyButton value={command} label="Copy install command" className="border-y-0 border-r-0 shrink-0" />
+      <CopyButton value={formatted} label="Copy install command" className="border-y-0 border-r-0 shrink-0" />
     </div>
   );
 }

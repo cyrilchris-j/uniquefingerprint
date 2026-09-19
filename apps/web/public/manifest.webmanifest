@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "OpenUI Design Registry",
-  "short_name": "OpenUI",
+  "name": "UniqueFingerprint Design Registry",
+  "short_name": "UniqueFingerprint",
   "description": "An open registry of distinctive UI resources: components, text effects, motion, layouts, themes and design systems.",
   "start_url": "/",
   "scope": "/",

@@ -1,29 +1,29 @@
-The CLI is the distribution layer. It is the only part of OpenUI that writes to
+The CLI is the distribution layer. It is the only part of UniqueFingerprint that writes to
 your project, and it is deliberately conservative about doing so.
 
 ## Commands
 
 | Command | What it does |
 | --- | --- |
-| `openui init` | Writes `openui.json`, the project's registry and alias configuration. |
-| `openui search <query>` | Searches the registry from the terminal. |
-| `openui view <resource>` | Prints an item's metadata, dependencies and design rules. |
-| `openui add <resource...>` | Resolves, verifies and installs one or more resources. |
-| `openui update <resource>` | Re-installs a resource at its latest version, after a diff. |
-| `openui remove <resource>` | Removes the files the CLI installed, and nothing else. |
-| `openui list` | Lists everything installed in this project. |
-| `openui theme add <theme>` | Installs a theme's tokens and its `design.md`. |
+| `uniquefingerprint init` | Writes `uniquefingerprint.json`, the project's registry and alias configuration. |
+| `uniquefingerprint search <query>` | Searches the registry from the terminal. |
+| `uniquefingerprint view <resource>` | Prints an item's metadata, dependencies and design rules. |
+| `uniquefingerprint add <resource...>` | Resolves, verifies and installs one or more resources. |
+| `uniquefingerprint update <resource>` | Re-installs a resource at its latest version, after a diff. |
+| `uniquefingerprint remove <resource>` | Removes the files the CLI installed, and nothing else. |
+| `uniquefingerprint list` | Lists everything installed in this project. |
+| `uniquefingerprint theme add <theme>` | Installs a theme's tokens and its `design.md`. |
 
 ## Initialise a project
 
-<CommandLine command="pnpm dlx openui init" />
+<CommandLine command="pnpm dlx uniquefingerprint init" />
 
 <CodeBlock
-  caption="openui.json"
+  caption="uniquefingerprint.json"
   language="json"
   code={`{
-  "$schema": "https://openui.dev/schema/openui.json",
-  "registry": "https://openui.dev/r",
+  "$schema": "https://uniquefingerprint.vercel.app/schema/uniquefingerprint.json",
+  "registry": "https://uniquefingerprint.vercel.app/r",
   "aliases": {
     "components": "./src/components",
     "lib": "./src/lib",
@@ -44,7 +44,7 @@ so the same source lands correctly in a project that keeps helpers under
 <CodeBlock
   caption="The install pipeline"
   language="text"
-  code={`read openui.json
+  code={`read uniquefingerprint.json
   ↓ resolve the registry and fetch the index
   ↓ fetch the item artifact
   ↓ verify the integrity digest matches the index
@@ -64,7 +64,7 @@ the first file is not written either.
 The CLI never silently overwrites a file you have edited. When a target path
 exists and its content differs, it reports every conflict at once and stops.
 `--overwrite` is available and is never the default; when a resource is
-installed from a *newer* version, `openui update` shows the diff before offering
+installed from a *newer* version, `uniquefingerprint update` shows the diff before offering
 it.
 
 ## Verifying what you installed
@@ -73,10 +73,10 @@ it.
   caption="terminal"
   language="bash"
   code={`# Show the integrity digest the CLI verified
-pnpm dlx openui view magnetic-button --json | jq .integrity
+pnpm dlx uniquefingerprint view magnetic-button --json | jq .integrity
 
 # Search the registry, filtered
-pnpm dlx openui search "hero" --type section --json`}
+pnpm dlx uniquefingerprint search "hero" --type section --json`}
 />
 
 Because artifacts are content-addressed, the digest is the same value published

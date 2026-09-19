@@ -28,7 +28,7 @@ import * as api from "../lib/api.js";
  */
 export default function ContributorsPage(): React.JSX.Element {
   const index = useRegistryIndex();
-  useDocumentTitle("Contributors — OpenUI Design Registry");
+  useDocumentTitle("Contributors — UniqueFingerprint Design Registry");
 
   const { data: community, error } = useApiResource(
     (signal) => apiFetchContributors(signal),
@@ -149,7 +149,7 @@ export default function ContributorsPage(): React.JSX.Element {
 export function ContributorPage(): React.JSX.Element {
   const { username = "" } = useParams<{ username: string }>();
   const index = useRegistryIndex();
-  useDocumentTitle(`@${username} — OpenUI Design Registry`);
+  useDocumentTitle(`@${username} — UniqueFingerprint Design Registry`);
 
   const { data: contributor, error } = useApiResource(
     (signal) => apiFetchContributor(username, signal),
@@ -174,7 +174,7 @@ export function ContributorPage(): React.JSX.Element {
           contributor?.bio ??
           (contributor
             ? `${contributor.resourceCount} published resources · ${formatCount(contributor.totalDownloads)} downloads · joined ${new Date(contributor.joinedAt).getUTCFullYear()}`
-            : "A published contributor in the OpenUI registry.")
+            : "A published contributor in the UniqueFingerprint registry.")
         }
         actions={
           <Button variant="ghost" size="sm" asChild>

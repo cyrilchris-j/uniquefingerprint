@@ -90,7 +90,7 @@ export default function HomePage(): React.JSX.Element {
             </h1>
 
             <p className="prose-measure mt-4 sm:mt-6 text-[0.95rem] sm:text-step-1 leading-relaxed text-graphite">
-              Most generated interfaces look the same because nothing ever told them not to. OpenUI
+              Most generated interfaces look the same because nothing ever told them not to. UniqueFingerprint
               is an open registry of components, text effects, motion, layouts, themes and design
               systems — each one shipping its source, a demo, and the <em>design rules</em> that
               make it work. Install the code. Keep the rules.

@@ -121,7 +121,7 @@ export default function ResourcePage(): React.JSX.Element {
     full: "100%",
   };
 
-  useDocumentTitle(entry ? `${entry.title} — OpenUI Design Registry` : "Resource — OpenUI");
+  useDocumentTitle(entry ? `${entry.title} — UniqueFingerprint Design Registry` : "Resource — UniqueFingerprint");
   useMetaDescription(entry?.description);
 
   // Record the download once, when the page is opened, so the counter measures
@@ -481,7 +481,7 @@ export default function ResourcePage(): React.JSX.Element {
                 </p>
 
                 <div className="mt-6">
-                  <CommandLine command={`openui add ${entry.name}`} />
+                  <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
                 </div>
 
                 <h3 className="mt-10 font-display text-step-2 tracking-tight">
@@ -520,7 +520,7 @@ export default function ResourcePage(): React.JSX.Element {
                   <p className="eyebrow mb-3">What the CLI does</p>
                   <ol className="flex flex-col">
                     {[
-                      "Reads openui.json for your registry and aliases.",
+                      "Reads uniquefingerprint.json for your registry and aliases.",
                       "Fetches the artifact and verifies its integrity digest.",
                       "Resolves registry dependencies first, depth-first.",
                       "Diffs every target path against your project.",
@@ -676,7 +676,7 @@ export default function ResourcePage(): React.JSX.Element {
               <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
                 <h2 className="font-display text-step-2 tracking-tight text-ink">Motion System</h2>
                 <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  OpenUI motion is calibrated for tactile response without sluggishness. All transforms use GPU-accelerated 3D composition.
+                  UniqueFingerprint motion is calibrated for tactile response without sluggishness. All transforms use GPU-accelerated 3D composition.
                 </p>
 
                 <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">

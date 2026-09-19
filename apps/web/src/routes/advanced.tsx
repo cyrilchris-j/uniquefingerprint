@@ -60,7 +60,7 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
     <div className="shell py-8 sm:py-16">
       <SectionHeader
         as="h1"
-        eyebrow="OpenUI · Advanced Resource Ecosystem"
+        eyebrow="UniqueFingerprint · Advanced Resource Ecosystem"
         title="Original 3D, WebGL, Motion & Creative Primitives."
         description={`A bespoke ecosystem of ${ADVANCED_RESOURCES.length} advanced resources engineered for high-performance creative interfaces. Complete with live interactive previews, physical spring calibration, and accessible fallbacks.`}
         actions={

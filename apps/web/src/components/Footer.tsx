@@ -26,12 +26,12 @@ export function Footer(): React.JSX.Element {
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
-              alt="OpenUI"
+              alt="UniqueFingerprint"
               width={36}
               height={36}
               className="h-9 w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30"
             />
-            <p className="font-display text-step-2 leading-none tracking-tight text-ink">OpenUI</p>
+            <p className="font-display text-step-2 leading-none tracking-tight text-ink">UniqueFingerprint</p>
           </div>
           <p className="mt-4 max-w-[34ch] text-[0.9rem] leading-relaxed text-graphite">
             An open registry of UI resources that carry a design fingerprint — with the design
@@ -120,7 +120,7 @@ export function Footer(): React.JSX.Element {
       <div className="border-t border-line">
         <div className="shell flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-graphite">
-            © {year} OpenUI · MIT licensed · every resource states its own licence
+            © {year} UniqueFingerprint · MIT licensed · every resource states its own licence
           </p>
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-graphite">
             Open code · Distinctive design · Composable systems

@@ -28,7 +28,7 @@ export function CollectionsPage(): React.JSX.Element {
     "collections",
   );
 
-  useDocumentTitle("Collections — OpenUI Design Registry");
+  useDocumentTitle("Collections — UniqueFingerprint Design Registry");
 
   return (
     <div className="shell py-8 sm:py-16">
@@ -139,7 +139,7 @@ export function CollectionPage(): React.JSX.Element {
     id,
   );
 
-  useDocumentTitle(data ? `${data.title} — Collection — OpenUI` : "Collection — OpenUI");
+  useDocumentTitle(data ? `${data.title} — Collection — UniqueFingerprint` : "Collection — UniqueFingerprint");
 
   if (isLoading) {
     return (
@@ -151,17 +151,13 @@ export function CollectionPage(): React.JSX.Element {
 
   if (error || !data) {
     return (
-      <div className="shell py-20">
+      <div className="shell py-16">
         <EmptyState
-          eyebrow="Not available"
-          title="This collection is not available."
-          description={
-            error?.message ??
-            "It may be private, or it may no longer exist. Private collections are visible only to their owner."
-          }
+          title="Collection not found"
+          description="The collection may have been removed, made private, or the link is incorrect."
           action={
             <Button asChild>
-              <Link to="/collections">Browse public collections</Link>
+              <Link to="/collections">Back to collections</Link>
             </Button>
           }
         />
@@ -170,40 +166,28 @@ export function CollectionPage(): React.JSX.Element {
   }
 
   return (
-    <div className="shell py-16">
-      <SectionHeader
-        as="h1"
-        eyebrow={`Collection · ${data.itemCount} resources`}
-        title={data.title}
-        description={data.description ?? "A saved arrangement of registry resources, in order."}
-        actions={
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/collections">All collections</Link>
-          </Button>
-        }
-      />
-
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <StatusPill tone={data.isPublic ? "positive" : "neutral"}>
-          {data.isPublic ? "public" : "private"}
-        </StatusPill>
-        {data.owner ? (
-          <Link
-            to={`/contributors/${data.owner.username}`}
-            className="font-mono text-[10px] uppercase tracking-[0.14em] text-graphite transition-colors hover:text-ink"
-          >
-            @{data.owner.username}
-          </Link>
-        ) : null}
-        <Badge>updated {new Date(data.updatedAt).toISOString().slice(0, 10)}</Badge>
-      </div>
+    <div className="shell py-8 sm:py-16">
+      <header className="border-b border-line pb-8">
+        <p className="eyebrow mb-2">Collection · {data.items.length} items</p>
+        <h1 className="optically-align text-step-5 font-normal tracking-tight text-ink">
+          {data.title}
+        </h1>
+        {data.description && (
+          <p className="prose-measure mt-3 text-step-1 text-graphite">{data.description}</p>
+        )}
+        <div className="mt-4 flex items-center gap-3 text-[0.82rem] text-graphite">
+          {data.owner && <span>Curated by @{data.owner.username}</span>}
+          <span>·</span>
+          <span>{data.items.length} resources</span>
+        </div>
+      </header>
 
       {/* The install command for a whole composition is the point of a
           collection: one line to reproduce the arrangement. */}
       <div className="mt-8">
         <p className="eyebrow mb-2">Install the whole collection</p>
         <code className="block overflow-x-auto border border-line bg-ink/95 px-4 py-3 font-mono text-[0.78rem] text-paper">
-          pnpm dlx openui add{" "}
+          pnpm dlx uniquefingerprint add{" "}
           {data.items.map((item) => item.resource.slug).join(" ") || "<nothing yet>"}
         </code>
       </div>

@@ -25,7 +25,7 @@ import * as React from "react";
 
 export function DesignSystemsPage(): React.JSX.Element {
   const index = useRegistryIndex();
-  useDocumentTitle("Design systems — OpenUI Design Registry");
+  useDocumentTitle("Design systems — UniqueFingerprint Design Registry");
 
   const systems = React.useMemo(
     () =>
@@ -113,10 +113,10 @@ export function DesignSystemsPage(): React.JSX.Element {
             caption="Apply a system's tokens"
             language="bash"
             code={`# Install the tokens and the rules
-pnpm dlx openui theme add swiss-editorial
+pnpm dlx uniquefingerprint theme add swiss-editorial
 
 # Link a resource to a system when you install it
-pnpm dlx openui add asymmetric-hero --system swiss-editorial`}
+pnpm dlx uniquefingerprint add asymmetric-hero --system swiss-editorial`}
           />
         </div>
       </Section>
@@ -135,7 +135,7 @@ export function DesignSystemPage(): React.JSX.Element {
     [index.data, slug],
   );
 
-  useDocumentTitle(entry ? `${entry.title} — Design system — OpenUI` : "Design system — OpenUI");
+  useDocumentTitle(entry ? `${entry.title} — Design system — UniqueFingerprint` : "Design system — UniqueFingerprint");
 
   const linked = React.useMemo(
     () =>
@@ -221,7 +221,7 @@ export function DesignSystemPage(): React.JSX.Element {
         <CodeBlock
           caption="terminal"
           language="bash"
-          code={`pnpm dlx openui theme add ${slug}`}
+          code={`pnpm dlx uniquefingerprint theme add ${slug}`}
         />
       </Section>
 

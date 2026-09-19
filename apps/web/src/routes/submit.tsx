@@ -28,7 +28,7 @@ import { SignInPanel } from "../components/SignInPanel.js";
  */
 export default function SubmitPage(): React.JSX.Element {
   const { user, token, enabled, initialising } = useAuth();
-  useDocumentTitle("Submit a resource — OpenUI Design Registry");
+  useDocumentTitle("Submit a resource — UniqueFingerprint Design Registry");
 
   const [title, setTitle] = React.useState("");
   const [slug, setSlug] = React.useState("");
@@ -216,7 +216,7 @@ export default function SubmitPage(): React.JSX.Element {
             mono
             value={pullRequestUrl}
             onChange={(event) => setPullRequestUrl(event.target.value)}
-            placeholder="https://github.com/your-org/openui/pull/123"
+            placeholder="https://github.com/your-org/uniquefingerprint/pull/123"
             error={fieldErrors["pullRequestUrl"]}
             hint="Optional at this stage; the review cannot proceed without it."
           />

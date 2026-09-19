@@ -150,13 +150,13 @@ export function Masthead(): React.JSX.Element {
           >
             <img
               src="/logo.png"
-              alt="OpenUI"
+              alt="UniqueFingerprint"
               width={36}
               height={36}
               className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30 transition-transform duration-fast ease-editorial group-hover:scale-105"
             />
             <span className="font-display text-xl sm:text-step-2 leading-none tracking-tight text-ink">
-              OpenUI
+              UniqueFingerprint
             </span>
           </Link>
 
@@ -532,14 +532,14 @@ export function Masthead(): React.JSX.Element {
                 <div className="flex items-center gap-3">
                   <img
                     src="/logo.png"
-                    alt="OpenUI"
+                    alt="UniqueFingerprint"
                     width={40}
                     height={40}
                     className="h-10 w-10 shrink-0 rounded-lg object-contain shadow-xs ring-1 ring-line/30"
                   />
                   <div>
                     <p className="font-display text-base font-medium leading-tight text-ink">Download App</p>
-                    <p className="text-[11px] text-graphite">Install OpenUI on your home screen</p>
+                    <p className="text-[11px] text-graphite">Install UniqueFingerprint on your home screen</p>
                   </div>
                 </div>
                 <button

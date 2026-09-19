@@ -33,7 +33,7 @@ import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
  */
 export default function BuilderPage(): React.JSX.Element {
   const index = useRegistryIndex();
-  useDocumentTitle("Builder — OpenUI Design Registry");
+  useDocumentTitle("Builder — UniqueFingerprint Design Registry");
 
   const [stack, setStack] = React.useState<string[]>([]);
   const [title, setTitle] = React.useState("Editorial Portfolio");
@@ -70,7 +70,7 @@ export default function BuilderPage(): React.JSX.Element {
   }, [items]);
 
   const installCommand =
-    stack.length > 0 ? `pnpm dlx openui add ${stack.join(" ")}` : "pnpm dlx openui add <resource>";
+    stack.length > 0 ? `pnpm dlx uniquefingerprint add ${stack.join(" ")}` : "pnpm dlx uniquefingerprint add <resource>";
 
   const move = (from: number, to: number) => {
     if (to < 0 || to >= stack.length) return;

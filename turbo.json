@@ -4,6 +4,12 @@
     "DATABASE_URL",
     "GEMINI_API_KEY",
     "CORS_ALLOWED_ORIGINS",
+    "API_BASE_URL",
+    "REGISTRY_BASE_URL",
+    "REGISTRY_ARTIFACTS_DIR",
+    "REGISTRY_CACHE_TTL",
+    "RATE_LIMIT_PER_MINUTE",
+    "LOG_LEVEL",
     "VITE_FIREBASE_API_KEY",
     "VITE_FIREBASE_AUTH_DOMAIN",
     "VITE_FIREBASE_PROJECT_ID",
@@ -13,7 +19,10 @@
     "VITE_API_BASE_URL",
     "VITE_REGISTRY_BASE_URL",
     "NODE_ENV",
-    "PORT"
+    "PORT",
+    "VERCEL",
+    "VERCEL_ENV",
+    "VERCEL_URL"
   ],
   "tasks": {
     "build": {

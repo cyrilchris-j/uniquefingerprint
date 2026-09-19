@@ -48,7 +48,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
     );
   }
 
-  const installCommand = `pnpm dlx openui add ${item.slug}`;
+  const installCommand = `pnpm dlx uniquefingerprint add ${item.slug}`;
 
   const copyInstall = () => {
     navigator.clipboard?.writeText(installCommand);

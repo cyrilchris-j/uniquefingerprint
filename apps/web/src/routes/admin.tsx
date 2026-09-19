@@ -43,7 +43,7 @@ import { useApiResource } from "../lib/use-api-resource.js";
 export function AdminOverviewPage(): React.JSX.Element {
   const { token } = useAuth();
   const { data, error, isLoading } = useApiResource(() => api.getAnalytics(token), "analytics", token);
-  useDocumentTitle("Moderation — OpenUI");
+  useDocumentTitle("Moderation — UniqueFingerprint");
 
   return (
     <>
@@ -141,7 +141,7 @@ export function AdminSubmissionsPage(): React.JSX.Element {
   const [actionError, setActionError] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
 
-  useDocumentTitle("Submissions — Moderation — OpenUI");
+  useDocumentTitle("Submissions — Moderation — UniqueFingerprint");
 
   const submitReview = async () => {
     if (!reviewing) return;
@@ -339,7 +339,7 @@ export function AdminSubmissionsPage(): React.JSX.Element {
 export function AdminResourcesPage(): React.JSX.Element {
   const { token } = useAuth();
   const isAdmin = useHasRole("admin");
-  useDocumentTitle("Resources — Moderation — OpenUI");
+  useDocumentTitle("Resources — Moderation — UniqueFingerprint");
 
   const [actionError, setActionError] = React.useState<string | null>(null);
   const [target, setTarget] = React.useState<{ slug: string; action: "deprecate" | "delete" } | null>(
@@ -467,7 +467,7 @@ export function AdminResourcesPage(): React.JSX.Element {
 }
 
 export function AdminReportsPage(): React.JSX.Element {
-  useDocumentTitle("Reports — Moderation — OpenUI");
+  useDocumentTitle("Reports — Moderation — UniqueFingerprint");
 
   return (
     <>
@@ -496,7 +496,7 @@ export function AdminReportsPage(): React.JSX.Element {
 }
 
 export function AdminUsersPage(): React.JSX.Element {
-  useDocumentTitle("Users — Moderation — OpenUI");
+  useDocumentTitle("Users — Moderation — UniqueFingerprint");
 
   return (
     <>
@@ -539,7 +539,7 @@ export function AdminUsersPage(): React.JSX.Element {
 export function AdminAnalyticsPage(): React.JSX.Element {
   const { token } = useAuth();
   const { data, error, isLoading } = useApiResource(() => api.getAnalytics(token), "analytics", token);
-  useDocumentTitle("Analytics — Moderation — OpenUI");
+  useDocumentTitle("Analytics — Moderation — UniqueFingerprint");
 
   return (
     <>

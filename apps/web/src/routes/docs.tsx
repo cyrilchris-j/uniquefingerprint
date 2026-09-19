@@ -52,7 +52,7 @@ export default function DocsPage(): React.JSX.Element {
   const meta = NAV.find((page) => page.slug === slug);
   const Page = pageFor(slug);
 
-  useDocumentTitle(meta ? `${meta.title} — OpenUI Docs` : "Documentation — OpenUI");
+  useDocumentTitle(meta ? `${meta.title} — UniqueFingerprint Docs` : "Documentation — UniqueFingerprint");
 
   if (!Page) {
     return (

@@ -17,7 +17,7 @@ import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
  * indistinguishable from a successful page in the history list.
  */
 export default function NotFoundPage(): React.JSX.Element {
-  useDocumentTitle("Not found — OpenUI Design Registry");
+  useDocumentTitle("Not found — UniqueFingerprint Design Registry");
 
   return (
     <div className="shell py-24">

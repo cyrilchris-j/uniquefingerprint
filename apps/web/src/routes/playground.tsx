@@ -129,7 +129,7 @@ export default function Demo() {
   const [fileOverrides, setFileOverrides] = React.useState<Record<string, string>>({});
   const [activeFile, setActiveFile] = React.useState<string | null>(null);
 
-  useDocumentTitle(itemData ? `${itemData.title} — Playground — OpenUI` : "Playground — OpenUI");
+  useDocumentTitle(itemData ? `${itemData.title} — Playground — UniqueFingerprint` : "Playground — UniqueFingerprint");
 
   const sandboxFiles = React.useMemo(() => {
     if (!itemData) return null;
@@ -335,12 +335,12 @@ function PlaygroundSurface({
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">Install:</span>
           <code className="font-mono text-[11px] px-2 py-0.5 rounded bg-paper border border-line/30 text-ink">
-            pnpm dlx openui add {item.name}
+            pnpm dlx uniquefingerprint add {item.name}
           </code>
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigator.clipboard.writeText(`pnpm dlx openui add ${item.name}`)}
+            onClick={() => navigator.clipboard.writeText(`pnpm dlx uniquefingerprint add ${item.name}`)}
             className="h-6 px-2 text-[10px] font-mono uppercase tracking-wider"
           >
             Copy

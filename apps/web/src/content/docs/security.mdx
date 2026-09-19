@@ -83,7 +83,7 @@ increment are both in the database:
 
 Registry file paths are validated, not sanitised after the fact. A path
 containing `..`, a leading `/`, a null byte or a symlink escape is a schema
-error, and the CLI only writes below the aliases declared in `openui.json`. The
+error, and the CLI only writes below the aliases declared in `uniquefingerprint.json`. The
 artifacts server reduces every requested path to a basename and only serves names
 that appear in the index, so traversal is impossible by construction rather than
 by filtering.
