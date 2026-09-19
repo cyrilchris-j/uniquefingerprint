@@ -1,4 +1,4 @@
-import { Github, Lock, Globe, Trash2 } from "lucide-react";
+import { Github, Lock, Globe, Trash2, Heart, ArrowUpRight } from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
@@ -26,7 +26,7 @@ import { useDocumentTitle } from "../hooks/use-document-title.js";
 import * as api from "../lib/api.js";
 import { useAuth } from "../lib/auth.js";
 import { useApiResource } from "../lib/use-api-resource.js";
-import { getFavoritesAsPaginated, removeFavorite } from "../lib/favorites.js";
+import { getFavoritesAsPaginated, removeFavorite, syncFavoritesFromFirestore } from "../lib/favorites.js";
 import type { ResourceSummary } from "@openui/types";
 
 /**
@@ -39,15 +39,34 @@ import type { ResourceSummary } from "@openui/types";
  */
 
 export function ProfilePage(): React.JSX.Element {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   useDocumentTitle("Profile — OpenUI");
+
+  const [savedData, setSavedData] = React.useState(() => getFavoritesAsPaginated(user?.id));
+
+  React.useEffect(() => {
+    if (user?.id) {
+      void syncFavoritesFromFirestore(user.id).then(() => {
+        setSavedData(getFavoritesAsPaginated(user.id));
+      });
+    }
+    const handleUpdate = () => {
+      setSavedData(getFavoritesAsPaginated(user?.id));
+    };
+    window.addEventListener("openui:favorites_changed", handleUpdate);
+    return () => {
+      window.removeEventListener("openui:favorites_changed", handleUpdate);
+    };
+  }, [user?.id]);
 
   const displayName =
     user?.displayName ||
     (user?.email ? user.email.split("@")[0] : "Account User");
 
+  const savedItems = savedData.items;
+
   return (
-    <div className="max-w-xl space-y-5">
+    <div className="max-w-xl space-y-6">
       <div className="border-b border-line pb-3">
         <div className="flex items-center justify-between">
           <div>
@@ -96,6 +115,79 @@ export function ProfilePage(): React.JSX.Element {
         <p className="mt-4 pt-3 border-t border-line/40 text-xs text-graphite/80 leading-relaxed">
           Your role is verified against database row-level security on every request.
         </p>
+      </div>
+
+      {/* --- User Saved Resources Section in Profile --- */}
+      <div className="rounded-lg border border-line bg-paper/60 p-4 sm:p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-line pb-3">
+          <div className="flex items-center gap-2">
+            <Heart className="h-4 w-4 text-oxide fill-oxide/20" />
+            <h3 className="font-display text-lg text-ink">Saved Resources</h3>
+            <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-line/15 border border-line text-graphite">
+              {savedItems.length}
+            </span>
+          </div>
+          {savedItems.length > 0 && (
+            <Link
+              to="/account/favorites"
+              className="text-xs font-mono text-oxide hover:underline flex items-center gap-1"
+            >
+              View all <ArrowUpRight className="h-3 w-3" />
+            </Link>
+          )}
+        </div>
+
+        {savedItems.length === 0 ? (
+          <div className="py-6 text-center">
+            <p className="text-sm text-graphite">No components saved yet.</p>
+            <p className="text-xs text-graphite/70 mt-1">
+              Browse components and click Save to access them anytime here.
+            </p>
+            <Button size="sm" variant="outline" asChild className="mt-4">
+              <Link to="/explore">Explore Catalogue</Link>
+            </Button>
+          </div>
+        ) : (
+          <ul className="divide-y divide-line/60">
+            {savedItems.slice(0, 5).map((resource) => {
+              const adv = getAdvancedItemBySlug(resource.slug);
+              const itemHref = adv
+                ? `/advanced/${adv.category}/${adv.slug}`
+                : `/${categorySegmentFor(resource.categorySlug ?? "components")}/${resource.slug}`;
+
+              return (
+                <li
+                  key={resource.id}
+                  className="flex items-center justify-between gap-3 py-3 hover:bg-line/5 rounded-sm px-1.5 transition-colors"
+                >
+                  <Link to={itemHref} className="flex flex-col gap-0.5 min-w-0 flex-1">
+                    <span className="font-medium text-sm text-ink hover:text-oxide transition-colors truncate">
+                      {resource.title}
+                    </span>
+                    <span className="text-xs text-graphite line-clamp-1">
+                      {resource.description}
+                    </span>
+                  </Link>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      if (user?.id) {
+                        removeFavorite(user.id, resource.slug, token);
+                      }
+                    }}
+                    aria-label={`Remove ${resource.title}`}
+                    title="Remove"
+                    className="text-graphite hover:text-oxide hover:bg-oxide/10 shrink-0 h-7 w-7"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

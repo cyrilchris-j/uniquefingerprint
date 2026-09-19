@@ -1,5 +1,7 @@
 import type { Paginated, ResourceSummary } from "@openui/types";
+import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import * as api from "./api.js";
+import { getFirebaseDb } from "./firebase.js";
 
 export interface StoredFavorite {
   id: string;
@@ -28,6 +30,34 @@ export function getStoredFavorites(userId: string | null | undefined): StoredFav
   }
 }
 
+export async function syncFavoritesFromFirestore(userId: string): Promise<StoredFavorite[]> {
+  if (!userId || typeof window === "undefined") return [];
+  const db = getFirebaseDb();
+  if (!db) return getStoredFavorites(userId);
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "users", userId, "favorites"));
+    const firestoreFavorites: StoredFavorite[] = [];
+    querySnapshot.forEach((docSnap) => {
+      firestoreFavorites.push(docSnap.data() as StoredFavorite);
+    });
+
+    if (firestoreFavorites.length > 0) {
+      const local = getStoredFavorites(userId);
+      const map = new Map<string, StoredFavorite>();
+      for (const item of local) map.set(item.slug, item);
+      for (const item of firestoreFavorites) map.set(item.slug, item);
+      const merged = Array.from(map.values());
+      localStorage.setItem(getStorageKey(userId), JSON.stringify(merged));
+      window.dispatchEvent(new CustomEvent("openui:favorites_changed"));
+      return merged;
+    }
+  } catch (err) {
+    console.warn("Could not sync favorites from Firestore:", err);
+  }
+  return getStoredFavorites(userId);
+}
+
 export function isResourceFavorited(userId: string | null | undefined, slug: string): boolean {
   if (!userId || !slug) return false;
   const list = getStoredFavorites(userId);
@@ -43,23 +73,34 @@ export function saveFavorite(
   try {
     const list = getStoredFavorites(userId);
     const existing = list.findIndex((item) => item.slug === entry.name || item.name === entry.name);
+    const favItem: StoredFavorite = {
+      id: entry.name,
+      slug: entry.name,
+      name: entry.name,
+      title: entry.title,
+      description: entry.description,
+      categorySlug: entry.category ?? "components",
+      resourceType: (entry.type ?? "component").replace("registry:", ""),
+      savedAt: new Date().toISOString(),
+    };
+
     if (existing === -1) {
-      list.unshift({
-        id: entry.name,
-        slug: entry.name,
-        name: entry.name,
-        title: entry.title,
-        description: entry.description,
-        categorySlug: entry.category ?? "components",
-        resourceType: (entry.type ?? "component").replace("registry:", ""),
-        savedAt: new Date().toISOString(),
-      });
+      list.unshift(favItem);
       localStorage.setItem(getStorageKey(userId), JSON.stringify(list));
       window.dispatchEvent(
         new CustomEvent("openui:favorites_changed", { detail: { slug: entry.name, favorited: true } }),
       );
     }
-    // Attempt remote sync if token exists
+
+    // Firestore remote persistence
+    const db = getFirebaseDb();
+    if (db) {
+      void setDoc(doc(db, "users", userId, "favorites", entry.name), favItem).catch((e) => {
+        console.warn("Firestore save favorite failed:", e);
+      });
+    }
+
+    // Supabase remote sync fallback
     if (token) {
       void api.favorite(entry.name, token).catch(() => {});
     }
@@ -82,7 +123,16 @@ export function removeFavorite(
     window.dispatchEvent(
       new CustomEvent("openui:favorites_changed", { detail: { slug, favorited: false } }),
     );
-    // Attempt remote sync if token exists
+
+    // Firestore remote deletion
+    const db = getFirebaseDb();
+    if (db) {
+      void deleteDoc(doc(db, "users", userId, "favorites", slug)).catch((e) => {
+        console.warn("Firestore remove favorite failed:", e);
+      });
+    }
+
+    // Supabase remote sync fallback
     if (token) {
       void api.unfavorite(slug, token).catch(() => {});
     }

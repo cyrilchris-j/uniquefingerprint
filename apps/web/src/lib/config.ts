@@ -15,6 +15,15 @@ function read(key: string, fallback: string): string {
   return typeof value === "string" && value.length > 0 ? value : fallback;
 }
 
+export interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
 export interface AppConfig {
   /** Base URL of the registry API, without the `/api/v1` suffix. */
   apiBaseUrl: string;
@@ -22,7 +31,9 @@ export interface AppConfig {
   registryBaseUrl: string;
   supabaseUrl: string | null;
   supabaseAnonKey: string | null;
-  /** True when a Supabase project is configured, i.e. auth is available. */
+  firebase: FirebaseConfig;
+  firebaseConfigured: boolean;
+  /** True when auth (Firebase or Supabase) is configured. */
   authEnabled: boolean;
   environment: "development" | "production";
 }
@@ -44,8 +55,19 @@ export const config: AppConfig = {
     "VITE_SUPABASE_ANON_KEY",
     "sb_publishable_IsfEdcoPgI5Vu6SbcXSoXA_hLdp_CC6",
   ),
+  firebase: {
+    apiKey: read("VITE_FIREBASE_API_KEY", "AIzaSyC46YYMRXtFm-xuL3gQJr4fnFdnjl2VSmc"),
+    authDomain: read("VITE_FIREBASE_AUTH_DOMAIN", "uniquefingerprint.firebaseapp.com"),
+    projectId: read("VITE_FIREBASE_PROJECT_ID", "uniquefingerprint"),
+    storageBucket: read("VITE_FIREBASE_STORAGE_BUCKET", "uniquefingerprint.firebasestorage.app"),
+    messagingSenderId: read("VITE_FIREBASE_MESSAGING_SENDER_ID", "337898544351"),
+    appId: read("VITE_FIREBASE_APP_ID", "1:337898544351:web:f49f640435ca5f45d35d6a"),
+  },
+  get firebaseConfigured(): boolean {
+    return Boolean(this.firebase.apiKey && this.firebase.projectId);
+  },
   get authEnabled(): boolean {
-    return Boolean(this.supabaseUrl && this.supabaseAnonKey);
+    return this.firebaseConfigured || Boolean(this.supabaseUrl && this.supabaseAnonKey);
   },
   environment: import.meta.env.PROD ? "production" : "development",
 };

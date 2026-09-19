@@ -3,7 +3,7 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "https://openui1.web.app/$1",
+      "destination": "https://uniquefingerprint.web.app/$1",
       "permanent": false
     }
   ],

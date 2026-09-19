@@ -1,26 +1,24 @@
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
+import {
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+  type User as FirebaseUser,
+} from "firebase/auth";
 import * as React from "react";
 
 import type { UserRole } from "@openui/types";
 
 import * as api from "./api.js";
 import { config } from "./config.js";
+import { getFirebaseAuth } from "./firebase.js";
 
 /**
  * Authentication.
  *
- * Supabase Auth owns the credentials, the session and the refresh cycle; this
- * module owns the *translation* of a session into something the UI can use.
- *
- * The important decision is what this provider refuses to do: it never derives
- * a role from the token. The token's `role` claim is not authoritative here, and
- * the UI treats it as absent. Authority comes from `GET /me`, which reads
- * `profiles.role` from the database. The consequence is that a hand-modified
- * token cannot make the admin navigation appear, and — more importantly — that
- * the UI's idea of a role matches what the API will actually permit.
- *
- * When no Supabase project is configured the provider still renders, in a
- * permanently signed-out state, so every page works without a backend.
+ * Supports Firebase Authentication (primary when configured) and Supabase Auth (fallback).
  */
 
 export interface AuthUser {
@@ -29,13 +27,14 @@ export interface AuthUser {
   username: string | null;
   displayName: string | null;
   role: UserRole;
+  photoUrl?: string | null;
 }
 
 export interface AuthContextValue {
   user: AuthUser | null;
   /** Access token for API calls. `null` when signed out. */
   token: string | null;
-  /** False when the deployment has no Supabase project configured. */
+  /** False when the deployment has no auth configured. */
   enabled: boolean;
   /** True until the initial session has been read. */
   initialising: boolean;
@@ -57,8 +56,6 @@ export function supabase(): SupabaseClient | null {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
-      // Sessions are returned in the URL hash for OAuth; parsing it is required
-      // for the redirect back from a provider to complete.
       detectSessionInUrl: true,
       flowType: "pkce",
     },
@@ -72,23 +69,65 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
   const [initialising, setInitialising] = React.useState(true);
 
   React.useEffect(() => {
+    let active = true;
+
+    // --- Firebase Auth (Primary when configured) ---
+    if (config.firebaseConfigured) {
+      const fbAuth = getFirebaseAuth();
+      if (!fbAuth) {
+        setInitialising(false);
+        return;
+      }
+
+      const unsubscribe = onAuthStateChanged(fbAuth, async (fbUser: FirebaseUser | null) => {
+        if (!active) return;
+        if (!fbUser) {
+          setUser(null);
+          setToken(null);
+          setInitialising(false);
+          return;
+        }
+
+        try {
+          const idToken = await fbUser.getIdToken();
+          const email = fbUser.email ?? null;
+          const displayName: string | null =
+            fbUser.displayName || (email ? email.split("@")[0] : "Account User") || null;
+          const username: string | null =
+            (fbUser.displayName || (email ? email.split("@")[0] : null)) ?? null;
+
+          if (!active) return;
+          setUser({
+            id: fbUser.uid,
+            email,
+            username,
+            displayName,
+            role: "user",
+            photoUrl: fbUser.photoURL ?? null,
+          });
+          setToken(idToken);
+        } catch {
+          if (!active) return;
+          setUser(null);
+          setToken(null);
+        } finally {
+          if (active) setInitialising(false);
+        }
+      });
+
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }
+
+    // --- Supabase Auth (Fallback) ---
     const auth = supabase();
     if (!auth) {
-      // No project configured: resolve immediately so nothing waits forever.
       setInitialising(false);
       return;
     }
 
-    let active = true;
-
-    /**
-     * Turns a session into a user.
-     *
-     * The profile lookup goes through the API rather than straight to Postgres,
-     * so the role the UI believes in is the role the API will enforce. A failed
-     * lookup leaves the user signed in with the least privilege, which is the
-     * safe direction to fail in.
-     */
     const resolve = async (session: Session | null) => {
       if (!active) return;
 
@@ -146,19 +185,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
     };
   }, []);
 
-  /** Sends the browser to the provider, returning to the current origin after. */
-  const signIn = React.useCallback(async (provider: "github" | "google") => {
+  /** Handles OAuth sign-in via Firebase popup (primary) or Supabase (fallback). */
+  const signInWithGoogle = React.useCallback(async () => {
+    if (config.firebaseConfigured) {
+      const fbAuth = getFirebaseAuth();
+      if (!fbAuth) throw new Error("Firebase Auth is not configured.");
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      await signInWithPopup(fbAuth, provider);
+      return;
+    }
     const auth = supabase();
     if (!auth) throw new Error("Authentication is not configured on this deployment.");
     const redirectUrl = `${window.location.origin}/`;
     const { data, error } = await auth.auth.signInWithOAuth({
-      provider,
+      provider: "google",
       options: { redirectTo: redirectUrl },
     });
     if (error) throw error;
-    if (data?.url) {
-      window.location.href = data.url;
+    if (data?.url) window.location.href = data.url;
+  }, []);
+
+  const signInWithGitHub = React.useCallback(async () => {
+    if (config.firebaseConfigured) {
+      const fbAuth = getFirebaseAuth();
+      if (!fbAuth) throw new Error("Firebase Auth is not configured.");
+      const provider = new GithubAuthProvider();
+      provider.addScope("read:user");
+      provider.addScope("user:email");
+      await signInWithPopup(fbAuth, provider);
+      return;
     }
+    const auth = supabase();
+    if (!auth) throw new Error("Authentication is not configured on this deployment.");
+    const redirectUrl = `${window.location.origin}/`;
+    const { data, error } = await auth.auth.signInWithOAuth({
+      provider: "github",
+      options: { redirectTo: redirectUrl },
+    });
+    if (error) throw error;
+    if (data?.url) window.location.href = data.url;
   }, []);
 
   const value = React.useMemo<AuthContextValue>(
@@ -167,8 +233,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
       token,
       enabled: config.authEnabled,
       initialising,
-      signInWithGitHub: () => signIn("github"),
-      signInWithGoogle: () => signIn("google"),
+      signInWithGitHub,
+      signInWithGoogle,
       signInWithEmail: async (email: string) => {
         const auth = supabase();
         if (!auth) throw new Error("Authentication is not configured on this deployment.");
@@ -179,7 +245,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
         if (error) throw error;
       },
       signOut: async () => {
-        await supabase()?.auth.signOut();
+        if (config.firebaseConfigured) {
+          const fbAuth = getFirebaseAuth();
+          if (fbAuth) await firebaseSignOut(fbAuth);
+        }
+        if (supabase()) {
+          await supabase()?.auth.signOut();
+        }
         setUser(null);
         setToken(null);
       },
@@ -189,7 +261,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
         }
       },
     }),
-    [user, token, initialising, signIn],
+    [user, token, initialising, signInWithGoogle, signInWithGitHub],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
