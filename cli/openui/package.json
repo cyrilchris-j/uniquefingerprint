@@ -1,6 +1,6 @@
 {
   "name": "uniquefingerprint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "UniqueFingerprint CLI — install open-code UI components from the registry",
   "license": "MIT",
   "type": "module",
