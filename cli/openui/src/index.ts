@@ -69,7 +69,7 @@ async function runAdd(rawArgs: string[]) {
     process.env["UNIQUEFINGERPRINT_REGISTRY"] ??
     process.env["OPENUI_REGISTRY"] ??
     process.env["REGISTRY_BASE_URL"] ??
-    "https://uniquefingerprint.vercel.app/r";
+    "https://uniquefingerprint.web.app/r";
 
   const client = new RegistryClient({
     baseUrl: registryBaseUrl,
@@ -164,6 +164,6 @@ ${c.bold}Flags:${c.reset}
 
 ${c.bold}Environment:${c.reset}
   UNIQUEFINGERPRINT_REGISTRY  Override the registry base URL
-                             ${c.grey}Default: https://uniquefingerprint.vercel.app/r${c.reset}
+                             ${c.grey}Default: https://uniquefingerprint.web.app/r${c.reset}
 `);
 }
