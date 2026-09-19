@@ -1,4 +1,4 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env node
 /**
  * OpenUI CLI — openui add <resource> [resource2…]
  *
