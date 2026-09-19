@@ -2337,11 +2337,6 @@ export function getCatalogueVisualPreview(name: string, category?: string): Reac
     return <GenericInteractionPreview title={name} subcategory={category} />;
   }
 
-  // Guaranteed, instantaneous 60fps native specimen for all backgrounds
-  if (category === "backgrounds") {
-    return <GenericBackgroundPreview title={name} />;
-  }
-
   return null;
 }
 
