@@ -1,4 +1,4 @@
-import { BookMarked, ExternalLink, Heart, Laptop, Monitor, PackageSearch, ShieldCheck, Smartphone, Tablet } from "lucide-react";
+import { BookMarked, Heart, Laptop, Monitor, PackageSearch, Smartphone, Tablet } from "lucide-react";
 import * as React from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
@@ -22,7 +22,7 @@ import {
 } from "@openui/ui";
 
 import { CodeBlock, CommandLine } from "../components/CodeBlock.js";
-import { DnaStrip, dnaSummary } from "../components/DnaStrip.js";
+import { dnaSummary } from "../components/DnaStrip.js";
 import { MetaRow } from "../components/SectionHeader.js";
 import { ResourceTile, categorySegmentFor } from "../components/ResourceTile.js";
 import { SandboxSkeleton } from "../features/playground/Sandbox.js";
@@ -376,10 +376,6 @@ export default function ResourcePage(): React.JSX.Element {
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="install">Installation</TabsTrigger>
             <TabsTrigger value="code">Code</TabsTrigger>
-            <TabsTrigger value="dependencies">Dependencies</TabsTrigger>
-            <TabsTrigger value="design">Design DNA</TabsTrigger>
-            <TabsTrigger value="motion">Motion & Interaction</TabsTrigger>
-            <TabsTrigger value="a11y-perf">A11y & Performance</TabsTrigger>
           </TabsList>
 
           {/* Preview -------------------------------------------------- */}
@@ -484,16 +480,11 @@ export default function ResourcePage(): React.JSX.Element {
                   <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
                 </div>
 
-                <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                  Add npm dependencies
-                </h3>
-                {dependencies.length === 0 ? (
-                  <p className="mt-3 flex items-center gap-2 text-[0.9rem] text-moss">
-                    <ShieldCheck aria-hidden className="h-4 w-4" />
-                    This resource has no npm dependencies beyond React.
-                  </p>
-                ) : (
+                {dependencies.length > 0 ? (
                   <>
+                    <h3 className="mt-10 font-display text-step-2 tracking-tight">
+                      Add npm dependencies
+                    </h3>
                     <p className="mt-3 text-[0.9rem] text-graphite">
                       The CLI runs this for you. It is shown so you can review it first.
                     </p>
@@ -503,14 +494,13 @@ export default function ResourcePage(): React.JSX.Element {
                       />
                     </div>
                   </>
-                )}
+                ) : null}
 
                 <h3 className="mt-10 font-display text-step-2 tracking-tight">
                   Or install manually
                 </h3>
                 <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                  Copy the source from the Code tab into your project, then add the npm
-                  dependencies above. The source imports <code className="font-mono">@/lib/cn</code>
+                  Copy the source from the Code tab into your project{dependencies.length > 0 ? ", then add the npm dependencies above" : ""}. The source imports <code className="font-mono">@/lib/cn</code>
                   ; the CLI rewrites that alias to match your project's configuration.
                 </p>
               </div>
@@ -576,206 +566,6 @@ export default function ResourcePage(): React.JSX.Element {
             ) : (
               <Skeleton lines={12} />
             )}
-          </TabsContent>
-
-          {/* Dependencies --------------------------------------------- */}
-          <TabsContent value="dependencies">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">npm dependencies</h2>
-                {dependencies.length === 0 ? (
-                  <p className="mt-3 text-[0.9rem] text-graphite">
-                    None. This resource depends only on React.
-                  </p>
-                ) : (
-                  <ul className="mt-4">
-                    {dependencies.map((name) => (
-                      <li
-                        key={name}
-                        className="flex items-center justify-between border-b border-line py-3"
-                      >
-                        <span className="font-mono text-[0.85rem] text-ink">{name}</span>
-                        <a
-                          href={`https://www.npmjs.com/package/${encodeURIComponent(name)}`}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="eyebrow flex items-center gap-1 transition-colors hover:text-ink"
-                        >
-                          npm
-                          <ExternalLink aria-hidden className="h-3 w-3" />
-                          <span className="sr-only">(opens in a new tab)</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Registry dependencies</h2>
-                {entry.registryDependencies.length === 0 ? (
-                  <p className="mt-3 text-[0.9rem] text-graphite">
-                    None. This resource installs on its own.
-                  </p>
-                ) : (
-                  <p className="mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                    These are other registry resources the CLI installs first, in order.
-                  </p>
-                )}
-                <ul className="mt-4">
-                  {entry.registryDependencies.map((name) => (
-                    <li key={name} className="border-b border-line py-3">
-                      <Link
-                        to={`/components/${name}`}
-                        className="font-mono text-[0.85rem] text-ink transition-colors hover:text-oxide"
-                      >
-                        {name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Design ---------------------------------------------------- */}
-          <TabsContent value="design">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Design fingerprint</h2>
-                <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                  Six declared dimensions. They are the vocabulary a model or a teammate uses to
-                  decide whether this resource belongs in the interface they are building — before
-                  reading any code.
-                </p>
-                <div className="mt-6">
-                  <DnaStrip dna={entry.dna} variant="labelled" />
-                </div>
-              </div>
-
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Design rules</h2>
-                {itemState.data?.designRules ? (
-                  <pre className="code-plate code-plate--light mt-4 max-h-[32rem] overflow-auto whitespace-pre-wrap font-mono text-[0.78rem] leading-relaxed">
-                    {itemState.data.designRules}
-                  </pre>
-                ) : (
-                  <p className="mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                    This resource does not ship a <code className="font-mono">design.md</code>. That
-                    is allowed — but a resource with one is easier to compose and is what the AI
-                    resources in this registry read.
-                  </p>
-                )}
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Motion & Interaction -------------------------------------- */}
-          <TabsContent value="motion">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Motion System</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  UniqueFingerprint motion is calibrated for tactile response without sluggishness. All transforms use GPU-accelerated 3D composition.
-                </p>
-
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Motion Language</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.dna?.motionLanguage ?? "subtle"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Motion Model</dt>
-                    <dd className="font-mono text-xs text-oxide">{entry.fingerprint?.motionModel ?? "spring-damped"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Max Duration</dt>
-                    <dd className="font-mono text-xs text-ink">520ms (budget limit)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Reduced Motion Mode</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Instant state swap</dd>
-                  </div>
-                </dl>
-              </div>
-
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Interaction Profile</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  How the user engages with this resource across mouse, touch, and keyboard modalities.
-                </p>
-
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Interaction Model</dt>
-                    <dd className="font-mono text-xs text-oxide">{entry.fingerprint?.interactionModel ?? "pointer-reactive"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Semantic Purpose</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.fingerprint?.semanticPurpose ?? "interface-accent"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Touch Adaptation</dt>
-                    <dd className="font-mono text-xs text-ink">Active (no stuck hover)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Keyboard Target</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Native focus ring</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Accessibility & Performance -------------------------------- */}
-          <TabsContent value="a11y-perf">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Accessibility Contract</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  Verified against WCAG 2.1 AA guidelines. Visual effects never obscure content or impede navigation.
-                </p>
-                <ul className="mt-6 space-y-3">
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Prefers Reduced Motion:</strong> All kinetic transitions collapse to static states when user preferences request reduced motion.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Keyboard Reachable:</strong> Interactive elements participate in normal tab order with visible high-contrast focus rings.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Semantic HTML:</strong> Real headings, buttons, and landmark roles used before ARIA overrides.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Performance & GPU Budget</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  Engineered to maintain 60 FPS without battery degradation or main-thread locking.
-                </p>
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Visual Model</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.fingerprint?.visualModel ?? "dom-css"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Frame Budget</dt>
-                    <dd className="font-mono text-xs text-ink">16.6ms target (60 FPS)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Offscreen Pausing</dt>
-                    <dd className="font-mono text-xs text-moss">✓ IntersectionObserver loop sleep</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Memory Disposal</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Clean context release</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
           </TabsContent>
         </Tabs>
       </div>

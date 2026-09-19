@@ -13,7 +13,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
   const { slug, category } = useParams<{ slug: string; category: string }>();
   const item = slug ? getAdvancedItemBySlug(slug) : undefined;
 
-  const [activeTab, setActiveTab] = React.useState<"preview" | "code" | "install" | "dna">("preview");
+  const [activeTab, setActiveTab] = React.useState<"preview" | "code" | "install">("preview");
   const [viewport, setViewport] = React.useState<"desktop" | "tablet" | "mobile">("desktop");
   const [reducedMotion, setReducedMotion] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
@@ -62,7 +62,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
       <nav aria-label="Breadcrumb" className="mb-6">
         <ol className="flex items-center gap-2 font-mono text-[11px] text-graphite">
           <li>
-            <Link to="/" className="hover:text-ink">OpenUI</Link>
+            <Link to="/" className="hover:text-ink">UniqueFingerprint</Link>
           </li>
           <li>/</li>
           <li>
@@ -105,7 +105,6 @@ export default function AdvancedDetailPage(): React.JSX.Element {
               <TabsTrigger value="preview">Live Preview</TabsTrigger>
               <TabsTrigger value="code">Source Code</TabsTrigger>
               <TabsTrigger value="install">Install & Spec</TabsTrigger>
-              <TabsTrigger value="dna">Design DNA</TabsTrigger>
             </TabsList>
 
             {/* Viewport & Accessibility Toggles */}
@@ -242,7 +241,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
                 <CodeBlock
                   caption="terminal"
                   language="bash"
-                  code={`# Install with OpenUI CLI\n${installCommand}\n\n# Peer dependencies\npnpm add ${item.dependencies.join(" ")}`}
+                  code={`# Install with UniqueFingerprint CLI\n${installCommand}\n\n# Peer dependencies\npnpm add ${item.dependencies.join(" ")}`}
                 />
               </div>
 
@@ -269,26 +268,6 @@ export default function AdvancedDetailPage(): React.JSX.Element {
                   </table>
                 </div>
               </div>
-            </div>
-          </TabsContent>
-
-          {/* Design DNA Tab */}
-          <TabsContent value="dna" className="mt-6">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                ["Visual Family", item.fingerprint.visualFamily, "Harmonious visual treatment calibrated for editorial and technical interfaces."],
-                ["Motion Profile", item.fingerprint.motionProfile, "Dynamic spring response and duration curve configuration."],
-                ["Interaction Profile", item.fingerprint.interactionProfile, "Hardware pointer and tactile input model."],
-                ["Performance Tier", item.fingerprint.performanceTier, "GPU frame budget and offscreen pause management."],
-                ["Accessibility", item.fingerprint.accessibilityProfile, "WCAG AA semantic markup, keyboard focus, and screen-reader support."],
-                ["Responsive Profile", item.fingerprint.responsiveProfile, "Fluid adaptations for desktop, tablet, and touch screens."],
-              ].map(([title, val, desc]) => (
-                <div key={title} className="p-4 border border-line rounded-lg bg-paper">
-                  <span className="font-mono text-[10px] text-graphite uppercase tracking-wider">{title}</span>
-                  <p className="mt-1 font-display font-medium text-ink text-sm capitalize">{val}</p>
-                  <p className="mt-1 text-[11px] text-graphite leading-relaxed">{desc}</p>
-                </div>
-              ))}
             </div>
           </TabsContent>
         </Tabs>
