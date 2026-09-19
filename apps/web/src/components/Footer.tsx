@@ -43,7 +43,7 @@ export function Footer(): React.JSX.Element {
         <nav aria-label="Registry">
           <p className="eyebrow mb-4">Registry</p>
           <ul className="flex flex-col gap-2">
-            {CATALOGUE_CATEGORIES.slice(0, 6).map((category) => (
+            {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
               <li key={category.slug}>
                 <Link
                   to={`/${category.slug}`}
@@ -59,7 +59,7 @@ export function Footer(): React.JSX.Element {
         <nav aria-label="Systems">
           <p className="eyebrow mb-4">Systems</p>
           <ul className="flex flex-col gap-2">
-            {CATALOGUE_CATEGORIES.slice(6).map((category) => (
+            {CATALOGUE_CATEGORIES.slice(4).map((category) => (
               <li key={category.slug}>
                 <Link
                   to={`/${category.slug}`}

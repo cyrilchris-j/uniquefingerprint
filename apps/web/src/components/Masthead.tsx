@@ -1,4 +1,16 @@
-import { ChevronDown, Download, Menu, Search, X } from "lucide-react";
+import {
+  Box,
+  ChevronDown,
+  Download,
+  Layers,
+  Layout,
+  LayoutGrid,
+  Menu,
+  Palette,
+  Search,
+  Sparkles,
+  X,
+} from "lucide-react";
 import * as React from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
 
@@ -114,6 +126,8 @@ export function Masthead(): React.JSX.Element {
   }, [location.pathname]);
 
   const isSystemsActive = [
+    "/backgrounds",
+    "/layouts",
     "/sections",
     "/blocks",
     "/themes",
@@ -143,7 +157,7 @@ export function Masthead(): React.JSX.Element {
   return (
     <header className="masthead">
       <div className="shell flex h-14 sm:h-16 items-center justify-between gap-4 max-w-full min-w-0">
-        <div className="flex items-center gap-6 xl:gap-8 2xl:gap-10 min-w-0">
+        <div className="flex items-center gap-5 xl:gap-7 2xl:gap-9 min-w-0">
           <Link
             to="/"
             className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus-visible:outline-none"
@@ -162,7 +176,7 @@ export function Masthead(): React.JSX.Element {
 
           <nav aria-label="Catalogue" className="hidden xl:block min-w-0">
             <ul className="flex items-center gap-3.5 2xl:gap-5 min-w-0">
-              {CATALOGUE_CATEGORIES.slice(0, 6).map((category) => (
+              {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
                 <li key={category.slug}>
                   <NavLink
                     to={`/${category.slug}`}
@@ -195,35 +209,106 @@ export function Masthead(): React.JSX.Element {
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent
-                    align="center"
+                    align="start"
                     sideOffset={8}
-                    className="w-72 p-1.5 bg-paper border border-line shadow-xl z-50 rounded-lg"
+                    className="w-96 p-2 bg-paper/98 dark:bg-[#141413]/98 backdrop-blur-md border border-line shadow-2xl z-50 rounded-xl animate-in fade-in zoom-in-95 duration-100 text-left"
                   >
-                    <div className="px-2.5 py-1 mb-1 border-b border-line/40 flex items-center justify-between">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-graphite font-bold">
+                    <div className="px-3 py-1.5 mb-1.5 border-b border-line/40 flex items-center justify-between">
+                      <span className="font-mono text-[9.5px] uppercase tracking-widest text-graphite font-bold">
                         Systems & Architecture
                       </span>
-                      <span className="font-mono text-[9px] text-oxide font-bold">4 Categories</span>
+                      <span className="font-mono text-[9px] text-oxide font-bold uppercase tracking-wider bg-oxide/10 px-1.5 py-0.5 rounded border border-oxide/20">
+                        6 Categories
+                      </span>
                     </div>
+
+                    <DropdownMenuItem asChild className="p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
+                      <Link
+                        to="/backgrounds"
+                        className={cn(
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
+                          "hover:bg-line/10 data-[highlighted]:bg-line/10",
+                          location.pathname.startsWith("/backgrounds")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
+                        )}
+                      >
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <Sparkles className="h-3.5 w-3.5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Backgrounds
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium text-oxide bg-oxide/10 border border-oxide/20">
+                              Canvas & Shader
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Surfaces, generative shaders, canvas loops & ambient fields
+                          </p>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild className="p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
+                      <Link
+                        to="/layouts"
+                        className={cn(
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
+                          "hover:bg-line/10 data-[highlighted]:bg-line/10",
+                          location.pathname.startsWith("/layouts")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
+                        )}
+                      >
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <Layout className="h-3.5 w-3.5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Layouts
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium text-graphite bg-surface border border-line/50">
+                              Structure
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Asymmetric composition primitives, bento grids & page shells
+                          </p>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
 
                     <DropdownMenuItem asChild className="p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
                       <Link
                         to="/sections"
                         className={cn(
-                          "group flex flex-col gap-0.5 px-3 py-2 w-full rounded transition-colors duration-fast",
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
                           "hover:bg-line/10 data-[highlighted]:bg-line/10",
-                          location.pathname.startsWith("/sections") ? "bg-line/10 border-l-2 border-oxide" : "border-l-2 border-transparent",
+                          location.pathname.startsWith("/sections")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
                         )}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
-                            Sections
-                          </span>
-                          <span className="text-[9px] font-mono text-graphite/70 uppercase">Hero & Nav</span>
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <LayoutGrid className="h-3.5 w-3.5" />
                         </div>
-                        <span className="text-[10px] text-graphite leading-tight">
-                          Whole page regions, headers, heroes, footers
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Sections
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium text-graphite bg-surface border border-line/50">
+                              Hero & Nav
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Whole page regions, headers, heroes, footers
+                          </p>
+                        </div>
                       </Link>
                     </DropdownMenuItem>
 
@@ -231,20 +316,29 @@ export function Masthead(): React.JSX.Element {
                       <Link
                         to="/blocks"
                         className={cn(
-                          "group flex flex-col gap-0.5 px-3 py-2 w-full rounded transition-colors duration-fast",
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
                           "hover:bg-line/10 data-[highlighted]:bg-line/10",
-                          location.pathname.startsWith("/blocks") ? "bg-line/10 border-l-2 border-oxide" : "border-l-2 border-transparent",
+                          location.pathname.startsWith("/blocks")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
                         )}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
-                            Blocks
-                          </span>
-                          <span className="text-[9px] font-mono text-graphite/70 uppercase">Composite</span>
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <Box className="h-3.5 w-3.5" />
                         </div>
-                        <span className="text-[10px] text-graphite leading-tight">
-                          Multi-part application surfaces & working blocks
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Blocks
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium text-graphite bg-surface border border-line/50">
+                              Composite
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Multi-part application surfaces & working blocks
+                          </p>
+                        </div>
                       </Link>
                     </DropdownMenuItem>
 
@@ -252,20 +346,29 @@ export function Masthead(): React.JSX.Element {
                       <Link
                         to="/themes"
                         className={cn(
-                          "group flex flex-col gap-0.5 px-3 py-2 w-full rounded transition-colors duration-fast",
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
                           "hover:bg-line/10 data-[highlighted]:bg-line/10",
-                          location.pathname.startsWith("/themes") ? "bg-line/10 border-l-2 border-oxide" : "border-l-2 border-transparent",
+                          location.pathname.startsWith("/themes")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
                         )}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
-                            Themes
-                          </span>
-                          <span className="text-[9px] font-mono text-graphite/70 uppercase">Tokens</span>
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <Palette className="h-3.5 w-3.5" />
                         </div>
-                        <span className="text-[10px] text-graphite leading-tight">
-                          Visual token sets, palette voices & themes
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Themes
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium text-graphite bg-surface border border-line/50">
+                              Tokens
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Visual token sets, palette voices & themes
+                          </p>
+                        </div>
                       </Link>
                     </DropdownMenuItem>
 
@@ -273,20 +376,29 @@ export function Masthead(): React.JSX.Element {
                       <Link
                         to="/design-systems"
                         className={cn(
-                          "group flex flex-col gap-0.5 px-3 py-2 w-full rounded transition-colors duration-fast",
+                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
                           "hover:bg-line/10 data-[highlighted]:bg-line/10",
-                          location.pathname.startsWith("/design-systems") ? "bg-line/10 border-l-2 border-oxide" : "border-l-2 border-transparent",
+                          location.pathname.startsWith("/design-systems")
+                            ? "bg-line/15 border-l-2 border-oxide"
+                            : "border-l-2 border-transparent",
                         )}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
-                            Design Systems
-                          </span>
-                          <span className="text-[9px] font-mono text-oxide font-bold uppercase">Complete</span>
+                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
+                          <Layers className="h-3.5 w-3.5" />
                         </div>
-                        <span className="text-[10px] text-graphite leading-tight">
-                          Full brand systems, tokens, typography & rules
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
+                              Design Systems
+                            </span>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-bold text-oxide bg-oxide/10 border border-oxide/20">
+                              Complete
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
+                            Full brand systems, tokens, typography & rules
+                          </p>
+                        </div>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
