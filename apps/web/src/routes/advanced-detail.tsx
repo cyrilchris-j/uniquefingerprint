@@ -767,14 +767,6 @@ export default function AdvancedDetailPage(): React.JSX.Element {
         </section>
       )}
 
-      {/* Licence footer */}
-      <div className="shell mt-8 -mb-10 sm:-mb-20">
-        <div className="flex items-center justify-end">
-          <p className="eyebrow text-[10px] text-graphite/70">
-            Licence MIT · verify before redistribution
-          </p>
-        </div>
-      </div>
     </article>
   );
 }
