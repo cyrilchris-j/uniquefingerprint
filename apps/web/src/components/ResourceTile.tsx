@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
@@ -6,26 +5,19 @@ import type { RegistryIndexEntry } from "@openui/types";
 import { cn } from "@openui/ui";
 
 import { getAdvancedItemBySlug } from "../advanced/index.js";
-import { DnaStrip } from "./DnaStrip.js";
 import { TilePreview } from "./TilePreview.js";
 
 /**
  * A catalogue tile.
  *
- * Square, hairline-bordered, and part of a 1px-gap grid so the tiles read as
- * cells of one plate rather than as separate floating cards — the grid's own
- * rules do the separating.
- *
- * The whole tile is a link, and the link wraps the *heading* rather than the
- * tile: this keeps one tab stop per tile, keeps the target size large, and keeps
- * the accessible name equal to the resource title. A tile that contains three
- * links plus a favourite button is four tab stops for one destination.
+ * Clean, standard card container displaying the component's live preview,
+ * category taxonomy, performance tier, title, description, tags, and detail action.
  */
 export interface ResourceTileProps {
   item: RegistryIndexEntry;
-  /** Catalogue position, rendered as a monospace index. */
+  /** Catalogue position, preserved for API compatibility. */
   index?: number;
-  /** Render a lazy live preview above the metadata. Opt-in per surface. */
+  /** Render a live preview above the metadata. Opt-in per surface. */
   withPreview?: boolean;
   className?: string;
 }
@@ -41,10 +33,32 @@ function recordTileClick(itemName: string) {
   }
 }
 
-export function ResourceTile({ item, index, withPreview = true, className }: ResourceTileProps): React.JSX.Element {
+export function ResourceTile({
+  item,
+  withPreview = true,
+  className,
+}: ResourceTileProps): React.JSX.Element {
   const adv = getAdvancedItemBySlug(item.name);
   const href = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${categorySegmentFor(item.category)}/${item.name}`;
-  const dependencies = item.dependencies.filter((name) => name !== "react");
+
+  const categoryText = (item.category || "component").toUpperCase();
+  const subcategoryText = item.subcategory
+    ? item.subcategory.toUpperCase()
+    : item.dna?.genre
+      ? String(item.dna.genre).toUpperCase()
+      : "";
+  const categoryHeader = subcategoryText ? `${categoryText} · ${subcategoryText}` : categoryText;
+
+  const tierBadge =
+    adv?.fingerprint?.performanceTier ||
+    item.difficulty ||
+    (item.dna?.density ? String(item.dna.density) : null) ||
+    "moderate";
+
+  const tags =
+    item.tags && item.tags.length > 0
+      ? item.tags.slice(0, 2).map((t) => `#${t.replace(/^#/, "")}`).join(" ")
+      : `#${item.category} #${item.subcategory || "ui"}`;
 
   return (
     <article
@@ -52,57 +66,51 @@ export function ResourceTile({ item, index, withPreview = true, className }: Res
       data-item-slug={item.name}
       onClick={() => recordTileClick(item.name)}
       className={cn(
-        "group relative flex flex-col bg-white dark:bg-[#141413] border border-line/30 dark:border-line/20 rounded-xl overflow-hidden shadow-xs hover:shadow-lg hover:border-ink/40 dark:hover:border-ink/50 transition-all duration-normal ease-editorial hover:-translate-y-0.5",
-        withPreview ? "" : "p-5 sm:p-6",
+        "group relative flex flex-col justify-between overflow-hidden border border-line bg-paper rounded-lg transition-all duration-fast hover:border-ink/60 hover:shadow-xs",
         className,
       )}
     >
-      {index !== undefined ? (
-        <span
-          aria-hidden
-          className="absolute right-3.5 top-3.5 sm:right-4 sm:top-4 z-10 font-mono text-[10px] tracking-[0.2em] text-graphite bg-white/90 dark:bg-black/80 px-2 py-0.5 rounded border border-line/20 backdrop-blur-xs shadow-xs"
-        >
-          {String(index).padStart(2, "0")}
-        </span>
+      {/* Live Preview Container */}
+      {withPreview ? (
+        <div className="h-44 sm:h-48 w-full border-b border-line/30 overflow-hidden bg-surface/20">
+          <TilePreview item={item} />
+        </div>
       ) : null}
 
-      {withPreview ? <TilePreview item={item} /> : null}
-
-      <div className={cn("flex items-center gap-2", withPreview && "px-5 pt-5 sm:px-6 sm:pt-6")}>
-        <span className="eyebrow text-[10px] sm:text-[11px]">{item.type.replace("registry:", "")}</span>
-        {item.license ? (
-          <>
-            <span aria-hidden className="text-graphite/50">
-              ·
+      {/* Meta & Info */}
+      <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
+        <div>
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="font-mono text-[9px] uppercase tracking-wider text-graphite">
+              {categoryHeader}
             </span>
-            <span className="eyebrow text-[10px] sm:text-[11px]">{item.license}</span>
-          </>
-        ) : null}
-      </div>
+            <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-line/50 text-ink/70">
+              {tierBadge}
+            </span>
+          </div>
 
-      <h3 className={cn("max-w-[24ch] font-display text-xl sm:text-step-2 leading-tight sm:leading-[1.1] tracking-tight text-ink", withPreview ? "mt-3 px-5 sm:px-6" : "mt-2.5 sm:mt-3")}>
-        <Link
-          to={href}
-          onClick={() => recordTileClick(item.name)}
-          className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
-        >
-          {item.title}
-        </Link>
-      </h3>
+          <h3 className="font-display font-semibold text-ink text-base group-hover:text-ink">
+            <Link
+              to={href}
+              onClick={() => recordTileClick(item.name)}
+              className="focus:outline-hidden"
+            >
+              <span className="absolute inset-0 z-10" aria-hidden="true" />
+              {item.title}
+            </Link>
+          </h3>
 
-      <p className={cn("max-w-[44ch] text-[0.82rem] sm:text-[0.88rem] leading-relaxed text-graphite line-clamp-2 sm:line-clamp-none", withPreview ? "mt-2.5 px-5 sm:px-6" : "mt-2.5 sm:mt-3")}>
-        {item.description}
-      </p>
-
-      <div className={cn("mt-auto", withPreview ? "px-5 pb-5 pt-5 sm:px-6 sm:pb-6" : "pt-5 sm:pt-6")}>
-        <DnaStrip dna={item.dna} />
-        <div className="mt-3 flex items-center justify-between gap-3 border-t border-line/10 pt-3">
-          <p className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.14em] text-graphite truncate">
-            {dependencies.length === 0 ? "zero dependencies" : dependencies.length === 1 ? dependencies[0] : `${dependencies.length} deps`}
+          <p className="mt-1 text-[12px] text-graphite line-clamp-2 leading-relaxed">
+            {item.description}
           </p>
-          <span className="flex items-center gap-1 font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.14em] text-graphite transition-colors duration-fast group-hover:text-oxide shrink-0">
-            Open
-            <ArrowUpRight aria-hidden className="h-3 w-3" />
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-line/30 flex items-center justify-between text-[11px] font-mono text-graphite">
+          <span className="truncate">
+            {tags}
+          </span>
+          <span className="text-ink/60 group-hover:text-ink transition-colors flex items-center gap-1">
+            View Details &rarr;
           </span>
         </div>
       </div>

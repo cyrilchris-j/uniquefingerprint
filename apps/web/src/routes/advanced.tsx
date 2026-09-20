@@ -80,10 +80,6 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
               })),
             ]}
           />
-
-          <p className="eyebrow text-graphite text-[11px] self-start sm:self-auto">
-            {filteredItems.length} {filteredItems.length === 1 ? "resource" : "resources"} available
-          </p>
         </div>
 
         {/* Technology Filter Chips */}
