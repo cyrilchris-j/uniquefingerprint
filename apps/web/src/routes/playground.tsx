@@ -10,13 +10,11 @@ import {
   Skeleton,
 } from "@openui/ui";
 
-import { SectionHeader } from "../components/SectionHeader.js";
 import { Sandbox, SandboxSkeleton } from "../features/playground/Sandbox.js";
 import { buildSandboxFiles } from "../features/playground/files.js";
 import { useRegistryIndex, useRegistryItem } from "../features/resources/use-catalogue.js";
 import { categorySegmentFor } from "../components/ResourceTile.js";
 import { useDocumentTitle } from "../hooks/use-document-title.js";
-import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
 
 /**
@@ -122,15 +120,8 @@ export default function Demo() {
   }, [itemData]);
 
   return (
-    <div className="shell py-16">
-      <SectionHeader
-        as="h1"
-        eyebrow="Playground"
-        title="Interactive Sandbox."
-        description="The preview runs inside a sandboxed iframe with isolated rendering and live interaction."
-      />
-
-      <div className="mt-10 grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
+    <div className="shell pt-6 sm:pt-10 pb-12">
+      <div className="grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
         {/* Resource picker */}
         <aside aria-label="Choose a resource">
           <div className="flex items-baseline justify-between">
@@ -211,21 +202,6 @@ export default function Demo() {
         </div>
       </div>
 
-      <nav aria-label="Browse by category" className="mt-20 border-t border-line pt-6">
-        <p className="eyebrow mb-4">Browse</p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3">
-          {CATALOGUE_CATEGORIES.map((category) => (
-            <li key={category.slug}>
-              <Link
-                to={`/${category.slug}`}
-                className="text-[0.9rem] text-graphite transition-colors duration-fast hover:text-ink"
-              >
-                {category.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </div>
   );
 }
@@ -243,7 +219,7 @@ function PlaygroundSurface({
     <>
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-4">
         <div>
-          <h2 className="font-display text-step-2 leading-tight tracking-tight">{item.title}</h2>
+          <h1 className="font-display text-step-2 leading-tight tracking-tight">{item.title}</h1>
           <p className="mt-1 flex flex-wrap items-center gap-2">
             <Link
               to={`/${categorySegmentFor(item.category)}/${item.name}`}
