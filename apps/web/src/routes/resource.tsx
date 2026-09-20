@@ -1,4 +1,4 @@
-import { BookMarked, Heart, Laptop, Monitor, PackageSearch, Smartphone, Tablet } from "lucide-react";
+import { Heart, Laptop, Monitor, PackageSearch, Smartphone, Tablet } from "lucide-react";
 import * as React from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
@@ -22,7 +22,6 @@ import {
 } from "@openui/ui";
 
 import { CodeBlock, CommandLine } from "../components/CodeBlock.js";
-import { dnaSummary } from "../components/DnaStrip.js";
 import { MetaRow } from "../components/SectionHeader.js";
 import { ResourceTile, categorySegmentFor } from "../components/ResourceTile.js";
 import { SandboxSkeleton } from "../features/playground/Sandbox.js";
@@ -101,7 +100,6 @@ export default function ResourcePage(): React.JSX.Element {
   }, [slug, entry?.name]);
 
   const activeTab = searchParams.get("tab") ?? "preview";
-  const previewView = searchParams.get("view") === "code" ? "code" : "preview";
 
   // Auto-detect mobile screen so resources default to mobile view on phones
   const isMobileClient =
@@ -213,8 +211,6 @@ export default function ResourcePage(): React.JSX.Element {
     );
   }
 
-  const dependencies = entry.dependencies.filter((name) => name !== "react");
-
   return (
     <article className="pb-16">
       {/* ------------------------------------------------------------ */}
@@ -288,17 +284,10 @@ export default function ResourcePage(): React.JSX.Element {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
-                    Edit the source live with the isolated sandbox and a full editor
+                    View and interact with the live demo in the sandbox
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
-              <Button variant="ghost" asChild>
-                <Link to="/submit">
-                  <BookMarked aria-hidden className="h-3.5 w-3.5" />
-                  Report a problem
-                </Link>
-              </Button>
             </div>
 
             {favoriteError ? (
@@ -333,35 +322,11 @@ export default function ResourcePage(): React.JSX.Element {
                 <MetaRow label="Type">
                   <span className="font-mono">{entry.type}</span>
                 </MetaRow>
-                <MetaRow label="Licence">{entry.license ?? "Not declared"}</MetaRow>
-                {entry.designSystem ? (
-                  <MetaRow label="Design system">
-                    <Link to={`/design-systems/${entry.designSystem}`} className="text-oxide">
-                      {entry.designSystem}
-                    </Link>
-                  </MetaRow>
-                ) : null}
-                <MetaRow label="Fingerprint">
-                  <span className="text-graphite">{dnaSummary(entry.dna)}</span>
+                <MetaRow label="Category">
+                  <span className="capitalize">{entry.category}</span>
                 </MetaRow>
+                <MetaRow label="Licence">{entry.license ?? "MIT"}</MetaRow>
               </dl>
-
-              {entry.tags.length > 0 ? (
-                <>
-                  <p className="eyebrow mb-3 mt-6">Tags</p>
-                  <ul className="flex flex-wrap gap-1.5">
-                    {entry.tags.map((tag) => (
-                      <li key={tag}>
-                        <Link to={`/search?tag=${encodeURIComponent(tag)}`}>
-                          <Badge className="transition-colors hover:border-ink hover:text-ink">
-                            {tag}
-                          </Badge>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : null}
             </div>
           </aside>
         </div>
@@ -380,26 +345,11 @@ export default function ResourcePage(): React.JSX.Element {
 
           {/* Preview -------------------------------------------------- */}
           <TabsContent value="preview">
-            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+            <div className="mb-4 sm:mb-6">
               <p className="prose-measure text-[0.9rem] text-graphite">
                 The resource runs in an isolated document. Nothing it does can reach this page, your
                 session or your files.
               </p>
-              <SegmentedControl
-                label="Preview mode"
-                hideLabel
-                value={previewView}
-                onValueChange={(value) => {
-                  const next = new URLSearchParams(searchParams);
-                  if (value === "preview") next.delete("view");
-                  else next.set("view", value);
-                  setSearchParams(next, { replace: true, preventScrollReset: true });
-                }}
-                options={[
-                  { value: "preview", label: "Preview" },
-                  { value: "code", label: "Code + preview" },
-                ]}
-              />
             </div>
 
             {/* Viewport tester: the preview container width is constrained so
@@ -451,7 +401,7 @@ export default function ResourcePage(): React.JSX.Element {
 
             <React.Suspense fallback={<SandboxSkeleton />}>
               {itemState.data ? (
-                <Sandbox item={itemState.data} view={previewView === "code" ? "split" : "preview"} />
+                <Sandbox item={itemState.data} view="preview" />
               ) : itemState.error ? (
                 <EmptyState
                   eyebrow="Preview unavailable"
@@ -467,82 +417,26 @@ export default function ResourcePage(): React.JSX.Element {
 
           {/* Installation --------------------------------------------- */}
           <TabsContent value="install">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-3 tracking-tight">Install with the CLI</h2>
-                <p className="prose-measure mt-4 text-[0.92rem] leading-relaxed text-graphite">
-                  The CLI resolves this item and its registry dependencies, verifies the integrity
-                  digest, checks your project for conflicts, and only then writes. It never
-                  overwrites a file you have edited without telling you.
-                </p>
+            <div className="max-w-2xl">
+              <h2 className="font-display text-step-3 tracking-tight">Install with the CLI</h2>
+              <p className="prose-measure mt-4 text-[0.92rem] leading-relaxed text-graphite">
+                The CLI resolves this item and its registry dependencies, verifies the integrity
+                digest, checks your project for conflicts, and only then writes. It never
+                overwrites a file you have edited without telling you.
+              </p>
 
-                <div className="mt-6">
-                  <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
-                </div>
-
-                {dependencies.length > 0 ? (
-                  <>
-                    <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                      Add npm dependencies
-                    </h3>
-                    <p className="mt-3 text-[0.9rem] text-graphite">
-                      The CLI runs this for you. It is shown so you can review it first.
-                    </p>
-                    <div className="mt-4">
-                      <CommandLine
-                        command={`pnpm add ${dependencies.join(" ")}`}
-                      />
-                    </div>
-                  </>
-                ) : null}
-
-                <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                  Or install manually
-                </h3>
-                <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                  Copy the source from the Code tab into your project{dependencies.length > 0 ? ", then add the npm dependencies above" : ""}. The source imports <code className="font-mono">@/lib/cn</code>
-                  ; the CLI rewrites that alias to match your project's configuration.
-                </p>
+              <div className="mt-6">
+                <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
               </div>
 
-              <aside>
-                <div className="border-t border-line pt-4">
-                  <p className="eyebrow mb-3">What the CLI does</p>
-                  <ol className="flex flex-col">
-                    {[
-                      "Reads uniquefingerprint.json for your registry and aliases.",
-                      "Fetches the artifact and verifies its integrity digest.",
-                      "Resolves registry dependencies first, depth-first.",
-                      "Diffs every target path against your project.",
-                      "Writes only when there is no conflict, or asks.",
-                    ].map((step, position) => (
-                      <li key={step} className="flex gap-3 border-b border-line py-3">
-                        <span className="font-mono text-[10px] tracking-[0.2em] text-graphite">
-                          {String(position + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-[0.86rem] leading-relaxed text-graphite">{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-
-                  <p className="eyebrow mb-3 mt-6">Registry dependencies</p>
-                  {entry.registryDependencies.length === 0 ? (
-                    <p className="text-[0.86rem] text-graphite">None.</p>
-                  ) : (
-                    <ul className="flex flex-wrap gap-1.5">
-                      {entry.registryDependencies.map((name) => (
-                        <li key={name}>
-                          <Link to={`/components/${name}`}>
-                            <Badge className="transition-colors hover:border-ink hover:text-ink">
-                              {name}
-                            </Badge>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </aside>
+              <h3 className="mt-10 font-display text-step-2 tracking-tight">
+                Or install manually
+              </h3>
+              <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
+                Copy the source from the Code tab into your project. The source imports{" "}
+                <code className="font-mono">@/lib/cn</code>; the CLI rewrites that alias to match your
+                project's configuration.
+              </p>
             </div>
           </TabsContent>
 
@@ -552,6 +446,11 @@ export default function ResourcePage(): React.JSX.Element {
               <div className="flex flex-col gap-6">
                 {itemState.data.files
                   .filter((file) => !file.path.endsWith("registry.json"))
+                  .sort((a, b) => {
+                    if (a.path.includes("demo") && !b.path.includes("demo")) return 1;
+                    if (!a.path.includes("demo") && b.path.includes("demo")) return -1;
+                    return 0;
+                  })
                   .map((file) => (
                     <CodeBlock
                       key={file.path}
@@ -562,6 +461,15 @@ export default function ResourcePage(): React.JSX.Element {
                       maxLines={40}
                     />
                   ))}
+                {!itemState.data.files.some((file) => file.path.endsWith("cn.ts")) && (
+                  <CodeBlock
+                    caption="lib/cn.ts"
+                    language="tsx"
+                    code={CN_HELPER_CODE}
+                    showLineNumbers
+                    maxLines={40}
+                  />
+                )}
               </div>
             ) : (
               <Skeleton lines={12} />
@@ -606,3 +514,15 @@ function languageFor(path: string): string {
   if (path.endsWith(".md")) return "markdown";
   return "text";
 }
+
+const CN_HELPER_CODE = `import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Merges conditional class names and resolves Tailwind conflicts.
+ */
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}
+`;
+

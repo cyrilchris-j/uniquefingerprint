@@ -1,5 +1,3 @@
-import Editor from "@monaco-editor/react";
-import { RotateCcw, Save } from "lucide-react";
 import * as React from "react";
 import { Link, useSearchParams } from "react-router";
 
@@ -10,13 +8,8 @@ import {
   EmptyState,
   SegmentedControl,
   Skeleton,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
 } from "@openui/ui";
 
-import { CodeBlock } from "../components/CodeBlock.js";
 import { SectionHeader } from "../components/SectionHeader.js";
 import { Sandbox, SandboxSkeleton } from "../features/playground/Sandbox.js";
 import { buildSandboxFiles } from "../features/playground/files.js";
@@ -125,46 +118,20 @@ export default function Demo() {
     return coreItem.data;
   }, [advItem, coreItem.data]);
 
-  const [tab, setTab] = React.useState(params.get("tab") === "code" ? "code" : "preview");
-  const [fileOverrides, setFileOverrides] = React.useState<Record<string, string>>({});
-  const [activeFile, setActiveFile] = React.useState<string | null>(null);
-
   useDocumentTitle(itemData ? `${itemData.title} — Playground — UniqueFingerprint` : "Playground — UniqueFingerprint");
 
   const sandboxFiles = React.useMemo(() => {
     if (!itemData) return null;
-    const base = buildSandboxFiles(itemData);
-    // Overrides are applied on top, so "Compose" can push edited source into a
-    // fresh sandbox without mutating the resource definition.
-    return { ...base, ...fileOverrides };
-  }, [itemData, fileOverrides]);
-
-  const editableFiles = React.useMemo(() => {
-    if (!itemData) return [];
-    return itemData.files.filter(
-      (file) => file.path.endsWith(".tsx") || file.path.endsWith(".ts") || file.path.endsWith(".css"),
-    );
+    return buildSandboxFiles(itemData);
   }, [itemData]);
-
-  React.useEffect(() => {
-    setFileOverrides({});
-    setActiveFile(null);
-  }, [selected]);
-
-  const currentFile = activeFile ?? editableFiles[0]?.path ?? null;
-  const currentSource = React.useMemo(() => {
-    if (!itemData || !currentFile) return "";
-    if (fileOverrides[`/${currentFile}`] !== undefined) return fileOverrides[`/${currentFile}`]!;
-    return itemData.files.find((file) => file.path === currentFile)?.content ?? "";
-  }, [itemData, currentFile, fileOverrides]);
 
   return (
     <div className="shell py-16">
       <SectionHeader
         as="h1"
         eyebrow="Playground"
-        title="Run it isolated. Edit it safely."
-        description="The preview runs inside a sandboxed iframe with no access to this page or your session. The editor holds a copy of the source — nothing you type is written to disk or to the registry."
+        title="Interactive Sandbox."
+        description="The preview runs inside a sandboxed iframe with isolated rendering and live interaction."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
@@ -235,19 +202,7 @@ export default function Demo() {
           ) : (
             <PlaygroundSurface
               item={itemData}
-              tab={tab}
-              setTab={setTab}
               sandboxFiles={sandboxFiles}
-              editableFiles={editableFiles}
-              currentFile={currentFile}
-              currentSource={currentSource}
-              setActiveFile={setActiveFile}
-              onChange={(value) => {
-                if (!currentFile || value === undefined) return;
-                setFileOverrides((current) => ({ ...current, [`/${currentFile}`]: value }));
-              }}
-              overridden={Object.keys(fileOverrides).length > 0}
-              onReset={() => setFileOverrides({})}
             />
           )}
         </div>
@@ -274,30 +229,12 @@ export default function Demo() {
 
 interface SurfaceProps {
   item: BuiltRegistryItem;
-  tab: string;
-  setTab: (value: string) => void;
   sandboxFiles: Record<string, string> | null;
-  editableFiles: BuiltRegistryItem["files"];
-  currentFile: string | null;
-  currentSource: string;
-  setActiveFile: (path: string) => void;
-  onChange: (value: string | undefined) => void;
-  overridden: boolean;
-  onReset: () => void;
 }
 
 function PlaygroundSurface({
   item,
-  tab,
-  setTab,
   sandboxFiles,
-  editableFiles,
-  currentFile,
-  currentSource,
-  setActiveFile,
-  onChange,
-  overridden,
-  onReset,
 }: SurfaceProps): React.JSX.Element {
   return (
     <>
@@ -314,19 +251,6 @@ function PlaygroundSurface({
             <Badge tone="ink">{item.type.replace("registry:", "")}</Badge>
             {item.license ? <Badge tone="moss">{item.license}</Badge> : null}
           </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <SegmentedControl
-            label="Mode"
-            hideLabel
-            value={tab}
-            onValueChange={setTab}
-            options={[
-              { value: "preview", label: "Preview" },
-              { value: "code", label: "Edit" },
-              { value: "source", label: "Read" },
-            ]}
-          />
         </div>
       </div>
 
@@ -360,126 +284,13 @@ function PlaygroundSurface({
       </div>
 
       <div className="mt-6">
-        <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="sr-only">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code">Edit</TabsTrigger>
-            <TabsTrigger value="source">Read</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="preview">
-            <React.Suspense fallback={<SandboxSkeleton />}>
-              {sandboxFiles ? (
-                // The edited filesystem is passed in, so an edit is visible in
-                // the preview without the sandbox knowing about the editor.
-                <Sandbox item={item} files={sandboxFiles} view="split" />
-              ) : (
-                <SandboxSkeleton />
-              )}
-            </React.Suspense>
-          </TabsContent>
-
-          <TabsContent value="code">
-            <div className="grid gap-4 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6">
-              <nav aria-label="Files" className="border-t border-line md:border-t-0">
-                <p className="eyebrow mb-2">Files</p>
-                <ul>
-                  {editableFiles.map((file) => (
-                    <li key={file.path} className="border-b border-line">
-                      <button
-                        type="button"
-                        aria-current={file.path === currentFile ? "true" : undefined}
-                        onClick={() => setActiveFile(file.path)}
-                        className={[
-                          "w-full truncate py-2 text-left font-mono text-[0.72rem] transition-colors duration-fast",
-                          file.path === currentFile ? "text-ink" : "text-graphite hover:text-ink",
-                        ].join(" ")}
-                      >
-                        {file.path}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-
-                {overridden ? (
-                  <div className="mt-4 flex flex-col gap-2">
-                    <Button variant="ghost" size="sm" onClick={onReset}>
-                      <RotateCcw aria-hidden className="h-3 w-3" />
-                      Reset edits
-                    </Button>
-                  </div>
-                ) : null}
-              </nav>
-
-              <div>
-                <div className="flex items-center justify-between gap-3 border border-b-0 border-line px-3 py-2">
-                  <span className="eyebrow truncate">{currentFile ?? "No file selected"}</span>
-                  <span className="flex items-center gap-2">
-                    <Save aria-hidden className="h-3 w-3 text-graphite" />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-graphite">
-                      in memory only
-                    </span>
-                  </span>
-                </div>
-                <div className="border border-line" style={{ height: "34rem" }}>
-                  {currentFile ? (
-                    <Editor
-                      height="100%"
-                      language={
-                        currentFile.endsWith(".css")
-                          ? "css"
-                          : currentFile.endsWith(".json")
-                            ? "json"
-                            : "typescript"
-                      }
-                      theme="vs-dark"
-                      value={currentSource}
-                      onChange={onChange}
-                      options={{
-                        minimap: { enabled: false },
-                        fontSize: 13,
-                        lineNumbers: "on",
-                        scrollBeyondLastLine: false,
-                        tabSize: 2,
-                        fontFamily: '"JetBrains Mono", ui-monospace, monospace',
-                        renderLineHighlight: "none",
-                        // The editor is a scratchpad, not a repository: turning
-                        // off the suggestions that imply persistence keeps the
-                        // mental model honest.
-                        quickSuggestions: false,
-                        occurrencesHighlight: "off",
-                      }}
-                    />
-                  ) : (
-                    <p className="p-4 text-[0.85rem] text-graphite">This item ships no source files.</p>
-                  )}
-                </div>
-                <p className="mt-2 text-[0.78rem] leading-relaxed text-graphite">
-                  Edits live in this browser tab. To keep them, copy the source into your project —
-                  or use the CLI, which writes real files with conflict checking.
-                </p>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="source">
-            <div className="flex flex-col gap-6">
-              {item.files
-                .filter((file) => !file.path.endsWith("registry.json"))
-                .map((file) => (
-                  <CodeBlock
-                    key={file.path}
-                    caption={file.path}
-                    language={file.path.endsWith(".css") ? "css" : "tsx"}
-                    code={file.content}
-                    tone="light"
-                    showLineNumbers
-                    maxLines={30}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+        <React.Suspense fallback={<SandboxSkeleton />}>
+          {sandboxFiles ? (
+            <Sandbox item={item} files={sandboxFiles} view="preview" />
+          ) : (
+            <SandboxSkeleton />
+          )}
+        </React.Suspense>
       </div>
     </>
   );
