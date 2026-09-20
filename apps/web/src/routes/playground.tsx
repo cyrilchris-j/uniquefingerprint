@@ -130,7 +130,7 @@ export default function Demo() {
         description="The preview runs inside a sandboxed iframe with isolated rendering and live interaction."
       />
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
+      <div className="mt-10 grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
         {/* Resource picker */}
         <aside aria-label="Choose a resource">
           <div className="flex items-baseline justify-between">
@@ -151,26 +151,33 @@ export default function Demo() {
             />
           </div>
 
-          <div className="mt-3 max-h-[32rem] overflow-y-auto border-t border-line">
+          <div className="mt-3 max-h-[36rem] lg:max-h-[calc(100vh-14rem)] overflow-y-auto border-t border-line divide-y divide-line/25 pr-1">
             {index.isLoading ? (
               <Skeleton lines={8} className="pt-4" />
             ) : (
               <ul>
                 {options.map((option) => (
-                  <li key={option.name} className="border-b border-line">
+                  <li key={option.name}>
                     <button
                       type="button"
                       aria-current={option.name === selected ? "true" : undefined}
                       onClick={() => setParams({ item: option.name }, { replace: true })}
                       className={[
-                        "flex w-full flex-col items-start gap-0.5 py-2.5 text-left transition-colors duration-fast",
-                        option.name === selected ? "text-ink" : "text-graphite hover:text-ink",
+                        "flex w-full items-center justify-between gap-3 py-2.5 px-2 rounded-md text-left transition-all duration-fast cursor-pointer",
+                        option.name === selected
+                          ? "bg-surface/90 text-ink font-medium shadow-2xs"
+                          : "text-graphite hover:text-ink hover:bg-surface/40",
                       ].join(" ")}
                     >
-                      <span className="text-[0.85rem]">{option.title}</span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-graphite/70">
-                        {option.category} {option.isAdvanced ? "· Adv" : ""}
-                      </span>
+                      <div className="flex flex-col min-w-0 pr-1">
+                        <span className="text-[0.88rem] leading-snug">{option.title}</span>
+                        <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-graphite/70 mt-0.5">
+                          {option.category} {option.isAdvanced ? "· Adv" : ""}
+                        </span>
+                      </div>
+                      {option.name === selected && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-moss shrink-0" />
+                      )}
                     </button>
                   </li>
                 ))}
