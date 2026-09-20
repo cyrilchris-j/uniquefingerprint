@@ -63,16 +63,6 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
         eyebrow="UniqueFingerprint · Advanced Resource Ecosystem"
         title="Original 3D, WebGL, Motion & Creative Primitives."
         description={`A bespoke ecosystem of ${ADVANCED_RESOURCES.length} advanced resources engineered for high-performance creative interfaces. Complete with live interactive previews, physical spring calibration, and accessible fallbacks.`}
-        actions={
-          <div className="flex gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/explore">Core 800 Catalogue</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/search">Advanced Search</Link>
-            </Button>
-          </div>
-        }
       />
 
       {/* Category Filter */}

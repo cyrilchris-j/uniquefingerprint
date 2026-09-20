@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
-import { Button, EmptyState, Skeleton } from "@openui/ui";
+import { Button, EmptyState, SegmentedControl, Skeleton } from "@openui/ui";
 
 import { CodeBlock } from "../components/CodeBlock.js";
 import { usePWA } from "../components/PWAInstall.js";
@@ -36,6 +36,7 @@ import {
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
   const { isInstalled, triggerInstall } = usePWA();
+  const [usageMethod, setUsageMethod] = React.useState<"global" | "ondemand" | "manual">("global");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -184,51 +185,146 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* The thesis, demonstrated with a real resource                    */}
+      {/* CLI & Direct Code Usage                                          */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="01 — What a resource contains"
-          title="A resource is code, a demonstration, and a written reason."
-          description="Every item in this registry ships four things: the source you will own, a runnable demo, install metadata, and a design.md that names its genre, macrostructure, density, shape language and motion. That last file is what a model reads before it writes anything — and what stops the next generated page from looking like the last one."
+          eyebrow="01 — Global CLI or Direct Code"
+          title="Install via global npm CLI or simply copy the code."
+          description="UniqueFingerprint is available globally as an npm package. You can install it globally to run CLI commands anywhere, use on-demand commands via npx / dlx, or skip the CLI entirely and use the open source code directly in your project."
+          actions={
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/docs/cli">CLI documentation</Link>
+            </Button>
+          }
         />
 
         <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <CodeBlock
-            className="min-w-0"
-            caption="registry/default/components/magnetic-button/design.md"
-            language="markdown"
-            maxLines={22}
-            code={`# Design System
+          <div className="flex flex-col gap-4 min-w-0">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <SegmentedControl
+                label="Installation & usage methods"
+                hideLabel
+                size="sm"
+                value={usageMethod}
+                onValueChange={(val) => setUsageMethod(val as "global" | "ondemand" | "manual")}
+                options={[
+                  { value: "global", label: "Global CLI (npm)" },
+                  { value: "ondemand", label: "On-demand (npx)" },
+                  { value: "manual", label: "Direct code" },
+                ]}
+              />
+              <span className="font-mono text-[11px] tracking-wider text-graphite/70">
+                {usageMethod === "global"
+                  ? "npm: uniquefingerprint"
+                  : usageMethod === "ondemand"
+                    ? "npx / dlx"
+                    : "zero tooling required"}
+              </span>
+            </div>
 
-Genre: editorial
-Macrostructure: asymmetric
-Density: medium
-Shape: sharp
-Motion: subtle
+            {usageMethod === "global" && (
+              <CodeBlock
+                className="min-w-0"
+                caption="terminal — global npm package"
+                language="bash"
+                maxLines={22}
+                code={`# 1. Install UniqueFingerprint CLI globally
+npm install -g uniquefingerprint
 
-## Rules
+# 2. Initialise your project configuration
+uniquefingerprint init
 
-- The magnet must be bounded. An unbounded target feels broken.
-- Never move the hit area; transform only.
-- Keyboard focus behaves exactly like a plain button.
-- Disable magnetisation under prefers-reduced-motion.
-- The accent colour is the only signal; no shadows.`}
-          />
+# 3. Add components directly into your codebase
+uniquefingerprint add magnetic-button
+
+# 4. Add complete design systems or themes
+uniquefingerprint theme add swiss-editorial
+
+# 5. Search resources from terminal
+uniquefingerprint search buttons`}
+              />
+            )}
+
+            {usageMethod === "ondemand" && (
+              <CodeBlock
+                className="min-w-0"
+                caption="terminal — npx / pnpm dlx"
+                language="bash"
+                maxLines={22}
+                code={`# Run directly without installing globally
+npx uniquefingerprint init
+
+# Add components via npx
+npx uniquefingerprint add magnetic-button
+
+# Or use pnpm dlx / bunx
+pnpm dlx uniquefingerprint add magnetic-button
+
+# Inspect metadata, dependencies and design rules
+npx uniquefingerprint view magnetic-button`}
+              />
+            )}
+
+            {usageMethod === "manual" && (
+              <CodeBlock
+                className="min-w-0"
+                caption="src/components/magnetic-button.tsx"
+                language="tsx"
+                maxLines={22}
+                code={`// No CLI or package required — pure copy & paste open code
+// 1. Install peer helpers: pnpm add clsx tailwind-merge motion
+// 2. Drop the component source directly into your codebase:
+
+import * as React from "react";
+import { motion } from "motion/react";
+import { cn } from "@/lib/cn";
+
+export function MagneticButton({
+  children,
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className={cn("px-4 py-2 border border-ink text-ink font-mono text-xs uppercase", className)}
+      {...props}
+    >
+      {children}
+    </motion.button>
+  );
+}`}
+              />
+            )}
+          </div>
 
           <div className="flex flex-col gap-6 min-w-0">
             <p className="prose-measure text-[0.95rem] leading-relaxed text-graphite">
-              The registry is not a package index. A package tells you what it exports; a registry
-              resource tells you what it <em>is</em>, in the vocabulary of design — so an
-              agent, a teammate or a future you can reuse the intent, not just the implementation.
+              UniqueFingerprint gives you complete ownership with zero runtime lock-in. Whether
+              you want automated CLI commands in your terminal or prefer copy-pasting raw code
+              straight into your repository, everything is designed to get out of your way.
             </p>
 
             <ul className="flex flex-col">
               {[
-                ["Source you own", "Installed into your project. No runtime dependency on us."],
-                ["A runnable demo", "Rendered in an isolated sandbox, never in this origin."],
-                ["Install metadata", "npm dependencies, registry dependencies, licence, integrity."],
-                ["design.md", "The fingerprint: genre, structure, density, shape, motion."],
+                [
+                  "Global npm package",
+                  "Available globally on npm via npm install -g uniquefingerprint. Run CLI commands from any terminal in any directory.",
+                ],
+                [
+                  "Instant on-demand commands",
+                  "No global install needed if you prefer not to — run instantly using npx uniquefingerprint or pnpm dlx.",
+                ],
+                [
+                  "Direct code without CLI",
+                  "Don't want to use any CLI? Browse the registry, copy the raw component source, and paste it straight into your repo.",
+                ],
+                [
+                  "Zero runtime dependencies",
+                  "You own 100% of the code. No black-box npm runtime packages, no vendor lock-in, and full freedom to modify.",
+                ],
               ].map(([title, body]) => (
                 <li key={title} className="border-t border-line py-4">
                   <p className="font-display text-step-1 tracking-tight text-ink">{title}</p>
@@ -266,7 +362,7 @@ Motion: subtle
                 bordered={false}
                 eyebrow="Nothing published"
                 title="No resources declare a full design fingerprint yet."
-                description="Run pnpm build:registry to publish the first-party set, or submit a resource with a design.md."
+                description="Run pnpm build:registry to publish the first-party set."
               />
             </div>
           ) : (
@@ -354,32 +450,6 @@ Motion: subtle
       </section>
 
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Closing                                                           */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <div className="grid gap-6 sm:gap-8 border-t border-line pt-6 sm:pt-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-          <h2 className="optically-align text-2xl sm:text-3xl lg:text-step-4 max-w-[20ch] text-balance leading-[1.08] min-w-0">
-            Add the resource you wish existed.
-          </h2>
-          <div className="flex flex-col items-start gap-4 sm:gap-6 min-w-0">
-            <p className="prose-measure text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-graphite">
-              Contributions go through a pull request, automated schema validation, a preview build
-              and a moderation review. Published versions are immutable — a correction is a new
-              version, never an edit, so anyone who installed 1.0.0 can always see what 1.0.0
-              contained.
-            </p>
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-              <Button asChild>
-                <Link to="/submit">Submit a resource</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link to="/docs/contributing">Read the guide</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

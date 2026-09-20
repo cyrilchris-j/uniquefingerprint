@@ -88,9 +88,7 @@ export function Footer(): React.JSX.Element {
               ["/docs/installation", "Installation"],
               ["/docs/cli", "CLI"],
               ["/docs/registry", "Registry"],
-              ["/docs/contributing", "Contributing"],
               ["/docs/design-systems", "Design systems"],
-              ["/submit", "Submit a resource"],
               ["/contributors", "Contributors"],
             ].map(([to, label]) => (
               <li key={to}>

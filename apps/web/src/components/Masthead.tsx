@@ -710,7 +710,6 @@ export function Masthead(): React.JSX.Element {
                 ["/collections", "Collections"],
                 ["/contributors", "Contributors"],
                 ["/docs", "Docs"],
-                ["/submit", "Submit"],
               ].map(([to, label]) => (
                 <li key={to}>
                   <Link to={to!} className="eyebrow">

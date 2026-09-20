@@ -68,11 +68,6 @@ export default function ExplorePage(): React.JSX.Element {
               : "Loading the registry index…"}
           </>
         }
-        actions={
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/search">Advanced search</Link>
-          </Button>
-        }
       />
 
       {typeOptions.length > 1 ? (
