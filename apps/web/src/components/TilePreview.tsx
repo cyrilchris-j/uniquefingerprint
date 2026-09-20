@@ -30,7 +30,7 @@ export function TilePreview({ item }: { item: RegistryIndexEntry }): React.JSX.E
   const targetHref = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${item.category}/${item.name}`;
 
   return (
-    <div ref={ref} className="border-b border-line/25 bg-[#f9f8f5] dark:bg-[#0e0e0d] overflow-hidden pointer-events-none select-none relative h-44 flex items-center justify-center">
+    <div ref={ref} className="w-full h-full overflow-hidden pointer-events-none select-none relative flex items-center justify-center">
       {bespoke ? (
         bespoke
       ) : inView ? (
@@ -40,7 +40,7 @@ export function TilePreview({ item }: { item: RegistryIndexEntry }): React.JSX.E
       ) : (
         <Link
           to={targetHref}
-          className="flex h-44 items-end bg-[#f9f8f5] dark:bg-[#0e0e0d] p-4 w-full"
+          className="flex h-full items-end p-4 w-full"
           tabIndex={-1}
           aria-hidden
         >
@@ -53,7 +53,7 @@ export function TilePreview({ item }: { item: RegistryIndexEntry }): React.JSX.E
 
 function PreviewSkeleton(): React.JSX.Element {
   return (
-    <div className="flex h-44 items-center justify-center bg-[#f9f8f5] dark:bg-[#0e0e0d]">
+    <div className="flex h-full w-full items-center justify-center">
       <Skeleton lines={3} />
     </div>
   );
