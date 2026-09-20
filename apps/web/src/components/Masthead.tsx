@@ -2,6 +2,7 @@ import {
   Box,
   ChevronDown,
   Download,
+  Github,
   Layers,
   Layout,
   LayoutGrid,
@@ -9,6 +10,7 @@ import {
   Palette,
   Search,
   Sparkles,
+  Star,
   X,
 } from "lucide-react";
 import * as React from "react";
@@ -520,6 +522,19 @@ export function Masthead(): React.JSX.Element {
             <ThemeToggle />
           </div>
 
+          <a
+            href="https://github.com/cyrilchris-j/uniquefingerprint"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-line bg-surface/80 hover:bg-ink hover:text-paper hover:border-ink dark:bg-surface/50 dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-200 group text-ink font-mono text-[11px] sm:text-xs font-semibold shrink-0 shadow-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxide"
+            title="Star uniquefingerprint on GitHub"
+            aria-label="Star cyrilchris-j/uniquefingerprint on GitHub"
+          >
+            <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+            <span className="hidden sm:inline font-medium">Star repo</span>
+            <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-500 fill-amber-500 group-hover:text-amber-400 group-hover:fill-amber-400 shrink-0" />
+          </a>
+
           <Link
             to="/search"
             aria-label="Search the registry"
@@ -555,6 +570,34 @@ export function Masthead(): React.JSX.Element {
           style={{ paddingBottom: "max(3rem, env(safe-area-inset-bottom, 0px))" }}
         >
           <nav aria-label="Catalogue" className="shell py-6">
+            {/* GitHub Repository Star Banner for Mobile */}
+            <div className="mb-5">
+              <a
+                href="https://github.com/cyrilchris-j/uniquefingerprint"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 rounded-xl border border-line bg-surface/80 hover:border-ink dark:hover:border-white transition-all group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink text-paper dark:bg-white dark:text-black shrink-0">
+                    <Github className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-display text-xs text-ink font-bold leading-tight truncate">
+                      cyrilchris-j / uniquefingerprint
+                    </p>
+                    <p className="font-mono text-[10px] text-graphite truncate">
+                      Open source modern UI registry
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[11px] font-mono font-bold shrink-0">
+                  <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
+                  <span>Star repo</span>
+                </div>
+              </a>
+            </div>
+
             <form
               role="search"
               onSubmit={(event) => {
