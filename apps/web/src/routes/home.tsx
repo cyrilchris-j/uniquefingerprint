@@ -115,8 +115,7 @@ function CommandStep({
  */
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
-  const { isInstalled, triggerInstall } = usePWA();
-  const [usageMethod, setUsageMethod] = React.useState<"npx" | "pnpm" | "manual">("npx");
+  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx">("pnpm");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -270,7 +269,7 @@ export default function HomePage(): React.JSX.Element {
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
           eyebrow="01 — Get Started"
-          title="Add to your project in two commands."
+          title="Add to your project in one command."
           description="Zero configuration and zero runtime lock-in. The CLI configures path aliases, verifies integrity, and places clean TypeScript source directly into your codebase."
         />
 
@@ -279,73 +278,41 @@ export default function HomePage(): React.JSX.Element {
           <div className="flex flex-col gap-5 min-w-0">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <SegmentedControl
-                label="Installation & usage methods"
+                label="Package manager"
                 hideLabel
                 size="sm"
                 value={usageMethod}
-                onValueChange={(val) => setUsageMethod(val as "npx" | "pnpm" | "manual")}
+                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx")}
                 options={[
-                  { value: "npx", label: "npx" },
                   { value: "pnpm", label: "pnpm" },
-                  { value: "manual", label: "Direct code" },
+                  { value: "npx", label: "npx" },
                 ]}
               />
               <span className="font-mono text-[11px] tracking-wider text-graphite/70">
-                {usageMethod === "manual" ? "zero tooling required" : "automated setup"}
+                automated registry CLI
               </span>
             </div>
 
-            {usageMethod === "manual" ? (
-              <div className="flex flex-col gap-3.5">
-                <CommandStep
-                  step="1"
-                  title="Install peer dependencies"
-                  command="pnpm add clsx tailwind-merge motion"
-                />
-                <div className="rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-mono text-paper font-semibold">
-                      2
-                    </span>
-                    <span className="text-xs sm:text-[13px] font-medium text-ink tracking-tight">
-                      Copy component source code
-                    </span>
-                  </div>
-                  <p className="text-xs text-graphite leading-relaxed">
-                    Open any component from the catalogue, click the <strong>Code</strong> tab, and paste the TypeScript file into your project.
-                  </p>
-                  <div className="pt-1">
-                    <Button variant="outline" size="sm" asChild className="text-xs gap-1.5 w-fit">
-                      <Link to="/explore">
-                        <span>Browse Catalogue</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-3.5">
-                <CommandStep
-                  step="1"
-                  title="Initialize project configuration"
-                  command={
-                    usageMethod === "pnpm"
-                      ? "pnpm dlx uniquefingerprint init"
-                      : "npx uniquefingerprint init"
-                  }
-                />
-                <CommandStep
-                  step="2"
-                  title="Add component to your project"
-                  command={
-                    usageMethod === "pnpm"
-                      ? "pnpm dlx uniquefingerprint add magnetic-button"
-                      : "npx uniquefingerprint add magnetic-button"
-                  }
-                />
-              </div>
-            )}
+            <div className="flex flex-col gap-3.5">
+              <CommandStep
+                step="1"
+                title="Install any component directly"
+                command={
+                  usageMethod === "pnpm"
+                    ? "pnpm dlx uniquefingerprint add magnetic-button"
+                    : "npx uniquefingerprint add magnetic-button"
+                }
+              />
+              <CommandStep
+                step="2"
+                title="Install multiple components at once"
+                command={
+                  usageMethod === "pnpm"
+                    ? "pnpm dlx uniquefingerprint add magnetic-button liquid-chrome-fluid"
+                    : "npx uniquefingerprint add magnetic-button liquid-chrome-fluid"
+                }
+              />
+            </div>
           </div>
 
           {/* Right Column: Essential Content Only */}
