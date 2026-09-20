@@ -9,6 +9,7 @@ import {
   Copy,
   Heart,
   Laptop,
+  PackageSearch,
   RotateCcw,
   ShieldCheck,
   Smartphone,
@@ -25,6 +26,10 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@openui/ui";
 import { cn } from "@openui/utils";
 
@@ -34,6 +39,8 @@ import { MetaRow } from "../components/SectionHeader.js";
 import { getAdvancedItemBySlug, getAdvancedItemsByCategory } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
 import { useDocumentTitle, useMetaDescription } from "../hooks/use-document-title.js";
+import { openSignInDialog, useAuth } from "../lib/auth.js";
+import { isResourceFavorited, toggleStoredFavorite } from "../lib/favorites.js";
 
 // ─── Install Section ────────────────────────────────────────────────────────
 
@@ -325,6 +332,62 @@ export default function AdvancedDetailPage(): React.JSX.Element {
     );
   }
 
+  const { token, user } = useAuth();
+  const [favorited, setFavorited] = React.useState(() =>
+    isResourceFavorited(user?.id, item?.slug || ""),
+  );
+  const [favoriteError, setFavoriteError] = React.useState<string | null>(null);
+  const [favoritePending, setFavoritePending] = React.useState(false);
+
+  React.useEffect(() => {
+    if (user?.id && item?.slug) {
+      setFavorited(isResourceFavorited(user.id, item.slug));
+    } else {
+      setFavorited(false);
+    }
+  }, [user?.id, item?.slug]);
+
+  React.useEffect(() => {
+    const onFavChange = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && detail.slug === item?.slug) {
+        setFavorited(Boolean(detail.favorited));
+      }
+    };
+    window.addEventListener("openui:favorites_changed", onFavChange);
+    return () => window.removeEventListener("openui:favorites_changed", onFavChange);
+  }, [item?.slug]);
+
+  const toggleFavorite = async () => {
+    if (!user) {
+      openSignInDialog();
+      setFavoriteError("Sign in to save this resource to your favourites.");
+      return;
+    }
+    if (!item) return;
+
+    setFavoritePending(true);
+    setFavoriteError(null);
+    try {
+      const nextFavorited = toggleStoredFavorite(
+        user.id,
+        {
+          name: item.slug,
+          title: item.title,
+          description: item.description,
+          category: item.category,
+          type: "advanced-component",
+        },
+        token,
+      );
+      setFavorited(nextFavorited);
+    } catch (cause) {
+      setFavoriteError(cause instanceof Error ? cause.message : "Could not update your favourites.");
+    } finally {
+      setFavoritePending(false);
+    }
+  };
+
   const handleReturn = () => {
     try {
       sessionStorage.setItem("openui_returning", "true");
@@ -382,12 +445,62 @@ export default function AdvancedDetailPage(): React.JSX.Element {
             </p>
 
             <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2">
-              <Button variant="outline" asChild>
-                <Link to={`/playground?advanced=${item.slug}`}>
-                  Open in Playground
-                </Link>
+              <Button
+                variant={favorited ? "primary" : "outline"}
+                onClick={() => void toggleFavorite()}
+                loading={favoritePending}
+                aria-pressed={favorited}
+                className={cn(
+                  "gap-1.5 transition-all duration-200",
+                  favorited && "bg-oxide border-oxide text-paper hover:bg-oxide/90",
+                )}
+              >
+                <Heart
+                  aria-hidden
+                  className={cn(
+                    "h-3.5 w-3.5 transition-all duration-200",
+                    favorited && "fill-current scale-110",
+                  )}
+                />
+                <span>{favorited ? "Saved" : "Save"}</span>
               </Button>
+
+              <TooltipProvider delayDuration={400}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" asChild>
+                      <Link to={`/playground?advanced=${item.slug}`}>
+                        <PackageSearch aria-hidden className="h-3.5 w-3.5" />
+                        Open in playground
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    View and interact with the live demo in the sandbox
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
+
+            {favoriteError ? (
+              <p role="alert" className="mt-3 text-[0.8rem] text-oxide">
+                {favoriteError}
+              </p>
+            ) : null}
+            {user && favorited && !favoriteError ? (
+              <p className="mt-3 text-[0.8rem] text-moss flex items-center gap-1.5 font-mono">
+                ✓ Saved to your{" "}
+                <Link to="/account/favorites" className="underline underline-offset-2 hover:text-ink font-medium">
+                  favourites
+                </Link>
+                .
+              </p>
+            ) : null}
+            {!user ? (
+              <p className="mt-3 text-[0.8rem] text-graphite">
+                Saving requires an account. Installing never does.
+              </p>
+            ) : null}
           </div>
 
           {/* Metadata rail */}
@@ -396,16 +509,13 @@ export default function AdvancedDetailPage(): React.JSX.Element {
               <p className="eyebrow mb-2">Metadata</p>
               <dl>
                 <MetaRow label="Registry name">
-                  <span className="font-mono">{item.slug}</span>
+                  <span className="font-mono">advanced/{item.slug}</span>
                 </MetaRow>
                 <MetaRow label="Type">
-                  <span className="font-mono">advanced:{item.category}</span>
+                  <span className="font-mono">registry:advanced-component</span>
                 </MetaRow>
-                <MetaRow label="Technology">
-                  <span className="capitalize">{item.technology}</span>
-                </MetaRow>
-                <MetaRow label="Performance">
-                  <span className="capitalize">{item.fingerprint.performanceTier}</span>
+                <MetaRow label="Category">
+                  <span className="capitalize">{item.category}</span>
                 </MetaRow>
                 <MetaRow label="Licence">MIT</MetaRow>
               </dl>
