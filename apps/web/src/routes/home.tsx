@@ -318,7 +318,7 @@ export default function HomePage(): React.JSX.Element {
 
   const totalItems = index.data?.items.length ?? 0;
   const advancedCount = ADVANCED_RESOURCES.length;
-  const grandTotal = totalItems + advancedCount;
+  const grandTotal = totalItems > 0 ? totalItems : 1038;
 
   const featuredAdvanced = React.useMemo(() => {
     const slugs = [
@@ -356,7 +356,7 @@ export default function HomePage(): React.JSX.Element {
                 </span>
                 <span className="font-semibold">UniqueFingerprint 2.0</span>
                 <span className="text-graphite font-normal">·</span>
-                <span className="text-ink group-hover:text-oxide transition-colors">1,260+ Open Source UI Components &rarr;</span>
+                <span className="text-ink group-hover:text-oxide transition-colors">1,038+ Open Source UI Components &rarr;</span>
               </Link>
 
               <h1 className="optically-align text-balance text-3xl sm:text-5xl lg:text-step-5 font-normal leading-[1.08] tracking-tight text-ink">
@@ -368,7 +368,7 @@ export default function HomePage(): React.JSX.Element {
 
               <p className="prose-measure mt-4 sm:mt-6 text-[0.95rem] sm:text-step-1 leading-relaxed text-graphite">
                 Most modern interfaces feel identical because they lack intentional design rules.
-                UniqueFingerprint is an open architecture of 1,260+ production-ready React
+                UniqueFingerprint is an open architecture of 1,038+ production-ready React
                 components, GPU-accelerated WebGL scenes, kinetic typography, and procedural
                 shaders. Direct code ownership. Zero runtime lock-in.
               </p>
@@ -378,7 +378,7 @@ export default function HomePage(): React.JSX.Element {
                   asChild
                   className="h-11 sm:h-12 px-6 justify-center font-mono text-xs uppercase tracking-widest bg-ink text-paper hover:bg-ink/90 font-semibold shadow-md cursor-pointer"
                 >
-                  <Link to="/explore">Explore 1,260+ Components &rarr;</Link>
+                  <Link to="/explore">Explore 1,038+ Components &rarr;</Link>
                 </Button>
 
                 <a
@@ -406,7 +406,7 @@ export default function HomePage(): React.JSX.Element {
             <div className="mt-8 pt-6 border-t border-line/40 grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div>
                 <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  {grandTotal > 0 ? `${grandTotal.toLocaleString()}+` : "1,260+"}
+                  {grandTotal > 0 ? `${grandTotal.toLocaleString()}+` : "1,038+"}
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
                   Published Items
