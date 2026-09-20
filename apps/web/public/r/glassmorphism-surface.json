@@ -15,9 +15,9 @@
     {
       "path": "glassmorphism-surface.tsx",
       "type": "registry:component",
-      "content": "import * as React from \"react\";\n\nexport interface GlassmorphismDynamicSurfaceProps {\n  className?: string;\n}\n\n/**\n * Glassmorphism Dynamic Surface\n * Modern pure CSS visual layout utilizing glassmorphism, conic energy borders, and superellipses.\n */\nexport function GlassmorphismDynamicSurface({ className = \"\" }: GlassmorphismDynamicSurfaceProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">\n          Glassmorphism Dynamic Surface\n        </h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
-      "contentHash": "51a75df76017f22cf01cfdcc5852f4a2ebb553d593bcf2a7272650a06126e6bc",
-      "sizeBytes": 1006
+      "content": "import * as React from \"react\";\n\nexport function GlassmorphismDynamicSurface({ className = \"\" }: { className?: string }): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl overflow-hidden ${className}`}\n      style={{ background: \"rgba(255,255,255,0.08)\", backdropFilter: \"blur(24px) saturate(180%)\", border: \"1px solid rgba(255,255,255,0.15)\", boxShadow: \"0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)\" }}>\n      <div className=\"absolute inset-0 rounded-2xl pointer-events-none\" style={{ background: \"linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)\" }} />\n      <span className=\"font-mono text-[10px] text-white/60 uppercase tracking-widest font-bold block mb-2\">GLASSMORPHISM</span>\n      <h2 className=\"font-display font-bold text-2xl text-white\">Dynamic Surface</h2>\n      <p className=\"font-mono text-xs text-white/50 mt-2\">Frosted acrylic with edge light refraction and backdrop filter.</p>\n    </div>\n  );\n}\n",
+      "contentHash": "8d08dc308bed0bf7bf37ac7d26f3736227a14fd4ce0dcfce93e58f4ed2868589",
+      "sizeBytes": 981
     }
   ],
   "tags": [

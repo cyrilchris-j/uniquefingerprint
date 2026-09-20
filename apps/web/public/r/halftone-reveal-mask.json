@@ -15,9 +15,9 @@
     {
       "path": "halftone-reveal-mask.tsx",
       "type": "registry:component",
-      "content": "import * as React from \"react\";\n\nexport interface HalftoneRevealMaskProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Halftone Reveal Mask\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function HalftoneRevealMask({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: HalftoneRevealMaskProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,\n          transition: \"transform 0.1s ease-out\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg\"\n      >\n        ✦ Halftone Reveal Mask\n      </div>\n    </div>\n  );\n}\n",
-      "contentHash": "dac9cbcb47df200bb264c5d300f0d74a36a98f09e2aa4f5933477be7faa0aa77",
-      "sizeBytes": 1251
+      "content": "import * as React from \"react\";\n\nexport function HalftoneRevealMask({ className = \"w-full h-48 relative overflow-hidden bg-[#0a0d14] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [revealed, setRevealed] = React.useState(false);\n  return (\n    <div className={className} onClick={() => setRevealed(r => !r)}>\n      <div className=\"absolute inset-0 flex items-center justify-center\">\n        <span className=\"font-display font-black text-4xl text-white\">REVEALED</span>\n      </div>\n      <div className=\"absolute inset-0 pointer-events-none transition-opacity duration-700\" style={{ opacity: revealed ? 0 : 1, backgroundImage: `radial-gradient(circle, #0a0d14 40%, transparent 40%)`, backgroundSize: \"16px 16px\" }} />\n      <span className=\"absolute bottom-3 right-4 font-mono text-[10px] text-white/30\">Click to reveal</span>\n    </div>\n  );\n}\n",
+      "contentHash": "deac40e3b7b89b4eb4e2f384613b9bdf61452ff1379c6156bffcada95f9870c9",
+      "sizeBytes": 870
     }
   ],
   "tags": [
