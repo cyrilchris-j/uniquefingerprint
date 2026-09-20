@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "use-reduced-motion",
   "type": "registry:hook",
   "title": "Use Reduced Motion",
@@ -40,6 +40,6 @@
       "semanticPurpose": "accessibility"
     }
   },
-  "url": "https://openui.dev/r/use-reduced-motion.json",
+  "url": "https://uniquefingerprint.web.app/r/use-reduced-motion.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Monochrome\n\n## Rules\n\n- Consumers must replace animation with a state change, not merely shorten it.\n- The hook never throws during SSR; it reports `false` until mounted.\n- Prefer this hook over ad-hoc `matchMedia` calls so the subscription pattern\n  stays consistent across the registry.\n\n## Avoid\n\n- Using the flag to render *different content* for reduced-motion users; the\n  content stays, only the motion changes.\n"
 }

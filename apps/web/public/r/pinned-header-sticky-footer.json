@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "pinned-header-sticky-footer",
   "type": "registry:layout",
   "title": "Pinned Header Sticky Footer",
@@ -63,6 +63,6 @@
       "semanticPurpose": "viewport-bounded-application-shell"
     }
   },
-  "url": "https://openui.dev/r/pinned-header-sticky-footer.json",
+  "url": "https://uniquefingerprint.web.app/r/pinned-header-sticky-footer.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Pinned Header Footer Scroll: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "model-viewer-webgl",
   "type": "registry:component",
   "title": "3D Model Viewer WebGL",

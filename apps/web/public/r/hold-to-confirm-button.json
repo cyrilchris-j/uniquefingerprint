@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "hold-to-confirm-button",
   "type": "registry:component",
   "title": "Hold To Confirm Button",

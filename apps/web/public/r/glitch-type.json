@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "glitch-type",
   "type": "registry:text",
   "title": "Glitch Type",
@@ -62,6 +62,6 @@
       "semanticPurpose": "attention-signal"
     }
   },
-  "url": "https://openui.dev/r/glitch-type.json",
+  "url": "https://uniquefingerprint.web.app/r/glitch-type.json",
   "designRules": "# Design System\n\nGenre: Industrial\nMacrostructure: Stack\nDensity: Dense\nShape: Cut\nMotion: Kinetic\nTypography: Monospace\nColor: Neon On Dark\n\n## Rules\n\n- Interval Burst: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

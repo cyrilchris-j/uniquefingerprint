@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "kinetic-ticker",
   "type": "registry:text",
   "title": "Kinetic Ticker",
@@ -61,6 +61,6 @@
       "semanticPurpose": "announcement-ticker"
     }
   },
-  "url": "https://openui.dev/r/kinetic-ticker.json",
+  "url": "https://uniquefingerprint.web.app/r/kinetic-ticker.json",
   "designRules": "# Kinetic Ticker\n\nGenre: Industrial\nMacrostructure: Stack\nDensity: Medium\nShape: Sharp\nMotion: Mechanical\nTypography: Condensed\nColor: Duotone\n\n## Motion\n\nFast: 180ms\nNormal: 420ms\nSlow: 2200ms\n\n## Rules\n\n- Reserve the width of the longest phrase; the sentence around it must not move.\n- One accent colour on the rotating phrase only.\n- Rotate phrases of similar length (within ~40%) so the rhythm is stable.\n- Three to five phrases; more becomes a slideshow.\n\n## Avoid\n\n- Rotating inside a headline with a fixed line-height that clips.\n- Vertical slides that shift the baseline of neighbouring text.\n- Rotation that continues while the tab is hidden.\n"
 }

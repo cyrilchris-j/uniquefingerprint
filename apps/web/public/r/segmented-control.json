@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "segmented-control",
   "type": "registry:component",
   "title": "Segmented Control",
@@ -61,6 +61,6 @@
       "semanticPurpose": "view-mode-toggle"
     }
   },
-  "url": "https://openui.dev/r/segmented-control.json",
+  "url": "https://uniquefingerprint.web.app/r/segmented-control.json",
   "designRules": "# Segmented Control\n\nGenre: Swiss\nMacrostructure: Rail\nDensity: Compact\nShape: Sharp\nMotion: Subtle\nTypography: Grotesk\nColor: High Contrast\n\n## Motion\n\nFast: 120ms\nNormal: 180ms\nSlow: 320ms\n\n## Rules\n\n- Segments share borders; the group is one object, not several buttons.\n- The active segment inverts (ink on paper), it does not glow or pill.\n- Labels are uppercase with 0.16em tracking at 11–12px.\n- Selected state must be expressible without colour: inversion carries it.\n\n## Avoid\n\n- Floating pill segments with gaps between them.\n- More than five options; use a select instead.\n- Preselecting an option the user has not confirmed in a destructive flow.\n"
 }

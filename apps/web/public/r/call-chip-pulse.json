@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "call-chip-pulse",
   "type": "registry:component",
   "title": "Call Chip Pulse",

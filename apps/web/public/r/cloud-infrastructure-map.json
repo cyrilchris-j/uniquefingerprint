@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "cloud-infrastructure-map",
   "type": "registry:section",
   "title": "Cloud Infrastructure Map",
@@ -61,6 +61,6 @@
       "semanticPurpose": "cloud-infrastructure-map-section"
     }
   },
-  "url": "https://openui.dev/r/cloud-infrastructure-map.json",
+  "url": "https://uniquefingerprint.web.app/r/cloud-infrastructure-map.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Mosaic\nDensity: Compact\nShape: Rounded\nMotion: Subtle\nTypography: Monospace\nColor: Accent Only\n\n## Rules\n\n- Cloud Infrastructure Map Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

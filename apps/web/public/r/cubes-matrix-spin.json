@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "cubes-matrix-spin",
   "type": "registry:component",
   "title": "Cubes Matrix Spin",

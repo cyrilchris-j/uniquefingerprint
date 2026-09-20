@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "hero-prompt",
   "type": "registry:ai",
   "title": "Hero Composition Prompt",
@@ -32,5 +32,5 @@
       "copy-paste"
     ]
   },
-  "url": "https://openui.dev/r/hero-prompt.json"
+  "url": "https://uniquefingerprint.web.app/r/hero-prompt.json"
 }

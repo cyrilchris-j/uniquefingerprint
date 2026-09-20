@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "industrial-mono",
   "type": "registry:theme",
   "title": "Industrial Mono",
@@ -48,5 +48,5 @@
       "semanticPurpose": "industrial-theme-definition"
     }
   },
-  "url": "https://openui.dev/r/industrial-mono.json"
+  "url": "https://uniquefingerprint.web.app/r/industrial-mono.json"
 }

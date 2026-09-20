@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "morph-slider-path",
   "type": "registry:component",
   "title": "Morph Slider Path",

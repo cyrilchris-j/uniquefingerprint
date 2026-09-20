@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "blueprint-grid",
   "type": "registry:background",
   "title": "Blueprint Grid",
@@ -60,6 +60,6 @@
       "semanticPurpose": "canvas-backdrop"
     }
   },
-  "url": "https://openui.dev/r/blueprint-grid.json",
+  "url": "https://uniquefingerprint.web.app/r/blueprint-grid.json",
   "designRules": "# Blueprint Grid\n\nGenre: Technical\nMacrostructure: Mosaic\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Duotone\n\n## Rules\n\n- Grid lines sit below 10% opacity; they are a substrate, not a pattern.\n- Match `cell` to the baseline and `module` to the column width.\n- Content sits on the grid; break it deliberately once per page.\n- Never place a grid behind another grid.\n\n## Avoid\n\n- Grids that do not align with the layout they support.\n- Coloured grids used as decoration.\n- Gradient fades over the grid to hide the edges.\n"
 }

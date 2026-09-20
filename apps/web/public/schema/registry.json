@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft-07/schema#",
-  "$id": "https://openui.dev/schema/registry.json",
+  "$id": "https://uniquefingerprint.web.app/schema/registry.json",
   "title": "OpenUI Registry Index",
   "description": "JSON Schema for the OpenUI registry index.",
   "type": "object",

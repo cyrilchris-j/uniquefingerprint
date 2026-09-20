@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "noise-surface-drift",
   "type": "registry:component",
   "title": "Noise Surface Drift",

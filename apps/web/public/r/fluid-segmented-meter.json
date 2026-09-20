@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "fluid-segmented-meter",
   "type": "registry:motion",
   "title": "Fluid Segmented Meter",
@@ -63,6 +63,6 @@
       "semanticPurpose": "energy-cell-gauge"
     }
   },
-  "url": "https://openui.dev/r/fluid-segmented-meter.json",
+  "url": "https://uniquefingerprint.web.app/r/fluid-segmented-meter.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Charge Level Sequence: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

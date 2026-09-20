@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "ui-designer",
   "type": "registry:ai",
   "title": "UI Designer Agent",
@@ -36,5 +36,5 @@
       "self-auditing"
     ]
   },
-  "url": "https://openui.dev/r/ui-designer.json"
+  "url": "https://uniquefingerprint.web.app/r/ui-designer.json"
 }

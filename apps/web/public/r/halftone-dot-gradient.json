@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "halftone-dot-gradient",
   "type": "registry:background",
   "title": "Halftone Dot Gradient",
@@ -63,6 +63,6 @@
       "semanticPurpose": "printmaking-halftone-texture"
     }
   },
-  "url": "https://openui.dev/r/halftone-dot-gradient.json",
+  "url": "https://uniquefingerprint.web.app/r/halftone-dot-gradient.json",
   "designRules": "# Design System\n\nGenre: Retro\nMacrostructure: Full Bleed\nDensity: Medium\nShape: Pill\nMotion: None\nTypography: Condensed\nColor: Monochrome\n\n## Rules\n\n- Passive Print Backdrop: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

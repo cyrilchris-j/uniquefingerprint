@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "spatial-hardware-landing",
   "type": "registry:component",
   "title": "Spatial Hardware 3D Landing",

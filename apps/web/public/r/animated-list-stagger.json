@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "animated-list-stagger",
   "type": "registry:component",
   "title": "Animated List Stagger",

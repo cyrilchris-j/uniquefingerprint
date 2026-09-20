@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "gooey-nav-liquid",
   "type": "registry:component",
   "title": "Gooey Nav Liquid",

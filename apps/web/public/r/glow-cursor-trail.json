@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "glow-cursor-trail",
   "type": "registry:component",
   "title": "Glow Cursor Trail",

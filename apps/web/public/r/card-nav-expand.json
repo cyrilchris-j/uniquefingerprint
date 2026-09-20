@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "card-nav-expand",
   "type": "registry:component",
   "title": "Card Nav Expand",

@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "variable-proximity-sans",
   "type": "registry:component",
   "title": "Variable Proximity Sans",

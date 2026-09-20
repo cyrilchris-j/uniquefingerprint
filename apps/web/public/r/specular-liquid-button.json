@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "specular-liquid-button",
   "type": "registry:component",
   "title": "Specular Liquid Button",

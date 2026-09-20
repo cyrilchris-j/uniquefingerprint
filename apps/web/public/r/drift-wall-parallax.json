@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "drift-wall-parallax",
   "type": "registry:component",
   "title": "Drift Wall Parallax",

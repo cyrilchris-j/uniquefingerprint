@@ -17,8 +17,8 @@ export const DOCS_REGISTRY_OUT = resolve(REPO_ROOT, "apps", "docs", "public", "r
 export const REGISTRY_INDEX_FILE = resolve(REGISTRY_ROOT, "index.json");
 export const REGISTRY_VERSIONS_FILE = resolve(REGISTRY_ROOT, "versions.json");
 
-export const REGISTRY_BASE_URL = process.env["REGISTRY_BASE_URL"] ?? "https://openui.dev/r";
-export const SITE_HOMEPAGE = process.env["SITE_HOMEPAGE"] ?? "https://openui.dev";
+export const REGISTRY_BASE_URL = process.env["REGISTRY_BASE_URL"] ?? "https://uniquefingerprint.web.app/r";
+export const SITE_HOMEPAGE = process.env["SITE_HOMEPAGE"] ?? "https://uniquefingerprint.web.app";
 export const DEFAULT_NAMESPACE = process.env["REGISTRY_DEFAULT_NAMESPACE"] ?? "default";
 export const REGISTRY_VERSION = process.env["REGISTRY_VERSION"] ?? "0.1.0";
 

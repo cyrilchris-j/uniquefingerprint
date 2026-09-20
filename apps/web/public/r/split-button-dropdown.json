@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "split-button-dropdown",
   "type": "registry:component",
   "title": "Split Button Dropdown",
@@ -63,6 +63,6 @@
       "semanticPurpose": "dual-action-split-button"
     }
   },
-  "url": "https://openui.dev/r/split-button-dropdown.json",
+  "url": "https://uniquefingerprint.web.app/r/split-button-dropdown.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Rounded\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Split Action Dropdown: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

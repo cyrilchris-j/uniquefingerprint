@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "folder-tree-interactive",
   "type": "registry:component",
   "title": "Folder Tree Interactive",

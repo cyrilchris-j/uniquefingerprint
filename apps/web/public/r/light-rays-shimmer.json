@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "light-rays-shimmer",
   "type": "registry:component",
   "title": "Light Rays Shimmer",

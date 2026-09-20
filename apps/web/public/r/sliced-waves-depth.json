@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "sliced-waves-depth",
   "type": "registry:component",
   "title": "Sliced Waves Depth",

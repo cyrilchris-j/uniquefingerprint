@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "dot-field-interactive",
   "type": "registry:component",
   "title": "Dot Field Interactive",

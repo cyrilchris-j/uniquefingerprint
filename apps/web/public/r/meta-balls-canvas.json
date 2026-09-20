@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "meta-balls-canvas",
   "type": "registry:component",
   "title": "Meta Balls Canvas",

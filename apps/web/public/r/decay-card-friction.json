@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "decay-card-friction",
   "type": "registry:component",
   "title": "Decay Card Friction",

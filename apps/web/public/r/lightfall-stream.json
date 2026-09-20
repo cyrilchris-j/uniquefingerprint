@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "lightfall-stream",
   "type": "registry:component",
   "title": "Lightfall Stream",

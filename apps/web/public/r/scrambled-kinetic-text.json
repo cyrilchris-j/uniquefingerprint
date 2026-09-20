@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "scrambled-kinetic-text",
   "type": "registry:component",
   "title": "Scrambled Kinetic Text",

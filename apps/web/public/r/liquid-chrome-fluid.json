@@ -1,7 +1,7 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "liquid-chrome-fluid",
-  "type": "registry:background",
+  "type": "registry:component",
   "title": "Liquid Chrome Fluid",
   "description": "Viscous metallic fluid reacting to mouse drag turbulence.",
   "category": "backgrounds",
@@ -14,56 +14,17 @@
   "files": [
     {
       "path": "liquid-chrome-fluid.tsx",
-      "type": "registry:background",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface LiquidChromeFluidProps extends React.HTMLAttributes<HTMLDivElement> {\n  speed?: number;\n  interactive?: boolean;\n  reducedMotion?: boolean;\n}\n\nexport function LiquidChromeFluid({\n  className,\n  speed = 1,\n  interactive = true,\n  reducedMotion = false,\n  children,\n  ...props\n}: LiquidChromeFluidProps) {\n  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);\n  const pointerRef = React.useRef({ x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5, isDown: false });\n\n  React.useEffect(() => {\n    const canvas = canvasRef.current;\n    if (!canvas) return;\n\n    const ctx = canvas.getContext(\"2d\");\n    if (!ctx) return;\n\n    let animId: number;\n    let time = 0;\n\n    const resize = () => {\n      if (!canvas) return;\n      const rect = canvas.getBoundingClientRect();\n      const dpr = Math.min(window.devicePixelRatio || 1, 2);\n      canvas.width = rect.width * dpr;\n      canvas.height = rect.height * dpr;\n    };\n\n    resize();\n    window.addEventListener(\"resize\", resize);\n\n    const onPointerMove = (e: MouseEvent | TouchEvent) => {\n      if (!interactive || !canvas) return;\n      const rect = canvas.getBoundingClientRect();\n      const clientX = \"touches\" in e ? (e.touches[0]?.clientX ?? 0) : e.clientX;\n      const clientY = \"touches\" in e ? (e.touches[0]?.clientY ?? 0) : e.clientY;\n      pointerRef.current.targetX = (clientX - rect.left) / rect.width;\n      pointerRef.current.targetY = (clientY - rect.top) / rect.height;\n    };\n\n    if (interactive) {\n      window.addEventListener(\"mousemove\", onPointerMove);\n      window.addEventListener(\"touchmove\", onPointerMove);\n    }\n\n    const render = () => {\n      if (!canvas || !ctx) return;\n      const w = canvas.width;\n      const h = canvas.height;\n\n      if (!reducedMotion) {\n        time += 0.015 * speed;\n      }\n\n      // Smooth pointer lag\n      pointerRef.current.x += (pointerRef.current.targetX - pointerRef.current.x) * 0.06;\n      pointerRef.current.y += (pointerRef.current.targetY - pointerRef.current.y) * 0.06;\n\n      ctx.fillStyle = \"#09090b\";\n      ctx.fillRect(0, 0, w, h);\n\n      const px = pointerRef.current.x * w;\n      const py = pointerRef.current.y * h;\n\n      const layers = 6;\n      for (let i = 0; i < layers; i++) {\n        const angle = time * 0.8 + (i * Math.PI) / 3;\n        const radiusOffset = Math.sin(time * 1.5 + i) * (w * 0.08);\n        const cx = px * 0.3 + w * 0.5 + Math.cos(angle) * (w * 0.18 + radiusOffset);\n        const cy = py * 0.3 + h * 0.5 + Math.sin(angle * 1.2) * (h * 0.16 + radiusOffset);\n\n        const r = Math.min(w, h) * (0.28 + Math.sin(time * 0.7 + i) * 0.08);\n        const grad = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.3, r * 0.05, cx, cy, r);\n\n        grad.addColorStop(0, \"#ffffff\");\n        grad.addColorStop(0.18, \"#e2e8f0\");\n        grad.addColorStop(0.42, \"#64748b\");\n        grad.addColorStop(0.68, \"#1e293b\");\n        grad.addColorStop(0.9, \"#0f172a\");\n        grad.addColorStop(1, \"rgba(9, 9, 11, 0)\");\n\n        ctx.save();\n        ctx.globalCompositeOperation = i % 2 === 0 ? \"screen\" : \"lighter\";\n        ctx.fillStyle = grad;\n        ctx.beginPath();\n        ctx.arc(cx, cy, r, 0, Math.PI * 2);\n        ctx.fill();\n        ctx.restore();\n      }\n\n      animId = requestAnimationFrame(render);\n    };\n\n    animId = requestAnimationFrame(render);\n\n    return () => {\n      cancelAnimationFrame(animId);\n      window.removeEventListener(\"resize\", resize);\n      window.removeEventListener(\"mousemove\", onPointerMove);\n      window.removeEventListener(\"touchmove\", onPointerMove);\n    };\n  }, [speed, interactive, reducedMotion]);\n\n  return (\n    <div\n      className={cn(\"relative isolate w-full min-h-full overflow-hidden bg-[#09090b]\", className)}\n      {...props}\n    >\n      <canvas\n        ref={canvasRef}\n        className=\"absolute inset-0 w-full h-full object-cover filter contrast-150 saturate-50 pointer-events-none\"\n      />\n      {children}\n    </div>\n  );\n}\n",
-      "contentHash": "44e342f00111fad75e2204c24cd5f5537232f0b2863b2ed1e0c13659cc0382a8",
-      "sizeBytes": 4019
-    },
-    {
-      "path": "demo.tsx",
-      "type": "registry:background",
-      "content": "import { LiquidChromeFluid } from \"./liquid-chrome-fluid\";\n\nexport default function Demo() {\n  return (\n    <div className=\"relative w-full h-80 rounded-xl overflow-hidden border border-line/30 flex items-center justify-center\">\n      <LiquidChromeFluid className=\"absolute inset-0\" />\n      <div className=\"relative z-10 text-center select-none pointer-events-none p-6\">\n        <span className=\"font-mono text-[10px] tracking-[0.28em] uppercase text-zinc-400 font-bold block mb-2\">\n          Viscous Metallic Surface\n        </span>\n        <h3 className=\"font-display text-2xl sm:text-3xl text-white font-medium tracking-tight\">\n          Liquid Chrome\n        </h3>\n      </div>\n    </div>\n  );\n}\n",
-      "contentHash": "e962418f5ccb0b3e65b793899c2ab675997fef607a7a15c61f92a7b14354ac42",
-      "sizeBytes": 701
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface LiquidChromeFluidProps {\n  className?: string;\n  speed?: number;\n  density?: number;\n  interactive?: boolean;\n}\n\n/**\n * Liquid Chrome Fluid\n * Procedural canvas flow field with sine-wave velocity and pointer interaction.\n */\nexport function LiquidChromeFluid({\n  className = \"w-full h-full min-h-[260px] relative overflow-hidden\",\n  speed = 1.0,\n  density = 1800,\n  interactive = true,\n}: LiquidChromeFluidProps): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  const mouseRef = React.useRef({ x: 0, y: 0, active: false });\n\n  React.useEffect(() => {\n    const canvas = canvasRef.current;\n    if (!canvas) return;\n    const ctx = canvas.getContext(\"2d\");\n    if (!ctx) return;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n\n    type Particle = { x: number; y: number; px: number; py: number; hue: number };\n    const cols = Math.ceil(Math.sqrt(density * (w / h)));\n    const rows = Math.ceil(density / cols);\n    const particles: Particle[] = [];\n    for (let i = 0; i < density; i++) {\n      const x = Math.random() * w, y = Math.random() * h;\n      particles.push({ x, y, px: x, py: y, hue: Math.random() * 60 + 190 });\n    }\n\n    let t = 0, animId: number;\n    const render = () => {\n      ctx.fillStyle = \"rgba(8, 10, 18, 0.12)\";\n      ctx.fillRect(0, 0, w, h);\n      t += 0.015 * speed;\n      for (const p of particles) {\n        const angle = Math.sin(p.x / 120 + t) * Math.cos(p.y / 120 + t * 0.7) * Math.PI * 2;\n        const spd = 1.2 * speed;\n        if (interactive && mouseRef.current.active) {\n          const dx = mouseRef.current.x - p.x, dy = mouseRef.current.y - p.y;\n          const d = Math.hypot(dx, dy);\n          if (d < 100) { p.x -= (dx / d) * 2; p.y -= (dy / d) * 2; }\n        }\n        p.px = p.x; p.py = p.y;\n        p.x += Math.cos(angle) * spd;\n        p.y += Math.sin(angle) * spd;\n        if (p.x < 0 || p.x > w || p.y < 0 || p.y > h) {\n          p.x = Math.random() * w; p.y = Math.random() * h; p.px = p.x; p.py = p.y;\n        }\n        ctx.strokeStyle = `hsla(${p.hue}, 75%, 65%, 0.55)`;\n        ctx.lineWidth = 0.7;\n        ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();\n      }\n      animId = requestAnimationFrame(render);\n    };\n    render();\n\n    const onMove = (e: MouseEvent) => {\n      const r = canvas.getBoundingClientRect();\n      mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top, active: true };\n    };\n    const onLeave = () => { mouseRef.current.active = false; };\n    canvas.addEventListener(\"mousemove\", onMove);\n    canvas.addEventListener(\"mouseleave\", onLeave);\n\n    return () => {\n      cancelAnimationFrame(animId);\n      canvas.removeEventListener(\"mousemove\", onMove);\n      canvas.removeEventListener(\"mouseleave\", onLeave);\n    };\n  }, [density, speed, interactive]);\n\n  return (\n    <div className={className} style={{ background: \"#08090f\" }}>\n      <canvas ref={canvasRef} className=\"w-full h-full block\" />\n    </div>\n  );\n}\n",
+      "contentHash": "8010a0b8e31adfa808a7c8df8afbc92d7acc475a020252a56be604e5fc80ff52",
+      "sizeBytes": 3115
     }
   ],
   "tags": [
-    "liquid",
-    "chrome",
-    "fluid",
-    "metallic",
-    "canvas",
-    "interactive"
+    "background",
+    "procedural",
+    "canvas"
   ],
   "license": "MIT",
-  "meta": {
-    "dna": {
-      "genre": "luxury",
-      "macrostructure": "full-bleed",
-      "density": "airy",
-      "shapeLanguage": "soft",
-      "motionLanguage": "kinetic",
-      "typographyStyle": "monospace",
-      "colorStrategy": "monochrome"
-    },
-    "difficulty": "intermediate",
-    "features": [
-      "keyboard-accessible",
-      "reduced-motion-safe",
-      "responsive"
-    ],
-    "peer": {
-      "react": ">=19"
-    },
-    "subcategory": "interactive",
-    "fingerprint": {
-      "interactionModel": "pointer-reactive",
-      "visualModel": "liquid-chrome-specular",
-      "motionModel": "spring-physics",
-      "layoutModel": "full-viewport-underlay",
-      "semanticPurpose": "metallic-surface-canvas"
-    }
-  },
-  "url": "https://openui.dev/r/liquid-chrome-fluid.json",
-  "designRules": "# Liquid Chrome Fluid\n\nA viscous metallic fluid background reacting with silky specular turbulence to pointer interaction and ambient time flow.\n\n## Aesthetic DNA\n- **Genre**: Technical Luxury / Futuristic Industrial\n- **Lighting**: Concentrated specular white highlights falloff into metallic slate and obsidian charcoal.\n- **Motion**: Fluid momentum with soft spring lag tracking mouse/touch velocity.\n- **Composition**: Multi-layered compositing with contrast boost and desaturated metallic tint.\n\n## Accessibility\n- Supports `reducedMotion` prop to settle into a static metallic field without continuous oscillation.\n- Low CPU footprint using hardware-accelerated 2D canvas drawing loops.\n"
+  "url": "https://uniquefingerprint.web.app/r/liquid-chrome-fluid.json"
 }

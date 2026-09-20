@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "squish-switch-toggle",
   "type": "registry:component",
   "title": "Squish Switch Toggle",

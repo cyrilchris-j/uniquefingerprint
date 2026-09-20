@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "stepper-control-tactile",
   "type": "registry:component",
   "title": "Stepper Control Tactile",

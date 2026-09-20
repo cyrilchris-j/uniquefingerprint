@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "laser-flow-field",
   "type": "registry:component",
   "title": "Laser Flow Field",

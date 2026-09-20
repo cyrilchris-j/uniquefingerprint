@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "elastic-stretch-text",
   "type": "registry:text",
   "title": "Elastic Stretch Text",
@@ -62,6 +62,6 @@
       "semanticPurpose": "display-accent"
     }
   },
-  "url": "https://openui.dev/r/elastic-stretch-text.json",
+  "url": "https://uniquefingerprint.web.app/r/elastic-stretch-text.json",
   "designRules": "# Design System\n\nGenre: Playful\nMacrostructure: Rail\nDensity: Airy\nShape: Soft\nMotion: Expressive\nTypography: Geometric\nColor: Duotone\n\n## Rules\n\n- Pointer Deform: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

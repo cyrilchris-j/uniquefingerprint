@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "customer-impact-stats",
   "type": "registry:section",
   "title": "Customer Impact Stats",
@@ -61,6 +61,6 @@
       "semanticPurpose": "customer-impact-stats-section"
     }
   },
-  "url": "https://openui.dev/r/customer-impact-stats.json",
+  "url": "https://uniquefingerprint.web.app/r/customer-impact-stats.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Mosaic\nDensity: Compact\nShape: Rounded\nMotion: None\nTypography: Grotesk\nColor: Accent Only\n\n## Rules\n\n- Customer Impact Stats Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

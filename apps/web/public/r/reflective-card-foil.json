@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "reflective-card-foil",
   "type": "registry:component",
   "title": "Reflective Card Foil",

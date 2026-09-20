@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "developer-stack-integration",
   "type": "registry:section",
   "title": "Developer Stack Integration",
@@ -61,6 +61,6 @@
       "semanticPurpose": "developer-stack-integration-section"
     }
   },
-  "url": "https://openui.dev/r/developer-stack-integration.json",
+  "url": "https://uniquefingerprint.web.app/r/developer-stack-integration.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Mosaic\nDensity: Compact\nShape: Rounded\nMotion: None\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Developer Stack Integration Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

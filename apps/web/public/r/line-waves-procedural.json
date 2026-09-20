@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "line-waves-procedural",
   "type": "registry:component",
   "title": "Line Waves Procedural",

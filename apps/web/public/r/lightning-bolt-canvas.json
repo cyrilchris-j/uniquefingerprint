@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "lightning-bolt-canvas",
   "type": "registry:component",
   "title": "Lightning Bolt Canvas",

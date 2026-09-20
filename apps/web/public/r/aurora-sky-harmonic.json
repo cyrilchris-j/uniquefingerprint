@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "aurora-sky-harmonic",
   "type": "registry:component",
   "title": "Aurora Sky Harmonic",

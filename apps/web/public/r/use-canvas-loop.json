@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "use-canvas-loop",
   "type": "registry:hook",
   "title": "Use Canvas Loop",
@@ -42,6 +42,6 @@
       "semanticPurpose": "animation-infrastructure"
     }
   },
-  "url": "https://openui.dev/r/use-canvas-loop.json",
+  "url": "https://uniquefingerprint.web.app/r/use-canvas-loop.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: Monochrome\n\n## Rules\n\n- One loop per canvas; never nest loops or run a second rAF inside the draw\n  callback.\n- All motion is a function of `elapsed`, never of frame count, so the animation\n  speed is identical at 30, 60 and 144 Hz.\n- The loop must stop when the canvas is hidden or offscreen; a paused loop is\n  the correct state, a busy loop is a bug.\n\n## Avoid\n\n- Allocating objects inside the draw callback; reuse buffers across frames.\n- Reading layout (getBoundingClientRect) inside the draw callback; sizes come\n  from the ResizeObserver.\n"
 }

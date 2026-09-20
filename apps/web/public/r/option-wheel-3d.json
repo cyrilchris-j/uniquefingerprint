@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "option-wheel-3d",
   "type": "registry:component",
   "title": "Option Wheel 3D",

@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "hover-glare-card",
   "type": "registry:interaction",
   "title": "Hover Glare Card",
@@ -63,6 +63,6 @@
       "semanticPurpose": "iridescent-collector-card"
     }
   },
-  "url": "https://openui.dev/r/hover-glare-card.json",
+  "url": "https://uniquefingerprint.web.app/r/hover-glare-card.json",
   "designRules": "# Design System\n\nGenre: Luxury\nMacrostructure: Symmetric\nDensity: Medium\nShape: Rounded\nMotion: Subtle\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Specular Glare Sweep: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "editorial-oxide",
   "type": "registry:theme",
   "title": "Editorial Oxide",
@@ -48,5 +48,5 @@
       "semanticPurpose": "editorial-color-theme"
     }
   },
-  "url": "https://openui.dev/r/editorial-oxide.json"
+  "url": "https://uniquefingerprint.web.app/r/editorial-oxide.json"
 }

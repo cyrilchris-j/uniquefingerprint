@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "curved-loop-ribbon",
   "type": "registry:component",
   "title": "Curved Loop Ribbon",

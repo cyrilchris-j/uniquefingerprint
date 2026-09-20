@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "orbit-images-cluster",
   "type": "registry:component",
   "title": "Orbit Images Cluster",

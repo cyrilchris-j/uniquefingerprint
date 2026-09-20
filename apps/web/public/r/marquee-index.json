@@ -1,5 +1,5 @@
 {
-  "$schema": "../schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "marquee-index",
   "type": "registry:component",
   "title": "Marquee Index",
@@ -60,6 +60,6 @@
       "semanticPurpose": "catalogue-browse"
     }
   },
-  "url": "https://openui.dev/r/marquee-index.json",
+  "url": "https://uniquefingerprint.web.app/r/marquee-index.json",
   "designRules": "# Marquee Index\n\nGenre: Industrial\nMacrostructure: Rail\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: Monochrome\n\n## Motion\n\nFast: 140ms\nNormal: 320ms\nSlow: 480ms\n\n## Rules\n\n- Constant velocity; no easing on the loop.\n- Pause on hover and on focus-within, always.\n- One line of type between two hairlines; nothing else in the band.\n- Reduce to static, scrollable content under reduced motion.\n\n## Avoid\n\n- Vertical tickers competing with a headline.\n- Gradient fade masks that hide content edges.\n- Speeds fast enough to be unreadable.\n"
 }
