@@ -125,14 +125,14 @@ const SPECIMEN_TABS = [
   },
   {
     id: "voice-pill-waveform",
-    label: "Voice Pill Waveform",
+    label: "Voice Waveform",
     slug: "voice-pill-waveform",
     icon: Activity,
     techBadge: "Interactive Audio Pill",
   },
   {
     id: "lens-magnify-text",
-    label: "Lens Magnify Text",
+    label: "Lens Magnify",
     slug: "lens-magnify-text",
     icon: Search,
     techBadge: "Magnification Optics",
@@ -161,9 +161,9 @@ function HeroSpecimenShowcase(): React.JSX.Element {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl border border-line/50 bg-paper/90 dark:bg-[#111114]/90 backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300">
+    <div className="flex flex-col rounded-2xl border border-line bg-paper shadow-md dark:shadow-2xl overflow-hidden transition-all duration-300">
       {/* Tab Selector Header */}
-      <div className="flex items-center justify-between border-b border-line/40 bg-surface/70 px-3 py-2 sm:px-4">
+      <div className="flex items-center justify-between border-b border-line bg-surface/80 dark:bg-surface/40 px-3 py-2 sm:px-4">
         <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
           {SPECIMEN_TABS.map((t, idx) => {
             const Icon = t.icon;
@@ -174,13 +174,13 @@ function HeroSpecimenShowcase(): React.JSX.Element {
                 type="button"
                 onClick={() => setActiveTab(idx)}
                 className={cn(
-                  "flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-150 cursor-pointer whitespace-nowrap",
+                  "flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-mono font-medium transition-all duration-150 cursor-pointer whitespace-nowrap",
                   isActive
-                    ? "bg-ink text-paper dark:bg-white dark:text-black shadow-xs"
+                    ? "bg-ink text-paper dark:bg-white dark:text-black shadow-xs font-semibold"
                     : "text-graphite hover:text-ink hover:bg-line/20",
                 )}
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0" />
                 <span>{t.label}</span>
               </button>
             );
@@ -199,21 +199,21 @@ function HeroSpecimenShowcase(): React.JSX.Element {
       </div>
 
       {/* Interactive Canvas Viewport */}
-      <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#0c0c0e] flex items-center justify-center p-4">
-        {/* Subtle dot matrix grid */}
+      <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#faf8f4] dark:bg-[#0c0c0e] border-b border-line flex items-center justify-center p-4 text-line dark:text-white/20">
+        {/* Subtle dot matrix grid - light & dark responsive */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-30"
+          className="absolute inset-0 pointer-events-none opacity-40 dark:opacity-25"
           style={{
-            backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(currentColor 1.2px, transparent 1.2px)",
             backgroundSize: "16px 16px",
           }}
         />
 
-        {/* Ambient radial glow */}
-        <div className="absolute inset-0 pointer-events-none bg-radial from-oxide/10 via-transparent to-transparent opacity-60" />
+        {/* Ambient subtle warm glow */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-oxide/[0.04] via-transparent to-oxide/[0.03] dark:from-oxide/10 dark:to-transparent" />
 
         {/* Specimen Live Indicator Pill */}
-        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white/90 text-[10px] font-mono">
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-paper/95 dark:bg-black/70 backdrop-blur-md border border-line text-ink dark:text-white/90 text-[10px] font-mono shadow-2xs">
           <span className="h-1.5 w-1.5 rounded-full bg-moss animate-pulse" />
           <span>{tab.techBadge}</span>
         </div>
@@ -223,13 +223,13 @@ function HeroSpecimenShowcase(): React.JSX.Element {
           {item ? (
             <AdvancedPreview item={item} />
           ) : (
-            <div className="text-white/60 font-mono text-xs">Loading preview...</div>
+            <div className="text-graphite font-mono text-xs">Loading preview...</div>
           )}
         </div>
       </div>
 
       {/* Specimen Info & Copy Action Footer */}
-      <div className="p-4 sm:p-5 flex flex-col gap-3.5 border-t border-line/40 bg-paper">
+      <div className="p-4 sm:p-5 flex flex-col gap-3.5 bg-paper">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">

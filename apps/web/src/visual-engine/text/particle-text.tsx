@@ -16,8 +16,8 @@ interface TextParticle {
 }
 
 export function ParticleText({
-  text = "OPENUI",
-  particleColor = "#ba442c",
+  text = "CYRIL CHRIS",
+  particleColor,
   className = "w-full h-full",
   ...rest
 }: ParticleTextProps): React.JSX.Element {
@@ -25,40 +25,45 @@ export function ParticleText({
   const pointerRef = React.useRef<{ x: number; y: number; isHovered: boolean }>({ x: 0, y: 0, isHovered: false });
   const lastSizeRef = React.useRef<{ width: number; height: number }>({ width: 0, height: 0 });
 
-  const initParticles = (width: number, height: number) => {
-    if (width <= 0 || height <= 0) return;
+  const initParticles = (rawWidth: number, rawHeight: number) => {
+    const w = Math.floor(rawWidth);
+    const h = Math.floor(rawHeight);
+    if (w <= 0 || h <= 0) return;
+
     const offCanvas = document.createElement("canvas");
-    offCanvas.width = width;
-    offCanvas.height = height;
-    const offCtx = offCanvas.getContext("2d");
+    offCanvas.width = w;
+    offCanvas.height = h;
+    const offCtx = offCanvas.getContext("2d", { willReadFrequently: true });
     if (!offCtx) return;
 
     offCtx.fillStyle = "#ffffff";
-    let fontSize = Math.min(width * 0.16, 68);
-    offCtx.font = `bold ${fontSize}px sans-serif`;
+    let fontSize = Math.min(w * 0.12, 54);
+    offCtx.font = `900 ${fontSize}px system-ui, -apple-system, sans-serif`;
 
-    const maxAllowedWidth = width * 0.82;
+    const maxAllowedWidth = w * 0.88;
     const textMetrics = offCtx.measureText(text);
     if (textMetrics.width > maxAllowedWidth && textMetrics.width > 0) {
       fontSize = Math.max(16, Math.floor(fontSize * (maxAllowedWidth / textMetrics.width)));
-      offCtx.font = `bold ${fontSize}px sans-serif`;
+      offCtx.font = `900 ${fontSize}px system-ui, -apple-system, sans-serif`;
     }
 
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
-    offCtx.fillText(text, width / 2, height / 2);
+    offCtx.fillText(text, Math.floor(w / 2), Math.floor(h / 2));
 
-    const imgData = offCtx.getImageData(0, 0, width, height).data;
+    const imgData = offCtx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+    const stride = imgData.width;
     const particles: TextParticle[] = [];
-    const step = width < 480 ? 3 : 4;
+    const step = 3;
 
-    for (let y = 0; y < height; y += step) {
-      for (let x = 0; x < width; x += step) {
-        const index = (y * width + x) * 4;
-        if (imgData[index + 3]! > 128) {
+    for (let y = 0; y < h; y += step) {
+      for (let x = 0; x < w; x += step) {
+        const index = (y * stride + x) * 4;
+        if (data[index + 3]! > 60) {
           particles.push({
-            x: x + (Math.random() - 0.5) * 30,
-            y: y + (Math.random() - 0.5) * 30,
+            x: x + (Math.random() - 0.5) * 16,
+            y: y + (Math.random() - 0.5) * 16,
             origX: x,
             origY: y,
             vx: 0,
@@ -86,18 +91,19 @@ export function ParticleText({
       const tension = 0.08;
       const damping = 0.85;
       const pointer = pointerRef.current;
+      const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 
-      ctx.fillStyle = particleColor;
+      ctx.fillStyle = particleColor || (isDark ? "#f97316" : "#c2410c");
 
       particlesRef.current.forEach((p) => {
         if (pointer.isHovered) {
           const dx = pointer.x - p.x;
           const dy = pointer.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 60 && dist > 0) {
-            const force = (60 - dist) / 60;
-            p.vx -= (dx / dist) * force * 7;
-            p.vy -= (dy / dist) * force * 7;
+          if (dist < 65 && dist > 0) {
+            const force = (65 - dist) / 65;
+            p.vx -= (dx / dist) * force * 7.5;
+            p.vy -= (dy / dist) * force * 7.5;
           }
         }
 
@@ -110,7 +116,7 @@ export function ParticleText({
         p.x += p.vx;
         p.y += p.vy;
 
-        ctx.fillRect(p.x, p.y, 2.2, 2.2);
+        ctx.fillRect(p.x, p.y, 2.5, 2.5);
       });
     },
     [text, particleColor],
