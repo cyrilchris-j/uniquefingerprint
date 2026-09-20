@@ -29,7 +29,7 @@ export function TiltParallaxScene({ className }: TiltParallaxSceneProps) {
           transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
           transformStyle: "preserve-3d",
         }}
-        className="relative h-64 w-80 rounded-xl border border-line bg-paper p-6 shadow-xl transition-transform duration-100 ease-out flex flex-col justify-between"
+        className="relative h-64 w-80 rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 p-6 shadow-xl transition-transform duration-100 ease-out flex flex-col justify-between"
       >
         <div style={{ transform: "translateZ(20px)" }}>
           <span className="font-mono text-[10px] uppercase text-ink/50">PARALLAX STAGE</span>

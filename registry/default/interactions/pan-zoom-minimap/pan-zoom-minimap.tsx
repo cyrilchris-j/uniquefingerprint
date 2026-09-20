@@ -11,13 +11,13 @@ export function PanZoomMinimap({ className }: PanZoomMinimapProps) {
   const [viewPos, setViewPos] = useState({ x: 20, y: 20 });
 
   return (
-    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-xl border border-line bg-paper p-4", className)}>
+    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 p-4", className)}>
       <div className="h-full w-full rounded-lg bg-line/10 flex items-center justify-center font-mono text-xs text-ink/40">
         CANVAS WORKSPACE
       </div>
 
       {/* Floating Minimap */}
-      <div className="absolute bottom-4 right-4 h-24 w-32 rounded-lg border-2 border-line bg-paper p-2 shadow-lg">
+      <div className="absolute bottom-4 right-4 h-24 w-32 rounded-lg border-2 border-white/10 bg-zinc-900/70 p-2 shadow-lg">
         <span className="font-mono text-[8px] text-ink/50 uppercase">RADAR MAP</span>
         <div className="relative mt-1 h-14 w-full rounded bg-line/20">
           <div

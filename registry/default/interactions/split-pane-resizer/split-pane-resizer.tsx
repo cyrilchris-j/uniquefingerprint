@@ -11,7 +11,7 @@ export function SplitPaneResizer({ className }: SplitPaneResizerProps) {
   const [split, setSplit] = useState(50);
 
   return (
-    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-xl border border-line bg-paper flex select-none", className)}>
+    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 flex select-none", className)}>
       {/* Left Panel */}
       <div
         style={{ width: `${split}%` }}

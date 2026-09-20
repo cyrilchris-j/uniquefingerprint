@@ -51,12 +51,6 @@ const CollectionsPage = React.lazy(() =>
 const CollectionPage = React.lazy(() =>
   import("../routes/collections.js").then((module) => ({ default: module.CollectionPage })),
 );
-const DesignSystemsPage = React.lazy(() =>
-  import("../routes/design-systems.js").then((module) => ({ default: module.DesignSystemsPage })),
-);
-const DesignSystemPage = React.lazy(() =>
-  import("../routes/design-systems.js").then((module) => ({ default: module.DesignSystemPage })),
-);
 
 const ProfilePage = React.lazy(() =>
   import("../routes/account.js").then((module) => ({ default: module.ProfilePage })),
@@ -97,21 +91,10 @@ const categoryRoutes: RouteObject[] = CATALOGUE_CATEGORIES.map((category) => ({
   element: <CategoryPage category={category.slug} />,
 }));
 
-/**
- * Resource detail routes.
- *
- * `/design-systems` and `/ai` are handled by their own pages rather than the
- * generic category component, so they are excluded from the detail loop.
- */
-const resourceRoutes: RouteObject[] = CATALOGUE_CATEGORIES.filter(
-  (category) => category.slug !== "design-systems",
-).map((category) => ({
+const resourceRoutes: RouteObject[] = CATALOGUE_CATEGORIES.map((category) => ({
   path: `${category.slug}/:slug`,
   element: <ResourcePage />,
 }));
-
-// The design-systems category has its own index page, so its detail route is too.
-resourceRoutes.push({ path: "design-systems/:slug", element: <DesignSystemPage /> });
 
 export const routes: RouteObject[] = [
   {
@@ -126,9 +109,6 @@ export const routes: RouteObject[] = [
       { path: "builder", element: <BuilderPage /> },
       { path: "submit", element: <SubmitPage /> },
 
-      // The design-systems index is also the `design-systems` category page, so
-      // it is registered once, here, and the category loop skips it.
-      { path: "design-systems", element: <DesignSystemsPage /> },
       { path: "advanced", element: <AdvancedPage /> },
       { path: "advanced/:category", element: <AdvancedPage /> },
       { path: "advanced/:category/:slug", element: <AdvancedDetailPage /> },

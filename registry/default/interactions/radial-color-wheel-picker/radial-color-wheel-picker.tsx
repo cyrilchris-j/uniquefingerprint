@@ -11,7 +11,7 @@ export function RadialColorWheelPicker({ className }: RadialColorWheelPickerProp
   const [hue, setHue] = useState(210);
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black p-6 shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 select-none", className)}>
       <div className="flex justify-between w-full font-mono text-xs text-ink/60">
         <span>COLOR HUE</span>
         <span className="font-bold text-ink">{hue}°</span>

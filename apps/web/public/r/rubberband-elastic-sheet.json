@@ -15,9 +15,9 @@
     {
       "path": "rubberband-elastic-sheet.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface RubberbandElasticSheetProps {\n  className?: string;\n}\n\nexport function RubberbandElasticSheet({ className }: RubberbandElasticSheetProps) {\n  const [pull, setPull] = useState(0);\n\n  return (\n    <div className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper flex flex-col justify-end p-4\", className)}>\n      <div\n        className=\"w-full rounded-t-xl border border-line bg-line/10 p-5 shadow-lg transition-transform duration-100 ease-out\"\n        style={{ transform: `translateY(${pull}px)` }}\n      >\n        <div className=\"mx-auto h-1 w-8 rounded-full bg-ink/30 mb-3\" />\n        <h5 className=\"font-display font-bold text-sm text-ink\">Rubberband Sheet</h5>\n        <p className=\"mt-1 font-mono text-xs text-ink/70\">Tension increases with drag amplitude.</p>\n      </div>\n\n      <div className=\"absolute top-4 left-1/2 -translate-x-1/2\">\n        <input\n          type=\"range\"\n          min=\"-30\"\n          max=\"30\"\n          value={pull}\n          onChange={(e) => setPull(parseInt(e.target.value, 10))}\n          onPointerUp={() => setPull(0)}\n          className=\"w-32 cursor-pointer accent-ink\"\n        />\n      </div>\n    </div>\n  );\n}\n\nexport default RubberbandElasticSheet;\n",
-      "contentHash": "f2cfc113b149455529cb48c2efba9970debc9ef7ab3ad23f6c2f437f615eb638",
-      "sizeBytes": 1324
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface RubberbandElasticSheetProps {\n  className?: string;\n}\n\nexport function RubberbandElasticSheet({ className }: RubberbandElasticSheetProps) {\n  const [pull, setPull] = useState(0);\n\n  return (\n    <div className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 flex flex-col justify-end p-4\", className)}>\n      <div\n        className=\"w-full rounded-t-xl border border-line bg-line/10 p-5 shadow-lg transition-transform duration-100 ease-out\"\n        style={{ transform: `translateY(${pull}px)` }}\n      >\n        <div className=\"mx-auto h-1 w-8 rounded-full bg-ink/30 mb-3\" />\n        <h5 className=\"font-display font-bold text-sm text-ink\">Rubberband Sheet</h5>\n        <p className=\"mt-1 font-mono text-xs text-ink/70\">Tension increases with drag amplitude.</p>\n      </div>\n\n      <div className=\"absolute top-4 left-1/2 -translate-x-1/2\">\n        <input\n          type=\"range\"\n          min=\"-30\"\n          max=\"30\"\n          value={pull}\n          onChange={(e) => setPull(parseInt(e.target.value, 10))}\n          onPointerUp={() => setPull(0)}\n          className=\"w-32 cursor-pointer accent-ink\"\n        />\n      </div>\n    </div>\n  );\n}\n\nexport default RubberbandElasticSheet;\n",
+      "contentHash": "32a1d13e7c48ff3579ee07b06e62e5fbc49837375badab96a56a1f461319a9e8",
+      "sizeBytes": 1436
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "rubberband-sheet-controller"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/rubberband-elastic-sheet.json",
+  "url": "https://openui.dev/r/rubberband-elastic-sheet.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Stack\nDensity: Compact\nShape: Rounded\nMotion: Mechanical\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Overscroll Sheet Drag: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

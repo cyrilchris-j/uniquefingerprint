@@ -20,7 +20,7 @@ export function GestureSwipeActionList({ className }: GestureSwipeActionListProp
   };
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black p-6 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
       <span className="font-mono text-xs text-ink/60 uppercase mb-3 block">GESTURE ACTION LIST</span>
 
       <div className="space-y-2">

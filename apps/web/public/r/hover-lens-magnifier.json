@@ -15,9 +15,9 @@
     {
       "path": "hover-lens-magnifier.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverLensMagnifierProps {\n  className?: string;\n}\n\nexport function HoverLensMagnifier({ className }: HoverLensMagnifierProps) {\n  const [lens, setLens] = useState({ x: 80, y: 80 });\n\n  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    setLens({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n  };\n\n  return (\n    <div\n      onPointerMove={handlePointerMove}\n      className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-6 select-none\", className)}\n    >\n      <div className=\"font-mono text-[11px] leading-5 text-ink/70\">\n        <p>0x0001: 4F 50 45 4E 55 49</p>\n        <p>0x0008: 72 65 67 69 73 74</p>\n        <p>0x0010: 72 79 2D 38 30 30</p>\n        <p>0x0018: 6B 65 72 6E 65 6C</p>\n      </div>\n\n      <div\n        className=\"pointer-events-none absolute -ml-8 -mt-8 flex h-16 w-16 items-center justify-center rounded-lg border-2 border-ink bg-paper/40 shadow-xl backdrop-blur-[1px]\"\n        style={{ left: lens.x, top: lens.y }}\n      >\n        <span className=\"font-mono text-[9px] font-bold text-ink\">LOUPE</span>\n      </div>\n    </div>\n  );\n}\n\nexport default HoverLensMagnifier;\n",
-      "contentHash": "592f152cd01ea1c8f06b9e74efa42690084dbab95cf394debe9128f67a15de13",
-      "sizeBytes": 1322
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverLensMagnifierProps {\n  className?: string;\n}\n\nexport function HoverLensMagnifier({ className }: HoverLensMagnifierProps) {\n  const [lens, setLens] = useState({ x: 80, y: 80 });\n\n  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    setLens({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n  };\n\n  return (\n    <div\n      onPointerMove={handlePointerMove}\n      className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-6 select-none\", className)}\n    >\n      <div className=\"font-mono text-[11px] leading-5 text-ink/70\">\n        <p>0x0001: 4F 50 45 4E 55 49</p>\n        <p>0x0008: 72 65 67 69 73 74</p>\n        <p>0x0010: 72 79 2D 38 30 30</p>\n        <p>0x0018: 6B 65 72 6E 65 6C</p>\n      </div>\n\n      <div\n        className=\"pointer-events-none absolute -ml-8 -mt-8 flex h-16 w-16 items-center justify-center rounded-lg border-2 border-ink bg-paper/40 shadow-xl backdrop-blur-[1px]\"\n        style={{ left: lens.x, top: lens.y }}\n      >\n        <span className=\"font-mono text-[9px] font-bold text-ink\">LOUPE</span>\n      </div>\n    </div>\n  );\n}\n\nexport default HoverLensMagnifier;\n",
+      "contentHash": "482e856213b2b96a9de6465307a8a23d3726b65df69c1fbcaf74ba208d2c7bc8",
+      "sizeBytes": 1426
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "technical-inspection-loupe"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/hover-lens-magnifier.json",
+  "url": "https://openui.dev/r/hover-lens-magnifier.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Sharp\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Coordinate Loupe Tracking: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

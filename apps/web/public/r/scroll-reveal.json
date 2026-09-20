@@ -61,6 +61,6 @@
       "semanticPurpose": "story-entrance"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/scroll-reveal.json",
+  "url": "https://openui.dev/r/scroll-reveal.json",
   "designRules": "# Scroll Reveal\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: Subtle\nTypography: Grotesk\nColor: Monochrome\n\n## Motion\n\nFast: 180ms\nNormal: 320ms\nSlow: 560ms\n\n## Rules\n\n- Reveal once. Never re-trigger on scroll direction change.\n- Travel stays under 24px; a reveal is a settle, not an entrance.\n- Content is visible without JavaScript; animation is additive.\n- Stagger direct children only, by 60–120ms.\n\n## Avoid\n\n- Revealing every element on the page.\n- Fading from 0 opacity with a delay long enough to look broken.\n- Slide-ins from the side on large blocks.\n"
 }

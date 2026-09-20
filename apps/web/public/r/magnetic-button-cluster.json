@@ -63,6 +63,6 @@
       "semanticPurpose": "interactive-cta-cluster"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/magnetic-button-cluster.json",
+  "url": "https://openui.dev/r/magnetic-button-cluster.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Symmetric\nDensity: Compact\nShape: Pill\nMotion: Subtle\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Pointer Proximity Displacement: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

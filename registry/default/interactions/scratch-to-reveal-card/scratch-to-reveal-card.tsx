@@ -43,9 +43,9 @@ export function ScratchToRevealCard({ className, code = "OPENUI-800-ALPHA" }: Sc
   };
 
   return (
-    <div className={cn("relative h-44 w-72 overflow-hidden rounded-xl border border-line bg-paper shadow-md", className)}>
+    <div className={cn("relative h-44 w-72 overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white shadow-md", className)}>
       <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-        <span className="font-mono text-[10px] text-ink/50 uppercase">ACCESS VOUCHER</span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-cyan-400 flex items-center gap-1.5">ACCESS VOUCHER</span>
         <span className="mt-1 font-mono text-base font-bold text-ink">{code}</span>
         <span className="mt-1 font-mono text-[9px] text-emerald-600">✓ AUTHORIZED</span>
       </div>

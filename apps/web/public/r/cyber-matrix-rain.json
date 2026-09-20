@@ -63,6 +63,6 @@
       "semanticPurpose": "cyberpunk-matrix-stream"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/cyber-matrix-rain.json",
+  "url": "https://openui.dev/r/cyber-matrix-rain.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Full Bleed\nDensity: Dense\nShape: Sharp\nMotion: Kinetic\nTypography: Monospace\nColor: Neon On Dark\n\n## Rules\n\n- Passive Canvas Render: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

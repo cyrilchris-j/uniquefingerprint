@@ -15,9 +15,9 @@
     {
       "path": "hover-expand-accordion-row.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverExpandAccordionRowProps {\n  className?: string;\n}\n\nexport function HoverExpandAccordionRow({ className }: HoverExpandAccordionRowProps) {\n  const [hovered, setHovered] = useState<number | null>(0);\n  const rows = [\n    { title: \"Deterministic Build Graph\", body: \"Every package resolves immutable content addresses.\" },\n    { title: \"Zero-Overhead Bundler\", body: \"Shared ES module trees deduplicated at boundary.\" },\n  ];\n\n  return (\n    <div className={cn(\"w-full max-w-sm rounded-xl border border-line bg-paper p-4 shadow-sm divide-y divide-line\", className)}>\n      {rows.map((row, i) => (\n        <div\n          key={row.title}\n          onPointerEnter={() => setHovered(i)}\n          className=\"py-3 cursor-pointer\"\n        >\n          <h5 className=\"font-display font-bold text-sm text-ink\">{row.title}</h5>\n          {hovered === i && (\n            <p className=\"mt-1 font-mono text-xs text-ink/70\">{row.body}</p>\n          )}\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport default HoverExpandAccordionRow;\n",
-      "contentHash": "7feb9799a51a9b4204d365203ad04502d950fa989abede542ca8a2809de29a8e",
-      "sizeBytes": 1122
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverExpandAccordionRowProps {\n  className?: string;\n}\n\nexport function HoverExpandAccordionRow({ className }: HoverExpandAccordionRowProps) {\n  const [hovered, setHovered] = useState<number | null>(0);\n  const rows = [\n    { title: \"Deterministic Build Graph\", body: \"Every package resolves immutable content addresses.\" },\n    { title: \"Zero-Overhead Bundler\", body: \"Shared ES module trees deduplicated at boundary.\" },\n  ];\n\n  return (\n    <div className={cn(\"w-full max-w-sm rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] p-6 shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 select-none divide-y divide-line\", className)}>\n      {rows.map((row, i) => (\n        <div\n          key={row.title}\n          onPointerEnter={() => setHovered(i)}\n          className=\"py-3 cursor-pointer\"\n        >\n          <h5 className=\"font-display font-bold text-sm text-ink\">{row.title}</h5>\n          {hovered === i && (\n            <p className=\"mt-1 font-mono text-xs text-ink/70\">{row.body}</p>\n          )}\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport default HoverExpandAccordionRow;\n",
+      "contentHash": "fa6b8ced8e487baf4228568bb7a22a307282e0d37c42056642bddc24f32fae0c",
+      "sizeBytes": 1238
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "hover-disclosure-row"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/hover-expand-accordion-row.json",
+  "url": "https://openui.dev/r/hover-expand-accordion-row.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Stack\nDensity: Compact\nShape: Rounded\nMotion: Subtle\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Hover Accordion Disclosure: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

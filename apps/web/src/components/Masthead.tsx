@@ -138,7 +138,6 @@ export function Masthead(): React.JSX.Element {
     "/sections",
     "/blocks",
     "/themes",
-    "/design-systems",
   ].some((path) => location.pathname === path || location.pathname.startsWith(`${path}/`));
 
   // Any navigation closes the panel; leaving it open over a new page is the
@@ -225,7 +224,7 @@ export function Masthead(): React.JSX.Element {
                         Systems & Architecture
                       </span>
                       <span className="font-mono text-[9px] text-oxide font-bold uppercase tracking-wider bg-oxide/10 px-1.5 py-0.5 rounded border border-oxide/20">
-                        6 Categories
+                        5 Categories
                       </span>
                     </div>
 
@@ -379,35 +378,6 @@ export function Masthead(): React.JSX.Element {
                       </Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem asChild className="p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
-                      <Link
-                        to="/design-systems"
-                        className={cn(
-                          "group flex items-start gap-3 px-3 py-2 w-full text-left rounded-lg transition-colors duration-fast",
-                          "hover:bg-line/10 data-[highlighted]:bg-line/10",
-                          location.pathname.startsWith("/design-systems")
-                            ? "bg-line/15 border-l-2 border-oxide"
-                            : "border-l-2 border-transparent",
-                        )}
-                      >
-                        <div className="mt-0.5 p-1.5 rounded-md bg-line/10 text-graphite group-hover:text-oxide group-hover:bg-oxide/10 transition-colors shrink-0">
-                          <Layers className="h-3.5 w-3.5" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-ink group-hover:text-oxide transition-colors">
-                              Design Systems
-                            </span>
-                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider font-bold text-oxide bg-oxide/10 border border-oxide/20">
-                              Complete
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-graphite leading-tight mt-0.5 group-hover:text-ink/80 transition-colors">
-                            Full brand systems, tokens, typography & rules
-                          </p>
-                        </div>
-                      </Link>
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>

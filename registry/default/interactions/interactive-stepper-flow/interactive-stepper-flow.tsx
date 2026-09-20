@@ -12,7 +12,7 @@ export function InteractiveStepperFlow({ className }: InteractiveStepperFlowProp
   const steps = ["Config", "Build", "Deploy", "Verify"];
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
       <div className="flex items-center gap-3">
         {steps.map((label, idx) => {
           const isDone = idx < step;
@@ -34,7 +34,7 @@ export function InteractiveStepperFlow({ className }: InteractiveStepperFlowProp
           );
         })}
       </div>
-      <span className="font-mono text-xs text-ink/60">ACTIVE STEP: {steps[step]}</span>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-violet-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>ACTIVE STEP: {steps[step]}</span><span className="opacity-50 ml-auto">[QUANTUM]</span></div>
     </div>
   );
 }

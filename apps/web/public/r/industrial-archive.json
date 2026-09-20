@@ -47,6 +47,6 @@
       "semanticPurpose": "industrial-styleguide"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/industrial-archive.json",
+  "url": "https://openui.dev/r/industrial-archive.json",
   "designRules": "# Industrial Archive\n\nGenre: Industrial\nMacrostructure: Mosaic\nDensity: Dense\nShape: Cut\nMotion: Mechanical\nTypography: Monospace\nColor: Neon On Dark\n\n## Typography\n\nHeading: JetBrains Mono\nBody: Inter\nMono: JetBrains Mono\n\n## Motion\n\nFast: 140ms\nNormal: 240ms\nSlow: 420ms\n\n## Rules\n\n- Regions differ by weight, not by elevation. Use hairlines to divide.\n- Numbers are monospace and tabular; every figure must align in a column.\n- Shapes are cut, not rounded. One corner gesture per surface, on the outer edge only.\n- Density is a feature: pack information, then use whitespace to separate regions, not items.\n- A single amber signal marks attention. Never use it for decoration or branding.\n- Motion is mechanical: short, linear-ish, and identical across similar interactions.\n\n## Avoid\n\n- Rounded card grids with drop shadows.\n- More than one attention colour on a screen.\n- Centred headline stacks with feature columns beneath.\n- Soft easing curves that make instrumentation feel bouncy.\n- Hiding data behind hover-only affordances.\n"
 }

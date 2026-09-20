@@ -366,7 +366,6 @@ export default function BuilderPage(): React.JSX.Element {
         <ul className="flex flex-wrap gap-x-6 gap-y-3">
           {[
             ["/playground", "Playground"],
-            ["/design-systems", "Design systems"],
             ["/ai", "AI resources"],
             ["/docs/design-systems", "Reading a fingerprint"],
           ].map(([to, label]) => (

@@ -22,7 +22,7 @@ export function HoverSpotlightCard({ className }: HoverSpotlightCardProps) {
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setOpacity(0)}
       className={cn(
-        "relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-paper p-6 shadow-sm",
+        "relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 p-6 shadow-sm",
         className
       )}
     >

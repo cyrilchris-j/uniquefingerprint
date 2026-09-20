@@ -18,8 +18,8 @@ export function KeyboardSpatialGrid({ className }: KeyboardSpatialGridProps) {
   };
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">SPATIAL GRID (ROW {selected.r}, COL {selected.c})</span>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-violet-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>SPATIAL GRID (ROW {selected.r}, COL {selected.c})</span><span className="opacity-50 ml-auto">[QUANTUM]</span></div>
 
       <div className="grid grid-cols-3 gap-2">
         {Array.from({ length: 3 }).map((_, r) =>

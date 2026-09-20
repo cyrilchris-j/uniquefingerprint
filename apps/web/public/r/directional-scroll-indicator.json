@@ -15,9 +15,9 @@
     {
       "path": "directional-scroll-indicator.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { cn } from \"@/lib/cn\";\n\nexport interface DirectionalScrollIndicatorProps {\n  className?: string;\n}\n\nexport function DirectionalScrollIndicator({ className }: DirectionalScrollIndicatorProps) {\n  return (\n    <div className={cn(\"inline-flex flex-col items-center gap-2\", className)}>\n      <span className=\"font-mono text-[10px] text-ink/50 uppercase\">SCROLL FOR DETAILS</span>\n      <div className=\"flex h-8 w-8 items-center justify-center rounded-full border border-line bg-paper shadow-sm animate-bounce\">\n        ↓\n      </div>\n    </div>\n  );\n}\n\nexport default DirectionalScrollIndicator;\n",
-      "contentHash": "4f0f776a5ba9f92885acdf2f6279bb995930fefde641ab5f237955998b5842be",
-      "sizeBytes": 618
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/cn\";\n\nexport interface DirectionalScrollIndicatorProps {\n  className?: string;\n}\n\nexport function DirectionalScrollIndicator({ className }: DirectionalScrollIndicatorProps) {\n  return (\n    <div className={cn(\"inline-flex flex-col items-center gap-2\", className)}>\n      <span className=\"font-mono text-[10px] text-ink/50 uppercase\">SCROLL FOR DETAILS</span>\n      <div className=\"flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-zinc-900/70 shadow-sm animate-bounce\">\n        ↓\n      </div>\n    </div>\n  );\n}\n\nexport default DirectionalScrollIndicator;\n",
+      "contentHash": "5bf644f37977578bef7afe810e0d5be09cf1419cc698b2d14abbf2bc1cd90db9",
+      "sizeBytes": 628
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "scroll-affordance-cue"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/directional-scroll-indicator.json",
+  "url": "https://openui.dev/r/directional-scroll-indicator.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Symmetric\nDensity: Compact\nShape: Pill\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Viewport Direction Cue: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

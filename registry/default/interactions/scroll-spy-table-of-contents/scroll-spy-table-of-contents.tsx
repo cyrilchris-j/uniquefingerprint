@@ -17,7 +17,7 @@ export function ScrollSpyTableOfContents({ className }: ScrollSpyTableOfContents
   ];
 
   return (
-    <div className={cn("w-full max-w-xs rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("w-full max-w-xs rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] p-6 shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 select-none", className)}>
       <span className="font-mono text-xs text-ink/50 uppercase mb-3 block">DOCUMENT INDEX</span>
       <div className="space-y-1 border-l-2 border-line">
         {items.map((item) => (

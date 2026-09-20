@@ -15,9 +15,9 @@
     {
       "path": "multi-target-focus-ring.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface MultiTargetFocusRingProps {\n  className?: string;\n}\n\nexport function MultiTargetFocusRing({ className }: MultiTargetFocusRingProps) {\n  const [active, setActive] = useState(0);\n  const targets = [\"Alpha\", \"Bravo\", \"Charlie\", \"Delta\"];\n\n  return (\n    <div className={cn(\"inline-flex items-center gap-2 rounded-xl border border-line bg-paper p-3 shadow-sm\", className)}>\n      {targets.map((t, i) => (\n        <button\n          key={t}\n          type=\"button\"\n          onClick={() => setActive(i)}\n          className={cn(\n            \"rounded-lg px-4 py-2 font-mono text-xs font-bold transition-all duration-200\",\n            active === i ? \"bg-ink text-paper shadow\" : \"text-ink/60 hover:text-ink\"\n          )}\n        >\n          {t}\n        </button>\n      ))}\n    </div>\n  );\n}\n\nexport default MultiTargetFocusRing;\n",
-      "contentHash": "40168dff96d77920abebcbbc332a26c0e6906f533de8ce1d9b186e039a68764f",
-      "sizeBytes": 919
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface MultiTargetFocusRingProps {\n  className?: string;\n}\n\nexport function MultiTargetFocusRing({ className }: MultiTargetFocusRingProps) {\n  const [active, setActive] = useState(0);\n  const targets = [\"Alpha\", \"Bravo\", \"Charlie\", \"Delta\"];\n\n  return (\n    <div className={cn(\"inline-flex items-center gap-2 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none\", className)}>\n      {targets.map((t, i) => (\n        <button\n          key={t}\n          type=\"button\"\n          onClick={() => setActive(i)}\n          className={cn(\n            \"rounded-lg px-4 py-2 font-mono text-xs font-bold transition-all duration-200\",\n            active === i ? \"bg-ink text-paper shadow\" : \"text-ink/60 hover:text-ink\"\n          )}\n        >\n          {t}\n        </button>\n      ))}\n    </div>\n  );\n}\n\nexport default MultiTargetFocusRing;\n",
+      "contentHash": "32a09ec28936c367073076b123078743e5b1acb284d7cf9f914d23c58e738096",
+      "sizeBytes": 1033
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "focus-indicator-reticle"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/multi-target-focus-ring.json",
+  "url": "https://openui.dev/r/multi-target-focus-ring.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Roving Focus Navigation: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

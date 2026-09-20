@@ -59,6 +59,6 @@
       "semanticPurpose": "section-headline"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/editorial-heading.json",
+  "url": "https://openui.dev/r/editorial-heading.json",
   "designRules": "# Editorial Heading\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: Subtle\nTypography: Serif Display\nColor: High Contrast\n\n## Typography\n\nHeading: Instrument Serif\nBody: Inter\nMono: JetBrains Mono\n\n## Motion\n\nFast: 120ms\nNormal: 320ms\nSlow: 600ms\n\n## Rules\n\n- Hierarchy comes from scale, case and one change of voice — never from decoration.\n- Keep the heading to two lines of thought: a lead and an emphasis.\n- Set the index label in monospace with wide tracking.\n- Keep line-height below 1.0 for display sizes.\n\n## Avoid\n\n- Gradient text fills.\n- Letter-spaced all-caps display headings.\n- Centring display type over a symmetric stack.\n"
 }

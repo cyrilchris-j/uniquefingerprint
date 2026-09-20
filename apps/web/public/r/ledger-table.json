@@ -61,6 +61,6 @@
       "semanticPurpose": "financial-reporting"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/ledger-table.json",
+  "url": "https://openui.dev/r/ledger-table.json",
   "designRules": "# Ledger Table\n\nGenre: Industrial\nMacrostructure: Stack\nDensity: Dense\nShape: Sharp\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Motion\n\nFast: 120ms\nNormal: 200ms\nSlow: 320ms\n\n## Rules\n\n- Rules separate rows: no zebra striping, no card chrome, no shadows.\n- Numbers are right-aligned with tabular figures so columns compare by shape.\n- Headers are monospace uppercase at 11px with wide tracking.\n- Sorting state is announced with aria-sort, not only with an icon.\n\n## Avoid\n\n- Row hover that changes the row height.\n- Pagination controls inside the table surface.\n- Truncating the identifier column.\n"
 }

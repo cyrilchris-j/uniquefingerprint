@@ -59,6 +59,6 @@
       "semanticPurpose": "narrative-lead-story"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/asymmetric-split.json",
+  "url": "https://openui.dev/r/asymmetric-split.json",
   "designRules": "# Asymmetric Split\n\nGenre: Swiss\nMacrostructure: Asymmetric\nDensity: Medium\nShape: Sharp\nMotion: None\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Choose a ratio deliberately: 7/5 default, never 6/6.\n- Make the split legible with a hairline between the columns.\n- Recompose below 1024px; never hide the secondary column.\n- The reading order in the DOM is the reading order on mobile.\n\n## Avoid\n\n- Equal columns with no visual hierarchy.\n- Sidebars that become accordions on mobile.\n- Gaps wider than the content measure.\n"
 }

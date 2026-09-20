@@ -11,7 +11,7 @@ export function InteractiveCodeFold({ className }: InteractiveCodeFoldProps) {
   const [folded, setFolded] = useState(false);
 
   return (
-    <div className={cn("w-full max-w-md rounded-xl border border-line bg-paper p-4 font-mono text-xs shadow-sm", className)}>
+    <div className={cn("w-full max-w-md rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-4 font-mono text-xs shadow-sm", className)}>
       <div className="flex items-center gap-2">
         <button
           type="button"

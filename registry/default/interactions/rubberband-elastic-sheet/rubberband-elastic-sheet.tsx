@@ -11,7 +11,7 @@ export function RubberbandElasticSheet({ className }: RubberbandElasticSheetProp
   const [pull, setPull] = useState(0);
 
   return (
-    <div className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper flex flex-col justify-end p-4", className)}>
+    <div className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 flex flex-col justify-end p-4", className)}>
       <div
         className="w-full rounded-t-xl border border-line bg-line/10 p-5 shadow-lg transition-transform duration-100 ease-out"
         style={{ transform: `translateY(${pull}px)` }}

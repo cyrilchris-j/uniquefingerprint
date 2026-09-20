@@ -31,7 +31,7 @@ export function PressAndHoldButton({ className }: PressAndHoldButtonProps) {
         onPointerUp={cancelHold}
         onPointerLeave={cancelHold}
         className={cn(
-          "relative overflow-hidden rounded-full border border-line bg-paper px-6 py-3 font-mono text-xs font-bold text-ink shadow-md transition-all active:scale-95",
+          "relative overflow-hidden rounded-full border border-white/10 bg-zinc-900/70 px-6 py-3 font-mono text-xs font-bold text-ink shadow-md transition-all active:scale-95",
           done && "bg-emerald-600 text-white border-emerald-600"
         )}
       >

@@ -12,7 +12,7 @@ export function MultiTargetFocusRing({ className }: MultiTargetFocusRingProps) {
   const targets = ["Alpha", "Bravo", "Charlie", "Delta"];
 
   return (
-    <div className={cn("inline-flex items-center gap-2 rounded-xl border border-line bg-paper p-3 shadow-sm", className)}>
+    <div className={cn("inline-flex items-center gap-2 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
       {targets.map((t, i) => (
         <button
           key={t}

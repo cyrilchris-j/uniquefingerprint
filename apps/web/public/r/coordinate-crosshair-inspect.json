@@ -15,9 +15,9 @@
     {
       "path": "coordinate-crosshair-inspect.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface CoordinateCrosshairInspectProps {\n  className?: string;\n}\n\nexport function CoordinateCrosshairInspect({ className }: CoordinateCrosshairInspectProps) {\n  const [point, setPoint] = useState({ x: 100, y: 100 });\n\n  return (\n    <div\n      onPointerMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPoint({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n      }}\n      className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-4 cursor-crosshair select-none\", className)}\n    >\n      <div className=\"flex justify-between items-center pb-2 border-b border-line mb-2 font-mono text-[10px] text-ink/60\">\n        <span>CROSSHAIR TELEMETRY</span>\n        <span>X:{point.x} Y:{point.y}</span>\n      </div>\n\n      <div className=\"relative h-48 w-full rounded bg-line/10\">\n        <div className=\"pointer-events-none absolute inset-x-0 h-[1px] bg-red-500/50\" style={{ top: point.y }} />\n        <div className=\"pointer-events-none absolute inset-y-0 w-[1px] bg-red-500/50\" style={{ left: point.x }} />\n      </div>\n    </div>\n  );\n}\n\nexport default CoordinateCrosshairInspect;\n",
-      "contentHash": "336a128d775e2543ef36e992a58e9c2c588dd77421d93b274d51f4abf23d5e83",
-      "sizeBytes": 1253
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface CoordinateCrosshairInspectProps {\n  className?: string;\n}\n\nexport function CoordinateCrosshairInspect({ className }: CoordinateCrosshairInspectProps) {\n  const [point, setPoint] = useState({ x: 100, y: 100 });\n\n  return (\n    <div\n      onPointerMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPoint({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n      }}\n      className={cn(\"relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 p-4 cursor-crosshair select-none\", className)}\n    >\n      <div className=\"flex justify-between items-center pb-2 border-b border-line mb-2 font-mono text-[10px] text-ink/60\">\n        <span>CROSSHAIR TELEMETRY</span>\n        <span>X:{point.x} Y:{point.y}</span>\n      </div>\n\n      <div className=\"relative h-48 w-full rounded bg-line/10\">\n        <div className=\"pointer-events-none absolute inset-x-0 h-[1px] bg-red-500/50\" style={{ top: point.y }} />\n        <div className=\"pointer-events-none absolute inset-y-0 w-[1px] bg-red-500/50\" style={{ left: point.x }} />\n      </div>\n    </div>\n  );\n}\n\nexport default CoordinateCrosshairInspect;\n",
+      "contentHash": "7298c843540c9be4e2699b2c898e53277f84cac62f967077ff9dba2cfdd9a2cf",
+      "sizeBytes": 1360
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "cad-inspection-reticle"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/coordinate-crosshair-inspect.json",
+  "url": "https://openui.dev/r/coordinate-crosshair-inspect.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Orthogonal Reticle Scrub: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

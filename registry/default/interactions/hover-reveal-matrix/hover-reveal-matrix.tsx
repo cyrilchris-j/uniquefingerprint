@@ -11,7 +11,7 @@ export function HoverRevealMatrix({ className }: HoverRevealMatrixProps) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-4 gap-2 rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("grid grid-cols-4 gap-2 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black p-6 shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 select-none", className)}>
       {Array.from({ length: 16 }).map((_, i) => (
         <div
           key={i}

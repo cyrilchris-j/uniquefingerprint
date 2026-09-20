@@ -61,6 +61,6 @@
       "semanticPurpose": "partner-tier-ecosystem-section"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/partner-tier-ecosystem.json",
+  "url": "https://openui.dev/r/partner-tier-ecosystem.json",
   "designRules": "# Design System\n\nGenre: Industrial\nMacrostructure: Mosaic\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Partner Tier Ecosystem Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

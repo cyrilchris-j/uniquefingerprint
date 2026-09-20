@@ -21,9 +21,9 @@ export function PointerAngleCompass({ className }: PointerAngleCompassProps) {
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={cn("relative flex h-64 w-full max-w-sm flex-col items-center justify-center rounded-xl border border-line bg-paper p-6 select-none", className)}
+      className={cn("relative flex h-64 w-full max-w-sm flex-col items-center justify-center rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 p-6 select-none", className)}
     >
-      <div className="relative flex h-32 w-32 items-center justify-center rounded-full border-2 border-line bg-paper shadow-sm">
+      <div className="relative flex h-32 w-32 items-center justify-center rounded-full border-2 border-white/10 bg-zinc-900/70 shadow-sm">
         <span className="absolute top-1 font-mono text-[9px] font-bold text-ink">N</span>
         <span className="absolute bottom-1 font-mono text-[9px] font-bold text-ink/40">S</span>
         <div

@@ -12,7 +12,7 @@ export function SliderScrubberTimeline({ className }: SliderScrubberTimelineProp
   const totalFrames = 300;
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black p-6 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
       <div className="flex justify-between font-mono text-xs text-ink/60 mb-3">
         <span>TIMECODE</span>
         <span className="font-bold text-ink">00:0{Math.floor(frame / 60)}:{(frame % 60).toString().padStart(2, "0")}</span>

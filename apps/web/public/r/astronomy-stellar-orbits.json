@@ -63,6 +63,6 @@
       "semanticPurpose": "astronomical-rosette-canvas"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/astronomy-stellar-orbits.json",
+  "url": "https://openui.dev/r/astronomy-stellar-orbits.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Full Bleed\nDensity: Airy\nShape: Pill\nMotion: None\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Passive Stellar Rosette: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

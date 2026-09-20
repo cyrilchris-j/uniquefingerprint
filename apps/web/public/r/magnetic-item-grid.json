@@ -15,9 +15,9 @@
     {
       "path": "magnetic-item-grid.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface MagneticItemGridProps {\n  className?: string;\n}\n\nexport function MagneticItemGrid({ className }: MagneticItemGridProps) {\n  const [hovered, setHovered] = useState<number | null>(null);\n\n  return (\n    <div className={cn(\"grid grid-cols-3 gap-3 rounded-xl border border-line bg-paper p-6 shadow-sm\", className)}>\n      {Array.from({ length: 9 }).map((_, i) => (\n        <div\n          key={i}\n          onPointerEnter={() => setHovered(i)}\n          onPointerLeave={() => setHovered(null)}\n          className={cn(\n            \"flex h-16 w-16 cursor-pointer items-center justify-center rounded-xl border font-mono text-xs font-bold transition-all duration-150\",\n            hovered === i\n              ? \"border-ink bg-ink text-paper scale-110 shadow-lg\"\n              : \"border-line bg-line/10 text-ink/60 hover:border-ink\"\n          )}\n        >\n          {i + 1}\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport default MagneticItemGrid;\n",
-      "contentHash": "17cca25d39634f50d8045fb8a1ab08d99d833a894ce43bb9e78dcfb933063281",
-      "sizeBytes": 1040
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface MagneticItemGridProps {\n  className?: string;\n}\n\nexport function MagneticItemGrid({ className }: MagneticItemGridProps) {\n  const [hovered, setHovered] = useState<number | null>(null);\n\n  return (\n    <div className={cn(\"grid grid-cols-3 gap-3 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black p-6 shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 select-none\", className)}>\n      {Array.from({ length: 9 }).map((_, i) => (\n        <div\n          key={i}\n          onPointerEnter={() => setHovered(i)}\n          onPointerLeave={() => setHovered(null)}\n          className={cn(\n            \"flex h-16 w-16 cursor-pointer items-center justify-center rounded-xl border font-mono text-xs font-bold transition-all duration-150\",\n            hovered === i\n              ? \"border-ink bg-ink text-paper scale-110 shadow-lg\"\n              : \"border-line bg-line/10 text-ink/60 hover:border-ink\"\n          )}\n        >\n          {i + 1}\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport default MagneticItemGrid;\n",
+      "contentHash": "5880fbc2a710e5685b7a59f85745955b4b7cd86ba8716bea279bdfa470ec3259",
+      "sizeBytes": 1149
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "magnetic-cluster-grid"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/magnetic-item-grid.json",
+  "url": "https://openui.dev/r/magnetic-item-grid.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Mosaic\nDensity: Compact\nShape: Rounded\nMotion: Subtle\nTypography: Grotesk\nColor: Monochrome\n\n## Rules\n\n- Neighbor Repulsion Grid: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

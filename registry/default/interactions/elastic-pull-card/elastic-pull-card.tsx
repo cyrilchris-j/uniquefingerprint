@@ -11,12 +11,12 @@ export function ElasticPullCard({ className }: ElasticPullCardProps) {
   const [pull, setPull] = useState(0);
 
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-4 rounded-xl border border-line bg-paper p-8", className)}>
+    <div className={cn("flex flex-col items-center justify-center gap-4 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 p-8", className)}>
       <div
-        className="rounded-xl border border-line bg-paper p-6 shadow-md transition-transform duration-100 ease-out"
+        className="rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 p-6 shadow-md transition-transform duration-100 ease-out"
         style={{ transform: `translateY(${pull}px)` }}
       >
-        <span className="font-mono text-[10px] text-ink/50 uppercase">TETHERED ANCHOR</span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-violet-400 flex items-center gap-1.5">TETHERED ANCHOR</span>
         <h4 className="mt-1 font-display font-bold text-ink">Hookean Tension Pull</h4>
       </div>
 

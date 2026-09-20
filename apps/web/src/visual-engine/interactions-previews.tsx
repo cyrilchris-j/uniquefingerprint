@@ -1,5 +1,6 @@
 // Bespoke high-craft visual previews for OpenUI interaction components
 import * as React from "react";
+import { CATALOGUE_INTERACTIONS_PREVIEWS } from "./interactions-catalogue-previews.js";
 
 // 1. Click Sparkle Trail
 export function ClickSparkleTrailPreview() {
@@ -2549,6 +2550,7 @@ export function GenericInteractionPreview({ title, subcategory }: { title: strin
 
 
 export const INTERACTIONS_PREVIEWS_MAP: Record<string, React.ComponentType> = {
+  ...CATALOGUE_INTERACTIONS_PREVIEWS,
   "click-sparkle-trail": ClickSparkleTrailPreview,
   "click-wave-emitter": ClickWaveEmitterPreview,
   "color-eyedropper-loupe": ColorEyedropperLoupePreview,

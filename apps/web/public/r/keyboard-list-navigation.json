@@ -15,9 +15,9 @@
     {
       "path": "keyboard-list-navigation.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface KeyboardListNavigationProps {\n  className?: string;\n}\n\nexport function KeyboardListNavigation({ className }: KeyboardListNavigationProps) {\n  const [active, setActive] = useState(0);\n  const rows = [\"Build package graph\", \"Generate schema artifacts\", \"Sync public CDN\", \"Prune cache layers\"];\n\n  return (\n    <div className={cn(\"w-full max-w-sm rounded-xl border border-line bg-paper p-4 font-mono text-xs shadow-sm\", className)}>\n      <span className=\"text-ink/60 uppercase mb-3 block\">KEYBOARD SELECTOR (ACTIVE: {active + 1})</span>\n\n      <div className=\"space-y-1\">\n        {rows.map((row, idx) => (\n          <div\n            key={row}\n            onClick={() => setActive(idx)}\n            className={cn(\n              \"flex items-center justify-between rounded px-3 py-2 cursor-pointer transition-colors\",\n              active === idx ? \"bg-ink text-paper font-bold\" : \"hover:bg-line/20 text-ink\"\n            )}\n          >\n            <span>{row}</span>\n            <span className=\"text-[10px] opacity-60\">ROW {idx + 1}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\nexport default KeyboardListNavigation;\n",
-      "contentHash": "b5e544e2f287763c8b755e1eba6d303df43f0cba5e22d0477cdb8020f7829f9f",
-      "sizeBytes": 1235
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface KeyboardListNavigationProps {\n  className?: string;\n}\n\nexport function KeyboardListNavigation({ className }: KeyboardListNavigationProps) {\n  const [active, setActive] = useState(0);\n  const rows = [\"Build package graph\", \"Generate schema artifacts\", \"Sync public CDN\", \"Prune cache layers\"];\n\n  return (\n    <div className={cn(\"w-full max-w-sm rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 p-4 font-mono text-xs shadow-sm\", className)}>\n      <span className=\"text-ink/60 uppercase mb-3 block\">KEYBOARD SELECTOR (ACTIVE: {active + 1})</span>\n\n      <div className=\"space-y-1\">\n        {rows.map((row, idx) => (\n          <div\n            key={row}\n            onClick={() => setActive(idx)}\n            className={cn(\n              \"flex items-center justify-between rounded px-3 py-2 cursor-pointer transition-colors\",\n              active === idx ? \"bg-ink text-paper font-bold\" : \"hover:bg-line/20 text-ink\"\n            )}\n          >\n            <span>{row}</span>\n            <span className=\"text-[10px] opacity-60\">ROW {idx + 1}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\nexport default KeyboardListNavigation;\n",
+      "contentHash": "9316c3efd9b28d62e40a117d9ab809593245c9329a35f3ce091b1e22dd17f574",
+      "sizeBytes": 1349
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "keyboard-row-navigator"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/keyboard-list-navigation.json",
+  "url": "https://openui.dev/r/keyboard-list-navigation.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Arrow Key List Selection: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

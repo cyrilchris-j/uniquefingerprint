@@ -62,6 +62,6 @@
       "semanticPurpose": "verse-navigation"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/verse-line-numbers.json",
+  "url": "https://openui.dev/r/verse-line-numbers.json",
   "designRules": "# Design System\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: None\nTypography: Serif Display\nColor: Monochrome\n\n## Rules\n\n- Viewport Line Follow: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

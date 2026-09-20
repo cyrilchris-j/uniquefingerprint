@@ -61,6 +61,6 @@
       "semanticPurpose": "edge-infrastructure-monitoring"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/system-resource-monitor.json",
+  "url": "https://openui.dev/r/system-resource-monitor.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Mosaic\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Realtime Telemetry Monitoring: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

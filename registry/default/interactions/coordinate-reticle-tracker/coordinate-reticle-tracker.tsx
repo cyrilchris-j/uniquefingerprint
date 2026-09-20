@@ -20,7 +20,7 @@ export function CoordinateReticleTracker({ className }: CoordinateReticleTracker
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={cn("relative h-64 w-full max-w-sm rounded-xl border border-line bg-paper p-4 select-none cursor-crosshair", className)}
+      className={cn("relative h-64 w-full max-w-sm rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-4 select-none cursor-crosshair", className)}
     >
       <div className="flex justify-between items-center pb-2 border-b border-line mb-2">
         <span className="font-mono text-[10px] text-ink/60">HUD TARGETING</span>

@@ -40,6 +40,6 @@
       "semanticPurpose": "lazy-activation"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/use-in-view.json",
+  "url": "https://openui.dev/r/use-in-view.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Monochrome\n\n## Rules\n\n- Default to `once: true` for expensive children; the observer exists to stop\n  offscreen work, not add it.\n- Disconnect on unmount is mandatory; a leaked observer keeps every observed\n  element alive.\n\n## Avoid\n\n- Polling `getBoundingClientRect` on scroll when this hook gives the same\n  answer for free.\n"
 }

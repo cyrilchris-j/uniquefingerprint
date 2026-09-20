@@ -18,7 +18,7 @@ export function HoverImageZoomCrosshair({ className }: HoverImageZoomCrosshairPr
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-4 cursor-crosshair select-none", className)}
+      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md shadow-xl text-zinc-900 dark:text-zinc-100 p-4 cursor-crosshair select-none", className)}
     >
       <div className="h-full w-full rounded-lg bg-line/20 flex items-center justify-center font-mono text-xs text-ink/40">
         INSPECTION TARGET (MOVE POINTER)

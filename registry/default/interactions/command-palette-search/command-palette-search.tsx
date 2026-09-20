@@ -20,7 +20,7 @@ export function CommandPaletteSearch({ className }: CommandPaletteSearchProps) {
   const filtered = items.filter((i) => i.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div className={cn("w-full max-w-md rounded-2xl border border-line bg-paper p-4 shadow-xl", className)}>
+    <div className={cn("w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900/70 p-4 shadow-xl", className)}>
       <div className="flex items-center gap-2 border-b border-line pb-3">
         <span className="font-mono text-sm text-ink/40">⌘</span>
         <input

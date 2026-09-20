@@ -15,9 +15,9 @@
     {
       "path": "hover-magnetic-pill.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverMagneticPillProps {\n  label?: string;\n  className?: string;\n}\n\nexport function HoverMagneticPill({ label = \"STABLE_BUILD\", className }: HoverMagneticPillProps) {\n  const [offset, setOffset] = useState({ x: 0, y: 0 });\n\n  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    const x = (e.clientX - (rect.left + rect.width / 2)) * 0.3;\n    const y = (e.clientY - (rect.top + rect.height / 2)) * 0.3;\n    setOffset({ x, y });\n  };\n\n  return (\n    <div\n      onPointerMove={handlePointerMove}\n      onPointerLeave={() => setOffset({ x: 0, y: 0 })}\n      className={cn(\"inline-flex items-center justify-center p-8\", className)}\n    >\n      <div\n        style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}\n        className=\"rounded-full border border-line bg-paper px-4 py-1.5 font-mono text-xs font-bold text-ink shadow-sm transition-transform duration-75\"\n      >\n        ● {label}\n      </div>\n    </div>\n  );\n}\n\nexport default HoverMagneticPill;\n",
-      "contentHash": "ac34af3aaef301631be4ff849fdaf8128cd3b762eb972b77139dac9f8bddb200",
-      "sizeBytes": 1143
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverMagneticPillProps {\n  label?: string;\n  className?: string;\n}\n\nexport function HoverMagneticPill({ label = \"STABLE_BUILD\", className }: HoverMagneticPillProps) {\n  const [offset, setOffset] = useState({ x: 0, y: 0 });\n\n  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    const x = (e.clientX - (rect.left + rect.width / 2)) * 0.3;\n    const y = (e.clientY - (rect.top + rect.height / 2)) * 0.3;\n    setOffset({ x, y });\n  };\n\n  return (\n    <div\n      onPointerMove={handlePointerMove}\n      onPointerLeave={() => setOffset({ x: 0, y: 0 })}\n      className={cn(\"inline-flex items-center justify-center p-8\", className)}\n    >\n      <div\n        style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}\n        className=\"rounded-full border border-white/10 bg-zinc-900/70 px-4 py-1.5 font-mono text-xs font-bold text-ink shadow-sm transition-transform duration-75\"\n      >\n        ● {label}\n      </div>\n    </div>\n  );\n}\n\nexport default HoverMagneticPill;\n",
+      "contentHash": "f78b986ce9a1acdf219b35b88bc7a329f976eae538be27f6f1ca7604908867bc",
+      "sizeBytes": 1153
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "magnetic-tag-indicator"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/hover-magnetic-pill.json",
+  "url": "https://openui.dev/r/hover-magnetic-pill.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Symmetric\nDensity: Compact\nShape: Pill\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Pill Proximity Tracking: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

@@ -17,10 +17,10 @@ export function InteractiveColorPaletteBar({ className }: InteractiveColorPalett
   };
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-3 rounded-xl border border-line bg-paper p-5 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">
+    <div className={cn("inline-flex flex-col items-center gap-3 rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] p-6 shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-amber-500 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>
         {copied ? `Copied ${copied}!` : "CLICK SWATCH TO COPY HEX"}
-      </span>
+      </span><span className="opacity-50 ml-auto">[TACTILE]</span></div>
 
       <div className="flex overflow-hidden rounded-lg border border-line">
         {swatches.map((hex) => (

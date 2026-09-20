@@ -20,7 +20,7 @@ export function SwipeCardDeck({ className }: SwipeCardDeckProps) {
         {cards.map((c, idx) => (
           <div
             key={c}
-            className="absolute inset-0 flex flex-col justify-between rounded-xl border border-line bg-paper p-5 shadow-lg transition-all"
+            className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 p-5 shadow-lg transition-all"
             style={{
               transform: `translateY(${idx * 6}px) scale(${1 - idx * 0.05})`,
               zIndex: 10 - idx,

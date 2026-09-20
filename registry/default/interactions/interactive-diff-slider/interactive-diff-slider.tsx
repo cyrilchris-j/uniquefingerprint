@@ -11,7 +11,7 @@ export function InteractiveDiffSlider({ className }: InteractiveDiffSliderProps)
   const [split, setSplit] = useState(50);
 
   return (
-    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-xl border border-line bg-paper select-none", className)}>
+    <div className={cn("relative h-64 w-full max-w-md overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
       {/* Before Face */}
       <div className="absolute inset-0 flex items-center justify-start p-6 bg-line/10">
         <span className="font-mono text-sm font-bold text-ink">ORIGINAL SPEC_V1</span>

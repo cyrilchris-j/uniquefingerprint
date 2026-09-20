@@ -47,6 +47,6 @@
       "semanticPurpose": "global-design-system"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/swiss-editorial.json",
+  "url": "https://openui.dev/r/swiss-editorial.json",
   "designRules": "# Swiss Editorial\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: Subtle\nTypography: Serif Display\nColor: High Contrast\n\n## Typography\n\nHeading: Instrument Serif\nBody: Inter\nMono: JetBrains Mono\n\n## Motion\n\nFast: 180ms\nNormal: 320ms\nSlow: 600ms\n\n## Rules\n\n- Compose on a 7/5 split. A 50/50 layout is not a neutral choice, it is an absent one.\n- Statements are set in the display serif above 24px; never below.\n- Structure is drawn with hairlines, never with shadows or elevation.\n- Metadata is monospace, uppercase, widely tracked, and small.\n- Motion explains hierarchy or confirms input. It never decorates.\n- One accent colour per page.\n\n## Avoid\n\n- Gradients used as background decoration.\n- Rounded cards containing three identical feature columns.\n- Centred display type over a symmetric stack.\n- Elevation, drop shadows and glass blur.\n- Two accent colours competing for attention.\n"
 }

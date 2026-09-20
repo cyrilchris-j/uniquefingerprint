@@ -14,7 +14,7 @@ export function DirectionalHoverCard({ className }: DirectionalHoverCardProps) {
     <div
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
-      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-6 select-none", className)}
+      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 p-6 select-none", className)}
     >
       <div className="flex h-full flex-col justify-between">
         <span className="font-mono text-xs text-ink/50">DIRECTIONAL SENSING</span>

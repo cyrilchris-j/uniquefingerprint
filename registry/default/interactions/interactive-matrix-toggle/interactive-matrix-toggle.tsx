@@ -19,8 +19,8 @@ export function InteractiveMatrixToggle({ className }: InteractiveMatrixTogglePr
   };
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-3 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">4x4 BITBOARD MATRIX</span>
+    <div className={cn("inline-flex flex-col items-center gap-3 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black p-6 shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-rose-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>4x4 BITBOARD MATRIX</span><span className="opacity-50 ml-auto">[AVIONICS]</span></div>
 
       <div className="grid grid-cols-4 gap-1.5">
         {cells.map((active, i) => (

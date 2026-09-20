@@ -15,9 +15,9 @@
     {
       "path": "stepped-number-scrubber.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface SteppedNumberScrubberProps {\n  initial?: number;\n  className?: string;\n}\n\nexport function SteppedNumberScrubber({ initial = 120, className }: SteppedNumberScrubberProps) {\n  const [val, setVal] = useState(initial);\n\n  return (\n    <div className={cn(\"inline-flex items-center gap-3 rounded-xl border border-line bg-paper p-4 shadow-sm\", className)}>\n      <span className=\"font-mono text-xs text-ink/60\">KERNEL TIMEOUT:</span>\n      <div className=\"flex items-center gap-2\">\n        <button\n          type=\"button\"\n          onClick={() => setVal((v) => Math.max(0, v - 10))}\n          className=\"h-6 w-6 rounded border border-line font-mono text-xs text-ink hover:bg-line/20\"\n        >\n          -\n        </button>\n        <span className=\"font-mono text-sm font-bold text-ink w-14 text-center\">{val}ms</span>\n        <button\n          type=\"button\"\n          onClick={() => setVal((v) => v + 10)}\n          className=\"h-6 w-6 rounded border border-line font-mono text-xs text-ink hover:bg-line/20\"\n        >\n          +\n        </button>\n      </div>\n    </div>\n  );\n}\n\nexport default SteppedNumberScrubber;\n",
-      "contentHash": "541684dfde8e4399bb770ac071b1fe9149b71e814817ced7a11e4c943b91dc33",
-      "sizeBytes": 1209
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface SteppedNumberScrubberProps {\n  initial?: number;\n  className?: string;\n}\n\nexport function SteppedNumberScrubber({ initial = 120, className }: SteppedNumberScrubberProps) {\n  const [val, setVal] = useState(initial);\n\n  return (\n    <div className={cn(\"inline-flex items-center gap-3 rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black p-6 shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white select-none\", className)}>\n      <div className=\"font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-cyan-400 flex items-center gap-1.5\"><span className=\"w-1.5 h-1.5 rounded-full bg-current animate-pulse\" /><span>KERNEL TIMEOUT:</span><span className=\"opacity-50 ml-auto\">[CYBER HUD]</span></div>\n      <div className=\"flex items-center gap-2\">\n        <button\n          type=\"button\"\n          onClick={() => setVal((v) => Math.max(0, v - 10))}\n          className=\"h-6 w-6 rounded border border-line font-mono text-xs text-ink hover:bg-line/20\"\n        >\n          -\n        </button>\n        <span className=\"font-mono text-sm font-bold text-ink w-14 text-center\">{val}ms</span>\n        <button\n          type=\"button\"\n          onClick={() => setVal((v) => v + 10)}\n          className=\"h-6 w-6 rounded border border-line font-mono text-xs text-ink hover:bg-line/20\"\n        >\n          +\n        </button>\n      </div>\n    </div>\n  );\n}\n\nexport default SteppedNumberScrubber;\n",
+      "contentHash": "d0cdf2fc52941321a100fe81d1c9795cbc99799d40d605c2dd8ecfa457c71564",
+      "sizeBytes": 1519
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "inline-parameter-scrubber"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/stepped-number-scrubber.json",
+  "url": "https://openui.dev/r/stepped-number-scrubber.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Symmetric\nDensity: Compact\nShape: Sharp\nMotion: Mechanical\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Label Scrub Numeric Drag: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

@@ -15,9 +15,9 @@
     {
       "path": "hover-magnify-dock.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverMagnifyDockProps {\n  className?: string;\n}\n\nexport function HoverMagnifyDock({ className }: HoverMagnifyDockProps) {\n  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);\n  const icons = [\"⌘\", \"⌥\", \"⇧\", \"⌃\", \"⏎\"];\n\n  return (\n    <div className={cn(\"inline-flex items-end gap-2 rounded-2xl border border-line bg-paper p-3 shadow-lg\", className)}>\n      {icons.map((icon, idx) => {\n        const isHover = hoveredIdx === idx;\n        const isNeighbor = hoveredIdx !== null && Math.abs(hoveredIdx - idx) === 1;\n\n        return (\n          <div\n            key={idx}\n            onPointerEnter={() => setHoveredIdx(idx)}\n            onPointerLeave={() => setHoveredIdx(null)}\n            className={cn(\n              \"flex items-center justify-center rounded-xl border border-line bg-paper font-mono text-sm font-bold text-ink shadow-sm transition-all duration-100\",\n              isHover ? \"h-14 w-14 -translate-y-2 text-base\" : isNeighbor ? \"h-12 w-12 -translate-y-1\" : \"h-10 w-10\"\n            )}\n          >\n            {icon}\n          </div>\n        );\n      })}\n    </div>\n  );\n}\n\nexport default HoverMagnifyDock;\n",
-      "contentHash": "1caabc770e589549a120fd39026ab72b3312f11a264080744a0358e4db86d82d",
-      "sizeBytes": 1245
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverMagnifyDockProps {\n  className?: string;\n}\n\nexport function HoverMagnifyDock({ className }: HoverMagnifyDockProps) {\n  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);\n  const icons = [\"⌘\", \"⌥\", \"⇧\", \"⌃\", \"⏎\"];\n\n  return (\n    <div className={cn(\"inline-flex items-end gap-2 rounded-2xl border border-white/10 bg-zinc-900/70 p-3 shadow-lg\", className)}>\n      {icons.map((icon, idx) => {\n        const isHover = hoveredIdx === idx;\n        const isNeighbor = hoveredIdx !== null && Math.abs(hoveredIdx - idx) === 1;\n\n        return (\n          <div\n            key={idx}\n            onPointerEnter={() => setHoveredIdx(idx)}\n            onPointerLeave={() => setHoveredIdx(null)}\n            className={cn(\n              \"flex items-center justify-center rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 font-mono text-sm font-bold text-ink shadow-sm transition-all duration-100\",\n              isHover ? \"h-14 w-14 -translate-y-2 text-base\" : isNeighbor ? \"h-12 w-12 -translate-y-1\" : \"h-10 w-10\"\n            )}\n          >\n            {icon}\n          </div>\n        );\n      })}\n    </div>\n  );\n}\n\nexport default HoverMagnifyDock;\n",
+      "contentHash": "cff9c3071d528bb5750c37aac769baf95b1ca65cdf710a973d55feb3edef39d1",
+      "sizeBytes": 1369
     },
     {
       "path": "demo.tsx",
@@ -63,6 +63,6 @@
       "semanticPurpose": "app-launcher-shelf"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/hover-magnify-dock.json",
+  "url": "https://openui.dev/r/hover-magnify-dock.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Symmetric\nDensity: Compact\nShape: Rounded\nMotion: Subtle\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Gaussian Dock Magnification: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

@@ -63,6 +63,6 @@
       "semanticPurpose": "interactive-filter-organizer"
     }
   },
-  "url": "https://uniquefingerprint.web.app/r/elastic-tag-reorder.json",
+  "url": "https://openui.dev/r/elastic-tag-reorder.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Symmetric\nDensity: Compact\nShape: Pill\nMotion: Expressive\nTypography: Grotesk\nColor: Accent Only\n\n## Rules\n\n- Tag Swap Shuffle: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

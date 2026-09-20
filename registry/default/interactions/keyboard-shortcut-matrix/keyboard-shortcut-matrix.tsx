@@ -12,8 +12,8 @@ export function KeyboardShortcutMatrix({ className }: KeyboardShortcutMatrixProp
   const keys = ["⌘", "K", "⇧", "P", "⌥", "⏎"];
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">KEYBOARD SHORTCUT MATRIX</span>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black p-6 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>KEYBOARD SHORTCUT MATRIX</span><span className="opacity-50 ml-auto">[RADAR V2]</span></div>
 
       <div className="flex gap-2">
         {keys.map((k) => (

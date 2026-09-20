@@ -25,7 +25,7 @@ export function DragDropUploadZone({ className }: DragDropUploadZoneProps) {
       }}
       className={cn(
         "flex h-56 w-full max-w-sm flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all",
-        active ? "border-ink bg-line/20 scale-98" : "border-line bg-paper",
+        active ? "border-ink bg-line/20 scale-98" : "border-white/10 bg-zinc-900/70",
         className
       )}
     >
