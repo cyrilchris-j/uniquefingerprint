@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "confetti-particle-field",
   "type": "registry:background",
   "title": "Confetti Particle Field",

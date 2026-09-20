@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "open-source-sponsor-tier",
   "type": "registry:section",
   "title": "Open Source Sponsor Tier",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "kanban-matrix-swimlane",
   "type": "registry:block",
   "title": "Kanban Matrix Swimlane",

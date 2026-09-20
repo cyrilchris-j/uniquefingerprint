@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "version-compatibility-matrix",
   "type": "registry:block",
   "title": "Version Compatibility Matrix",

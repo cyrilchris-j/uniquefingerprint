@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "animated-list-stagger",
   "type": "registry:component",
   "title": "Animated List Stagger",

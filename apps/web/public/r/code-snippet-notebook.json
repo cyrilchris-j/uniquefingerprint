@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "code-snippet-notebook",
   "type": "registry:block",
   "title": "Code Snippet Notebook",

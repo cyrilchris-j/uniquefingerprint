@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "customer-churn-risk-analyzer",
   "type": "registry:block",
   "title": "Customer Churn Risk Analyzer",

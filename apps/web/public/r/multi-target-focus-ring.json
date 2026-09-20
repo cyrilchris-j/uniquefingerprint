@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "multi-target-focus-ring",
   "type": "registry:interaction",
   "title": "Multi Target Focus Ring",
