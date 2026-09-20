@@ -78,7 +78,7 @@ interface InstallationSectionProps {
 }
 
 function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
-  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm" | "bun" | "yarn">("pnpm");
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
   const [copied, setCopied] = React.useState(false);
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -88,29 +88,21 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
     };
   }, []);
 
-  const getCommand = (pm: "pnpm" | "npm" | "bun" | "yarn") => {
+  const getCommand = (pm: "pnpm" | "npm") => {
     switch (pm) {
       case "pnpm":
         return `pnpm dlx uniquefingerprint add ${entryName}`;
       case "npm":
         return `npx uniquefingerprint add ${entryName}`;
-      case "bun":
-        return `bunx --bun uniquefingerprint add ${entryName}`;
-      case "yarn":
-        return `yarn dlx uniquefingerprint add ${entryName}`;
     }
   };
 
-  const getPeerCommand = (pm: "pnpm" | "npm" | "bun" | "yarn") => {
+  const getPeerCommand = (pm: "pnpm" | "npm") => {
     switch (pm) {
       case "pnpm":
         return `pnpm add clsx tailwind-merge`;
       case "npm":
         return `npm i clsx tailwind-merge`;
-      case "bun":
-        return `bun add clsx tailwind-merge`;
-      case "yarn":
-        return `yarn add clsx tailwind-merge`;
     }
   };
 
@@ -172,13 +164,13 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 
             {/* Package Manager selector */}
             <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
-              {(["pnpm", "npm", "bun", "yarn"] as const).map((pm) => (
+              {(["pnpm", "npm"] as const).map((pm) => (
                 <button
                   key={pm}
                   type="button"
                   onClick={() => setPkgManager(pm)}
                   className={cn(
-                    "px-2.5 py-1 text-[11px] font-mono rounded-md transition-all duration-150 cursor-pointer",
+                    "px-3 py-1 text-[11px] font-mono rounded-md transition-all duration-150 cursor-pointer",
                     pkgManager === pm
                       ? "bg-white/20 text-white shadow-2xs font-semibold"
                       : "text-white/60 hover:text-white hover:bg-white/10",
@@ -195,33 +187,16 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
             <div className="flex items-center gap-3 overflow-x-auto no-scrollbar font-mono text-[13px] sm:text-[14px]">
               <span className="text-moss select-none font-bold">$</span>
               <span className="text-white/90 whitespace-nowrap">
-                {pkgManager === "pnpm" && (
+                {pkgManager === "pnpm" ? (
                   <>
                     <span className="text-amber-400">pnpm dlx</span>{" "}
                     <span className="text-white font-semibold">uniquefingerprint</span>{" "}
                     <span className="text-sky-400">add</span>{" "}
                     <span className="text-emerald-400 font-bold">{entryName}</span>
                   </>
-                )}
-                {pkgManager === "npm" && (
+                ) : (
                   <>
                     <span className="text-amber-400">npx</span>{" "}
-                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
-                    <span className="text-sky-400">add</span>{" "}
-                    <span className="text-emerald-400 font-bold">{entryName}</span>
-                  </>
-                )}
-                {pkgManager === "bun" && (
-                  <>
-                    <span className="text-amber-400">bunx --bun</span>{" "}
-                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
-                    <span className="text-sky-400">add</span>{" "}
-                    <span className="text-emerald-400 font-bold">{entryName}</span>
-                  </>
-                )}
-                {pkgManager === "yarn" && (
-                  <>
-                    <span className="text-amber-400">yarn dlx</span>{" "}
                     <span className="text-white font-semibold">uniquefingerprint</span>{" "}
                     <span className="text-sky-400">add</span>{" "}
                     <span className="text-emerald-400 font-bold">{entryName}</span>
