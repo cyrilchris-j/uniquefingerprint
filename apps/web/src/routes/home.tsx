@@ -145,11 +145,15 @@ const SPECIMEN_TABS = [
 function HeroSpecimenShowcase(): React.JSX.Element {
   const [activeTab, setActiveTab] = React.useState<number>(0);
   const [copied, setCopied] = React.useState(false);
+  const [pm, setPm] = React.useState<"npx" | "pnpm">("npx");
 
   const tab = SPECIMEN_TABS[activeTab] ?? SPECIMEN_TABS[0];
   const item = getAdvancedItemBySlug(tab.slug);
 
-  const cliCommand = `pnpm dlx uniquefingerprint add ${tab.slug}`;
+  const cliCommand =
+    pm === "npx"
+      ? `npx uniquefingerprint add ${tab.slug}`
+      : `pnpm dlx uniquefingerprint add ${tab.slug}`;
 
   const handleCopy = async () => {
     try {
@@ -265,6 +269,23 @@ function HeroSpecimenShowcase(): React.JSX.Element {
         {/* CLI Command Pill */}
         <div className="flex items-center justify-between gap-2 rounded-xl border border-line/30 bg-[#0e0e11] px-3 py-2 text-[#f4f4f5] shadow-inner">
           <div className="flex items-center gap-2 min-w-0 overflow-x-auto no-scrollbar font-mono text-xs">
+            <div className="flex items-center rounded-md bg-white/10 p-0.5 shrink-0">
+              {(["npx", "pnpm"] as const).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setPm(p)}
+                  className={cn(
+                    "px-1.5 py-0.5 text-[10px] font-mono rounded transition-colors cursor-pointer",
+                    pm === p
+                      ? "bg-white/25 text-white font-bold shadow-2xs"
+                      : "text-white/50 hover:text-white"
+                  )}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
             <span className="text-moss font-bold select-none">$</span>
             <span className="whitespace-nowrap text-white/90 truncate">{cliCommand}</span>
           </div>
@@ -299,7 +320,7 @@ function HeroSpecimenShowcase(): React.JSX.Element {
 
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
-  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx" | "global">("pnpm");
+  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx" | "global">("npx");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -479,8 +500,8 @@ export default function HomePage(): React.JSX.Element {
                 value={usageMethod}
                 onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx" | "global")}
                 options={[
-                  { value: "pnpm", label: "pnpm dlx" },
                   { value: "npx", label: "npx" },
+                  { value: "pnpm", label: "pnpm dlx" },
                   { value: "global", label: "global CLI" },
                 ]}
               />

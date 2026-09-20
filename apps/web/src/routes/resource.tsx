@@ -79,7 +79,7 @@ interface InstallationSectionProps {
 }
 
 function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
-  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("npm");
   const [copied, setCopied] = React.useState(false);
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -156,7 +156,7 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 
             {/* Package Manager selector */}
             <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
-              {(["pnpm", "npm"] as const).map((pm) => (
+              {(["npm", "pnpm"] as const).map((pm) => (
                 <button
                   key={pm}
                   type="button"
