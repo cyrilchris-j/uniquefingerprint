@@ -1,16 +1,29 @@
-import { Heart, Laptop, Monitor, PackageSearch, Smartphone, Tablet } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Code2,
+  Copy,
+  Heart,
+  Laptop,
+  Monitor,
+  PackageSearch,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Tablet,
+  Terminal,
+  Zap,
+} from "lucide-react";
 import * as React from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
 
 import {
-  Badge,
   Button,
   CopyButton,
   EmptyState,
   SegmentedControl,
   Skeleton,
-  StatusPill,
   Tabs,
   TabsContent,
   TabsList,
@@ -21,9 +34,9 @@ import {
   TooltipTrigger,
 } from "@openui/ui";
 
-import { CodeBlock, CommandLine } from "../components/CodeBlock.js";
+import { CodeBlock } from "../components/CodeBlock.js";
 import { MetaRow } from "../components/SectionHeader.js";
-import { ResourceTile, categorySegmentFor } from "../components/ResourceTile.js";
+import { ResourceTile } from "../components/ResourceTile.js";
 import { SandboxSkeleton } from "../features/playground/Sandbox.js";
 import { useIndexEntry, useRegistryItem, useRelatedItems } from "../features/resources/use-catalogue.js";
 import { openSignInDialog, useAuth } from "../lib/auth.js";
@@ -59,6 +72,280 @@ const Sandbox = React.lazy(() =>
  *    not in this document. The `Sandbox` component is loaded lazily, so reading
  *    a page without opening the preview costs nothing.
  */
+interface InstallationSectionProps {
+  entryName: string;
+  onViewCode: () => void;
+}
+
+function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm" | "bun" | "yarn">("pnpm");
+  const [copied, setCopied] = React.useState(false);
+  const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+    };
+  }, []);
+
+  const getCommand = (pm: "pnpm" | "npm" | "bun" | "yarn") => {
+    switch (pm) {
+      case "pnpm":
+        return `pnpm dlx uniquefingerprint add ${entryName}`;
+      case "npm":
+        return `npx uniquefingerprint add ${entryName}`;
+      case "bun":
+        return `bunx --bun uniquefingerprint add ${entryName}`;
+      case "yarn":
+        return `yarn dlx uniquefingerprint add ${entryName}`;
+    }
+  };
+
+  const getPeerCommand = (pm: "pnpm" | "npm" | "bun" | "yarn") => {
+    switch (pm) {
+      case "pnpm":
+        return `pnpm add clsx tailwind-merge`;
+      case "npm":
+        return `npm i clsx tailwind-merge`;
+      case "bun":
+        return `bun add clsx tailwind-merge`;
+      case "yarn":
+        return `yarn add clsx tailwind-merge`;
+    }
+  };
+
+  const currentCommand = getCommand(pkgManager);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(currentCommand);
+      }
+      setCopied(true);
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+    }
+  };
+
+  return (
+    <div className="mx-auto max-w-3xl flex flex-col gap-8 py-8 sm:py-12">
+      {/* CLI Installation Card */}
+      <div className="rounded-2xl border border-line/40 bg-paper/95 p-6 sm:p-10 shadow-xs backdrop-blur-xs">
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-mono text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full bg-moss/10 text-moss border border-moss/20">
+              CLI
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-moss animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">
+              Automated Registry Setup
+            </span>
+          </div>
+
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-ink">
+            Install with the CLI
+          </h2>
+
+          <p className="mt-2.5 text-[0.92rem] leading-relaxed text-graphite max-w-2xl">
+            The CLI resolves this item and its registry dependencies, verifies the integrity
+            digest, checks your project for conflicts, and only then writes. It never
+            overwrites a file you have edited without telling you.
+          </p>
+        </div>
+
+        {/* macOS Style Terminal Window */}
+        <div className="rounded-xl border border-line/40 bg-[#0e0e11] text-[#f4f4f5] shadow-md overflow-hidden">
+          {/* Terminal Window Header */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]/80 inline-block" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]/80 inline-block" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]/80 inline-block" />
+              </div>
+              <span className="font-mono text-[11px] text-white/40 ml-2 hidden sm:inline">
+                terminal
+              </span>
+            </div>
+
+            {/* Package Manager selector */}
+            <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
+              {(["pnpm", "npm", "bun", "yarn"] as const).map((pm) => (
+                <button
+                  key={pm}
+                  type="button"
+                  onClick={() => setPkgManager(pm)}
+                  className={cn(
+                    "px-2.5 py-1 text-[11px] font-mono rounded-md transition-all duration-150 cursor-pointer",
+                    pkgManager === pm
+                      ? "bg-white/20 text-white shadow-2xs font-semibold"
+                      : "text-white/60 hover:text-white hover:bg-white/10",
+                  )}
+                >
+                  {pm}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Terminal Code Command Row */}
+          <div className="flex items-center justify-between p-4 sm:p-5 gap-3">
+            <div className="flex items-center gap-3 overflow-x-auto no-scrollbar font-mono text-[13px] sm:text-[14px]">
+              <span className="text-moss select-none font-bold">$</span>
+              <span className="text-white/90 whitespace-nowrap">
+                {pkgManager === "pnpm" && (
+                  <>
+                    <span className="text-amber-400">pnpm dlx</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                )}
+                {pkgManager === "npm" && (
+                  <>
+                    <span className="text-amber-400">npx</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                )}
+                {pkgManager === "bun" && (
+                  <>
+                    <span className="text-amber-400">bunx --bun</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                )}
+                {pkgManager === "yarn" && (
+                  <>
+                    <span className="text-amber-400">yarn dlx</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                )}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => void handleCopy()}
+              className={cn(
+                "shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 border cursor-pointer",
+                copied
+                  ? "bg-moss/20 border-moss/40 text-moss"
+                  : "bg-white/10 hover:bg-white/15 border-white/10 text-white/80 hover:text-white",
+              )}
+              title="Copy command"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3.5 w-3.5" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Highlights row */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-line/20">
+          <div className="flex items-start gap-2.5">
+            <ShieldCheck className="h-4 w-4 text-moss shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Zero Overwrites</p>
+              <p className="text-[11px] text-graphite mt-0.5">Never replaces edited files without prompting.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Zap className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Auto Dependencies</p>
+              <p className="text-[11px] text-graphite mt-0.5">Resolves registry peer dependencies and aliases.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Sparkles className="h-4 w-4 text-sky-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Integrity Verified</p>
+              <p className="text-[11px] text-graphite mt-0.5">Checked against registry cryptographic signatures.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Manual Alternative Card */}
+      <div className="rounded-2xl border border-line/35 bg-paper/85 p-6 sm:p-8 shadow-xs">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite px-2 py-0.5 rounded bg-surface border border-line/20 font-medium">
+              Alternative
+            </span>
+            <span className="font-mono text-[11px] text-graphite">Manual Installation</span>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onViewCode}
+            className="text-xs gap-1.5 hover:border-ink transition-colors cursor-pointer"
+          >
+            <Code2 className="h-3.5 w-3.5" />
+            <span>View Component Code</span>
+            <ArrowRight className="h-3 w-3" />
+          </Button>
+        </div>
+
+        <h3 className="font-display text-xl sm:text-2xl tracking-tight text-ink">
+          Or install manually
+        </h3>
+        <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite max-w-2xl">
+          Copy the source from the Code tab into your project. The source imports{" "}
+          <code className="font-mono text-[0.82rem] px-1.5 py-0.5 rounded bg-surface border border-line/30 text-ink">
+            @/lib/cn
+          </code>
+          ; the CLI rewrites that alias to match your project's configuration.
+        </p>
+
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">Step 1 • Dependencies</span>
+              <p className="text-xs text-graphite mt-1">Install peer utilities used by components:</p>
+            </div>
+            <div className="flex items-center justify-between bg-ink/95 text-paper px-3 py-2 rounded-lg font-mono text-xs">
+              <span className="truncate mr-2">{getPeerCommand(pkgManager)}</span>
+              <CopyButton value={getPeerCommand(pkgManager)} label="Copy peer dependencies install" className="h-6 w-6 text-paper shrink-0" />
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">Step 2 • Component Code</span>
+              <p className="text-xs text-graphite mt-1">Copy typescript and demo files directly from the Code tab.</p>
+            </div>
+            <button
+              type="button"
+              onClick={onViewCode}
+              className="text-left font-mono text-xs text-moss hover:underline flex items-center gap-1 cursor-pointer font-medium"
+            >
+              <span>Switch to Code tab</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ResourcePage(): React.JSX.Element {
   const params = useParams<{ category: string; slug: string }>();
   const slug = params.slug ?? "";
@@ -215,42 +502,13 @@ export default function ResourcePage(): React.JSX.Element {
     <article className="pb-16">
       {/* ------------------------------------------------------------ */}
       {/* Header                                                        */}
-      {/* ------------------------------------------------------------ */}
       <header className="shell pt-6 sm:pt-12">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap">
-          <Link to="/explore" className="eyebrow transition-colors hover:text-ink">
-            Registry
-          </Link>
-          <span aria-hidden className="text-graphite/50">
-            /
-          </span>
-          <Link
-            to={`/${categorySegmentFor(entry.category)}`}
-            className="eyebrow transition-colors hover:text-ink"
-          >
-            {entry.category}
-          </Link>
-          <span aria-hidden className="text-graphite/50">
-            /
-          </span>
-          <span className="eyebrow text-ink">{entry.name}</span>
-        </nav>
-
-        <div className="mt-5 sm:mt-8 grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             <h1 className="optically-align text-3xl sm:text-5xl lg:text-step-5 max-w-[20ch] text-balance leading-[1.08]">{entry.title}</h1>
             <p className="prose-measure mt-4 sm:mt-6 text-[0.92rem] sm:text-step-1 leading-relaxed text-graphite">
               {entry.description}
             </p>
-
-            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <Badge tone="ink">{entry.type.replace("registry:", "")}</Badge>
-              {entry.difficulty ? <Badge>{entry.difficulty}</Badge> : null}
-              {entry.license ? <Badge tone="moss">{entry.license}</Badge> : null}
-              <StatusPill tone="positive" bare>
-                published
-              </StatusPill>
-            </div>
 
             <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2">
               <Button
@@ -337,21 +595,23 @@ export default function ResourcePage(): React.JSX.Element {
       {/* ------------------------------------------------------------ */}
       <div className="shell mt-8 sm:mt-16">
         <Tabs value={activeTab} onValueChange={setTab}>
-          <TabsList className="overflow-x-auto no-scrollbar">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="install">Installation</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
+          <TabsList className="justify-center border-b border-line gap-4 sm:gap-10 overflow-x-auto no-scrollbar">
+            <TabsTrigger value="preview" className="flex items-center gap-2">
+              <Laptop className="h-3.5 w-3.5" />
+              <span>Preview</span>
+            </TabsTrigger>
+            <TabsTrigger value="install" className="flex items-center gap-2">
+              <Terminal className="h-3.5 w-3.5" />
+              <span>Installation</span>
+            </TabsTrigger>
+            <TabsTrigger value="code" className="flex items-center gap-2">
+              <Code2 className="h-3.5 w-3.5" />
+              <span>Code</span>
+            </TabsTrigger>
           </TabsList>
 
           {/* Preview -------------------------------------------------- */}
           <TabsContent value="preview">
-            <div className="mb-4 sm:mb-6">
-              <p className="prose-measure text-[0.9rem] text-graphite">
-                The resource runs in an isolated document. Nothing it does can reach this page, your
-                session or your files.
-              </p>
-            </div>
-
             {/* Viewport tester: the preview container width is constrained so
                 the resource's responsive behaviour is exercisable, not just
                 claimed. The choice lives in the URL like every other control. */}
@@ -417,33 +677,13 @@ export default function ResourcePage(): React.JSX.Element {
 
           {/* Installation --------------------------------------------- */}
           <TabsContent value="install">
-            <div className="max-w-2xl">
-              <h2 className="font-display text-step-3 tracking-tight">Install with the CLI</h2>
-              <p className="prose-measure mt-4 text-[0.92rem] leading-relaxed text-graphite">
-                The CLI resolves this item and its registry dependencies, verifies the integrity
-                digest, checks your project for conflicts, and only then writes. It never
-                overwrites a file you have edited without telling you.
-              </p>
-
-              <div className="mt-6">
-                <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
-              </div>
-
-              <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                Or install manually
-              </h3>
-              <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                Copy the source from the Code tab into your project. The source imports{" "}
-                <code className="font-mono">@/lib/cn</code>; the CLI rewrites that alias to match your
-                project's configuration.
-              </p>
-            </div>
+            <InstallationSection entryName={entry.name} onViewCode={() => setTab("code")} />
           </TabsContent>
 
           {/* Code ------------------------------------------------------ */}
-          <TabsContent value="code">
+          <TabsContent value="code" className="py-6 sm:py-10">
             {itemState.data ? (
-              <div className="flex flex-col gap-6">
+              <div className="mx-auto max-w-4xl flex flex-col gap-6">
                 {itemState.data.files
                   .filter((file) => !file.path.endsWith("registry.json"))
                   .sort((a, b) => {
