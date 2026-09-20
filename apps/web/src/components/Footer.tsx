@@ -20,7 +20,7 @@ export function Footer(): React.JSX.Element {
   const { isInstalled, triggerInstall } = usePWA();
 
   return (
-    <footer className="mt-14 sm:mt-24 border-t border-line">
+    <footer className="mt-8 sm:mt-12 border-t border-line">
       <div className="shell grid gap-8 sm:gap-10 py-10 sm:py-16 grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1">
           <div className="flex items-center gap-3">

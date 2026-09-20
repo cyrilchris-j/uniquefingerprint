@@ -417,7 +417,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
   };
 
   return (
-    <article className="pb-16">
+    <article className="pb-4 sm:pb-6">
       {/* ------------------------------------------------------------------ */}
       {/* Header                                                              */}
       {/* ------------------------------------------------------------------ */}
@@ -677,7 +677,7 @@ export default function AdvancedDetailPage(): React.JSX.Element {
       {/* Related / Composes With                                             */}
       {/* ------------------------------------------------------------------ */}
       {related.length > 0 && (
-        <section className="shell mt-24">
+        <section className="shell mt-16 sm:mt-20">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-5">
             <p className="eyebrow">Composes with</p>
             <p className="eyebrow">Shared tags and category</p>
