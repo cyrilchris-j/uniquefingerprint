@@ -1026,7 +1026,7 @@ function LedDotMatrixTextPreview() {
 }
 
 // 46. Lens Magnify Text
-function LensMagnifyTextPreview() {
+export function LensMagnifyTextPreview() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [pos, setPos] = React.useState({ x: 180, y: 90 });
   const [isHovered, setIsHovered] = React.useState(false);
