@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "circular-aperture-diaphragm",
   "type": "registry:background",
   "title": "Circular Aperture Diaphragm",

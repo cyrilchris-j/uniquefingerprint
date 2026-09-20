@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "expandable-log-tile",
   "type": "registry:component",
   "title": "Expandable Log Tile",

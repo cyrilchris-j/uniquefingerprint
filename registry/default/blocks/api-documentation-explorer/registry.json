@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "api-documentation-explorer",
   "type": "registry:block",
   "title": "API Documentation Explorer",

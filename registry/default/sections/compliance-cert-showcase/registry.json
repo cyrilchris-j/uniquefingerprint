@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "compliance-cert-showcase",
   "type": "registry:section",
   "title": "Compliance Cert Showcase",

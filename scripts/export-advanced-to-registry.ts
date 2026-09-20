@@ -35,7 +35,7 @@ async function run() {
     const integrity = sha256Integrity(hashFiles([{ path: `${slug}.tsx`, content }]));
 
     const artifact = {
-      $schema: "https://openui.dev/schema/registry-item.json",
+      $schema: "../schema/registry-item.json",
       name: slug,
       type: "registry:component",
       title: item.title,

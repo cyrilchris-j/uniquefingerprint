@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "pinned-header-sticky-footer",
   "type": "registry:layout",
   "title": "Pinned Header Sticky Footer",

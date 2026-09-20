@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "time-of-day-greeting",
   "type": "registry:text",
   "title": "Time of Day Greeting",

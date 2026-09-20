@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "ai-prompt-tuning-workbench",
   "type": "registry:block",
   "title": "AI Prompt Tuning Workbench",

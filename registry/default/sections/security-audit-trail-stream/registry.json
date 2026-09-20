@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "security-audit-trail-stream",
   "type": "registry:section",
   "title": "Security Audit Trail Stream",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "lasso-select-box",
   "type": "registry:interaction",
   "title": "Lasso Select Box",

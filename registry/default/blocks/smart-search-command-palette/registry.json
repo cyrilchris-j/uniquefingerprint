@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "smart-search-command-palette",
   "type": "registry:block",
   "title": "Smart Search Command Palette",

@@ -69,7 +69,7 @@ function registryJsonFor(definition: ResourceDefinition): string {
 
   return `${JSON.stringify(
     {
-      $schema: "https://openui.dev/schema/registry-item.json",
+      $schema: "../../../../schema/registry-item.json",
       name: definition.name,
       type,
       title: definition.title,
