@@ -272,11 +272,6 @@ export default function HomePage(): React.JSX.Element {
           eyebrow="01 — Get Started"
           title="Add to your project in two commands."
           description="Zero configuration and zero runtime lock-in. The CLI configures path aliases, verifies integrity, and places clean TypeScript source directly into your codebase."
-          actions={
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/docs/cli">CLI documentation</Link>
-            </Button>
-          }
         />
 
         <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14 items-start">
