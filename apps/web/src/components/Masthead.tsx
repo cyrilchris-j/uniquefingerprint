@@ -165,8 +165,8 @@ export function Masthead(): React.JSX.Element {
 
   return (
     <header className="masthead">
-      <div className="shell flex h-14 sm:h-16 items-center justify-between gap-3 xl:gap-4 max-w-full min-w-0">
-        <div className="flex items-center gap-4 xl:gap-5 2xl:gap-8 min-w-0">
+      <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 flex h-14 sm:h-16 items-center justify-between gap-2.5 sm:gap-4 min-w-0">
+        <div className="flex items-center gap-2.5 sm:gap-3.5 xl:gap-4 2xl:gap-6 min-w-0 shrink-0">
           <Link
             to="/"
             className="flex items-center gap-2 sm:gap-2.5 shrink-0 group focus-visible:outline-none"
@@ -178,20 +178,20 @@ export function Masthead(): React.JSX.Element {
               height={36}
               className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30 transition-transform duration-fast ease-editorial group-hover:scale-105"
             />
-            <span className="font-display text-lg sm:text-xl 2xl:text-step-2 leading-none tracking-tight text-ink">
+            <span className="font-display text-base sm:text-lg 2xl:text-xl leading-none tracking-tight text-ink whitespace-nowrap">
               UniqueFingerprint
             </span>
           </Link>
 
-          <nav aria-label="Catalogue" className="hidden xl:block min-w-0">
-            <ul className="flex items-center gap-2.5 xl:gap-3.5 2xl:gap-5 min-w-0">
+          <nav aria-label="Catalogue" className="hidden xl:block shrink-0">
+            <ul className="flex items-center gap-2 xl:gap-2.5 2xl:gap-4">
               {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
-                <li key={category.slug}>
+                <li key={category.slug} className="shrink-0">
                   <NavLink
                     to={`/${category.slug}`}
                     className={({ isActive }) =>
                       cn(
-                        "eyebrow whitespace-nowrap text-[11px] 2xl:text-[11.5px] tracking-[0.14em] 2xl:tracking-[0.18em] transition-colors duration-fast ease-editorial hover:text-ink py-1",
+                        "eyebrow whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[11.5px] tracking-[0.1em] xl:tracking-[0.12em] 2xl:tracking-[0.16em] transition-colors duration-fast ease-editorial hover:text-ink py-1",
                         isActive ? "text-ink font-semibold" : "text-graphite",
                       )
                     }
@@ -201,13 +201,13 @@ export function Masthead(): React.JSX.Element {
                 </li>
               ))}
 
-              <li>
+              <li className="shrink-0">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
                       className={cn(
-                        "eyebrow whitespace-nowrap text-[11px] 2xl:text-[11.5px] tracking-[0.14em] 2xl:tracking-[0.18em] transition-colors duration-fast ease-editorial hover:text-ink flex items-center gap-1 focus-visible:outline-none cursor-pointer py-1",
+                        "eyebrow whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[11.5px] tracking-[0.1em] xl:tracking-[0.12em] 2xl:tracking-[0.16em] transition-colors duration-fast ease-editorial hover:text-ink flex items-center gap-1 focus-visible:outline-none cursor-pointer py-1",
                         isSystemsActive ? "text-ink font-semibold" : "text-graphite",
                       )}
                       aria-label="Systems menu"
@@ -385,26 +385,26 @@ export function Masthead(): React.JSX.Element {
                 </DropdownMenu>
               </li>
 
-              <li>
+              <li className="shrink-0">
                 <NavLink
                   to="/advanced"
                   className={({ isActive }) =>
                     cn(
-                      "relative inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-[0.14em] font-semibold transition-all duration-300 group",
+                      "relative inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] xl:text-[10.5px] 2xl:text-[11px] font-mono uppercase tracking-[0.1em] font-semibold transition-all duration-300 group shrink-0",
                       "border border-oxide/60 bg-gradient-to-r from-oxide/[0.12] via-amber-500/[0.14] to-oxide/[0.12] text-oxide shadow-xs hover:shadow-md hover:border-oxide hover:from-oxide hover:to-oxide hover:text-paper",
                       "dark:border-amber-400/50 dark:bg-gradient-to-r dark:from-amber-500/[0.16] dark:via-orange-500/[0.14] dark:to-amber-500/[0.16] dark:text-amber-300 dark:hover:border-amber-300 dark:hover:from-amber-500 dark:hover:to-amber-600 dark:hover:text-black",
                       isActive && "bg-gradient-to-r from-oxide to-amber-600 text-paper border-transparent font-bold shadow-md shadow-oxide/20 dark:text-black dark:from-amber-400 dark:to-orange-400",
                     )
                   }
                 >
-                  <span className="relative flex h-2 w-2">
+                  <span className="relative flex h-1.5 w-1.5 2xl:h-2 2xl:w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-oxide dark:bg-amber-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-oxide dark:bg-amber-400 group-hover:bg-paper dark:group-hover:bg-black" />
+                    <span className="relative inline-flex rounded-full h-full w-full bg-oxide dark:bg-amber-400 group-hover:bg-paper dark:group-hover:bg-black" />
                   </span>
                   <span className="font-bold tracking-wider">Advanced</span>
                   <span
                     className={cn(
-                      "px-1.5 py-0.5 rounded-full text-[9.5px] font-mono font-bold leading-none transition-colors",
+                      "px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold leading-none transition-colors",
                       "bg-oxide text-paper group-hover:bg-paper group-hover:text-oxide",
                       "dark:bg-amber-400 dark:text-black dark:group-hover:bg-black dark:group-hover:text-amber-300",
                     )}
@@ -442,12 +442,12 @@ export function Masthead(): React.JSX.Element {
                   setTerm(event.target.value);
                   setSearchFocused(true);
                 }}
-                placeholder={user ? "Search resources..." : "Search..."}
+                placeholder={user ? "Search..." : "Search 1,038+..."}
                 className={cn(
                   "h-8 sm:h-9 bg-transparent font-mono text-[11px] tracking-[0.06em] text-ink placeholder:text-graphite/60 focus:outline-none transition-all duration-300",
                   user
-                    ? "w-28 xl:w-40 2xl:w-56 focus:w-36 xl:focus:w-48 2xl:focus:w-64"
-                    : "w-20 xl:w-28 2xl:w-40 focus:w-28 xl:focus:w-36 2xl:focus:w-48",
+                    ? "w-20 xl:w-28 2xl:w-36 focus:w-28 xl:focus:w-36 2xl:focus:w-48"
+                    : "w-20 xl:w-24 2xl:w-32 focus:w-28 xl:focus:w-32 2xl:focus:w-44",
                 )}
               />
             </form>
@@ -531,12 +531,12 @@ export function Masthead(): React.JSX.Element {
             href="https://github.com/cyrilchris-j/uniquefingerprint"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-line bg-surface/80 hover:bg-ink hover:text-paper hover:border-ink dark:bg-surface/50 dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-200 group text-ink font-mono text-[11px] sm:text-xs font-semibold shrink-0 shadow-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxide"
+            className="inline-flex items-center gap-1.5 px-2 sm:px-2.5 2xl:px-3 py-1 sm:py-1.5 rounded-full border border-line bg-surface/80 hover:bg-ink hover:text-paper hover:border-ink dark:bg-surface/50 dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-200 group text-ink font-mono text-[11px] sm:text-xs font-semibold shrink-0 shadow-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxide"
             title="Star uniquefingerprint on GitHub"
             aria-label="Star cyrilchris-j/uniquefingerprint on GitHub"
           >
             <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-            <span className="hidden sm:inline font-medium">Star repo</span>
+            <span className="hidden 2xl:inline font-medium">Star repo</span>
             <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-500 fill-amber-500 group-hover:text-amber-400 group-hover:fill-amber-400 shrink-0" />
           </a>
 
@@ -746,7 +746,7 @@ export function Masthead(): React.JSX.Element {
 
             <div className="mt-8 pt-6 border-t border-line flex items-center justify-between">
               <span className="eyebrow">Colour theme</span>
-              <ThemeToggle />
+              <ThemeToggle showLabels />
             </div>
           </nav>
         </div>
