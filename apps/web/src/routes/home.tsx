@@ -292,49 +292,6 @@ function HeroSpecimenShowcase(): React.JSX.Element {
   );
 }
 
-const DISCIPLINES = [
-  {
-    category: "Spatial 3D",
-    title: "Spatial 3D & WebGL",
-    description: "GPU-accelerated Three.js scenes, interactive wireframe globes, floating isometric cubes, and turntable model stages.",
-    count: "24 items",
-    href: "/advanced/spatial-3d",
-    icon: Globe,
-    iconBg: "bg-blue-500/10 border-blue-500/20",
-    iconColor: "text-blue-600 dark:text-blue-400",
-  },
-  {
-    category: "Text Effects",
-    title: "Kinetic Typography",
-    description: "Spring-physics text, optical true-focus lenses, retro airport split-flap boards, and fluid variable font skew.",
-    count: "48 items",
-    href: "/advanced/text-animations",
-    icon: Type,
-    iconBg: "bg-amber-500/10 border-amber-500/20",
-    iconColor: "text-amber-600 dark:text-amber-400",
-  },
-  {
-    category: "Backgrounds",
-    title: "Generative Shaders",
-    description: "Real-time GLSL canvas auroras, Balatro poker cards, liquid chrome fluid simulations, and tactical radar scopes.",
-    count: "36 items",
-    href: "/advanced/backgrounds",
-    icon: Sparkles,
-    iconBg: "bg-purple-500/10 border-purple-500/20",
-    iconColor: "text-purple-600 dark:text-purple-400",
-  },
-  {
-    category: "Micro-actions",
-    title: "Tactile & Haptics",
-    description: "Magnetic spring buttons, jelly toggles, specular liquid surfaces, and gesture-driven slider commits.",
-    count: "32 items",
-    href: "/advanced/buttons",
-    icon: Zap,
-    iconBg: "bg-emerald-500/10 border-emerald-500/20",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-  },
-];
-
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
   const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx">("pnpm");
@@ -607,62 +564,11 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 02 — 4 Core Design Disciplines                                    */}
+      {/* 02 — Featured, chosen by rule                                     */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="02 — Design Disciplines"
-          title="Engineered across 4 modern creative frontiers."
-          description="Every component is crafted to solve a specific aesthetic deficit. From high-throughput GPU canvases to tactile spring dynamics, these 4 pillars define our collection."
-          actions={
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/advanced">All 220+ Advanced Specs &rarr;</Link>
-            </Button>
-          }
-        />
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {DISCIPLINES.map((d) => (
-            <Link
-              key={d.title}
-              to={d.href}
-              className="group relative flex flex-col justify-between p-6 rounded-2xl border border-line/35 bg-paper/80 hover:bg-paper hover:border-ink/40 dark:hover:border-white/30 transition-all duration-200 shadow-2xs hover:shadow-md hover:-translate-y-1"
-            >
-              <div>
-                <div className={cn("flex h-12 w-12 items-center justify-center rounded-xl border mb-4 transition-transform duration-200 group-hover:scale-110", d.iconBg)}>
-                  <d.icon className={cn("h-6 w-6", d.iconColor)} />
-                </div>
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">
-                    {d.category}
-                  </span>
-                  <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-full border border-line/50 text-ink/80 bg-surface">
-                    {d.count}
-                  </span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-ink group-hover:text-oxide transition-colors tracking-tight">
-                  {d.title}
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-graphite">
-                  {d.description}
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-line/20 flex items-center justify-between text-xs font-mono text-graphite group-hover:text-ink font-medium transition-colors">
-                <span>Explore category</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* 03 — Featured, chosen by rule                                     */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <SectionHeader
-          eyebrow="03 — Fingerprinted resources"
+          eyebrow="02 — Fingerprinted resources"
           title="Selected because they declare their fingerprint."
           description="Not an editorial pick. These are the resources that state a complete design DNA — genre, macrostructure, density, shape and motion — which is the minimum this registry asks before something is published."
           actions={
@@ -697,11 +603,11 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 04 — Advanced Ecosystem Showcase                                 */}
+      {/* 03 — Advanced Ecosystem Showcase                                 */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="04 — Advanced Ecosystem (220+)"
+          eyebrow="03 — Advanced Ecosystem (220+)"
           title="Spatial 3D, procedural canvases, and kinetic interactions."
           description="Engineered for high-end digital products: GPU-accelerated Three.js WebGL scenes, organic canvas simulations, haptic micro-interactions, and kinetic typography with zero external runtime bloat."
           actions={

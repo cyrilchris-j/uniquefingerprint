@@ -9,7 +9,6 @@ import {
   ADVANCED_RESOURCES,
   getAdvancedItemBySlug,
   type AdvancedCategorySlug,
-  type AdvancedTechnology,
 } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
 
@@ -20,15 +19,11 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
   const itemMatch = pathCategory ? getAdvancedItemBySlug(pathCategory) : undefined;
 
   const selectedCategory = (pathCategory ?? params.get("category") ?? "all") as AdvancedCategorySlug | "all";
-  const selectedTech = (params.get("tech") ?? "all") as AdvancedTechnology | "all";
   const searchQuery = params.get("q")?.toLowerCase() ?? "";
 
   const filteredItems = React.useMemo(() => {
     return ADVANCED_RESOURCES.filter((item) => {
       if (selectedCategory !== "all" && item.category !== selectedCategory) {
-        return false;
-      }
-      if (selectedTech !== "all" && item.technology !== selectedTech) {
         return false;
       }
       if (searchQuery) {
@@ -40,7 +35,7 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
       }
       return true;
     });
-  }, [selectedCategory, selectedTech, searchQuery]);
+  }, [selectedCategory, searchQuery]);
 
   if (itemMatch) {
     return <Navigate to={`/advanced/${itemMatch.category}/${itemMatch.slug}`} replace />;
@@ -80,31 +75,6 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
               })),
             ]}
           />
-        </div>
-
-        {/* Technology Filter Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-          <span className="font-mono text-[10px] text-graphite uppercase tracking-wider mr-1">Tech:</span>
-          {[
-            { id: "all", label: "All Technologies" },
-            { id: "three-webgl", label: "Three.js / WebGL" },
-            { id: "canvas-2d", label: "Procedural Canvas" },
-            { id: "spring-physics", label: "Spring Physics" },
-            { id: "dom-motion", label: "DOM Motion" },
-            { id: "css-transforms", label: "CSS Layouts" },
-          ].map((tech) => (
-            <button
-              key={tech.id}
-              onClick={() => updateParam("tech", tech.id)}
-              className={`px-2.5 py-1 rounded border text-[11px] font-mono transition-colors ${
-                selectedTech === tech.id
-                  ? "bg-ink text-paper border-ink"
-                  : "bg-surface/50 text-graphite border-line/40 hover:text-ink hover:border-line"
-              }`}
-            >
-              {tech.label}
-            </button>
-          ))}
         </div>
       </div>
 
