@@ -30,16 +30,21 @@ const PAGES = import.meta.glob<{ default: React.ComponentType }>("../content/doc
   eager: true,
 });
 
+const PAGES_META: Record<string, { title: string; group: string }> = {
+  installation: { title: "Installation", group: "Getting started" },
+  cli: { title: "CLI", group: "Getting started" },
+  registry: { title: "Registry", group: "Concepts" },
+  components: { title: "Component authoring", group: "Concepts" },
+  "design-systems": { title: "Design systems", group: "Concepts" },
+  "ai-rules": { title: "AI resources", group: "Concepts" },
+  contributing: { title: "Contributing", group: "Project" },
+  security: { title: "Security model", group: "Project" },
+};
+
 /** Route slug → page metadata. Order here is the order in the sidebar. */
 const NAV: Array<{ slug: string; title: string; group: string }> = [
   { slug: "installation", title: "Installation", group: "Getting started" },
   { slug: "cli", title: "CLI", group: "Getting started" },
-  { slug: "registry", title: "Registry", group: "Concepts" },
-  { slug: "components", title: "Component authoring", group: "Concepts" },
-  { slug: "design-systems", title: "Design systems", group: "Concepts" },
-  { slug: "ai-rules", title: "AI resources", group: "Concepts" },
-  { slug: "contributing", title: "Contributing", group: "Project" },
-  { slug: "security", title: "Security model", group: "Project" },
 ];
 
 function pageFor(slug: string): React.ComponentType | undefined {
@@ -49,7 +54,7 @@ function pageFor(slug: string): React.ComponentType | undefined {
 
 export default function DocsPage(): React.JSX.Element {
   const { slug = "installation" } = useParams<{ slug?: string }>();
-  const meta = NAV.find((page) => page.slug === slug);
+  const meta = NAV.find((page) => page.slug === slug) ?? (slug in PAGES_META ? { slug, ...PAGES_META[slug]! } : undefined);
   const Page = pageFor(slug);
 
   useDocumentTitle(meta ? `${meta.title} — UniqueFingerprint Docs` : "Documentation — UniqueFingerprint");
@@ -105,7 +110,6 @@ export default function DocsPage(): React.JSX.Element {
             {[
               ["/explore", "Catalogue"],
               ["/playground", "Playground"],
-              ["/builder", "Builder"],
             ].map(([to, label]) => (
               <li key={to} className="border-b border-line">
                 <Link
