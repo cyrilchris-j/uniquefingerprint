@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useLocation } from "react-router";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 /**
@@ -13,11 +14,33 @@ import { ChevronUp, ChevronDown } from "lucide-react";
  * - Only reveals itself when the page has scrollable vertical overflow.
  * - Sleek frosted-glass capsule pill with theme-adaptive styling.
  * - Zero conflict with page layout, headers, modals, or footers.
+ * - Hidden on detail pages and playgrounds where users focus on a single component.
  */
 export function FloatingScrollControls(): React.JSX.Element | null {
+  const location = useLocation();
   const [canScroll, setCanScroll] = React.useState(false);
   const [atTop, setAtTop] = React.useState(true);
   const [atBottom, setAtBottom] = React.useState(false);
+
+  // Hide on detail pages (e.g. /components/:slug, /advanced/:category/:slug) and interactive sandboxes
+  const isHiddenPage = React.useMemo(() => {
+    const parts = location.pathname.split("/").filter(Boolean);
+    const first = parts[0] ?? "";
+    const categorySlugs = ["components", "text", "motion", "interactions", "systems"];
+    // Detail routes: /components/:slug, /text/:slug, /motion/:slug, /interactions/:slug, /systems/:slug
+    if (parts.length >= 2 && categorySlugs.includes(first)) {
+      return true;
+    }
+    // Advanced detail route: /advanced/:category/:slug
+    if (parts.length >= 3 && first === "advanced") {
+      return true;
+    }
+    // Sandboxes / Playground / Builder
+    if (first === "playground" || first === "builder") {
+      return true;
+    }
+    return false;
+  }, [location.pathname]);
 
   React.useEffect(() => {
     let ticking = false;
@@ -72,7 +95,7 @@ export function FloatingScrollControls(): React.JSX.Element | null {
     });
   };
 
-  if (!canScroll) {
+  if (isHiddenPage || !canScroll) {
     return null;
   }
 
