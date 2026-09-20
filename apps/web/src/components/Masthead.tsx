@@ -46,6 +46,7 @@ import { usePWA } from "./PWAInstall.js";
  * with a thumb.
  */
 export function Masthead(): React.JSX.Element {
+  const { user } = useAuth();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -164,11 +165,11 @@ export function Masthead(): React.JSX.Element {
 
   return (
     <header className="masthead">
-      <div className="shell flex h-14 sm:h-16 items-center justify-between gap-4 max-w-full min-w-0">
-        <div className="flex items-center gap-5 xl:gap-7 2xl:gap-9 min-w-0">
+      <div className="shell flex h-14 sm:h-16 items-center justify-between gap-3 xl:gap-4 max-w-full min-w-0">
+        <div className="flex items-center gap-4 xl:gap-5 2xl:gap-8 min-w-0">
           <Link
             to="/"
-            className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus-visible:outline-none"
+            className="flex items-center gap-2 sm:gap-2.5 shrink-0 group focus-visible:outline-none"
           >
             <img
               src="/logo.png"
@@ -177,13 +178,13 @@ export function Masthead(): React.JSX.Element {
               height={36}
               className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30 transition-transform duration-fast ease-editorial group-hover:scale-105"
             />
-            <span className="font-display text-xl sm:text-step-2 leading-none tracking-tight text-ink">
+            <span className="font-display text-lg sm:text-xl 2xl:text-step-2 leading-none tracking-tight text-ink">
               UniqueFingerprint
             </span>
           </Link>
 
           <nav aria-label="Catalogue" className="hidden xl:block min-w-0">
-            <ul className="flex items-center gap-3.5 2xl:gap-5 min-w-0">
+            <ul className="flex items-center gap-2.5 xl:gap-3.5 2xl:gap-5 min-w-0">
               {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
                 <li key={category.slug}>
                   <NavLink
@@ -416,7 +417,7 @@ export function Masthead(): React.JSX.Element {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
           <div ref={searchBoxRef} className="relative hidden xl:flex items-center">
             <form
               role="search"
@@ -426,7 +427,7 @@ export function Masthead(): React.JSX.Element {
                 setSearchFocused(false);
                 navigate(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : "/search");
               }}
-              className="flex items-center gap-2 border-b border-line/80 focus-within:border-ink dark:focus-within:border-white transition-colors duration-fast px-1 py-0.5"
+              className="flex items-center gap-1.5 border-b border-line/80 focus-within:border-ink dark:focus-within:border-white transition-colors duration-fast px-1 py-0.5"
             >
               <Search aria-hidden className="h-3.5 w-3.5 text-graphite shrink-0" />
               <label htmlFor="masthead-search" className="sr-only">
@@ -441,9 +442,13 @@ export function Masthead(): React.JSX.Element {
                   setTerm(event.target.value);
                   setSearchFocused(true);
                 }}
-                placeholder="Search resources..."
-                className="h-8 sm:h-9 w-36 lg:w-48 xl:w-56 2xl:w-64 bg-transparent font-mono text-[11px] tracking-[0.12em] text-ink placeholder:text-graphite/60 focus:w-48 lg:focus:w-60 xl:focus:w-68 2xl:focus:w-76 focus:outline-none"
-                style={{ transition: "width var(--motion-normal) var(--motion-ease)" }}
+                placeholder={user ? "Search resources..." : "Search..."}
+                className={cn(
+                  "h-8 sm:h-9 bg-transparent font-mono text-[11px] tracking-[0.06em] text-ink placeholder:text-graphite/60 focus:outline-none transition-all duration-300",
+                  user
+                    ? "w-28 xl:w-40 2xl:w-56 focus:w-36 xl:focus:w-48 2xl:focus:w-64"
+                    : "w-20 xl:w-28 2xl:w-40 focus:w-28 xl:focus:w-36 2xl:focus:w-48",
+                )}
               />
             </form>
 

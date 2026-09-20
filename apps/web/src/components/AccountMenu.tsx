@@ -81,12 +81,12 @@ export function AccountMenu(): React.JSX.Element {
           variant="outline"
           size="sm"
           onClick={() => setDialogOpen(true)}
-          title="Account"
-          aria-label="Account"
+          title="Sign in"
+          aria-label="Sign in"
           className="h-8 sm:h-9 px-2.5 sm:px-3 text-[11px] font-mono uppercase tracking-wider gap-1.5 border-line text-ink hover:border-ink hover:bg-surface/50 shrink-0"
         >
-          <User aria-hidden className="h-3.5 w-3.5" />
-          <span>Account</span>
+          <LogIn aria-hidden className="h-3.5 w-3.5" />
+          <span>Sign in</span>
         </Button>
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
