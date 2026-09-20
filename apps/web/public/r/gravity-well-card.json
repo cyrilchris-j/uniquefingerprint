@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "gravity-well-card",
   "type": "registry:motion",
   "title": "Gravity Well Card",

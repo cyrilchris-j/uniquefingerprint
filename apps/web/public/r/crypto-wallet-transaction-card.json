@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "crypto-wallet-transaction-card",
   "type": "registry:block",
   "title": "Crypto Wallet Transaction Card",

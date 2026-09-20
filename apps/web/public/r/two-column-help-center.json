@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "two-column-help-center",
   "type": "registry:layout",
   "title": "Two Column Help Center",

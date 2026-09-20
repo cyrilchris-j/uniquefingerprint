@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "led-dot-matrix-text",
   "type": "registry:text",
   "title": "LED Dot Matrix Text",

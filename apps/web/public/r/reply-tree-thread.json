@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "reply-tree-thread",
   "type": "registry:text",
   "title": "Reply Tree Thread",

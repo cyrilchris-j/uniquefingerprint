@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "compact-inspector-pane",
   "type": "registry:layout",
   "title": "Compact Inspector Pane",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "draggable-sticker-board",
   "type": "registry:interaction",
   "title": "Draggable Sticker Board",

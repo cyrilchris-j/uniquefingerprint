@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "whisper-stage-direction",
   "type": "registry:text",
   "title": "Whisper Stage Direction",

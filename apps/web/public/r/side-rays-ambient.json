@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "side-rays-ambient",
   "type": "registry:component",
   "title": "Side Rays Ambient",

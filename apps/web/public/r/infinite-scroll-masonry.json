@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "infinite-scroll-masonry",
   "type": "registry:layout",
   "title": "Infinite Scroll Masonry",

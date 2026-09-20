@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "multi-column-kanban-board",
   "type": "registry:layout",
   "title": "Multi Column Kanban Board",

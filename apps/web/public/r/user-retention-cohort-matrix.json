@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "user-retention-cohort-matrix",
   "type": "registry:block",
   "title": "User Retention Cohort Matrix",

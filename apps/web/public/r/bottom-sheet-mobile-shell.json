@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://openui.dev/schema/registry-item.json",
   "name": "bottom-sheet-mobile-shell",
   "type": "registry:layout",
   "title": "Bottom Sheet Mobile Shell",
