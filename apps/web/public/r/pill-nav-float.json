@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "pill-nav-float",
+  "type": "registry:component",
+  "title": "Pill Nav Float",
+  "description": "Floating glass pill navigation dock with active sliding pill indicator.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "pill-nav-float.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nconst TABS = [\"Home\", \"Motion\", \"Canvas\", \"Systems\"];\nexport interface PillNavFloatProps { className?: string; onTab?: (t: string) => void; }\nexport function PillNavFloat({ className = \"\", onTab }: PillNavFloatProps) {\n  const [active, setActive] = useState(0);\n  return (\n    <div className={`flex items-center gap-1 p-1.5 rounded-full relative ${className}`}\n      style={{ backdropFilter: \"blur(16px)\", background: \"rgba(13,15,20,0.85)\", border: \"1px solid rgba(255,255,255,0.08)\", boxShadow: \"0 8px 32px rgba(0,0,0,0.4)\" }}>\n      <div className=\"absolute rounded-full bg-[#ba442c] transition-all duration-300\"\n        style={{ height: \"calc(100% - 12px)\", width: `calc(${100 / TABS.length}% - 6px)`, left: `calc(${active * (100 / TABS.length)}% + 6px)`, top: 6 }} />\n      {TABS.map((tab, i) => (\n        <button key={tab} onClick={() => { setActive(i); onTab?.(tab); }}\n          className=\"relative z-10 px-4 py-1.5 rounded-full font-mono text-xs transition-colors\"\n          style={{ color: active === i ? \"white\" : \"#666\" }}>{tab}</button>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "d07567257de97aa92e114dfc2e14ca204acb02d17dfff4c352c47bc8c15a078b",
+      "sizeBytes": 1124
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/pill-nav-float.json"
+}

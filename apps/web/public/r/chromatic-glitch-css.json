@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "chromatic-glitch-css",
+  "type": "registry:component",
+  "title": "CSS Chromatic Glitch",
+  "description": "Pure CSS pseudo-element color split aberration with animated keyframe shifts.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "chromatic-glitch-css.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function CSSChromaticGlitch({ text = \"CHROMATIC\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  return (\n    <div className={`relative inline-block font-mono font-black text-5xl select-none ${className}`}>\n      <span className=\"relative z-10 text-white\">{text}</span>\n      <span className=\"absolute inset-0 text-red-500\" style={{ clipPath: \"inset(30% 0 40% 0)\", transform: \"translateX(-4px)\", mixBlendMode: \"screen\", animation: \"glitchR 2s steps(2) infinite\" }}>{text}</span>\n      <span className=\"absolute inset-0 text-cyan-400\" style={{ clipPath: \"inset(60% 0 10% 0)\", transform: \"translateX(4px)\", mixBlendMode: \"screen\", animation: \"glitchC 2.2s steps(2) infinite\" }}>{text}</span>\n      <style>{`\n        @keyframes glitchR { 0%,45%,55%,100% { clip-path: inset(30% 0 40% 0); transform: translateX(-4px); } 50% { clip-path: inset(10% 0 60% 0); transform: translateX(4px); } }\n        @keyframes glitchC { 0%,40%,60%,100% { clip-path: inset(60% 0 10% 0); transform: translateX(4px); } 50% { clip-path: inset(40% 0 30% 0); transform: translateX(-4px); } }\n      `}</style>\n    </div>\n  );\n}\n",
+      "contentHash": "9243bdf3ef6c92b3e3689652d20fe9884673659cca9a661911a7903b569dc547",
+      "sizeBytes": 1170
+    }
+  ],
+  "tags": [
+    "css",
+    "glitch",
+    "animation"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/chromatic-glitch-css.json"
+}

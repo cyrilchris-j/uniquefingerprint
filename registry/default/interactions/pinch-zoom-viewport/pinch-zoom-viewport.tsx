@@ -12,9 +12,9 @@ export function PinchZoomViewport({ className }: PinchZoomViewportProps) {
   const [pan, setPan] = useState({ x: 0, y: 0 });
 
   return (
-    <div className={cn("relative h-72 w-full max-w-md overflow-hidden rounded-xl border border-line bg-paper p-4 select-none", className)}>
+    <div className={cn("relative h-72 w-full max-w-md overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-4 select-none", className)}>
       <div className="flex justify-between items-center pb-2 border-b border-line mb-4">
-        <span className="font-mono text-xs text-ink/60">ZOOM: {Math.round(scale * 100)}%</span>
+        <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-cyan-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>ZOOM: {Math.round(scale * 100)}%</span><span className="opacity-50 ml-auto">[CYBER HUD]</span></div>
         <div className="flex gap-1.5">
           <button
             type="button"

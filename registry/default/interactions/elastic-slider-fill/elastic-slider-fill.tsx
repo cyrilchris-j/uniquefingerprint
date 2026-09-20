@@ -11,8 +11,8 @@ export function ElasticSliderFill({ className }: ElasticSliderFillProps) {
   const [level, setLevel] = useState(65);
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-3 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">TANK FILL: {level}%</span>
+    <div className={cn("inline-flex flex-col items-center gap-3 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black p-6 shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-rose-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>TANK FILL: {level}%</span><span className="opacity-50 ml-auto">[AVIONICS]</span></div>
 
       <div className="relative h-44 w-14 overflow-hidden rounded-lg border border-line bg-line/20 flex items-end">
         <div

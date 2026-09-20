@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "halftone-reveal-mask",
+  "type": "registry:component",
+  "title": "Halftone Reveal Mask",
+  "description": "Dot matrix halftone pattern expanding to reveal masked content.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "halftone-reveal-mask.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function HalftoneRevealMask({ className = \"w-full h-48 relative overflow-hidden bg-[#0a0d14] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [revealed, setRevealed] = React.useState(false);\n  return (\n    <div className={className} onClick={() => setRevealed(r => !r)}>\n      <div className=\"absolute inset-0 flex items-center justify-center\">\n        <span className=\"font-display font-black text-4xl text-white\">REVEALED</span>\n      </div>\n      <div className=\"absolute inset-0 pointer-events-none transition-opacity duration-700\" style={{ opacity: revealed ? 0 : 1, backgroundImage: `radial-gradient(circle, #0a0d14 40%, transparent 40%)`, backgroundSize: \"16px 16px\" }} />\n      <span className=\"absolute bottom-3 right-4 font-mono text-[10px] text-white/30\">Click to reveal</span>\n    </div>\n  );\n}\n",
+      "contentHash": "deac40e3b7b89b4eb4e2f384613b9bdf61452ff1379c6156bffcada95f9870c9",
+      "sizeBytes": 870
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/halftone-reveal-mask.json"
+}

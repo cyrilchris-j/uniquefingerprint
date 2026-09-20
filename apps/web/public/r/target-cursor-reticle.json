@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "target-cursor-reticle",
+  "type": "registry:component",
+  "title": "Target Cursor Reticle",
+  "description": "Minimal tactical crosshair snapping onto interactive hit targets.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "target-cursor-reticle.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function TargetCursorReticle({ className = \"w-full h-48 relative overflow-hidden bg-[#06070e] cursor-none\" }: { className?: string }): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [visible, setVisible] = React.useState(false);\n  return (\n    <div className={className} onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); setPos({ x: e.clientX-r.left, y: e.clientY-r.top }); setVisible(true); }} onMouseLeave={() => setVisible(false)}>\n      {visible && (\n        <svg className=\"absolute pointer-events-none\" style={{ left: pos.x-24, top: pos.y-24, width:48, height:48 }} viewBox=\"0 0 48 48\">\n          <circle cx=\"24\" cy=\"24\" r=\"20\" fill=\"none\" stroke=\"#ba442c\" strokeWidth=\"1\" opacity=\"0.6\" />\n          <circle cx=\"24\" cy=\"24\" r=\"2\" fill=\"#ba442c\" />\n          <line x1=\"24\" y1=\"4\" x2=\"24\" y2=\"14\" stroke=\"#ba442c\" strokeWidth=\"1\" />\n          <line x1=\"24\" y1=\"34\" x2=\"24\" y2=\"44\" stroke=\"#ba442c\" strokeWidth=\"1\" />\n          <line x1=\"4\" y1=\"24\" x2=\"14\" y2=\"24\" stroke=\"#ba442c\" strokeWidth=\"1\" />\n          <line x1=\"34\" y1=\"24\" x2=\"44\" y2=\"24\" stroke=\"#ba442c\" strokeWidth=\"1\" />\n          <text x=\"28\" y=\"12\" fontFamily=\"monospace\" fontSize=\"5\" fill=\"#ba442c\">{Math.round(pos.x)},{Math.round(pos.y)}</text>\n        </svg>\n      )}\n      <span className=\"absolute inset-0 flex items-center justify-center font-mono text-xs text-white/20\">Move cursor</span>\n    </div>\n  );\n}\n",
+      "contentHash": "ec44db0088391b53a3a21ac332e799dd016a0403a5419111824ecee0d4b47941",
+      "sizeBytes": 1481
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/target-cursor-reticle.json"
+}

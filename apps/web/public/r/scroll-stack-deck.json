@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "scroll-stack-deck",
+  "type": "registry:component",
+  "title": "Scroll Stack Deck",
+  "description": "Cards pinning and stacking over preceding layers during page scroll.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "scroll-stack-deck.tsx",
+      "type": "registry:component",
+      "content": "import { useRef } from \"react\";\nexport default function ScrollStackDeck({ className = \"\" }: { className?: string }) {\n  const cards = [\n    { title: \"Foundation\", color: \"#1e1b4b\", accent: \"#818cf8\" },\n    { title: \"Structure\", color: \"#1a1f36\", accent: \"#60a5fa\" },\n    { title: \"Style\", color: \"#0f1d2e\", accent: \"#34d399\" },\n    { title: \"Launch\", color: \"#1a0f20\", accent: \"#f472b6\" },\n  ];\n  const containerRef = useRef<HTMLDivElement>(null);\n  return (\n    <div ref={containerRef} className={`relative ${className}`} style={{ height: 220, overflow: \"hidden\" }}>\n      {cards.map((card, i) => (\n        <div key={i} style={{\n          position: \"absolute\", left: \"50%\", top: 0,\n          transform: `translateX(-50%) translateY(${i * 14}px) scale(${1 - i * 0.04})`,\n          width: `${100 - i * 4}%`, height: 140,\n          background: card.color, borderRadius: 16, border: `1px solid ${card.accent}33`,\n          display: \"flex\", alignItems: \"center\", justifyContent: \"center\",\n          zIndex: cards.length - i,\n          boxShadow: `0 ${i * 4}px ${i * 16}px rgba(0,0,0,0.3)`,\n          transition: \"all 0.4s cubic-bezier(0.25,1,0.5,1)\",\n          cursor: \"pointer\",\n        }}>\n          <div style={{ textAlign: \"center\" }}>\n            <div style={{ width: 32, height: 3, background: card.accent, borderRadius: 2, margin: \"0 auto 8px\" }} />\n            <span style={{ color: card.accent, fontWeight: 700, fontSize: 16 }}>{card.title}</span>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "2f20b56bce2d5d7e76825423cb632615289e1bff1653b746d9c8db9451dc8d4b",
+      "sizeBytes": 1512
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/scroll-stack-deck.json"
+}

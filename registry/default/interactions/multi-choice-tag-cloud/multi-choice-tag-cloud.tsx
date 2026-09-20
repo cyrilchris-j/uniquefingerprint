@@ -18,7 +18,7 @@ export function MultiChoiceTagCloud({ className }: MultiChoiceTagCloudProps) {
   };
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-5 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black p-6 shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white select-none", className)}>
       <div className="flex justify-between items-center pb-3 border-b border-line mb-3 font-mono text-xs text-ink/60">
         <span>TAG FILTER</span>
         <span>{selected.length} ACTIVE</span>
@@ -36,7 +36,7 @@ export function MultiChoiceTagCloud({ className }: MultiChoiceTagCloudProps) {
                 "rounded-full border px-3 py-1 font-mono text-xs transition-all",
                 isSel
                   ? "border-ink bg-ink text-paper shadow-sm"
-                  : "border-line bg-paper text-ink hover:border-ink"
+                  : "border-white/10 bg-zinc-900/70 text-ink hover:border-ink"
               )}
             >
               {tag}

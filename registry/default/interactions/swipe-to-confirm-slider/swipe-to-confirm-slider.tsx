@@ -12,7 +12,7 @@ export function SwipeToConfirmSlider({ className }: SwipeToConfirmSliderProps) {
   const confirmed = val >= 95;
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-3 rounded-2xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-zinc-900/70 p-6 shadow-sm", className)}>
       <span className="font-mono text-xs text-ink/60">
         {confirmed ? "AUTHORIZATION GRANTED" : "SLIDE TO AUTHORIZE"}
       </span>

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "plasma-field-fluid",
+  "type": "registry:component",
+  "title": "Plasma Field Fluid",
+  "description": "Classic demoscene plasma field calculated in high-speed 2D canvas.",
+  "category": "backgrounds",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "plasma-field-fluid.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function PlasmaFieldFluid({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    let t = 0, animId: number;\n    const draw = () => {\n      const imageData = ctx.createImageData(w, h);\n      for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) {\n        const v = Math.sin(x / 20 + t) + Math.sin(y / 18 + t * 1.1) + Math.sin((x + y) / 25 + t * 0.8) + Math.sin(Math.sqrt(x * x + y * y) / 22 + t);\n        const r = Math.floor(128 + 127 * Math.sin(v * Math.PI));\n        const g = Math.floor(128 + 127 * Math.sin(v * Math.PI + 2.09));\n        const b = Math.floor(128 + 127 * Math.sin(v * Math.PI + 4.18));\n        const i = (y * w + x) * 4;\n        imageData.data[i] = r; imageData.data[i+1] = g; imageData.data[i+2] = b; imageData.data[i+3] = 255;\n      }\n      ctx.putImageData(imageData, 0, 0);\n      t += 0.04;\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => cancelAnimationFrame(animId);\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
+      "contentHash": "35fb6325afeb6155f6d690cef7f1b5e6d96b80362955be2f4cf41e20b489bfb2",
+      "sizeBytes": 1431
+    }
+  ],
+  "tags": [
+    "background",
+    "procedural",
+    "canvas"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/plasma-field-fluid.json"
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "masonry-grid-fluid",
+  "type": "registry:component",
+  "title": "Masonry Grid Fluid",
+  "description": "Pinterest-style fluid responsive column layout with smooth layout transitions.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "masonry-grid-fluid.tsx",
+      "type": "registry:component",
+      "content": "export default function MasonryGridFluid({ className = \"\" }: { className?: string }) {\n  const items = [\n    { h: 140, color: \"#1e1b4b\", label: \"Tall A\" },\n    { h: 90, color: \"#1a2035\", label: \"Short B\" },\n    { h: 110, color: \"#0f1d2e\", label: \"Mid C\" },\n    { h: 80, color: \"#1a0f20\", label: \"Short D\" },\n    { h: 160, color: \"#14161f\", label: \"Tall E\" },\n    { h: 100, color: \"#1a1a2e\", label: \"Mid F\" },\n  ];\n  return (\n    <div className={`${className}`} style={{ columns: 3, gap: 10, width: \"100%\" }}>\n      {items.map((item, i) => (\n        <div key={i} style={{ breakInside: \"avoid\", marginBottom: 10, height: item.h, background: item.color, borderRadius: 12, border: \"1px solid rgba(255,255,255,0.08)\", display: \"flex\", alignItems: \"center\", justifyContent: \"center\", cursor: \"pointer\", transition: \"transform 0.2s, box-shadow 0.2s\" }}\n          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = \"scale(1.02)\"; (e.currentTarget as HTMLElement).style.boxShadow = \"0 8px 30px rgba(0,0,0,0.4)\"; }}\n          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = \"\"; (e.currentTarget as HTMLElement).style.boxShadow = \"\"; }}>\n          <span style={{ color: \"rgba(255,255,255,0.4)\", fontSize: 12 }}>{item.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "4d07e129e1da79c5c39853b78ebdec029a35fcbf46c615ff45dccb53b5053670",
+      "sizeBytes": 1307
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/masonry-grid-fluid.json"
+}

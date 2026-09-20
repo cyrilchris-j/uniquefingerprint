@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "reflective-card-foil",
+  "type": "registry:component",
+  "title": "Reflective Card Foil",
+  "description": "Holographic trading card foil shader reflecting device tilt.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "reflective-card-foil.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface ReflectiveCardFoilProps { className?: string; title?: string; subtitle?: string; }\nexport function ReflectiveCardFoil({ className = \"\", title = \"UniqueFingerprint\", subtitle = \"Advanced Registry\" }: ReflectiveCardFoilProps) {\n  const cardRef = useRef<HTMLDivElement>(null);\n  const [tilt, setTilt] = useState({ x: 0, y: 0, mx: 50, my: 50 });\n  const handleMove = (e: React.MouseEvent) => {\n    const r = cardRef.current!.getBoundingClientRect();\n    setTilt({ x: ((e.clientY - r.top) / r.height - 0.5) * 20, y: ((e.clientX - r.left) / r.width - 0.5) * -20, mx: ((e.clientX - r.left) / r.width) * 100, my: ((e.clientY - r.top) / r.height) * 100 });\n  };\n  return (\n    <div ref={cardRef} onMouseMove={handleMove} onMouseLeave={() => setTilt({ x: 0, y: 0, mx: 50, my: 50 })}\n      style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: tilt.x === 0 ? \"transform 0.6s cubic-bezier(0.16,1,0.3,1)\" : \"transform 0.1s ease\" }}\n      className={`relative w-56 h-80 rounded-3xl overflow-hidden cursor-pointer select-none ${className}`}>\n      <div className=\"absolute inset-0\" style={{ background: \"linear-gradient(135deg,#1a1025,#0d1a20,#1a0d1a)\" }} />\n      <div className=\"absolute inset-0 opacity-60\" style={{ background: `radial-gradient(circle at ${tilt.mx}% ${tilt.my}%, rgba(186,68,44,0.4),rgba(100,50,150,0.3),transparent 60%)`, mixBlendMode: \"screen\" }} />\n      <div className=\"absolute inset-0 flex flex-col justify-end p-6\">\n        <p className=\"font-mono text-[9px] uppercase text-[#ba442c] font-bold tracking-widest mb-2\">HOLOGRAPHIC FOIL</p>\n        <h3 className=\"font-bold text-white text-lg leading-tight\">{title}</h3>\n        <p className=\"font-mono text-[10px] text-[#888] mt-1\">{subtitle}</p>\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "365c2ab8433b5ca39df0a89bf70f89e2dd1d2d4d04ba6a8a389ad1babac806f3",
+      "sizeBytes": 1853
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/reflective-card-foil.json"
+}

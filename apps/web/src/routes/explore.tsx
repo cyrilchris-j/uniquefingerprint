@@ -55,6 +55,12 @@ export default function ExplorePage(): React.JSX.Element {
     setParams(next, { replace: true });
   };
 
+  React.useEffect(() => {
+    if (!index.isLoading && items.length > 0) {
+      window.dispatchEvent(new CustomEvent("openui:content_ready"));
+    }
+  }, [index.isLoading, items.length]);
+
   return (
     <div className="shell py-8 sm:py-16">
       <SectionHeader
@@ -67,11 +73,6 @@ export default function ExplorePage(): React.JSX.Element {
               ? `${index.data.items.length} items across ${CATALOGUE_CATEGORIES.length} categories. Each one ships its source, a demo and a design fingerprint.`
               : "Loading the registry index…"}
           </>
-        }
-        actions={
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/search">Advanced search</Link>
-          </Button>
         }
       />
 

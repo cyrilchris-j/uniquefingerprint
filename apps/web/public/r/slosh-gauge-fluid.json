@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "slosh-gauge-fluid",
+  "type": "registry:component",
+  "title": "Slosh Gauge Fluid",
+  "description": "Liquid battery/volume gauge sloshing with device acceleration.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "slosh-gauge-fluid.tsx",
+      "type": "registry:component",
+      "content": "import { useState, useEffect, useRef } from \"react\";\nexport default function SloshGaugeFluid({ className = \"\" }: { className?: string }) {\n  const [level, setLevel] = useState(65);\n  const [slosh, setSlosh] = useState(0);\n  const rafRef = useRef<number>();\n  const velRef = useRef(0);\n  const sloshRef = useRef(0);\n  useEffect(() => {\n    const animate = () => {\n      velRef.current *= 0.92;\n      sloshRef.current += velRef.current;\n      sloshRef.current *= 0.88;\n      setSlosh(sloshRef.current);\n      rafRef.current = requestAnimationFrame(animate);\n    };\n    rafRef.current = requestAnimationFrame(animate);\n    return () => cancelAnimationFrame(rafRef.current!);\n  }, []);\n  const handleClick = (e: React.MouseEvent) => {\n    velRef.current += (e.nativeEvent.offsetX - 80) * 0.1;\n  };\n  const fillY = 160 - (level / 100) * 140;\n  const wave = `M 0 ${fillY + slosh} Q 40 ${fillY - slosh * 2} 80 ${fillY + slosh} Q 120 ${fillY - slosh * 2} 160 ${fillY + slosh} L 160 160 L 0 160 Z`;\n  return (\n    <div className={`flex flex-col items-center gap-4 ${className}`}>\n      <svg width=\"160\" height=\"170\" onClick={handleClick} style={{ cursor: \"pointer\", filter: \"drop-shadow(0 0 20px rgba(59,130,246,0.4))\" }}>\n        <rect x=\"10\" y=\"10\" width=\"140\" height=\"150\" rx=\"12\" fill=\"rgba(255,255,255,0.05)\" stroke=\"rgba(255,255,255,0.15)\" strokeWidth=\"1\" />\n        <clipPath id=\"gauge-clip\"><rect x=\"10\" y=\"10\" width=\"140\" height=\"150\" rx=\"12\" /></clipPath>\n        <path d={wave} fill=\"rgba(59,130,246,0.7)\" clipPath=\"url(#gauge-clip)\" />\n        <text x=\"80\" y=\"92\" textAnchor=\"middle\" fill=\"#fff\" fontSize=\"24\" fontWeight=\"700\">{level}%</text>\n        <text x=\"80\" y=\"112\" textAnchor=\"middle\" fill=\"rgba(255,255,255,0.5)\" fontSize=\"10\">Click to slosh</text>\n      </svg>\n      <input type=\"range\" min={0} max={100} value={level} onChange={e => setLevel(+e.target.value)} style={{ width: 140 }} />\n    </div>\n  );\n}",
+      "contentHash": "5aa05c07f142de76c8161dd45a794a5d587b7e9c80ba35fc8e8999e93f076935",
+      "sizeBytes": 1916
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/slosh-gauge-fluid.json"
+}

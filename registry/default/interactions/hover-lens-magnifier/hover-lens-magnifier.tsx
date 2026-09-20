@@ -18,7 +18,7 @@ export function HoverLensMagnifier({ className }: HoverLensMagnifierProps) {
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-6 select-none", className)}
+      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-6 select-none", className)}
     >
       <div className="font-mono text-[11px] leading-5 text-ink/70">
         <p>0x0001: 4F 50 45 4E 55 49</p>

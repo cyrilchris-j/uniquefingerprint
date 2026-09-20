@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "lanyard-card-spring",
+  "type": "registry:component",
+  "title": "Lanyard Card Spring",
+  "description": "ID badge card suspended from physics lanyard oscillating on drag.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "lanyard-card-spring.tsx",
+      "type": "registry:component",
+      "content": "import { useState, useRef } from \"react\";\nexport default function LanyardCardSpring({ className = \"\" }: { className?: string }) {\n  const [tilt, setTilt] = useState({ x: 0, y: 0 });\n  const ref = useRef<HTMLDivElement>(null);\n  const move = (e: React.MouseEvent) => {\n    const r = ref.current!.getBoundingClientRect();\n    const x = ((e.clientY - r.top) / r.height - 0.5) * 20;\n    const y = -((e.clientX - r.left) / r.width - 0.5) * 20;\n    setTilt({ x, y });\n  };\n  return (\n    <div className={`flex flex-col items-center gap-2 ${className}`}>\n      <div style={{ width: 2, height: 48, background: \"linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.1))\", borderRadius: 1 }} />\n      <div ref={ref} onMouseMove={move} onMouseLeave={() => setTilt({ x: 0, y: 0 })}\n        style={{ width: 160, padding: \"20px 16px\", borderRadius: 16, background: \"linear-gradient(135deg,rgba(139,92,246,0.3),rgba(59,130,246,0.2))\", border: \"1px solid rgba(255,255,255,0.2)\", backdropFilter: \"blur(12px)\", transform: `perspective(500px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: \"transform 0.15s cubic-bezier(0.25,1,0.5,1)\", cursor: \"grab\", textAlign: \"center\" }}>\n        <div style={{ width: 40, height: 40, borderRadius: \"50%\", background: \"linear-gradient(135deg,#8b5cf6,#3b82f6)\", margin: \"0 auto 10px\" }} />\n        <div style={{ color: \"#fff\", fontWeight: 700, fontSize: 14 }}>Alex Johnson</div>\n        <div style={{ color: \"rgba(255,255,255,0.5)\", fontSize: 11, marginTop: 2 }}>Senior Designer</div>\n        <div style={{ marginTop: 12, padding: \"4px 10px\", background: \"rgba(139,92,246,0.3)\", borderRadius: 20, color: \"#a78bfa\", fontSize: 10, display: \"inline-block\" }}>CONFERENCE 2025</div>\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "5971ebc1d5d81419a8cd37ef336383658326f61aac169ccf181aa001d8a6afb7",
+      "sizeBytes": 1738
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/lanyard-card-spring.json"
+}

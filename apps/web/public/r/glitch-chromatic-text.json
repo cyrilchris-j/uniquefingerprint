@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glitch-chromatic-text",
+  "type": "registry:component",
+  "title": "Glitch Chromatic Text",
+  "description": "RGB split chromatic aberration with periodic digital glitch impulses.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glitch-chromatic-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function GlitchChromaticText({ text = \"GLITCH\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [active, setActive] = React.useState(false);\n  React.useEffect(() => {\n    const fire = () => { setActive(true); setTimeout(() => setActive(false), 180); };\n    const id = setInterval(fire, 1800 + Math.random() * 1200);\n    return () => clearInterval(id);\n  }, []);\n  return (\n    <div className={`relative font-mono font-black text-5xl select-none inline-block ${className}`}>\n      <span className=\"relative z-10 text-white\">{text}</span>\n      {active && <>\n        <span className=\"absolute inset-0 text-red-500 z-0\" style={{ transform: \"translate(-3px, 1px)\", mixBlendMode: \"screen\" }}>{text}</span>\n        <span className=\"absolute inset-0 text-cyan-400 z-0\" style={{ transform: \"translate(3px, -1px)\", mixBlendMode: \"screen\" }}>{text}</span>\n      </>}\n    </div>\n  );\n}\n",
+      "contentHash": "3d8b146231f9d9b53323405eb5b73f2d16ceaf5831d5c7dd3bf019753689e802",
+      "sizeBytes": 953
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glitch-chromatic-text.json"
+}

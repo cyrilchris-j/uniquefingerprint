@@ -6,7 +6,7 @@ import { Button, EmptyState, SegmentedControl, Skeleton } from "@openui/ui";
 import { ResourceTile } from "../components/ResourceTile.js";
 import { SectionHeader } from "../components/SectionHeader.js";
 import { useCategoryItems } from "../features/resources/use-catalogue.js";
-import { CATALOGUE_CATEGORIES, categoryBySlug } from "../lib/registry.js";
+import { categoryBySlug } from "../lib/registry.js";
 import { ScrollReveal } from "../visual-engine/index.js";
 
 /**
@@ -78,6 +78,12 @@ export default function CategoryPage({ category }: CategoryPageProps): React.JSX
     const dnaKey = FACET_TO_DNA_KEY[facet];
     return result.filter((item) => String(item.dna?.[dnaKey] ?? "") === filterValue);
   }, [items, facet, filterValue, subcategoryFilter]);
+
+  React.useEffect(() => {
+    if (!state.isLoading && visible.length > 0) {
+      window.dispatchEvent(new CustomEvent("openui:content_ready"));
+    }
+  }, [state.isLoading, visible.length]);
 
   if (!definition) {
     return (
@@ -215,23 +221,6 @@ export default function CategoryPage({ category }: CategoryPageProps): React.JSX
         </div>
       )}
 
-      <nav aria-label="Other categories" className="mt-12 sm:mt-20 border-t border-line pt-5 sm:pt-6">
-        <p className="eyebrow mb-4">Also in the registry</p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3">
-          {CATALOGUE_CATEGORIES.filter((candidate) => candidate.slug !== category).map(
-            (candidate) => (
-              <li key={candidate.slug}>
-                <Link
-                  to={`/${candidate.slug}`}
-                  className="text-[0.9rem] text-graphite transition-colors duration-fast hover:text-ink"
-                >
-                  {candidate.title}
-                </Link>
-              </li>
-            ),
-          )}
-        </ul>
-      </nav>
     </div>
   );
 }

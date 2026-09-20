@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "echo-text",
+  "type": "registry:component",
+  "title": "Echo Text",
+  "description": "Cascading ghost trails lagging behind typography during transitions.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "echo-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function EchoText({ text = \"ECHO\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const echoes = 4;\n  return (\n    <div className={`relative select-none font-display font-black text-5xl ${className}`}>\n      {Array.from({ length: echoes }, (_, i) => (\n        <span key={i} className=\"absolute inset-0\" style={{ opacity: 0.15 - i * 0.03, transform: `translate(${(i + 1) * 8}px, 0)`, filter: `blur(${i * 1.5}px)`, color: \"#ba442c\", animationDelay: `${i * 0.05}s` }}>\n          {text}\n        </span>\n      ))}\n      <span className=\"relative text-ink\">{text}</span>\n    </div>\n  );\n}\n",
+      "contentHash": "ffa8a0ba91b1fdef96e1adbf8a9b46e89807f095b6c301de6a25041a68f49eee",
+      "sizeBytes": 656
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/echo-text.json"
+}

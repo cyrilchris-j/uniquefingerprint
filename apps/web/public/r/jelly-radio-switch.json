@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "jelly-radio-switch",
+  "type": "registry:component",
+  "title": "Jelly Radio Switch",
+  "description": "Radio button dot morphing through jelly squish on check.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "jelly-radio-switch.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nconst OPTIONS = [\"Option A\", \"Option B\", \"Option C\"];\nexport interface JellyRadioSwitchProps { className?: string; onChange?: (val: string) => void; }\nexport function JellyRadioSwitch({ className = \"\", onChange }: JellyRadioSwitchProps) {\n  const [selected, setSelected] = useState(0); const [squish, setSquish] = useState<number | null>(null);\n  const select = (i: number) => { setSelected(i); setSquish(i); onChange?.(OPTIONS[i]); setTimeout(() => setSquish(null), 400); };\n  return (\n    <div className={`flex flex-col gap-3 ${className}`}>\n      {OPTIONS.map((opt, i) => (\n        <button key={opt} onClick={() => select(i)} className=\"flex items-center gap-3 text-left\">\n          <div className=\"relative w-5 h-5 flex items-center justify-center\"><div className=\"absolute inset-0 rounded-full border-2 transition-colors\" style={{ borderColor: selected === i ? \"#ba442c\" : \"#2a2a2a\" }} />{selected === i && <div className=\"w-2.5 h-2.5 rounded-full bg-[#ba442c]\" style={{ transform: squish === i ? \"scaleX(1.4) scaleY(0.7)\" : \"scale(1)\", transition: \"transform 0.4s cubic-bezier(0.16,1,0.3,1)\" }} />}</div>\n          <span className=\"font-mono text-xs transition-colors\" style={{ color: selected === i ? \"white\" : \"#555\" }}>{opt}</span>\n        </button>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "3377c5236ba58703f4dd93c64533cc66b4bff0581786e204bfcfb34227f5e2cf",
+      "sizeBytes": 1334
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/jelly-radio-switch.json"
+}

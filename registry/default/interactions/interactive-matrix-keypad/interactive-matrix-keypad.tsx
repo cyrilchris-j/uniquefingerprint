@@ -19,7 +19,7 @@ export function InteractiveMatrixKeypad({ className }: InteractiveMatrixKeypadPr
   };
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
       <div className="h-8 flex items-center gap-2">
         {Array.from({ length: 4 }).map((_, i) => (
           <div
@@ -38,7 +38,7 @@ export function InteractiveMatrixKeypad({ className }: InteractiveMatrixKeypadPr
             key={k}
             type="button"
             onClick={() => press(k)}
-            className="flex h-12 items-center justify-center rounded-lg border border-line bg-paper font-mono text-sm font-bold text-ink shadow-sm hover:bg-line/20 active:scale-95"
+            className="flex h-12 items-center justify-center rounded-lg border border-white/10 bg-zinc-900/70 font-mono text-sm font-bold text-ink shadow-sm hover:bg-line/20 active:scale-95"
           >
             {k}
           </button>

@@ -12,7 +12,7 @@ export function HoverAudioWaveformScrub({ className }: HoverAudioWaveformScrubPr
   const bars = [30, 45, 80, 95, 60, 40, 75, 90, 50, 65, 85, 40, 30, 70, 85, 60];
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md p-6 shadow-xl text-zinc-900 dark:text-zinc-100 select-none", className)}>
       <div className="flex justify-between font-mono text-xs text-ink/60 mb-3">
         <span>AUDIO TRACK</span>
         <span className="font-bold text-ink">{scrub}%</span>

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "lattice-loader-orbit",
+  "type": "registry:component",
+  "title": "Lattice Loader Orbit",
+  "description": "Geometric orbital rings rotating around a pulsating core.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "lattice-loader-orbit.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nexport interface LatticeLoaderOrbitProps { className?: string; size?: number; }\nexport function LatticeLoaderOrbit({ className = \"\", size = 80 }: LatticeLoaderOrbitProps) {\n  return (\n    <div className={`flex items-center justify-center ${className}`}>\n      <div style={{ width: size, height: size, position: \"relative\" }}>\n        <style>{`@keyframes orbitA{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes orbitB{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}} @keyframes pulsate{0%,100%{opacity:0.4;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}`}</style>\n        <div style={{ position: \"absolute\", inset: 0, border: \"1.5px solid #ba442c44\", borderRadius: \"50%\", animation: \"orbitA 3s linear infinite\" }}><div style={{ position: \"absolute\", top: -4, left: \"50%\", transform: \"translateX(-50%)\", width: 8, height: 8, borderRadius: \"50%\", background: \"#ba442c\" }} /></div>\n        <div style={{ position: \"absolute\", inset: \"15%\", border: \"1.5px solid #ba442c66\", borderRadius: \"50%\", animation: \"orbitB 2s linear infinite\" }}><div style={{ position: \"absolute\", bottom: -3, left: \"50%\", transform: \"translateX(-50%)\", width: 6, height: 6, borderRadius: \"50%\", background: \"#ba442c\" }} /></div>\n        <div style={{ position: \"absolute\", inset: \"35%\", borderRadius: \"50%\", background: \"#ba442c\", animation: \"pulsate 1.5s ease-in-out infinite\" }} />\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "a0a68242d2dadee97629a8ea348c3b33586e6b43b847f32934c57b6b329b6464",
+      "sizeBytes": 1437
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/lattice-loader-orbit.json"
+}

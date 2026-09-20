@@ -1,84 +1,86 @@
 import { Search as SearchIcon, X } from "lucide-react";
 import * as React from "react";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
-import { Badge, Button, EmptyState, SegmentedControl, Skeleton, StatusPill } from "@openui/ui";
+import { Button, EmptyState, SegmentedControl, Skeleton } from "@openui/ui";
 
-import { DnaStrip } from "../components/DnaStrip.js";
+import { ResourceRow, ResourceTile } from "../components/ResourceTile.js";
 import { SectionHeader } from "../components/SectionHeader.js";
-import { useSearch, facetValues } from "../features/search/use-search.js";
 import { useRegistryIndex } from "../features/resources/use-catalogue.js";
-import { categorySegmentFor } from "../components/ResourceTile.js";
-import { getAdvancedItemBySlug } from "../advanced/index.js";
 import { useDocumentTitle } from "../hooks/use-document-title.js";
-import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
+import { ScrollReveal } from "../visual-engine/index.js";
 
 /**
  * Search.
  *
- * The filter rail is generated from the registry index rather than hard-coded, so
- * a facet appears only when something in the registry actually has that value.
- * Facets come from the *index*, not from the current result set, for one
- * specific reason: a count that drops to zero as soon as you filter is a control
- * that erases itself while you use it.
- *
- * The query string is the single source of truth. Every filter, the sort and the
- * page live in the URL, which makes any result a shareable link and makes the
- * browser's Back button behave exactly as a user expects it to.
+ * Direct in-memory index search, operating over the complete registry index
+ * just like Explore. Fast, responsive, with zero latency and zero broken API
+ * dependencies.
  */
 export default function SearchPage(): React.JSX.Element {
-  const [params, setParams] = useSearchParams();
-  const search = useSearch({ search: params.toString() });
   const index = useRegistryIndex();
+  const [params, setParams] = useSearchParams();
 
   const query = params.get("q") ?? "";
   const [draft, setDraft] = React.useState(query);
+  const view = params.get("view") === "list" ? "list" : "grid";
+  const typeFilter = params.get("type");
 
-  useDocumentTitle(query ? `Search: ${query} — OpenUI` : "Search — OpenUI Design Registry");
+  useDocumentTitle(query ? `Search: ${query} — UniqueFingerprint` : "Search — UniqueFingerprint Design Registry");
 
-  // Keep the field in step when the URL changes from elsewhere (a tag link,
-  // Back, a shared link) without fighting the user's typing.
-  React.useEffect(() => setDraft(query), [query]);
+  // Keep input in sync with URL
+  React.useEffect(() => {
+    setDraft(query);
+  }, [query]);
 
-  const activeFilters = React.useMemo(
-    () =>
-      ["type", "category", "tag", "difficulty", "genre", "density", "shape", "motion"].flatMap(
-        (key) => params.getAll(key).map((value) => ({ key, value })),
-      ),
-    [params],
-  );
-
-  const update = (mutate: (next: URLSearchParams) => void) => {
+  const update = (key: string, value: string | null) => {
     const next = new URLSearchParams(params);
-    mutate(next);
-    // Any filter change resets pagination; page 4 of a new query is usually empty.
-    next.delete("page");
+    if (value === null || value === "" || value === "__all__") {
+      next.delete(key);
+    } else {
+      next.set(key, value);
+    }
     setParams(next, { replace: true });
   };
 
-  const toggle = (key: string, value: string) => {
-    update((next) => {
-      const current = next.getAll(key);
-      next.delete(key);
-      const remaining = current.filter((entry) => entry !== value);
-      if (remaining.length === current.length) next.append(key, value);
-      for (const entry of remaining) next.append(key, entry);
-    });
-  };
+  const filteredItems = React.useMemo(() => {
+    if (!index.data) return [];
+    let list = index.data.items;
 
-  const results = search.result?.items ?? [];
-  const facets = React.useMemo(() => {
-    if (!index.data) return {};
-    return {
-      type: facetValues(index.data.items, "type"),
-      category: facetValues(index.data.items, "category"),
-      difficulty: facetValues(index.data.items, "difficulty"),
-      genre: facetValues(index.data.items, "genre"),
-      density: facetValues(index.data.items, "density"),
-      shape: facetValues(index.data.items, "shape"),
-      motion: facetValues(index.data.items, "motion"),
-    };
+    if (typeFilter && typeFilter !== "__all__") {
+      list = list.filter((item) => item.resourceType === typeFilter);
+    }
+
+    const q = query.trim().toLowerCase();
+    if (q) {
+      list = list.filter((item) => {
+        const nameMatch = item.name.toLowerCase().includes(q);
+        const titleMatch = item.title.toLowerCase().includes(q);
+        const descMatch = (item.description ?? "").toLowerCase().includes(q);
+        const catMatch = (item.category ?? "").toLowerCase().includes(q);
+        const tagsMatch = item.tags.some((t) => t.toLowerCase().includes(q));
+        return nameMatch || titleMatch || descMatch || catMatch || tagsMatch;
+      });
+    }
+
+    return list;
+  }, [index.data, typeFilter, query]);
+
+  const typeOptions = React.useMemo(() => {
+    if (!index.data) return [];
+    const counts = new Map<string, number>();
+    for (const item of index.data.items) {
+      counts.set(item.resourceType, (counts.get(item.resourceType) ?? 0) + 1);
+    }
+    return [
+      { value: "__all__", label: `All (${index.data.items.length})` },
+      ...[...counts.entries()]
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([value, count]) => ({ value, label: `${value} (${count})` })),
+    ];
   }, [index.data]);
+
+  const quickTags = ["button", "hero", "card", "modal", "animation", "grid", "nav", "typography", "badge"];
 
   return (
     <div className="shell py-8 sm:py-16">
@@ -86,351 +88,150 @@ export default function SearchPage(): React.JSX.Element {
         as="h1"
         eyebrow="Search"
         title={query ? `Results for “${query}”` : "Search the registry"}
-        description="Full-text search over names, descriptions, tags and design fingerprints, with a fuzzy fallback. Every filter is part of the URL, so a result set can be shared or bookmarked."
+        description="Search across names, descriptions, categories and tags directly in the registry index."
       />
 
+      {/* Search Input Bar */}
       <form
         role="search"
-        className="mt-6 sm:mt-10 flex items-center gap-2 sm:gap-3 border-t border-line pt-4 sm:pt-6"
+        className="mt-6 sm:mt-10 flex items-center gap-3 border-b border-line pb-3 sm:pb-4"
         onSubmit={(event) => {
           event.preventDefault();
-          update((next) => {
-            if (draft.trim()) next.set("q", draft.trim());
-            else next.delete("q");
-          });
+          update("q", draft.trim());
         }}
       >
-        <div className="flex flex-1 items-center gap-2.5 sm:gap-3 border-b border-line">
-          <SearchIcon aria-hidden className="h-4 w-4 text-graphite shrink-0" />
-          <label htmlFor="search-input" className="sr-only">
-            Search the registry
-          </label>
-          <input
-            id="search-input"
-            type="search"
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            placeholder="editorial hero, magnetic, grain…"
-            className="h-10 sm:h-11 w-full bg-transparent text-base sm:text-step-1 text-ink placeholder:text-graphite/60 focus:outline-none"
-          />
-        </div>
-        <Button type="submit">Search</Button>
+        <SearchIcon aria-hidden className="h-5 w-5 text-graphite shrink-0" />
+        <label htmlFor="search-input" className="sr-only">
+          Search the registry
+        </label>
+        <input
+          id="search-input"
+          type="search"
+          value={draft}
+          onChange={(event) => {
+            const nextVal = event.target.value;
+            setDraft(nextVal);
+            update("q", nextVal);
+          }}
+          placeholder="Type to search (e.g. magnetic button, hero, card, motion)…"
+          className="h-10 sm:h-12 w-full bg-transparent text-base sm:text-step-1 text-ink placeholder:text-graphite/60 focus:outline-none"
+        />
+        {query ? (
+          <button
+            type="button"
+            onClick={() => {
+              setDraft("");
+              update("q", null);
+            }}
+            className="text-graphite hover:text-ink text-xs font-mono uppercase tracking-wider px-2 py-1 shrink-0 flex items-center gap-1 border border-line"
+          >
+            <X className="h-3 w-3" />
+            Clear
+          </button>
+        ) : null}
       </form>
 
-      {/* Visual Engine Quick Filter Chips */}
+      {/* Quick Filter Tags */}
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">Quick tags:</span>
-        {["magnetic", "particles", "kinetic", "3d", "procedural", "aurora", "glitch", "bento", "spring"].map((tag) => (
+        {quickTags.map((tag) => (
           <button
             key={tag}
             type="button"
             onClick={() => {
               setDraft(tag);
-              update((next) => next.set("q", tag));
+              update("q", tag);
             }}
-            className="font-mono text-[10.5px] px-2.5 py-0.5 rounded-full border border-line/40 hover:border-ink/60 bg-surface/40 hover:bg-surface text-graphite hover:text-ink transition-colors"
+            className={`font-mono text-[10.5px] px-2.5 py-0.5 rounded-full border transition-colors ${
+              query.toLowerCase() === tag
+                ? "border-ink bg-ink text-paper"
+                : "border-line/60 hover:border-ink/60 bg-surface/40 hover:bg-surface text-graphite hover:text-ink"
+            }`}
           >
             #{tag}
           </button>
         ))}
       </div>
 
-      <div className="mt-6 sm:mt-10 grid gap-6 sm:gap-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
-        {/* ---------------------------------------------------------- */}
-        {/* Filter rail                                                */}
-        {/* ---------------------------------------------------------- */}
-        <aside aria-label="Filters">
-          <details
-            className="group border border-line p-3.5 lg:border-0 lg:p-0"
-            open={activeFilters.length > 0}
-          >
-            <summary className="flex cursor-pointer items-center justify-between list-none [&::-webkit-details-marker]:hidden lg:cursor-default">
-              <div className="flex items-center gap-2">
-                <p className="eyebrow text-ink">Filters</p>
-                {activeFilters.length > 0 ? (
-                  <span className="font-mono text-[10px] text-oxide">({activeFilters.length})</span>
-                ) : null}
-              </div>
-              <div className="flex items-center gap-2">
-                {activeFilters.length > 0 ? (
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setParams(new URLSearchParams(query ? { q: query } : {}), { replace: true });
-                    }}
-                    className="eyebrow flex items-center gap-1 transition-colors hover:text-ink text-[10px]"
-                  >
-                    <X aria-hidden className="h-3 w-3" />
-                    Clear
-                  </button>
-                ) : null}
-                <span className="font-mono text-[10px] uppercase tracking-wider text-graphite lg:hidden">
-                  Filter list
-                </span>
-              </div>
-            </summary>
-
-            <div className="mt-3 lg:mt-0">
-              {activeFilters.length > 0 ? (
-                <ul className="mb-4 flex flex-wrap gap-1.5 pt-2">
-                  {activeFilters.map((filter) => (
-                    <li key={`${filter.key}:${filter.value}`}>
-                      <button
-                        type="button"
-                        onClick={() => toggle(filter.key, filter.value)}
-                        className="flex items-center gap-1 border border-ink px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink"
-                      >
-                        {filter.value}
-                        <X aria-hidden className="h-2.5 w-2.5" />
-                        <span className="sr-only">Remove filter</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-
-              {(
-                [
-                  ["category", "Category"],
-                  ["type", "Resource type"],
-                  ["difficulty", "Difficulty"],
-                  ["genre", "Genre"],
-                  ["density", "Density"],
-                  ["shape", "Shape"],
-                  ["motion", "Motion"],
-                ] as const
-              ).map(([key, label]) => {
-                const values = facets[key] ?? [];
-                if (values.length === 0) return null;
-                return (
-                  <fieldset key={key} className="mt-4 sm:mt-8 border-t border-line pt-2.5 sm:pt-3">
-                    <legend className="eyebrow text-[10px] sm:text-[11px]">{label}</legend>
-                    <ul className="mt-2 flex flex-col gap-1">
-                      {values.map((value) => {
-                        const checked = params.getAll(key).includes(value.value);
-                        const id = `${key}-${value.value}`;
-                        return (
-                          <li key={value.value}>
-                            <label
-                              htmlFor={id}
-                              className="flex cursor-pointer items-baseline justify-between gap-2 py-0.5"
-                            >
-                              <span className="flex items-baseline gap-2">
-                                <input
-                                  id={id}
-                                  type="checkbox"
-                                  checked={checked}
-                                  onChange={() => toggle(key, value.value)}
-                                  className="mt-0.5 h-3 w-3 shrink-0 accent-oxide"
-                                />
-                                <span className="text-[0.82rem] text-graphite">{value.value}</span>
-                              </span>
-                              <span className="font-mono text-[10px] text-graphite/70">
-                                {value.count}
-                              </span>
-                            </label>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </fieldset>
-                );
-              })}
-            </div>
-          </details>
-        </aside>
-
-        {/* ---------------------------------------------------------- */}
-        {/* Results                                                    */}
-        {/* ---------------------------------------------------------- */}
-        <div>
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4">
-            <p className="eyebrow" role="status" aria-live="polite">
-              {search.isLoading
-                ? "Searching…"
-                : `${search.result?.total ?? 0} ${search.result?.total === 1 ? "result" : "results"}`}
-              {search.result ? ` · ${search.result.tookMs}ms` : ""}
-            </p>
-
-            <div className="flex items-center gap-3">
-              {search.strategy ? (
-                <StatusPill tone={search.strategy === "trigram" ? "warning" : "neutral"} bare>
-                  {search.strategy === "trigram" ? "fuzzy match" : search.strategy}
-                </StatusPill>
-              ) : null}
-              <SegmentedControl
-                label="Sort"
-                hideLabel
-                value={params.get("sort") ?? "relevance"}
-                onValueChange={(value) => update((next) => next.set("sort", value))}
-                options={[
-                  { value: "relevance", label: "Relevance" },
-                  { value: "recent", label: "Recent" },
-                  { value: "popular", label: "Popular" },
-                  { value: "name", label: "A–Z" },
-                ]}
-              />
-            </div>
-          </div>
-
-          {search.error && !search.result ? (
-            <EmptyState
-              className="mt-8"
-              eyebrow="Search unavailable"
-              title="The search service could not be reached."
-              description={
-                <>
-                  {search.error.message} The catalogue itself reads published artifacts and is
-                  unaffected — browse it directly instead.
-                </>
-              }
-              action={
-                <div className="flex gap-2">
-                  <Button asChild>
-                    <Link to="/explore">Browse the catalogue</Link>
-                  </Button>
-                  <Button variant="outline" onClick={search.reload}>
-                    Try again
-                  </Button>
-                </div>
-              }
-            />
-          ) : search.isLoading && results.length === 0 ? (
-            <div className="mt-8 flex flex-col gap-8">
-              {Array.from({ length: 4 }, (_, position) => (
-                <Skeleton key={position} lines={4} />
-              ))}
-            </div>
-          ) : results.length === 0 ? (
-            <EmptyState
-              className="mt-8"
-              eyebrow="No results"
-              title={query ? `Nothing matches “${query}”.` : "Nothing matches those filters."}
-              description="Search covers names, descriptions, tags and design fingerprints. Try a shorter term, or browse a category — the index is small enough to scan."
-              action={
-                <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" asChild>
-                    <Link to="/explore">Browse everything</Link>
-                  </Button>
-                  {activeFilters.length > 0 ? (
-                    <Button
-                      variant="ghost"
-                      onClick={() =>
-                        setParams(new URLSearchParams(query ? { q: query } : {}), { replace: true })
-                      }
-                    >
-                      Clear filters
-                    </Button>
-                  ) : null}
-                </div>
-              }
-            />
-          ) : (
-            <ul className="mt-2">
-              {results.map((result) => {
-                const adv = getAdvancedItemBySlug(result.slug);
-                const targetHref = adv
-                  ? `/advanced/${adv.category}/${adv.slug}`
-                  : `/${categorySegmentFor(result.categorySlug ?? "components")}/${result.slug}`;
-
-                return (
-                  <li key={result.id} className="border-b border-line">
-                    <Link
-                      to={targetHref}
-                      className="group flex flex-col gap-2 py-6 transition-colors duration-fast ease-editorial hover:bg-ink/[0.02]"
-                    >
-                    <div className="flex flex-wrap items-baseline gap-3">
-                      <span className="eyebrow">{result.resourceType}</span>
-                      <h2 className="font-display text-step-2 leading-tight tracking-tight text-ink">
-                        {result.title}
-                      </h2>
-                      {result.difficulty ? <Badge>{result.difficulty}</Badge> : null}
-                    </div>
-                    <p className="max-w-[68ch] text-[0.9rem] leading-relaxed text-graphite">
-                      {result.description}
-                    </p>
-                    <div className="mt-1 flex flex-wrap items-center gap-x-6 gap-y-2">
-                      <DnaStrip
-                        dna={
-                          result.design
-                            ? ({
-                                genre: (result.design.genre as any) ?? undefined,
-                                macrostructure: (result.design.macrostructure as any) ?? undefined,
-                                density: (result.design.density as any) ?? undefined,
-                                shapeLanguage: (result.design.shapeLanguage as any) ?? undefined,
-                                motionLanguage: (result.design.motionLanguage as any) ?? undefined,
-                                typographyStyle: (result.design.typographyStyle as any) ?? undefined,
-                              })
-                            : undefined
-                        }
-                      />
-                      {result.tags.length > 0 ? (
-                        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-graphite/70">
-                          {result.tags.slice(0, 4).join(" · ")}
-                        </span>
-                      ) : null}
-                    </div>
-                  </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          {/* Pagination is a plain list of links: crawlable, shareable and
-              usable with a keyboard without any JavaScript. */}
-          {search.result && search.result.total > search.result.perPage ? (
-            <nav aria-label="Pagination" className="mt-8 flex items-center justify-between">
-              <Button
-                variant="outline"
-                disabled={(search.result.page ?? 1) <= 1}
-                onClick={() =>
-                  update((next) =>
-                    next.set("page", String(Math.max(1, (search.result?.page ?? 1) - 1))),
-                  )
-                }
-              >
-                Previous
-              </Button>
-              <p className="eyebrow">
-                Page {search.result.page} of{" "}
-                {Math.max(1, Math.ceil(search.result.total / search.result.perPage))}
-              </p>
-              <Button
-                variant="outline"
-                disabled={!search.result.hasMore}
-                onClick={() => update((next) => next.set("page", String((search.result?.page ?? 1) + 1)))}
-              >
-                Next
-              </Button>
-            </nav>
-          ) : null}
-
-          {search.strategy === "trigram" ? (
-            <p className="mt-6 text-[0.8rem] text-graphite">
-              No exact matches, so these are fuzzy matches on partial terms. Try spelling the term
-              slightly differently for exact results.
-            </p>
-          ) : null}
+      {/* Type filter segmented control */}
+      {typeOptions.length > 1 ? (
+        <div className="mt-6 sm:mt-8">
+          <SegmentedControl
+            label="Filter by resource type"
+            value={typeFilter ?? "__all__"}
+            onValueChange={(value) => update("type", value)}
+            options={typeOptions}
+          />
         </div>
+      ) : null}
+
+      {/* Status bar: count & view toggle */}
+      <div className="mt-5 sm:mt-8 flex items-center justify-between gap-3 border-t border-line pt-3.5 sm:pt-4">
+        <p className="eyebrow text-[10px] sm:text-[11px]">
+          {filteredItems.length} {filteredItems.length === 1 ? "result" : "results"}
+          {query ? ` for “${query}”` : ""}
+          {typeFilter && typeFilter !== "__all__" ? ` · ${typeFilter}` : ""}
+        </p>
+        <SegmentedControl
+          label="View"
+          hideLabel
+          value={view}
+          onValueChange={(value) => update("view", value)}
+          options={[
+            { value: "grid", label: "Grid" },
+            { value: "list", label: "Index" },
+          ]}
+        />
       </div>
 
-      <nav aria-label="Browse by category" className="mt-20 border-t border-line pt-6">
-        <p className="eyebrow mb-4">Not sure what to search for?</p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3">
-          {CATALOGUE_CATEGORIES.map((category) => (
-            <li key={category.slug}>
-              <Link
-                to={`/${category.slug}`}
-                className="text-[0.9rem] text-graphite transition-colors duration-fast hover:text-ink"
-              >
-                {category.title}
-              </Link>
-            </li>
+      {/* Results presentation */}
+      {index.isLoading ? (
+        <div className="mt-6 sm:mt-8 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }, (_, position) => (
+            <Skeleton key={position} lines={5} />
+          ))}
+        </div>
+      ) : index.error ? (
+        <EmptyState
+          className="mt-8"
+          eyebrow="Unavailable"
+          title="The registry index could not be loaded."
+          description={index.error.message}
+        />
+      ) : filteredItems.length === 0 ? (
+        <EmptyState
+          className="mt-8"
+          eyebrow="No results"
+          title="Nothing matches your search."
+          description="Try a broader search term or clear the filters to explore all resources."
+          action={
+            <Button
+              variant="outline"
+              onClick={() => {
+                setDraft("");
+                update("q", null);
+                update("type", null);
+              }}
+            >
+              Clear filters
+            </Button>
+          }
+        />
+      ) : view === "list" ? (
+        <ul className="mt-6 sm:mt-8">
+          {filteredItems.map((item) => (
+            <ResourceRow key={item.name} item={item} />
           ))}
         </ul>
-      </nav>
+      ) : (
+        <div className="catalogue-grid mt-6 sm:mt-8">
+          {filteredItems.map((item, position) => (
+            <ScrollReveal key={item.name} delayMs={Math.min(position * 20, 250)}>
+              <ResourceTile item={item} index={position + 1} withPreview />
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

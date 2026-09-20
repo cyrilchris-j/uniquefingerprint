@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "warp-text",
+  "type": "registry:component",
+  "title": "Warp Text",
+  "description": "Nonlinear spatial wave deformation across letterforms.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "warp-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function WarpText({ text = \"WARP\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [t, setT] = React.useState(0);\n  React.useEffect(() => { const id = setInterval(() => setT(p => p + 0.05), 16); return () => clearInterval(id); }, []);\n  return (\n    <div className={`flex gap-0.5 font-display font-black text-5xl text-ink select-none ${className}`}>\n      {text.split(\"\").map((c, i) => (\n        <span key={i} style={{ display: \"inline-block\", transform: `translateY(${Math.sin(t + i * 0.6) * 12}px) scaleX(${1 + Math.sin(t + i * 0.4) * 0.1})`, transition: \"none\" }}>\n          {c === \" \" ? \" \" : c}\n        </span>\n      ))}\n    </div>\n  );\n}\n",
+      "contentHash": "40cdcc70ff562333e8b7d13d02e3c7c216b5abf60f946a9e97f06969dce84a83",
+      "sizeBytes": 723
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/warp-text.json"
+}

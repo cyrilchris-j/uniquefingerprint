@@ -22,7 +22,7 @@ export function HoverParallaxTypography({ text = "OPENUI SPEC", className }: Hov
     <div
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setOffset({ x: 0, y: 0 })}
-      className={cn("relative flex h-56 w-full max-w-md items-center justify-center rounded-xl border border-line bg-paper p-6 select-none", className)}
+      className={cn("relative flex h-56 w-full max-w-md items-center justify-center rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 p-6 select-none", className)}
     >
       {/* Background shadow layer */}
       <h2

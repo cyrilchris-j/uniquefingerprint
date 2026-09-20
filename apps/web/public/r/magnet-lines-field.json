@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "magnet-lines-field",
+  "type": "registry:component",
+  "title": "Magnet Lines Field",
+  "description": "Vector field compass needles aligning with pointer magnetic poles.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "magnet-lines-field.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function MagnetLinesField({ className = \"w-full h-48 relative overflow-hidden bg-[#08090f]\" }: { className?: string }): React.JSX.Element {\n  const [mouse, setMouse] = React.useState({ x: 0, y: 0 });\n  const ref = React.useRef<HTMLDivElement>(null);\n  const cols = 12, rows = 6;\n  return (\n    <div ref={ref} className={className} onMouseMove={e => { const r = ref.current!.getBoundingClientRect(); setMouse({ x: e.clientX-r.left, y: e.clientY-r.top }); }}>\n      <div className=\"absolute inset-0 grid\" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, padding: \"8px\" }}>\n        {Array.from({ length: cols * rows }, (_, idx) => {\n          const col = idx % cols, row = Math.floor(idx / cols);\n          const cx = (col / (cols-1)) * (ref.current?.clientWidth ?? 400);\n          const cy = (row / (rows-1)) * (ref.current?.clientHeight ?? 192);\n          const dx = mouse.x - cx, dy = mouse.y - cy;\n          const angle = Math.atan2(dy, dx) * 180 / Math.PI;\n          const dist = Math.hypot(dx, dy);\n          const opacity = Math.max(0.1, 1 - dist / 200);\n          return (\n            <div key={idx} className=\"flex items-center justify-center\">\n              <div style={{ width: 16, height: 2, background: `rgba(186,68,44,${opacity})`, transform: `rotate(${angle}deg)`, borderRadius: 1, transformOrigin: \"50% 50%\" }} />\n            </div>\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "d5416a7097974e9609845a8773386af8f719da5897b229d507ba33725fdb2480",
+      "sizeBytes": 1489
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/magnet-lines-field.json"
+}

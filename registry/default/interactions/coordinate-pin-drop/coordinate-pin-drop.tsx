@@ -22,10 +22,10 @@ export function CoordinatePinDrop({ className }: CoordinatePinDropProps) {
   return (
     <div
       onClick={handleClick}
-      className={cn("relative h-64 w-full max-w-sm cursor-pointer overflow-hidden rounded-xl border border-line bg-paper p-4 select-none", className)}
+      className={cn("relative h-64 w-full max-w-sm cursor-pointer overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md shadow-xl text-zinc-900 dark:text-zinc-100 p-4 select-none", className)}
     >
       <div className="flex justify-between items-center pb-2 border-b border-line mb-2">
-        <span className="font-mono text-xs text-ink/60">CLICK TO DROP BEACON ({pins.length})</span>
+        <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>CLICK TO DROP BEACON ({pins.length})</span><span className="opacity-50 ml-auto">[MINIMAL]</span></div>
       </div>
 
       <div className="relative h-48 w-full rounded bg-line/10">

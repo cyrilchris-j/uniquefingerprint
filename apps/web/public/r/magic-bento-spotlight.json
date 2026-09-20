@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "magic-bento-spotlight",
+  "type": "registry:component",
+  "title": "Magic Bento Spotlight",
+  "description": "Bento grid cells illuminated by pointer spotlight with border energy.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "magic-bento-spotlight.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nconst CELLS = [{ id: 0, label: \"Components\", size: \"col-span-2 row-span-2\" }, { id: 1, label: \"Motion\", size: \"\" }, { id: 2, label: \"Canvas\", size: \"\" }, { id: 3, label: \"Tokens\", size: \"\" }, { id: 4, label: \"Systems\", size: \"\" }, { id: 5, label: \"Registry\", size: \"col-span-2\" }];\nexport interface MagicBentoSpotlightProps { className?: string; }\nexport function MagicBentoSpotlight({ className = \"\" }: MagicBentoSpotlightProps) {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, visible: false });\n  return (\n    <div ref={containerRef} onMouseMove={(e) => { const r = containerRef.current!.getBoundingClientRect(); setSpotlight({ x: e.clientX - r.left, y: e.clientY - r.top, visible: true }); }}\n      onMouseLeave={() => setSpotlight((s) => ({ ...s, visible: false }))}\n      className={`relative grid grid-cols-4 gap-2 p-2 rounded-2xl bg-[#080a0f] overflow-hidden ${className}`}>\n      {spotlight.visible && <div className=\"pointer-events-none absolute\" style={{ left: spotlight.x, top: spotlight.y, width: 200, height: 200, transform: \"translate(-50%,-50%)\", background: \"radial-gradient(circle, rgba(186,68,44,0.15) 0%, transparent 70%)\", borderRadius: \"50%\" }} />}\n      {CELLS.map((cell) => (<div key={cell.id} className={`${cell.size} rounded-xl border border-[#1e1e1e] bg-[#0d0f14] h-24 flex items-end p-3`}><span className=\"font-mono text-[9px] text-[#444] uppercase font-bold\">{cell.label}</span></div>))}\n    </div>\n  );\n}",
+      "contentHash": "e52dfed5ba2cff72fc9924dd02b5762fa34bb411a22bc1e318311667948ebc32",
+      "sizeBytes": 1557
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/magic-bento-spotlight.json"
+}

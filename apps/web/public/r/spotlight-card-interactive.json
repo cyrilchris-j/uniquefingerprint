@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "spotlight-card-interactive",
+  "type": "registry:component",
+  "title": "Spotlight Card Interactive",
+  "description": "Cursor spotlight revealing subtle internal border gradients.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "spotlight-card-interactive.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface SpotlightCardInteractiveProps { className?: string; title?: string; description?: string; }\nexport function SpotlightCardInteractive({ className = \"\", title = \"Spotlight Card\", description = \"Move cursor over card to reveal the internal gradient border.\" }: SpotlightCardInteractiveProps) {\n  const ref = useRef<HTMLDivElement>(null);\n  const [spot, setSpot] = useState({ x: 50, y: 50, visible: false });\n  return (\n    <div ref={ref} onMouseMove={(e) => { const r = ref.current!.getBoundingClientRect(); setSpot({ x: e.clientX - r.left, y: e.clientY - r.top, visible: true }); }}\n      onMouseLeave={() => setSpot((s) => ({ ...s, visible: false }))}\n      className={`relative overflow-hidden w-72 rounded-2xl p-6 bg-[#0d0f14] ${className}`} style={{ border: \"1px solid #1e1e1e\" }}>\n      {spot.visible && <div className=\"pointer-events-none absolute inset-0 rounded-2xl\" style={{ background: `radial-gradient(200px at ${spot.x}px ${spot.y}px, rgba(186,68,44,0.1), transparent)` }} />}\n      <h3 className=\"font-bold text-white text-base\">{title}</h3>\n      <p className=\"font-mono text-[10px] text-[#555] mt-2 leading-relaxed\">{description}</p>\n    </div>\n  );\n}",
+      "contentHash": "788878232a62e54a5b1d7a4197e71a731034c7ab10e1efdaaf03bc6d88e49866",
+      "sizeBytes": 1237
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/spotlight-card-interactive.json"
+}

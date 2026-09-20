@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "stroke-text",
+  "type": "registry:component",
+  "title": "Stroke Text",
+  "description": "Animated SVG path outline stroke drawing with variable line width.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "stroke-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function StrokeText({ text = \"OPENUI\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [progress, setProgress] = React.useState(0);\n  React.useEffect(() => {\n    let p = 0;\n    const id = setInterval(() => { p += 2; setProgress(Math.min(p, 100)); if (p >= 100) clearInterval(id); }, 16);\n    return () => clearInterval(id);\n  }, [text]);\n  return (\n    <div className={`relative select-none ${className}`}>\n      <svg viewBox=\"0 0 400 100\" className=\"w-full\">\n        <text x=\"50%\" y=\"75\" textAnchor=\"middle\" fontFamily=\"monospace\" fontSize=\"72\" fontWeight=\"900\"\n          fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeDasharray=\"1000\" strokeDashoffset={1000 - progress * 10}\n          style={{ transition: \"stroke-dashoffset 0.05s linear\" }} className=\"text-oxide\">\n          {text}\n        </text>\n      </svg>\n    </div>\n  );\n}\n",
+      "contentHash": "40d6248169648e50265d9877fa32390941e865b351e8198d025f4bc32a0593be",
+      "sizeBytes": 919
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/stroke-text.json"
+}

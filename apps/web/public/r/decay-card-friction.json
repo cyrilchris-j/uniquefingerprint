@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "decay-card-friction",
+  "type": "registry:component",
+  "title": "Decay Card Friction",
+  "description": "Draggable card with calibrated friction and inertia decay.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "decay-card-friction.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useEffect, useRef, useState } from \"react\";\nexport interface DecayCardFrictionProps { className?: string; }\nexport function DecayCardFriction({ className = \"\" }: DecayCardFrictionProps) {\n  const [pos, setPos] = useState({ x: 0, y: 0 });\n  const vel = useRef({ x: 0, y: 0 }); const lastPos = useRef({ x: 0, y: 0 }); const dragging = useRef(false); const animRef = useRef<number>();\n  useEffect(() => () => { if (animRef.current) cancelAnimationFrame(animRef.current); }, []);\n  return (\n    <div className={`relative h-48 w-full overflow-hidden rounded-2xl bg-[#080a0f] border border-[#1e1e1e] ${className}`}>\n      <div\n        onPointerDown={(e) => { dragging.current = true; lastPos.current = { x: e.clientX, y: e.clientY }; (e.target as HTMLElement).setPointerCapture(e.pointerId); }}\n        onPointerMove={(e) => { if (!dragging.current) return; vel.current = { x: e.clientX - lastPos.current.x, y: e.clientY - lastPos.current.y }; lastPos.current = { x: e.clientX, y: e.clientY }; setPos((p) => ({ x: p.x + vel.current.x, y: p.y + vel.current.y })); }}\n        onPointerUp={() => { dragging.current = false; const decay = () => { vel.current = { x: vel.current.x * 0.88, y: vel.current.y * 0.88 }; if (Math.abs(vel.current.x) < 0.1 && Math.abs(vel.current.y) < 0.1) return; setPos((p) => ({ x: p.x + vel.current.x, y: p.y + vel.current.y })); animRef.current = requestAnimationFrame(decay); }; animRef.current = requestAnimationFrame(decay); }}\n        style={{ transform: `translate(${pos.x}px, ${pos.y}px)`, cursor: \"grab\", position: \"absolute\", top: 32, left: 32 }}\n        className=\"w-36 h-24 bg-[#0d0f14] border border-[#ba442c44] rounded-xl select-none flex items-center justify-center\">\n        <div className=\"text-center\"><span className=\"font-mono text-[9px] text-[#ba442c] font-bold\">DRAG ME</span><p className=\"font-mono text-[8px] text-[#333] mt-1\">friction decay</p></div>\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "3d9ccb0c37785e955236eb5b7a8ae48e4d6e2a0df834d6f9ff53042ae14ef5d6",
+      "sizeBytes": 1948
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/decay-card-friction.json"
+}

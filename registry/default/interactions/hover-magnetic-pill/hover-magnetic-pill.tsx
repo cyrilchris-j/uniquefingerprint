@@ -26,7 +26,7 @@ export function HoverMagneticPill({ label = "STABLE_BUILD", className }: HoverMa
     >
       <div
         style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
-        className="rounded-full border border-line bg-paper px-4 py-1.5 font-mono text-xs font-bold text-ink shadow-sm transition-transform duration-75"
+        className="rounded-full border border-white/10 bg-zinc-900/70 px-4 py-1.5 font-mono text-xs font-bold text-ink shadow-sm transition-transform duration-75"
       >
         ● {label}
       </div>

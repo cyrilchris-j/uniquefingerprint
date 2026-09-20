@@ -1,16 +1,30 @@
-import { BookMarked, ExternalLink, Heart, Laptop, Monitor, PackageSearch, ShieldCheck, Smartphone, Tablet } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Code2,
+  Copy,
+  Heart,
+  Laptop,
+  Monitor,
+  PackageSearch,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Tablet,
+  Terminal,
+  Zap,
+} from "lucide-react";
 import * as React from "react";
-import { Link, Navigate, useParams, useSearchParams } from "react-router";
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
+import { categoryBySlug } from "../lib/registry.js";
 
 import {
-  Badge,
   Button,
-  CopyButton,
   EmptyState,
   SegmentedControl,
   Skeleton,
-  StatusPill,
   Tabs,
   TabsContent,
   TabsList,
@@ -21,10 +35,9 @@ import {
   TooltipTrigger,
 } from "@openui/ui";
 
-import { CodeBlock, CommandLine } from "../components/CodeBlock.js";
-import { DnaStrip, dnaSummary } from "../components/DnaStrip.js";
+import { CodeBlock } from "../components/CodeBlock.js";
 import { MetaRow } from "../components/SectionHeader.js";
-import { ResourceTile, categorySegmentFor } from "../components/ResourceTile.js";
+import { ResourceTile } from "../components/ResourceTile.js";
 import { SandboxSkeleton } from "../features/playground/Sandbox.js";
 import { useIndexEntry, useRegistryItem, useRelatedItems } from "../features/resources/use-catalogue.js";
 import { openSignInDialog, useAuth } from "../lib/auth.js";
@@ -60,12 +73,259 @@ const Sandbox = React.lazy(() =>
  *    not in this document. The `Sandbox` component is loaded lazily, so reading
  *    a page without opening the preview costs nothing.
  */
+interface InstallationSectionProps {
+  entryName: string;
+  onViewCode: () => void;
+}
+
+function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
+  const [copied, setCopied] = React.useState(false);
+  const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+    };
+  }, []);
+
+  const getCommand = (pm: "pnpm" | "npm") => {
+    switch (pm) {
+      case "pnpm":
+        return `pnpm dlx uniquefingerprint add ${entryName}`;
+      case "npm":
+        return `npx uniquefingerprint add ${entryName}`;
+    }
+  };
+
+  const currentCommand = getCommand(pkgManager);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(currentCommand);
+      }
+      setCopied(true);
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+    }
+  };
+
+  return (
+    <div className="mx-auto max-w-3xl flex flex-col gap-8 py-8 sm:py-12">
+      {/* CLI Installation Card */}
+      <div className="rounded-2xl border border-line/40 bg-paper/95 p-6 sm:p-10 shadow-xs backdrop-blur-xs">
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-mono text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full bg-moss/10 text-moss border border-moss/20">
+              CLI
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-moss animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">
+              Automated Registry Setup
+            </span>
+          </div>
+
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-ink">
+            Install with the CLI
+          </h2>
+
+          <p className="mt-2.5 text-[0.92rem] leading-relaxed text-graphite max-w-2xl">
+            The CLI resolves this item and its registry dependencies, verifies the integrity
+            digest, checks your project for conflicts, and only then writes. It never
+            overwrites a file you have edited without telling you.
+          </p>
+        </div>
+
+        {/* macOS Style Terminal Window */}
+        <div className="rounded-xl border border-line/40 bg-[#0e0e11] text-[#f4f4f5] shadow-md overflow-hidden">
+          {/* Terminal Window Header */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]/80 inline-block" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]/80 inline-block" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]/80 inline-block" />
+              </div>
+              <span className="font-mono text-[11px] text-white/40 ml-2 hidden sm:inline">
+                terminal
+              </span>
+            </div>
+
+            {/* Package Manager selector */}
+            <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
+              {(["pnpm", "npm"] as const).map((pm) => (
+                <button
+                  key={pm}
+                  type="button"
+                  onClick={() => setPkgManager(pm)}
+                  className={cn(
+                    "px-3 py-1 text-[11px] font-mono rounded-md transition-all duration-150 cursor-pointer",
+                    pkgManager === pm
+                      ? "bg-white/20 text-white shadow-2xs font-semibold"
+                      : "text-white/60 hover:text-white hover:bg-white/10",
+                  )}
+                >
+                  {pm}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Terminal Code Command Row */}
+          <div className="flex items-center justify-between p-4 sm:p-5 gap-3">
+            <div className="flex items-center gap-3 overflow-x-auto no-scrollbar font-mono text-[13px] sm:text-[14px]">
+              <span className="text-moss select-none font-bold">$</span>
+              <span className="text-white/90 whitespace-nowrap">
+                {pkgManager === "pnpm" ? (
+                  <>
+                    <span className="text-amber-400">pnpm dlx</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-amber-400">npx</span>{" "}
+                    <span className="text-white font-semibold">uniquefingerprint</span>{" "}
+                    <span className="text-sky-400">add</span>{" "}
+                    <span className="text-emerald-400 font-bold">{entryName}</span>
+                  </>
+                )}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => void handleCopy()}
+              className={cn(
+                "shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 border cursor-pointer",
+                copied
+                  ? "bg-moss/20 border-moss/40 text-moss"
+                  : "bg-white/10 hover:bg-white/15 border-white/10 text-white/80 hover:text-white",
+              )}
+              title="Copy command"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3.5 w-3.5" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Highlights row */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-line/20">
+          <div className="flex items-start gap-2.5">
+            <ShieldCheck className="h-4 w-4 text-moss shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Zero Overwrites</p>
+              <p className="text-[11px] text-graphite mt-0.5">Never replaces edited files without prompting.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Zap className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Auto Dependencies</p>
+              <p className="text-[11px] text-graphite mt-0.5">Resolves registry peer dependencies and aliases.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Sparkles className="h-4 w-4 text-sky-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-medium text-ink">Integrity Verified</p>
+              <p className="text-[11px] text-graphite mt-0.5">Checked against registry cryptographic signatures.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Manual Alternative Card */}
+      <div className="rounded-2xl border border-line/35 bg-paper/85 p-6 sm:p-8 shadow-xs">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite px-2 py-0.5 rounded bg-surface border border-line/20 font-medium">
+              Alternative
+            </span>
+            <span className="font-mono text-[11px] text-graphite">Manual Installation</span>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onViewCode}
+            className="text-xs gap-1.5 hover:border-ink transition-colors cursor-pointer"
+          >
+            <Code2 className="h-3.5 w-3.5" />
+            <span>View Component Code</span>
+            <ArrowRight className="h-3 w-3" />
+          </Button>
+        </div>
+
+        <h3 className="font-display text-xl sm:text-2xl tracking-tight text-ink">
+          Or copy manually
+        </h3>
+        <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite max-w-2xl">
+          Take full control of the code by copying the component source directly into your codebase. No CLI or external registry lock-in required.
+        </p>
+
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 sm:p-5 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">1. Inspect & Copy Source</span>
+              <p className="text-xs text-graphite mt-1.5 leading-relaxed">
+                Open the Code tab above to view, explore, and copy the full unminified TypeScript/React component source code.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onViewCode}
+              className="text-left font-mono text-xs text-moss hover:underline flex items-center gap-1.5 cursor-pointer font-medium pt-1"
+            >
+              <Code2 className="h-3.5 w-3.5" />
+              <span>Switch to Code tab</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">2. Paste into Your Project</span>
+              <p className="text-xs text-graphite mt-1.5 leading-relaxed">
+                Create a new file in your components folder (e.g. <code className="font-mono text-[11px] px-1 py-0.5 rounded bg-surface border border-line/30 text-ink">components/{entryName}.tsx</code>), paste the code, and import it directly into your application.
+              </p>
+            </div>
+            <div className="font-mono text-[10.5px] text-graphite/70 flex items-center gap-1.5 pt-1">
+              <span>✓ Self-contained & ready to use</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ResourcePage(): React.JSX.Element {
+  const navigate = useNavigate();
   const params = useParams<{ category: string; slug: string }>();
   const slug = params.slug ?? "";
   const [searchParams, setSearchParams] = useSearchParams();
 
   const advItem = slug ? getAdvancedItemBySlug(slug) : undefined;
+
+  // If this item is an Advanced resource, redirect immediately to its canonical Advanced showcase page
+  // so duplicate, generic component pages are never rendered under /components/:slug
+  if (advItem) {
+    return <Navigate to={`/advanced/${advItem.category}/${advItem.slug}`} replace />;
+  }
 
   const { entry, state: indexState } = useIndexEntry(slug);
   const itemState = useRegistryItem(slug);
@@ -101,7 +361,6 @@ export default function ResourcePage(): React.JSX.Element {
   }, [slug, entry?.name]);
 
   const activeTab = searchParams.get("tab") ?? "preview";
-  const previewView = searchParams.get("view") === "code" ? "code" : "preview";
 
   // Auto-detect mobile screen so resources default to mobile view on phones
   const isMobileClient =
@@ -193,10 +452,6 @@ export default function ResourcePage(): React.JSX.Element {
   }
 
   if (!entry) {
-    if (advItem) {
-      return <Navigate to={`/advanced/${advItem.category}/${advItem.slug}`} replace />;
-    }
-
     return (
       <div className="shell py-20">
         <EmptyState
@@ -213,48 +468,55 @@ export default function ResourcePage(): React.JSX.Element {
     );
   }
 
-  const dependencies = entry.dependencies.filter((name) => name !== "react");
+  const categoryDef = entry ? categoryBySlug(entry.category) : undefined;
+  const categoryTitle =
+    categoryDef?.title ??
+    (entry?.category ? entry.category.charAt(0).toUpperCase() + entry.category.slice(1) : "Catalogue");
+
+  const handleReturn = () => {
+    try {
+      sessionStorage.setItem("openui_returning", "true");
+      if (entry) {
+        sessionStorage.setItem("openui_last_clicked_item", entry.name);
+        sessionStorage.setItem(`openui_target_item_/${entry.category}`, entry.name);
+      }
+    } catch {
+      // Ignore storage errors
+    }
+
+    const lastOrigin = sessionStorage.getItem("openui_last_origin_path");
+    if (lastOrigin && lastOrigin !== window.location.pathname) {
+      navigate(lastOrigin);
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(entry ? `/${entry.category}` : "/explore");
+    }
+  };
 
   return (
-    <article className="pb-16">
+    <article className="pb-4 sm:pb-6">
       {/* ------------------------------------------------------------ */}
       {/* Header                                                        */}
-      {/* ------------------------------------------------------------ */}
-      <header className="shell pt-6 sm:pt-12">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap">
-          <Link to="/explore" className="eyebrow transition-colors hover:text-ink">
-            Registry
-          </Link>
-          <span aria-hidden className="text-graphite/50">
-            /
-          </span>
-          <Link
-            to={`/${categorySegmentFor(entry.category)}`}
-            className="eyebrow transition-colors hover:text-ink"
+      <header className="shell pt-6 sm:pt-10">
+        {/* Return to Catalogue Action */}
+        <div className="mb-4 sm:mb-6">
+          <button
+            type="button"
+            onClick={handleReturn}
+            className="group inline-flex items-center gap-2 px-3 py-1.5 -ml-3 rounded-lg text-xs font-mono tracking-wider uppercase text-graphite hover:text-ink hover:bg-surface/80 dark:hover:bg-zinc-800/60 border border-transparent hover:border-line/30 transition-all cursor-pointer"
           >
-            {entry.category}
-          </Link>
-          <span aria-hidden className="text-graphite/50">
-            /
-          </span>
-          <span className="eyebrow text-ink">{entry.name}</span>
-        </nav>
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-graphite group-hover:text-ink" />
+            <span>Return to {categoryTitle}</span>
+          </button>
+        </div>
 
-        <div className="mt-5 sm:mt-8 grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             <h1 className="optically-align text-3xl sm:text-5xl lg:text-step-5 max-w-[20ch] text-balance leading-[1.08]">{entry.title}</h1>
             <p className="prose-measure mt-4 sm:mt-6 text-[0.92rem] sm:text-step-1 leading-relaxed text-graphite">
               {entry.description}
             </p>
-
-            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <Badge tone="ink">{entry.type.replace("registry:", "")}</Badge>
-              {entry.difficulty ? <Badge>{entry.difficulty}</Badge> : null}
-              {entry.license ? <Badge tone="moss">{entry.license}</Badge> : null}
-              <StatusPill tone="positive" bare>
-                published
-              </StatusPill>
-            </div>
 
             <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2">
               <Button
@@ -288,17 +550,10 @@ export default function ResourcePage(): React.JSX.Element {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
-                    Edit the source live with the isolated sandbox and a full editor
+                    View and interact with the live demo in the sandbox
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
-              <Button variant="ghost" asChild>
-                <Link to="/submit">
-                  <BookMarked aria-hidden className="h-3.5 w-3.5" />
-                  Report a problem
-                </Link>
-              </Button>
             </div>
 
             {favoriteError ? (
@@ -333,35 +588,11 @@ export default function ResourcePage(): React.JSX.Element {
                 <MetaRow label="Type">
                   <span className="font-mono">{entry.type}</span>
                 </MetaRow>
-                <MetaRow label="Licence">{entry.license ?? "Not declared"}</MetaRow>
-                {entry.designSystem ? (
-                  <MetaRow label="Design system">
-                    <Link to={`/design-systems/${entry.designSystem}`} className="text-oxide">
-                      {entry.designSystem}
-                    </Link>
-                  </MetaRow>
-                ) : null}
-                <MetaRow label="Fingerprint">
-                  <span className="text-graphite">{dnaSummary(entry.dna)}</span>
+                <MetaRow label="Category">
+                  <span className="capitalize">{entry.category}</span>
                 </MetaRow>
+                <MetaRow label="Licence">{entry.license ?? "MIT"}</MetaRow>
               </dl>
-
-              {entry.tags.length > 0 ? (
-                <>
-                  <p className="eyebrow mb-3 mt-6">Tags</p>
-                  <ul className="flex flex-wrap gap-1.5">
-                    {entry.tags.map((tag) => (
-                      <li key={tag}>
-                        <Link to={`/search?tag=${encodeURIComponent(tag)}`}>
-                          <Badge className="transition-colors hover:border-ink hover:text-ink">
-                            {tag}
-                          </Badge>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : null}
             </div>
           </aside>
         </div>
@@ -372,40 +603,23 @@ export default function ResourcePage(): React.JSX.Element {
       {/* ------------------------------------------------------------ */}
       <div className="shell mt-8 sm:mt-16">
         <Tabs value={activeTab} onValueChange={setTab}>
-          <TabsList className="overflow-x-auto no-scrollbar">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="install">Installation</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
-            <TabsTrigger value="dependencies">Dependencies</TabsTrigger>
-            <TabsTrigger value="design">Design DNA</TabsTrigger>
-            <TabsTrigger value="motion">Motion & Interaction</TabsTrigger>
-            <TabsTrigger value="a11y-perf">A11y & Performance</TabsTrigger>
+          <TabsList className="justify-center border-b border-line gap-4 sm:gap-10 overflow-x-auto no-scrollbar">
+            <TabsTrigger value="preview" className="flex items-center gap-2">
+              <Laptop className="h-3.5 w-3.5" />
+              <span>Preview</span>
+            </TabsTrigger>
+            <TabsTrigger value="install" className="flex items-center gap-2">
+              <Terminal className="h-3.5 w-3.5" />
+              <span>Installation</span>
+            </TabsTrigger>
+            <TabsTrigger value="code" className="flex items-center gap-2">
+              <Code2 className="h-3.5 w-3.5" />
+              <span>Code</span>
+            </TabsTrigger>
           </TabsList>
 
           {/* Preview -------------------------------------------------- */}
           <TabsContent value="preview">
-            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-              <p className="prose-measure text-[0.9rem] text-graphite">
-                The resource runs in an isolated document. Nothing it does can reach this page, your
-                session or your files.
-              </p>
-              <SegmentedControl
-                label="Preview mode"
-                hideLabel
-                value={previewView}
-                onValueChange={(value) => {
-                  const next = new URLSearchParams(searchParams);
-                  if (value === "preview") next.delete("view");
-                  else next.set("view", value);
-                  setSearchParams(next, { replace: true, preventScrollReset: true });
-                }}
-                options={[
-                  { value: "preview", label: "Preview" },
-                  { value: "code", label: "Code + preview" },
-                ]}
-              />
-            </div>
-
             {/* Viewport tester: the preview container width is constrained so
                 the resource's responsive behaviour is exercisable, not just
                 claimed. The choice lives in the URL like every other control. */}
@@ -455,7 +669,7 @@ export default function ResourcePage(): React.JSX.Element {
 
             <React.Suspense fallback={<SandboxSkeleton />}>
               {itemState.data ? (
-                <Sandbox item={itemState.data} view={previewView === "code" ? "split" : "preview"} />
+                <Sandbox item={itemState.data} view="preview" />
               ) : itemState.error ? (
                 <EmptyState
                   eyebrow="Preview unavailable"
@@ -471,97 +685,20 @@ export default function ResourcePage(): React.JSX.Element {
 
           {/* Installation --------------------------------------------- */}
           <TabsContent value="install">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-3 tracking-tight">Install with the CLI</h2>
-                <p className="prose-measure mt-4 text-[0.92rem] leading-relaxed text-graphite">
-                  The CLI resolves this item and its registry dependencies, verifies the integrity
-                  digest, checks your project for conflicts, and only then writes. It never
-                  overwrites a file you have edited without telling you.
-                </p>
-
-                <div className="mt-6">
-                  <CommandLine command={`pnpm dlx uniquefingerprint add ${entry.name}`} />
-                </div>
-
-                <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                  Add npm dependencies
-                </h3>
-                {dependencies.length === 0 ? (
-                  <p className="mt-3 flex items-center gap-2 text-[0.9rem] text-moss">
-                    <ShieldCheck aria-hidden className="h-4 w-4" />
-                    This resource has no npm dependencies beyond React.
-                  </p>
-                ) : (
-                  <>
-                    <p className="mt-3 text-[0.9rem] text-graphite">
-                      The CLI runs this for you. It is shown so you can review it first.
-                    </p>
-                    <div className="mt-4">
-                      <CommandLine
-                        command={`pnpm add ${dependencies.join(" ")}`}
-                      />
-                    </div>
-                  </>
-                )}
-
-                <h3 className="mt-10 font-display text-step-2 tracking-tight">
-                  Or install manually
-                </h3>
-                <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                  Copy the source from the Code tab into your project, then add the npm
-                  dependencies above. The source imports <code className="font-mono">@/lib/cn</code>
-                  ; the CLI rewrites that alias to match your project's configuration.
-                </p>
-              </div>
-
-              <aside>
-                <div className="border-t border-line pt-4">
-                  <p className="eyebrow mb-3">What the CLI does</p>
-                  <ol className="flex flex-col">
-                    {[
-                      "Reads uniquefingerprint.json for your registry and aliases.",
-                      "Fetches the artifact and verifies its integrity digest.",
-                      "Resolves registry dependencies first, depth-first.",
-                      "Diffs every target path against your project.",
-                      "Writes only when there is no conflict, or asks.",
-                    ].map((step, position) => (
-                      <li key={step} className="flex gap-3 border-b border-line py-3">
-                        <span className="font-mono text-[10px] tracking-[0.2em] text-graphite">
-                          {String(position + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-[0.86rem] leading-relaxed text-graphite">{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-
-                  <p className="eyebrow mb-3 mt-6">Registry dependencies</p>
-                  {entry.registryDependencies.length === 0 ? (
-                    <p className="text-[0.86rem] text-graphite">None.</p>
-                  ) : (
-                    <ul className="flex flex-wrap gap-1.5">
-                      {entry.registryDependencies.map((name) => (
-                        <li key={name}>
-                          <Link to={`/components/${name}`}>
-                            <Badge className="transition-colors hover:border-ink hover:text-ink">
-                              {name}
-                            </Badge>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </aside>
-            </div>
+            <InstallationSection entryName={entry.name} onViewCode={() => setTab("code")} />
           </TabsContent>
 
           {/* Code ------------------------------------------------------ */}
-          <TabsContent value="code">
+          <TabsContent value="code" className="py-6 sm:py-10">
             {itemState.data ? (
-              <div className="flex flex-col gap-6">
+              <div className="mx-auto max-w-4xl flex flex-col gap-6">
                 {itemState.data.files
                   .filter((file) => !file.path.endsWith("registry.json"))
+                  .sort((a, b) => {
+                    if (a.path.includes("demo") && !b.path.includes("demo")) return 1;
+                    if (!a.path.includes("demo") && b.path.includes("demo")) return -1;
+                    return 0;
+                  })
                   .map((file) => (
                     <CodeBlock
                       key={file.path}
@@ -572,210 +709,19 @@ export default function ResourcePage(): React.JSX.Element {
                       maxLines={40}
                     />
                   ))}
+                {!itemState.data.files.some((file) => file.path.endsWith("cn.ts")) && (
+                  <CodeBlock
+                    caption="lib/cn.ts"
+                    language="tsx"
+                    code={CN_HELPER_CODE}
+                    showLineNumbers
+                    maxLines={40}
+                  />
+                )}
               </div>
             ) : (
               <Skeleton lines={12} />
             )}
-          </TabsContent>
-
-          {/* Dependencies --------------------------------------------- */}
-          <TabsContent value="dependencies">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">npm dependencies</h2>
-                {dependencies.length === 0 ? (
-                  <p className="mt-3 text-[0.9rem] text-graphite">
-                    None. This resource depends only on React.
-                  </p>
-                ) : (
-                  <ul className="mt-4">
-                    {dependencies.map((name) => (
-                      <li
-                        key={name}
-                        className="flex items-center justify-between border-b border-line py-3"
-                      >
-                        <span className="font-mono text-[0.85rem] text-ink">{name}</span>
-                        <a
-                          href={`https://www.npmjs.com/package/${encodeURIComponent(name)}`}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="eyebrow flex items-center gap-1 transition-colors hover:text-ink"
-                        >
-                          npm
-                          <ExternalLink aria-hidden className="h-3 w-3" />
-                          <span className="sr-only">(opens in a new tab)</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Registry dependencies</h2>
-                {entry.registryDependencies.length === 0 ? (
-                  <p className="mt-3 text-[0.9rem] text-graphite">
-                    None. This resource installs on its own.
-                  </p>
-                ) : (
-                  <p className="mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                    These are other registry resources the CLI installs first, in order.
-                  </p>
-                )}
-                <ul className="mt-4">
-                  {entry.registryDependencies.map((name) => (
-                    <li key={name} className="border-b border-line py-3">
-                      <Link
-                        to={`/components/${name}`}
-                        className="font-mono text-[0.85rem] text-ink transition-colors hover:text-oxide"
-                      >
-                        {name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Design ---------------------------------------------------- */}
-          <TabsContent value="design">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Design fingerprint</h2>
-                <p className="prose-measure mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                  Six declared dimensions. They are the vocabulary a model or a teammate uses to
-                  decide whether this resource belongs in the interface they are building — before
-                  reading any code.
-                </p>
-                <div className="mt-6">
-                  <DnaStrip dna={entry.dna} variant="labelled" />
-                </div>
-              </div>
-
-              <div>
-                <h2 className="font-display text-step-2 tracking-tight">Design rules</h2>
-                {itemState.data?.designRules ? (
-                  <pre className="code-plate code-plate--light mt-4 max-h-[32rem] overflow-auto whitespace-pre-wrap font-mono text-[0.78rem] leading-relaxed">
-                    {itemState.data.designRules}
-                  </pre>
-                ) : (
-                  <p className="mt-3 text-[0.9rem] leading-relaxed text-graphite">
-                    This resource does not ship a <code className="font-mono">design.md</code>. That
-                    is allowed — but a resource with one is easier to compose and is what the AI
-                    resources in this registry read.
-                  </p>
-                )}
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Motion & Interaction -------------------------------------- */}
-          <TabsContent value="motion">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Motion System</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  UniqueFingerprint motion is calibrated for tactile response without sluggishness. All transforms use GPU-accelerated 3D composition.
-                </p>
-
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Motion Language</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.dna?.motionLanguage ?? "subtle"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Motion Model</dt>
-                    <dd className="font-mono text-xs text-oxide">{entry.fingerprint?.motionModel ?? "spring-damped"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Max Duration</dt>
-                    <dd className="font-mono text-xs text-ink">520ms (budget limit)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Reduced Motion Mode</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Instant state swap</dd>
-                  </div>
-                </dl>
-              </div>
-
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Interaction Profile</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  How the user engages with this resource across mouse, touch, and keyboard modalities.
-                </p>
-
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Interaction Model</dt>
-                    <dd className="font-mono text-xs text-oxide">{entry.fingerprint?.interactionModel ?? "pointer-reactive"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Semantic Purpose</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.fingerprint?.semanticPurpose ?? "interface-accent"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Touch Adaptation</dt>
-                    <dd className="font-mono text-xs text-ink">Active (no stuck hover)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Keyboard Target</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Native focus ring</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Accessibility & Performance -------------------------------- */}
-          <TabsContent value="a11y-perf">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Accessibility Contract</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  Verified against WCAG 2.1 AA guidelines. Visual effects never obscure content or impede navigation.
-                </p>
-                <ul className="mt-6 space-y-3">
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Prefers Reduced Motion:</strong> All kinetic transitions collapse to static states when user preferences request reduced motion.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Keyboard Reachable:</strong> Interactive elements participate in normal tab order with visible high-contrast focus rings.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5 text-xs text-graphite">
-                    <span className="font-mono text-moss font-bold">✓</span>
-                    <span><strong>Semantic HTML:</strong> Real headings, buttons, and landmark roles used before ARIA overrides.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="border border-line/30 rounded-xl p-6 bg-paper dark:bg-[#141413]">
-                <h2 className="font-display text-step-2 tracking-tight text-ink">Performance & GPU Budget</h2>
-                <p className="mt-2 text-xs sm:text-[0.88rem] text-graphite leading-relaxed">
-                  Engineered to maintain 60 FPS without battery degradation or main-thread locking.
-                </p>
-                <dl className="mt-6 divide-y divide-line/20 border-y border-line/20">
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Visual Model</dt>
-                    <dd className="font-mono text-xs text-ink">{entry.fingerprint?.visualModel ?? "dom-css"}</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Frame Budget</dt>
-                    <dd className="font-mono text-xs text-ink">16.6ms target (60 FPS)</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Offscreen Pausing</dt>
-                    <dd className="font-mono text-xs text-moss">✓ IntersectionObserver loop sleep</dd>
-                  </div>
-                  <div className="py-2.5 flex items-center justify-between">
-                    <dt className="eyebrow text-[10px]">Memory Disposal</dt>
-                    <dd className="font-mono text-xs text-moss">✓ Clean context release</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
           </TabsContent>
         </Tabs>
       </div>
@@ -784,7 +730,7 @@ export default function ResourcePage(): React.JSX.Element {
       {/* Related                                                       */}
       {/* ------------------------------------------------------------ */}
       {related.length > 0 ? (
-        <section className="shell mt-24">
+        <section className="shell mt-16 sm:mt-20">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-5">
             <p className="eyebrow">Composes with</p>
             <p className="eyebrow">Shared tags and category</p>
@@ -797,14 +743,6 @@ export default function ResourcePage(): React.JSX.Element {
         </section>
       ) : null}
 
-      {/* Report / licence footer */}
-      <div className="shell mt-8 -mb-10 sm:-mb-20">
-        <div className="flex items-center justify-end">
-          <p className="eyebrow text-[10px] text-graphite/70">
-            Licence {entry.license ?? "not declared"} · verify before redistribution
-          </p>
-        </div>
-      </div>
     </article>
   );
 }
@@ -816,3 +754,15 @@ function languageFor(path: string): string {
   if (path.endsWith(".md")) return "markdown";
   return "text";
 }
+
+const CN_HELPER_CODE = `import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Merges conditional class names and resolves Tailwind conflicts.
+ */
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}
+`;
+

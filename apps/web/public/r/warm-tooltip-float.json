@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "warm-tooltip-float",
+  "type": "registry:component",
+  "title": "Warm Tooltip Float",
+  "description": "Tooltip blooming smoothly with spring entrance and arrow trace.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "warm-tooltip-float.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface WarmTooltipFloatProps { className?: string; label?: string; tip?: string; }\nexport function WarmTooltipFloat({ className = \"\", label = \"Hover me\", tip = \"This is a warm tooltip with spring entrance animation.\" }: WarmTooltipFloatProps) {\n  const [visible, setVisible] = useState(false);\n  return (\n    <div className={`relative inline-flex flex-col items-center gap-2 ${className}`}>\n      <div className=\"absolute bottom-full mb-3 w-52 rounded-xl px-4 py-3 pointer-events-none\"\n        style={{ background: \"#12141a\", border: \"1px solid #2a2a2a\", boxShadow: \"0 8px 24px rgba(0,0,0,0.4)\", opacity: visible ? 1 : 0, transform: visible ? \"translateY(0) scale(1)\" : \"translateY(4px) scale(0.95)\", transition: \"all 0.3s cubic-bezier(0.16,1,0.3,1)\" }}>\n        <p className=\"font-mono text-[10px] text-[#aaa] leading-relaxed\">{tip}</p>\n        <div className=\"absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-[#12141a] border-r border-b border-[#2a2a2a]\" />\n      </div>\n      <button onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className=\"px-6 py-2.5 rounded-xl bg-[#0d0f14] border border-[#1e1e1e] font-mono text-xs text-[#888] hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">{label}</button>\n    </div>\n  );\n}",
+      "contentHash": "a5e19614110c63012f2d298f3779928b4c67c581898fa8a90e96dc2b802e4610",
+      "sizeBytes": 1339
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/warm-tooltip-float.json"
+}

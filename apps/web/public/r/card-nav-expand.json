@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "card-nav-expand",
+  "type": "registry:component",
+  "title": "Card Nav Expand",
+  "description": "Compact navigation card expanding into full modal interface.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "card-nav-expand.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function CardNavExpand({ className = \"\" }: { className?: string }) {\n  const [open, setOpen] = useState<number | null>(0);\n  const sections = [\n    { icon: \"📦\", title: \"Products\", items: [\"Browse Catalog\", \"New Arrivals\", \"Best Sellers\"] },\n    { icon: \"🎨\", title: \"Design\", items: [\"Templates\", \"Assets\", \"Colors\"] },\n    { icon: \"📈\", title: \"Growth\", items: [\"Analytics\", \"Reports\", \"Goals\"] },\n  ];\n  return (\n    <div className={`flex flex-col gap-2 w-full max-w-xs ${className}`}>\n      {sections.map((sec, i) => (\n        <div key={i} style={{ borderRadius: 12, overflow: \"hidden\", border: \"1px solid rgba(255,255,255,0.1)\", background: \"rgba(255,255,255,0.03)\" }}>\n          <button onClick={() => setOpen(open === i ? null : i)} style={{ width: \"100%\", display: \"flex\", alignItems: \"center\", gap: 12, padding: \"14px 16px\", background: \"transparent\", border: \"none\", color: \"#fff\", fontWeight: 600, cursor: \"pointer\", fontSize: 14 }}>\n            <span>{sec.icon}</span>\n            <span style={{ flex: 1, textAlign: \"left\" }}>{sec.title}</span>\n            <span style={{ transform: open === i ? \"rotate(90deg)\" : \"none\", transition: \"transform 0.3s\", display: \"inline-block\", color: \"rgba(255,255,255,0.4)\" }}>›</span>\n          </button>\n          <div style={{ maxHeight: open === i ? 120 : 0, overflow: \"hidden\", transition: \"max-height 0.35s cubic-bezier(0.25,1,0.5,1)\" }}>\n            {sec.items.map((item, j) => (\n              <div key={j} style={{ padding: \"8px 16px 8px 44px\", color: \"rgba(255,255,255,0.6)\", fontSize: 13, borderTop: \"1px solid rgba(255,255,255,0.06)\", cursor: \"pointer\", transition: \"color 0.15s\" }}\n                onMouseEnter={e => (e.currentTarget.style.color = \"#fff\")}\n                onMouseLeave={e => (e.currentTarget.style.color = \"rgba(255,255,255,0.6)\")}>\n                {item}\n              </div>\n            ))}\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "73e8b59f5cec314150f9de7bfaa3fdb1b1811b1405e263080985b2b5f6c59e98",
+      "sizeBytes": 1984
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/card-nav-expand.json"
+}

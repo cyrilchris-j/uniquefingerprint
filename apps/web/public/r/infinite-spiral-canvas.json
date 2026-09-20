@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "infinite-spiral-canvas",
+  "type": "registry:component",
+  "title": "Infinite Spiral Canvas",
+  "description": "Logarithmic spiral gallery zooming infinitely into sub-items.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "infinite-spiral-canvas.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useEffect, useRef } from \"react\";\nexport interface InfiniteSpiralCanvasProps { className?: string; speed?: number; color?: string; }\nexport function InfiniteSpiralCanvas({ className = \"w-full h-full min-h-[320px] bg-[#080a0f] overflow-hidden\", speed = 0.4, color = \"#ba442c\" }: InfiniteSpiralCanvasProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  useEffect(() => {\n    const canvas = canvasRef.current!; const ctx = canvas.getContext(\"2d\")!; let animId: number; let t = 0;\n    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };\n    resize(); window.addEventListener(\"resize\", resize);\n    function draw() {\n      const w = canvas.width, h = canvas.height;\n      ctx.fillStyle = \"rgba(8,10,15,0.12)\"; ctx.fillRect(0, 0, w, h);\n      const cx = w / 2, cy = h / 2, turns = 8, maxR = Math.min(w, h) * 0.48;\n      for (let i = 0; i < 360; i++) {\n        const angle = (i / 360) * Math.PI * 2 * turns + t;\n        const r = (i / 360) * maxR;\n        ctx.beginPath(); ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 1 + 3 * (i / 360), 0, Math.PI * 2);\n        ctx.fillStyle = color + Math.floor((0.3 + 0.7 * (i / 360)) * 255).toString(16).padStart(2, \"0\"); ctx.fill();\n      }\n      t += 0.008 * speed; animId = requestAnimationFrame(draw);\n    }\n    draw();\n    return () => { cancelAnimationFrame(animId); window.removeEventListener(\"resize\", resize); };\n  }, [speed, color]);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}",
+      "contentHash": "b93b92c9ecdab16d82f2fb88954dede913d866cbaa926227ee10fbfb40ec4fb0",
+      "sizeBytes": 1572
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/infinite-spiral-canvas.json"
+}

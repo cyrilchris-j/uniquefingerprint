@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "bubble-menu-radial",
+  "type": "registry:component",
+  "title": "Bubble Menu Radial",
+  "description": "Radial menu blooming into floating action bubbles on trigger.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "bubble-menu-radial.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nconst ACTIONS = [{ icon: \"✦\", label: \"Add\", angle: 270 }, { icon: \"◈\", label: \"Edit\", angle: 330 }, { icon: \"▦\", label: \"Grid\", angle: 30 }, { icon: \"⌘\", label: \"Cmd\", angle: 90 }, { icon: \"〰\", label: \"Anim\", angle: 150 }, { icon: \"⨀\", label: \"More\", angle: 210 }];\nexport interface BubbleMenuRadialProps { className?: string; }\nexport function BubbleMenuRadial({ className = \"\" }: BubbleMenuRadialProps) {\n  const [open, setOpen] = useState(false);\n  const R = 80;\n  return (\n    <div className={`relative flex items-center justify-center h-64 ${className}`}>\n      {ACTIONS.map((action) => {\n        const rad = (action.angle * Math.PI) / 180;\n        return (\n          <button key={action.label}\n            style={{ position: \"absolute\", transform: `translate(${open ? Math.cos(rad) * R : 0}px, ${open ? Math.sin(rad) * R : 0}px)`, opacity: open ? 1 : 0, scale: open ? \"1\" : \"0.5\", transition: \"all 0.4s cubic-bezier(0.16,1,0.3,1)\" }}\n            className=\"w-10 h-10 rounded-full bg-[#12141a] border border-[#2a2a2a] flex items-center justify-center font-mono text-sm text-[#888] hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">\n            {action.icon}\n          </button>\n        );\n      })}\n      <button onClick={() => setOpen((o) => !o)} className=\"relative z-10 w-12 h-12 rounded-full bg-[#ba442c] text-white font-mono text-lg flex items-center justify-center shadow-lg hover:scale-110 transition-transform\">{open ? \"✕\" : \"+\"}</button>\n    </div>\n  );\n}",
+      "contentHash": "fae6dc3912c8cae77f5aacd10c5c73caa424b74ec941cb46add035efe4c47c20",
+      "sizeBytes": 1544
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/bubble-menu-radial.json"
+}

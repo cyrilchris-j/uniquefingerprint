@@ -11,7 +11,7 @@ export function FluidGestureDrawerPull({ className }: FluidGestureDrawerPullProp
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper flex select-none", className)}>
+    <div className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white flex select-none", className)}>
       <div className="flex-1 flex items-center justify-center">
         <button
           type="button"
@@ -24,7 +24,7 @@ export function FluidGestureDrawerPull({ className }: FluidGestureDrawerPullProp
 
       <div
         className={cn(
-          "absolute inset-y-0 right-0 w-64 border-l border-line bg-paper p-5 shadow-2xl transition-transform duration-300 ease-out",
+          "absolute inset-y-0 right-0 w-64 border-l border-white/10 bg-zinc-900/70 p-5 shadow-2xl transition-transform duration-300 ease-out",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >

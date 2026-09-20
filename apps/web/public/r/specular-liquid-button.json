@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "specular-liquid-button",
+  "type": "registry:component",
+  "title": "Specular Liquid Button",
+  "description": "Reflective specular highlight tracking pointer coordinates across a glossy button face.",
+  "category": "buttons",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "specular-liquid-button.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function SpecularLiquidButton({ children = \"Specular\", onClick }: { children?: React.ReactNode; onClick?: () => void }): React.JSX.Element {\n  const [glare, setGlare] = React.useState({ x: 50, y: 50, visible: false });\n  const ref = React.useRef<HTMLButtonElement>(null);\n  const onMove = (e: React.MouseEvent) => {\n    const r = ref.current!.getBoundingClientRect();\n    setGlare({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100, visible: true });\n  };\n  return (\n    <button ref={ref} onClick={onClick} onMouseMove={onMove} onMouseLeave={() => setGlare(g => ({ ...g, visible: false }))}\n      className=\"relative px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase tracking-wider overflow-hidden select-none\">\n      {glare.visible && <span className=\"absolute pointer-events-none rounded-full\" style={{ width: 120, height: 120, top: `${glare.y}%`, left: `${glare.x}%`, transform: \"translate(-50%,-50%)\", background: \"radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%)\" }} />}\n      <span className=\"relative\">{children}</span>\n    </button>\n  );\n}\n",
+      "contentHash": "6840ec5d3fc007b96b1100f18b35b3d8812332cb66b338dcae89e1926eaac2dc",
+      "sizeBytes": 1170
+    }
+  ],
+  "tags": [
+    "button",
+    "specular",
+    "liquid"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/specular-liquid-button.json"
+}

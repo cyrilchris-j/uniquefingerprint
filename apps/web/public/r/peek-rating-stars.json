@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "peek-rating-stars",
+  "type": "registry:component",
+  "title": "Peek Rating Stars",
+  "description": "Rating stars reacting with anticipatory bounce on hover.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "peek-rating-stars.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface PeekRatingStarsProps { className?: string; max?: number; defaultValue?: number; onChange?: (val: number) => void; }\nexport function PeekRatingStars({ className = \"\", max = 5, defaultValue = 0, onChange }: PeekRatingStarsProps) {\n  const [value, setValue] = useState(defaultValue); const [hovered, setHovered] = useState<number | null>(null);\n  const active = hovered ?? value;\n  return (\n    <div className={`flex flex-col items-center gap-3 ${className}`}>\n      <div className=\"flex gap-1\">\n        {Array.from({ length: max }, (_, i) => (\n          <button key={i} onMouseEnter={() => setHovered(i + 1)} onMouseLeave={() => setHovered(null)} onClick={() => { setValue(i + 1); onChange?.(i + 1); }}\n            style={{ transform: active > i ? \"scale(1.2) translateY(-3px)\" : \"scale(1)\", transition: `transform 0.3s cubic-bezier(0.16,1,0.3,1) ${i * 0.04}s`, filter: active > i ? \"drop-shadow(0 0 4px #ba442c)\" : \"none\" }}\n            className=\"text-2xl\">{active > i ? \"★\" : \"☆\"}</button>\n        ))}\n      </div>\n      <span className=\"font-mono text-[9px] text-[#555]\">{value > 0 ? `${value}/${max} · Thanks!` : \"Rate this component\"}</span>\n    </div>\n  );\n}",
+      "contentHash": "2e3b11247362a87a3f3bcacf7012386eafba7b394a0d4892f4b1432059b5cbf5",
+      "sizeBytes": 1233
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/peek-rating-stars.json"
+}

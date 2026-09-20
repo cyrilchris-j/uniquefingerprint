@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "bento-spotlight-hero",
+  "type": "registry:component",
+  "title": "Bento Spotlight Hero",
+  "description": "Multi-cell bento showcase hero with radial cursor spotlight tracking and live metrics.",
+  "category": "heroes",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "bento-spotlight-hero.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function BentoSpotlightHero({ headline = \"Bento Spotlight\", ctaText = \"Get Started\" }: { headline?: string; ctaText?: string }): React.JSX.Element {\n  const [mouse, setMouse] = React.useState({ x: 0, y: 0 });\n  const ref = React.useRef<HTMLDivElement>(null);\n  return (\n    <section ref={ref} className=\"relative w-full min-h-[500px] bg-[#0a0a10] p-6 overflow-hidden\" onMouseMove={e => { const r = ref.current!.getBoundingClientRect(); setMouse({ x: e.clientX-r.left, y: e.clientY-r.top }); }}>\n      <div className=\"absolute pointer-events-none\" style={{ left: mouse.x-150, top: mouse.y-150, width: 300, height: 300, background: \"radial-gradient(circle, rgba(186,68,44,0.15) 0%, transparent 70%)\", borderRadius: \"50%\" }} />\n      <div className=\"grid grid-cols-3 grid-rows-2 gap-3 h-full max-w-3xl mx-auto\">\n        <div className=\"col-span-2 row-span-2 rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col justify-end\" style={{ backdropFilter: \"blur(8px)\" }}>\n          <h1 className=\"font-display font-black text-4xl text-white leading-none mb-3\">{headline}</h1>\n          <button className=\"w-fit px-5 py-2 rounded-xl bg-oxide text-white font-mono text-xs font-bold\">{ctaText}</button>\n        </div>\n        {[\"Motion\", \"Canvas\", \"3D\", \"CSS\"].map(t => (\n          <div key={t} className=\"rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center\" style={{ backdropFilter: \"blur(8px)\" }}>\n            <span className=\"font-mono text-xs text-white/60 font-bold uppercase\">{t}</span>\n          </div>\n        ))}\n      </div>\n    </section>\n  );\n}\n",
+      "contentHash": "66a12c7c9f0ae82fddcfd7a4a8c5258d3dab26f028930ae79cafd5999efcd479",
+      "sizeBytes": 1626
+    }
+  ],
+  "tags": [
+    "hero",
+    "bento",
+    "spotlight"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/bento-spotlight-hero.json"
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "call-chip-pulse",
+  "type": "registry:component",
+  "title": "Call Chip Pulse",
+  "description": "Live audio session chip with pulsating status radar aura.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "call-chip-pulse.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useEffect, useState } from \"react\";\nexport interface CallChipPulseProps { className?: string; name?: string; }\nexport function CallChipPulse({ className = \"\", name = \"Design Review\" }: CallChipPulseProps) {\n  const [duration, setDuration] = useState(0); const [muted, setMuted] = useState(false);\n  useEffect(() => { const id = setInterval(() => setDuration((d) => d + 1), 1000); return () => clearInterval(id); }, []);\n  const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, \"0\")}:${String(s % 60).padStart(2, \"0\")}`;\n  return (\n    <div className={`flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#0d0f14] border border-[#1e1e1e] ${className}`}>\n      <div className=\"relative w-8 h-8\"><div className=\"absolute inset-0 rounded-full bg-[#ba442c] opacity-20 animate-ping\" /><div className=\"absolute inset-1 rounded-full bg-[#ba442c]\" /></div>\n      <div className=\"flex flex-col\"><span className=\"font-bold text-white text-xs\">{name}</span><span className=\"font-mono text-[9px] text-[#ba442c]\">{fmt(duration)} — LIVE</span></div>\n      <div className=\"ml-auto flex gap-2\">\n        <button onClick={() => setMuted((m) => !m)} className=\"w-7 h-7 rounded-full border border-[#2a2a2a] flex items-center justify-center font-mono text-[10px] hover:border-[#ba442c] transition-colors\" style={{ color: muted ? \"#ba442c\" : \"#555\" }}>{muted ? \"🔇\" : \"🎤\"}</button>\n        <button className=\"w-7 h-7 rounded-full bg-[#ba442c22] border border-[#ba442c44] flex items-center justify-center font-mono text-[10px] text-[#ba442c]\">✕</button>\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "f80c878c47f8206d07ae8659293f1460dd9a60c7bec3408df60ce45aebf06780",
+      "sizeBytes": 1604
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/call-chip-pulse.json"
+}

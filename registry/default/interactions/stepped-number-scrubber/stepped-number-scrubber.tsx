@@ -12,8 +12,8 @@ export function SteppedNumberScrubber({ initial = 120, className }: SteppedNumbe
   const [val, setVal] = useState(initial);
 
   return (
-    <div className={cn("inline-flex items-center gap-3 rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">KERNEL TIMEOUT:</span>
+    <div className={cn("inline-flex items-center gap-3 rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black p-6 shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-cyan-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>KERNEL TIMEOUT:</span><span className="opacity-50 ml-auto">[CYBER HUD]</span></div>
       <div className="flex items-center gap-2">
         <button
           type="button"

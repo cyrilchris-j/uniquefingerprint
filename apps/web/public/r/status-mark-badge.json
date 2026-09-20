@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "status-mark-badge",
+  "type": "registry:component",
+  "title": "Status Mark Badge",
+  "description": "Micro status badge transitioning through morphing geometry states.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "status-mark-badge.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function StatusMarkBadge({ className = \"\" }: { className?: string }) {\n  const statuses = [\n    { label: \"Active\", color: \"#10b981\", shape: \"circle\", icon: \"●\" },\n    { label: \"Pending\", color: \"#f59e0b\", shape: \"square\", icon: \"◼\" },\n    { label: \"Offline\", color: \"#6b7280\", shape: \"line\", icon: \"—\" },\n    { label: \"Error\", color: \"#ef4444\", shape: \"x\", icon: \"✕\" },\n    { label: \"Draft\", color: \"#8b5cf6\", shape: \"diamond\", icon: \"◆\" },\n  ];\n  const [current, setCurrent] = useState(0);\n  const s = statuses[current];\n  return (\n    <div className={`flex flex-col items-center gap-6 ${className}`}>\n      <div style={{ display: \"flex\", alignItems: \"center\", gap: 10, padding: \"10px 20px\", borderRadius: 12, background: \"rgba(255,255,255,0.05)\", border: `1px solid ${s.color}44` }}>\n        <span style={{ fontSize: 14, color: s.color, transition: \"color 0.4s\", fontWeight: 700 }}>{s.icon}</span>\n        <span style={{ color: \"#fff\", fontSize: 14 }}>System Status</span>\n        <span style={{ padding: \"2px 10px\", borderRadius: 20, background: `${s.color}22`, color: s.color, fontSize: 11, fontWeight: 700, border: `1px solid ${s.color}44`, transition: \"all 0.4s\" }}>{s.label}</span>\n      </div>\n      <div style={{ display: \"flex\", gap: 8 }}>\n        {statuses.map((st, i) => (\n          <button key={i} onClick={() => setCurrent(i)} style={{ width: 32, height: 32, borderRadius: 8, background: i === current ? `${st.color}33` : \"rgba(255,255,255,0.05)\", border: `1px solid ${i === current ? st.color : \"rgba(255,255,255,0.1)\"}`, color: st.color, cursor: \"pointer\", fontSize: 12, transition: \"all 0.25s\" }}>{st.icon}</button>\n        ))}\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "e0b7aa33425f521eed48ec4cc2b3947979d0ce3ac551dc76a3f373ee66ec47a2",
+      "sizeBytes": 1734
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/status-mark-badge.json"
+}

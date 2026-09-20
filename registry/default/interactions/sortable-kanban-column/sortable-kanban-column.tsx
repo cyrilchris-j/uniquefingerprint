@@ -19,7 +19,7 @@ export function SortableKanbanColumn({ className }: SortableKanbanColumnProps) {
   };
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
       <div className="flex justify-between items-center pb-2 border-b border-line mb-3 font-mono text-xs font-bold text-ink">
         <span>IN PROGRESS ({tasks.length})</span>
       </div>

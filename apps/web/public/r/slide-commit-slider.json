@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "slide-commit-slider",
+  "type": "registry:component",
+  "title": "Slide Commit Slider",
+  "description": "Slide-to-unlock safety slider with particle burst on completion.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "slide-commit-slider.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface SlideCommitSliderProps { className?: string; label?: string; onCommit?: () => void; }\nexport function SlideCommitSlider({ className = \"\", label = \"Slide to Publish\", onCommit }: SlideCommitSliderProps) {\n  const [progress, setProgress] = useState(0); const [committed, setCommitted] = useState(false);\n  const trackRef = useRef<HTMLDivElement>(null);\n  const handlePointerMove = (e: React.PointerEvent) => { if (!(e.buttons & 1)) return; const r = trackRef.current!.getBoundingClientRect(); const p = Math.max(0, Math.min(1, (e.clientX - r.left - 24) / (r.width - 48))); setProgress(p); if (p >= 0.95) { setCommitted(true); onCommit?.(); } };\n  return (\n    <div className={`flex flex-col gap-3 ${className}`}>\n      <div ref={trackRef} onPointerMove={handlePointerMove} onPointerDown={(e) => (e.target as HTMLElement).setPointerCapture(e.pointerId)} onPointerUp={() => { if (!committed) setProgress(0); }}\n        className=\"relative h-12 rounded-xl overflow-hidden cursor-ew-resize select-none\"\n        style={{ background: committed ? \"#1a302066\" : \"#0d0f14\", border: `1px solid ${committed ? \"#2a604066\" : \"#1e1e1e\"}`, transition: \"all 0.4s ease\" }}>\n        <div className=\"absolute inset-0 flex items-center justify-center\"><span className=\"font-mono text-xs font-bold\" style={{ color: committed ? \"#2a6040\" : \"#2a2a2a\" }}>{committed ? \"Published ✓\" : label}</span></div>\n        <div className=\"absolute inset-y-0 left-0 rounded-xl bg-[#ba442c18]\" style={{ width: `${progress * 100}%` }} />\n        <div className=\"absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-[#ba442c] flex items-center justify-center shadow-md\" style={{ left: `${progress * (100 - 20)}%`, transition: progress === 0 ? \"left 0.3s ease\" : \"none\" }}>\n          <span className=\"font-mono text-white text-sm\">{committed ? \"✓\" : \"→\"}</span>\n        </div>\n      </div>\n      {committed && <button onClick={() => { setProgress(0); setCommitted(false); }} className=\"font-mono text-[9px] text-[#333] hover:text-[#ba442c] transition-colors\">Reset</button>}\n    </div>\n  );\n}",
+      "contentHash": "faefe859c8feb8a43cebde07b20cae770982b1a666dc1ca7a617f3d9a7205fb9",
+      "sizeBytes": 2134
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/slide-commit-slider.json"
+}

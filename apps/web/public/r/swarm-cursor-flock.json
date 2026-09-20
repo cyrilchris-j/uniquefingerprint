@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "swarm-cursor-flock",
+  "type": "registry:component",
+  "title": "Swarm Cursor Flock",
+  "description": "Boids flocking algorithm following pointer velocity with spatial cohesion.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "swarm-cursor-flock.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function SwarmCursorFlock({ className = \"w-full h-48 relative overflow-hidden bg-[#08090f] cursor-crosshair\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  const mouseRef = React.useRef({ x: 200, y: 96 });\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement!.clientWidth);\n    let h = (canvas.height = canvas.parentElement!.clientHeight);\n    const boids = Array.from({ length: 30 }, () => ({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2 }));\n    let animId: number;\n    const draw = () => {\n      ctx.fillStyle = \"rgba(8,9,15,0.2)\"; ctx.fillRect(0,0,w,h);\n      const { x: mx, y: my } = mouseRef.current;\n      for (const b of boids) {\n        const dx = mx - b.x, dy = my - b.y, d = Math.hypot(dx,dy) + 0.01;\n        b.vx += dx / d * 0.4; b.vy += dy / d * 0.4;\n        const spd = Math.hypot(b.vx,b.vy); if (spd>2.5) { b.vx=b.vx/spd*2.5; b.vy=b.vy/spd*2.5; }\n        b.x += b.vx; b.y += b.vy;\n        if (b.x<0) b.x=w; if (b.x>w) b.x=0; if (b.y<0) b.y=h; if (b.y>h) b.y=0;\n        ctx.fillStyle = \"rgba(186,68,44,0.85)\"; ctx.beginPath(); ctx.arc(b.x,b.y,2.5,0,Math.PI*2); ctx.fill();\n      }\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    const onMove = (e: MouseEvent) => { const r = canvas.getBoundingClientRect(); mouseRef.current = { x: e.clientX-r.left, y: e.clientY-r.top }; };\n    canvas.addEventListener(\"mousemove\", onMove);\n    return () => { cancelAnimationFrame(animId); canvas.removeEventListener(\"mousemove\", onMove); };\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
+      "contentHash": "0691be255e8c4a88543aaeba195e61bad7bc78206954819e15b6ecd6e22aed4a",
+      "sizeBytes": 1825
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/swarm-cursor-flock.json"
+}

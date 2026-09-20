@@ -12,7 +12,7 @@ export function KeyboardCommandPaletteMenu({ className }: KeyboardCommandPalette
   const items = ["git commit --amend", "pnpm test:e2e", "docker compose up", "cargo build --release"];
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-4 font-mono text-xs shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md shadow-xl text-zinc-900 dark:text-zinc-100 p-4 font-mono text-xs shadow-sm", className)}>
       <span className="text-ink/60 uppercase mb-3 block">RUN RECENT RECIPE</span>
       <div className="space-y-1">
         {items.map((item, i) => (

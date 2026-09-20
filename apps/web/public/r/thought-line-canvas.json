@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "thought-line-canvas",
+  "type": "registry:component",
+  "title": "Thought Line Canvas",
+  "description": "Organic generative pencil stroke connecting active thought nodes.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "thought-line-canvas.tsx",
+      "type": "registry:component",
+      "content": "import { useEffect, useRef, useState } from \"react\";\nexport default function ThoughtLineCanvas({ className = \"\" }: { className?: string }) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  const [nodes] = useState(() => Array.from({ length: 8 }, (_, i) => ({ x: 50 + Math.random() * 300, y: 40 + Math.random() * 160, label: [\"Idea\",\"Flow\",\"Design\",\"Build\",\"Test\",\"Deploy\",\"Learn\",\"Iterate\"][i], active: i === 0 })));\n  const [active, setActive] = useState(0);\n  useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    ctx.clearRect(0, 0, canvas.width, canvas.height);\n    nodes.forEach((n, i) => {\n      nodes.forEach((m, j) => {\n        if (j > i && Math.hypot(n.x - m.x, n.y - m.y) < 120) {\n          ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y);\n          ctx.strokeStyle = i === active || j === active ? \"rgba(139,92,246,0.4)\" : \"rgba(255,255,255,0.06)\";\n          ctx.lineWidth = i === active || j === active ? 1.5 : 0.5;\n          ctx.stroke();\n        }\n      });\n      const isActive = i === active;\n      ctx.beginPath(); ctx.arc(n.x, n.y, isActive ? 10 : 6, 0, Math.PI * 2);\n      ctx.fillStyle = isActive ? \"#8b5cf6\" : \"rgba(255,255,255,0.2)\";\n      ctx.fill();\n      if (isActive) { ctx.beginPath(); ctx.arc(n.x, n.y, 16, 0, Math.PI * 2); ctx.strokeStyle = \"rgba(139,92,246,0.3)\"; ctx.lineWidth = 2; ctx.stroke(); }\n      ctx.fillStyle = \"#fff\"; ctx.font = \"10px sans-serif\"; ctx.textAlign = \"center\";\n      ctx.fillText(n.label, n.x, n.y + 22);\n    });\n  }, [active, nodes]);\n  return (\n    <div className={`${className}`}>\n      <canvas ref={canvasRef} width={400} height={220} style={{ width: \"100%\", height: 220, cursor: \"pointer\", borderRadius: 12, background: \"rgba(0,0,0,0.3)\" }}\n        onClick={e => { const r = canvasRef.current!.getBoundingClientRect(); const mx = (e.clientX - r.left) * (400/r.width); const my = (e.clientY - r.top) * (220/r.height); let closest = 0, dist = Infinity; nodes.forEach((n, i) => { const d = Math.hypot(n.x - mx, n.y - my); if (d < dist) { dist = d; closest = i; } }); setActive(closest); }} />\n    </div>\n  );\n}",
+      "contentHash": "c1cee358a39fee58a33921a07a04c0d3d0f10afdd21496fe2afd2c7aea1ba23d",
+      "sizeBytes": 2134
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/thought-line-canvas.json"
+}

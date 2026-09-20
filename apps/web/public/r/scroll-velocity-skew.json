@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "scroll-velocity-skew",
+  "type": "registry:component",
+  "title": "Scroll Velocity Skew",
+  "description": "Kinetic text skewing and stretching proportionally to page scroll velocity.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "scroll-velocity-skew.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function ScrollVelocitySkew({ text = \"Velocity Skew\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [skew, setSkew] = React.useState(0);\n  const lastY = React.useRef(0);\n  React.useEffect(() => {\n    const onScroll = () => {\n      const vel = window.scrollY - lastY.current;\n      lastY.current = window.scrollY;\n      setSkew(Math.max(-20, Math.min(20, vel * 0.5)));\n    };\n    window.addEventListener(\"scroll\", onScroll, { passive: true });\n    return () => window.removeEventListener(\"scroll\", onScroll);\n  }, []);\n  React.useEffect(() => { const id = setInterval(() => setSkew(p => p * 0.9), 16); return () => clearInterval(id); }, []);\n  return (\n    <div className={`select-none overflow-hidden ${className}`}>\n      <span className=\"font-display font-black text-5xl text-ink inline-block\" style={{ transform: `skewX(${skew}deg)`, transition: \"transform 0.05s linear\" }}>\n        {text}\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "7b6ed105419e190fa192fe68e846fde661ac507e5161dafd410ab7fcc4dfcc2c",
+      "sizeBytes": 1005
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/scroll-velocity-skew.json"
+}

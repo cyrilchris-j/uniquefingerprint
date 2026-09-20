@@ -17,9 +17,9 @@ export function DragDropKanbanBoard({ className }: DragDropKanbanBoardProps) {
   };
 
   return (
-    <div className={cn("grid grid-cols-2 gap-3 w-full max-w-md rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("grid grid-cols-2 gap-3 w-full max-w-md rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#181512] via-[#100d0a] to-[#080605] p-6 shadow-[0_0_25px_rgba(245,158,11,0.15)] text-amber-100 select-none", className)}>
       <div className="space-y-2">
-        <span className="font-mono text-[10px] text-ink/50 uppercase">BACKLOG</span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-amber-500 flex items-center gap-1.5">BACKLOG</span>
         {todo.map((item) => (
           <div
             key={item}
@@ -34,7 +34,7 @@ export function DragDropKanbanBoard({ className }: DragDropKanbanBoardProps) {
       <div className="space-y-2 border-l border-line pl-3">
         <span className="font-mono text-[10px] text-emerald-600 font-bold uppercase">COMPLETED</span>
         {done.map((item) => (
-          <div key={item} className="rounded border border-line bg-paper p-2 font-mono text-xs text-ink/60">
+          <div key={item} className="rounded border border-white/10 bg-zinc-900/70 p-2 font-mono text-xs text-ink/60">
             ✓ {item}
           </div>
         ))}

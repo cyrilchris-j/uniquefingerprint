@@ -15,9 +15,9 @@
     {
       "path": "hover-glitch-text-reveal.tsx",
       "type": "registry:interaction",
-      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverGlitchTextRevealProps {\n  text?: string;\n  className?: string;\n}\n\nexport function HoverGlitchTextReveal({ text = \"CLASSIFIED_KERNEL\", className }: HoverGlitchTextRevealProps) {\n  const [glitching, setGlitching] = useState(false);\n\n  return (\n    <div\n      onPointerEnter={() => setGlitching(true)}\n      onPointerLeave={() => setGlitching(false)}\n      className={cn(\"inline-flex items-center gap-2 rounded-xl border border-line bg-paper p-6 font-mono text-sm font-bold text-ink shadow-sm cursor-pointer\", className)}\n    >\n      <span>&gt;</span>\n      <span>{glitching ? \"X%#@9_!§K902\" : text}</span>\n    </div>\n  );\n}\n\nexport default HoverGlitchTextReveal;\n",
-      "contentHash": "e663250bf04ab300ddd37db4a356a72a79d98a5301b5943ccb8deee52853b3ed",
-      "sizeBytes": 765
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface HoverGlitchTextRevealProps {\n  text?: string;\n  className?: string;\n}\n\nexport function HoverGlitchTextReveal({ text = \"CLASSIFIED_KERNEL\", className }: HoverGlitchTextRevealProps) {\n  const [glitching, setGlitching] = useState(false);\n\n  return (\n    <div\n      onPointerEnter={() => setGlitching(true)}\n      onPointerLeave={() => setGlitching(false)}\n      className={cn(\"inline-flex items-center gap-2 rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#180d11] via-[#10080b] to-black shadow-[0_0_25px_rgba(244,63,94,0.15)] text-rose-100 p-6 font-mono text-sm font-bold text-ink shadow-sm cursor-pointer\", className)}\n    >\n      <span>&gt;</span>\n      <span>{glitching ? \"X%#@9_!§K902\" : text}</span>\n    </div>\n  );\n}\n\nexport default HoverGlitchTextReveal;\n",
+      "contentHash": "9ef59ea28664197c790442b6f94bbcb513da31b36c3d7303935ac1bc24a30441",
+      "sizeBytes": 872
     },
     {
       "path": "demo.tsx",

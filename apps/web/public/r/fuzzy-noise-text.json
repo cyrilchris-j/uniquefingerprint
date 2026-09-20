@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "fuzzy-noise-text",
+  "type": "registry:component",
+  "title": "Fuzzy Noise Text",
+  "description": "Perlin noise film grain displacement on typographic silhouettes.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "fuzzy-noise-text.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface FuzzyNoiseTextProps {\n  text?: string;\n  className?: string;\n  delayMs?: number;\n}\n\n/**\n * Fuzzy Noise Text\n * Character-by-character reveal with spring-loaded entrance per glyph.\n */\nexport function FuzzyNoiseText({\n  text = \"Fuzzy Noise Text\",\n  className = \"\",\n  delayMs = 50,\n}: FuzzyNoiseTextProps): React.JSX.Element {\n  const [chars, setChars] = React.useState(0);\n  const [loop, setLoop] = React.useState(0);\n\n  React.useEffect(() => {\n    let i = 0;\n    const id = setInterval(() => {\n      i++;\n      setChars(i);\n      if (i >= text.length) {\n        clearInterval(id);\n        setTimeout(() => { setChars(0); setLoop(l => l + 1); }, 2000);\n      }\n    }, delayMs);\n    return () => clearInterval(id);\n  }, [text, delayMs, loop]);\n\n  return (\n    <div className={`select-none font-display font-bold ${className}`}>\n      <span className=\"text-3xl text-ink tracking-tight\">\n        {text.split(\"\").map((c, i) => (\n          <span\n            key={i}\n            style={{\n              display: \"inline-block\",\n              opacity: i < chars ? 1 : 0,\n              transform: i < chars ? \"translateY(0) scale(1)\" : \"translateY(12px) scale(0.8)\",\n              transition: `opacity 0.25s ${i * 0.02}s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.02}s`,\n            }}\n          >\n            {c === \" \" ? \" \" : c}\n          </span>\n        ))}\n      </span>\n      <span className=\"inline-block w-0.5 h-7 bg-oxide align-middle ml-1 animate-pulse\" />\n    </div>\n  );\n}\n",
+      "contentHash": "91a3bce489837a4d9177b54efdc8dcdc8a3dc6cf3e582ae920925185ae88a2cb",
+      "sizeBytes": 1538
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/fuzzy-noise-text.json"
+}

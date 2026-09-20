@@ -12,10 +12,10 @@ export function GestureSwipeCarousel({ className }: GestureSwipeCarouselProps) {
   const slides = ["Slide Alpha", "Slide Beta", "Slide Gamma"];
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black p-6 shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 select-none", className)}>
       <div className="relative h-36 w-64 overflow-hidden rounded-lg bg-line/10 flex items-center justify-center">
         <div className="text-center">
-          <span className="font-mono text-[10px] text-ink/50 uppercase">INDEX {index + 1} OF {slides.length}</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-violet-400 flex items-center gap-1.5">INDEX {index + 1} OF {slides.length}</span>
           <h4 className="font-display text-lg font-bold text-ink">{slides[index]}</h4>
         </div>
       </div>

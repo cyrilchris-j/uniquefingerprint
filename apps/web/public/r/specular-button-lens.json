@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "specular-button-lens",
+  "type": "registry:component",
+  "title": "Specular Button Lens",
+  "description": "Fresnel lens reflection button with physical light falloff.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "specular-button-lens.tsx",
+      "type": "registry:component",
+      "content": "import { useState, useRef } from \"react\";\nexport default function SpecularButtonLens({ className = \"\" }: { className?: string }) {\n  const [pos, setPos] = useState({ x: 50, y: 50 });\n  const ref = useRef<HTMLButtonElement>(null);\n  const move = (e: React.MouseEvent) => {\n    const r = ref.current!.getBoundingClientRect();\n    setPos({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 });\n  };\n  return (\n    <div className={`flex gap-6 flex-wrap justify-center ${className}`}>\n      {[\"Primary\", \"Secondary\", \"Danger\"].map((label, i) => {\n        const hues = [240, 280, 0];\n        return (\n          <button key={i} ref={i === 0 ? ref : undefined} onMouseMove={i === 0 ? move : undefined}\n            style={{ position: \"relative\", padding: \"14px 32px\", borderRadius: 12, border: \"1px solid rgba(255,255,255,0.2)\", background: `hsl(${hues[i]},70%,20%)`, color: \"#fff\", fontWeight: 600, fontSize: 15, cursor: \"pointer\", overflow: \"hidden\", transition: \"transform 0.15s\" }}\n            onMouseEnter={e => (e.currentTarget.style.transform = \"scale(1.04)\")}\n            onMouseLeave={e => (e.currentTarget.style.transform = \"scale(1)\")}>\n            <div style={{ position: \"absolute\", inset: 0, background: `radial-gradient(circle at ${i === 0 ? pos.x : 50}% ${i === 0 ? pos.y : 30}%, rgba(255,255,255,0.35) 0%, transparent 60%)`, pointerEvents: \"none\" }} />\n            {label}\n          </button>\n        );\n      })}\n    </div>\n  );\n}",
+      "contentHash": "51d224eff4191ec09f576acd6635439a907dff454da81391bcc9dc4b580d181a",
+      "sizeBytes": 1474
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/specular-button-lens.json"
+}

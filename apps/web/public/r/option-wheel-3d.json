@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "option-wheel-3d",
+  "type": "registry:component",
+  "title": "Option Wheel 3D",
+  "description": "Tactile mechanical selection wheel with inertia snapping.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "option-wheel-3d.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function OptionWheel3d({ className = \"\" }: { className?: string }) {\n  const options = [\"Design\", \"Code\", \"Deploy\", \"Monitor\", \"Scale\", \"Iterate\", \"Ship\", \"Review\"];\n  const [selected, setSelected] = useState(0);\n  const count = options.length;\n  const angle = 360 / count;\n  return (\n    <div className={`flex flex-col items-center gap-4 ${className}`}>\n      <div style={{ position: \"relative\", width: 220, height: 220, perspective: 600 }}>\n        <div style={{ position: \"relative\", width: \"100%\", height: \"100%\", transformStyle: \"preserve-3d\", transform: `rotateX(20deg) rotateY(${-selected * angle}deg)`, transition: \"transform 0.5s cubic-bezier(0.34,1.56,0.64,1)\" }}>\n          {options.map((opt, i) => (\n            <div key={i} style={{\n              position: \"absolute\", width: 80, height: 36, top: \"50%\", left: \"50%\",\n              marginTop: -18, marginLeft: -40,\n              transform: `rotateY(${i * angle}deg) translateZ(90px)`,\n              background: i === selected ? \"rgba(139,92,246,0.8)\" : \"rgba(255,255,255,0.08)\",\n              border: `1px solid ${i === selected ? \"#8b5cf6\" : \"rgba(255,255,255,0.15)\"}`,\n              borderRadius: 8, display: \"flex\", alignItems: \"center\", justifyContent: \"center\",\n              color: i === selected ? \"#fff\" : \"rgba(255,255,255,0.5)\",\n              fontWeight: 600, fontSize: 12, cursor: \"pointer\",\n              transition: \"all 0.3s\",\n            }} onClick={() => setSelected(i)}>{opt}</div>\n          ))}\n        </div>\n      </div>\n      <div style={{ display: \"flex\", gap: 12 }}>\n        <button onClick={() => setSelected((selected - 1 + count) % count)} style={{ padding: \"8px 20px\", borderRadius: 8, background: \"rgba(255,255,255,0.1)\", border: \"1px solid rgba(255,255,255,0.2)\", color: \"#fff\", cursor: \"pointer\" }}>◀</button>\n        <button onClick={() => setSelected((selected + 1) % count)} style={{ padding: \"8px 20px\", borderRadius: 8, background: \"rgba(255,255,255,0.1)\", border: \"1px solid rgba(255,255,255,0.2)\", color: \"#fff\", cursor: \"pointer\" }}>▶</button>\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "a95c0ebe188358eaf800bb9e79f5aa148eaf75bf1417ac8ffb835b48f073de08",
+      "sizeBytes": 2127
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/option-wheel-3d.json"
+}

@@ -22,7 +22,7 @@ export function RadialContextMenu({ className }: RadialContextMenuProps) {
       onContextMenu={handleContextMenu}
       onClick={() => setMenu(null)}
       className={cn(
-        "relative h-72 w-full max-w-md select-none rounded-xl border border-line bg-paper p-6",
+        "relative h-72 w-full max-w-md select-none rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md shadow-xl text-zinc-900 dark:text-zinc-100 p-6",
         className
       )}
     >

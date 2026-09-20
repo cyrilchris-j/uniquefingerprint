@@ -1,25 +1,29 @@
 {
   "name": "uniquefingerprint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "UniqueFingerprint CLI — install open-code UI components from the registry",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/index.js",
   "bin": {
-    "uniquefingerprint": "./src/index.ts",
-    "openui": "./src/index.ts"
+    "uniquefingerprint": "./dist/index.js",
+    "openui": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json"
+    "build": "tsup --config tsup.config.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
   },
-  "dependencies": {
+  "devDependencies": {
     "@openui/registry-client": "workspace:*",
     "@openui/registry-schema": "workspace:*",
     "@openui/types": "workspace:*",
-    "@openui/utils": "workspace:*"
-  },
-  "devDependencies": {
+    "@openui/utils": "workspace:*",
     "@types/node": "^22.10.2",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.2"
   }
 }

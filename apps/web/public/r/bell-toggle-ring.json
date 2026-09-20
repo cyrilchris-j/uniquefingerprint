@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "bell-toggle-ring",
+  "type": "registry:component",
+  "title": "Bell Toggle Ring",
+  "description": "Notification bell swinging on spring hinge when activated.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "bell-toggle-ring.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface BellToggleRingProps { className?: string; }\nexport function BellToggleRing({ className = \"\" }: BellToggleRingProps) {\n  const [on, setOn] = useState(false); const [ringing, setRinging] = useState(false);\n  const toggle = () => { setOn((prev) => !prev); setRinging(true); setTimeout(() => setRinging(false), 600); };\n  return (\n    <div className={`flex flex-col items-center gap-4 ${className}`}>\n      <button onClick={toggle} className=\"relative w-20 h-20 flex items-center justify-center\">\n        <span className=\"text-4xl select-none\" style={{ display: \"block\", animation: ringing ? \"ring 0.5s cubic-bezier(0.16,1,0.3,1)\" : \"none\", filter: on ? \"drop-shadow(0 0 8px #ba442c)\" : \"none\", color: on ? \"#ba442c\" : \"#333\", transition: \"color 0.3s, filter 0.3s\" }}>🔔</span>\n        {on && <span className=\"absolute -top-1 -right-1 w-4 h-4 bg-[#ba442c] rounded-full flex items-center justify-center font-mono text-[8px] text-white font-bold animate-pulse\">3</span>}\n      </button>\n      <style>{`@keyframes ring { 0%{transform:rotate(0)} 20%{transform:rotate(20deg)} 40%{transform:rotate(-15deg)} 60%{transform:rotate(10deg)} 80%{transform:rotate(-5deg)} 100%{transform:rotate(0)} }`}</style>\n      <span className=\"font-mono text-[10px]\" style={{ color: on ? \"#ba442c\" : \"#444\" }}>{on ? \"Notifications ON\" : \"Notifications OFF\"}</span>\n    </div>\n  );\n}",
+      "contentHash": "54d9803010b1a4a67de2679b18ab35d31b33e5d5017516b494b832759a2736b2",
+      "sizeBytes": 1421
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/bell-toggle-ring.json"
+}

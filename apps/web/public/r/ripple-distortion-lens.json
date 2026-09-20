@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "ripple-distortion-lens",
+  "type": "registry:component",
+  "title": "Ripple Distortion Lens",
+  "description": "Procedural wave ripple distortion emitting outward from click coordinates.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "ripple-distortion-lens.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function RippleDistortionLens({ className = \"w-full h-48 relative overflow-hidden bg-[#0a0d14] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [ripples, setRipples] = React.useState<{ x: number; y: number; id: number }[]>([]);\n  const idRef = React.useRef(0);\n  const addRipple = (e: React.MouseEvent<HTMLDivElement>) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    const rp = { x: e.clientX - r.left, y: e.clientY - r.top, id: idRef.current++ };\n    setRipples(rs => [...rs, rp]);\n    setTimeout(() => setRipples(rs => rs.filter(r => r.id !== rp.id)), 800);\n  };\n  return (\n    <div className={className} onClick={addRipple}>\n      <span className=\"absolute inset-0 flex items-center justify-center font-mono text-xs text-white/30\">Click to ripple</span>\n      {ripples.map(rp => (\n        <div key={rp.id} className=\"absolute rounded-full border border-oxide/60 pointer-events-none\"\n          style={{ left: rp.x, top: rp.y, transform: \"translate(-50%,-50%)\", animation: \"rippleOut 0.8s ease-out forwards\" }} />\n      ))}\n      <style>{`@keyframes rippleOut { from { width:0;height:0;opacity:1; } to { width:200px;height:200px;opacity:0; } }`}</style>\n    </div>\n  );\n}\n",
+      "contentHash": "4ef019ba288c85e058b2df88a7741b28e943a45fbbc271f22a37f222618f25b8",
+      "sizeBytes": 1252
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/ripple-distortion-lens.json"
+}

@@ -1,10 +1,18 @@
-import { Download } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Copy,
+  Download,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
-import { Button, EmptyState, Skeleton } from "@openui/ui";
+import { Button, EmptyState, SegmentedControl, Skeleton } from "@openui/ui";
+import { cn } from "@openui/utils";
 
-import { CodeBlock } from "../components/CodeBlock.js";
 import { usePWA } from "../components/PWAInstall.js";
 import { ResourceTile } from "../components/ResourceTile.js";
 import { SectionHeader } from "../components/SectionHeader.js";
@@ -17,6 +25,78 @@ import {
   ScrollReveal,
   WordReveal,
 } from "../visual-engine/index.js";
+
+function CommandStep({
+  step,
+  title,
+  command,
+}: {
+  step: string;
+  title: string;
+  command: string;
+}): React.JSX.Element {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(command);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // fallback
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-2.5 rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-mono text-paper font-semibold">
+            {step}
+          </span>
+          <span className="text-xs sm:text-[13px] font-medium text-ink tracking-tight">
+            {title}
+          </span>
+        </div>
+        <span className="font-mono text-[10px] text-graphite/60 uppercase tracking-wider">
+          Terminal
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between gap-3 rounded-lg border border-line/25 bg-[#0e0e11] px-3.5 py-2.5 text-[#f4f4f5] shadow-inner">
+        <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar font-mono text-xs sm:text-[13px]">
+          <span className="text-moss font-bold select-none">$</span>
+          <span className="whitespace-nowrap text-white/90">{command}</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => void handleCopy()}
+          className={cn(
+            "shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] transition-all duration-150 border cursor-pointer",
+            copied
+              ? "bg-moss/20 border-moss/40 text-moss"
+              : "bg-white/10 hover:bg-white/15 border-white/10 text-white/80 hover:text-white",
+          )}
+          title="Copy command"
+        >
+          {copied ? (
+            <>
+              <Check className="h-3 w-3" />
+              <span>Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy className="h-3 w-3" />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * The home page.
@@ -35,7 +115,7 @@ import {
  */
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
-  const { isInstalled, triggerInstall } = usePWA();
+  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx">("pnpm");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -184,58 +264,111 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* The thesis, demonstrated with a real resource                    */}
+      {/* CLI & Direct Code Usage                                          */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="01 — What a resource contains"
-          title="A resource is code, a demonstration, and a written reason."
-          description="Every item in this registry ships four things: the source you will own, a runnable demo, install metadata, and a design.md that names its genre, macrostructure, density, shape language and motion. That last file is what a model reads before it writes anything — and what stops the next generated page from looking like the last one."
+          eyebrow="01 — Get Started"
+          title="Add to your project in one command."
+          description="Zero configuration and zero runtime lock-in. The CLI configures path aliases, verifies integrity, and places clean TypeScript source directly into your codebase."
         />
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <CodeBlock
-            className="min-w-0"
-            caption="registry/default/components/magnetic-button/design.md"
-            language="markdown"
-            maxLines={22}
-            code={`# Design System
+        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14 items-start">
+          {/* Left Column: Clean, Separate Commands */}
+          <div className="flex flex-col gap-5 min-w-0">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <SegmentedControl
+                label="Package manager"
+                hideLabel
+                size="sm"
+                value={usageMethod}
+                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx")}
+                options={[
+                  { value: "pnpm", label: "pnpm" },
+                  { value: "npx", label: "npx" },
+                ]}
+              />
+              <span className="font-mono text-[11px] tracking-wider text-graphite/70">
+                automated registry CLI
+              </span>
+            </div>
 
-Genre: editorial
-Macrostructure: asymmetric
-Density: medium
-Shape: sharp
-Motion: subtle
+            <div className="flex flex-col gap-3.5">
+              <CommandStep
+                step="1"
+                title="Install any component directly"
+                command={
+                  usageMethod === "pnpm"
+                    ? "pnpm dlx uniquefingerprint add magnetic-button"
+                    : "npx uniquefingerprint add magnetic-button"
+                }
+              />
+              <CommandStep
+                step="2"
+                title="Install multiple components at once"
+                command={
+                  usageMethod === "pnpm"
+                    ? "pnpm dlx uniquefingerprint add magnetic-button liquid-chrome-fluid"
+                    : "npx uniquefingerprint add magnetic-button liquid-chrome-fluid"
+                }
+              />
+            </div>
+          </div>
 
-## Rules
+          {/* Right Column: Essential Content Only */}
+          <div className="flex flex-col justify-between gap-6 min-w-0 rounded-2xl border border-line/35 bg-paper/90 p-6 sm:p-8 shadow-xs">
+            <div>
+              <p className="font-display text-xl sm:text-2xl tracking-tight text-ink">
+                Complete code ownership.
+              </p>
+              <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite">
+                Components are copied directly into your repository as pure TypeScript and Tailwind CSS with zero runtime dependencies.
+              </p>
+            </div>
 
-- The magnet must be bounded. An unbounded target feels broken.
-- Never move the hit area; transform only.
-- Keyboard focus behaves exactly like a plain button.
-- Disable magnetisation under prefers-reduced-motion.
-- The accent colour is the only signal; no shadows.`}
-          />
+            <div className="flex flex-col gap-4 border-t border-line/20 pt-5">
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20 mt-0.5">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    Zero Runtime Lock-in
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Code lives in your repository. Customize, style, or refactor with total freedom.
+                  </p>
+                </div>
+              </div>
 
-          <div className="flex flex-col gap-6 min-w-0">
-            <p className="prose-measure text-[0.95rem] leading-relaxed text-graphite">
-              The registry is not a package index. A package tells you what it exports; a registry
-              resource tells you what it <em>is</em>, in the vocabulary of design — so an
-              agent, a teammate or a future you can reuse the intent, not just the implementation.
-            </p>
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 mt-0.5">
+                  <Zap className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    Auto Dependency Resolution
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Installs peer packages, sets up `@/lib/cn`, and checks for conflicts automatically.
+                  </p>
+                </div>
+              </div>
 
-            <ul className="flex flex-col">
-              {[
-                ["Source you own", "Installed into your project. No runtime dependency on us."],
-                ["A runnable demo", "Rendered in an isolated sandbox, never in this origin."],
-                ["Install metadata", "npm dependencies, registry dependencies, licence, integrity."],
-                ["design.md", "The fingerprint: genre, structure, density, shape, motion."],
-              ].map(([title, body]) => (
-                <li key={title} className="border-t border-line py-4">
-                  <p className="font-display text-step-1 tracking-tight text-ink">{title}</p>
-                  <p className="mt-1 text-[0.88rem] leading-relaxed text-graphite">{body}</p>
-                </li>
-              ))}
-            </ul>
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 border border-sky-500/20 mt-0.5">
+                  <Sparkles className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    No Black-Box NPM Packages
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Accessible primitives, motion physics, and clean token contracts you can inspect.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -266,7 +399,7 @@ Motion: subtle
                 bordered={false}
                 eyebrow="Nothing published"
                 title="No resources declare a full design fingerprint yet."
-                description="Run pnpm build:registry to publish the first-party set, or submit a resource with a design.md."
+                description="Run pnpm build:registry to publish the first-party set."
               />
             </div>
           ) : (
@@ -354,32 +487,6 @@ Motion: subtle
       </section>
 
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Closing                                                           */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <div className="grid gap-6 sm:gap-8 border-t border-line pt-6 sm:pt-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-16">
-          <h2 className="optically-align text-2xl sm:text-3xl lg:text-step-4 max-w-[20ch] text-balance leading-[1.08] min-w-0">
-            Add the resource you wish existed.
-          </h2>
-          <div className="flex flex-col items-start gap-4 sm:gap-6 min-w-0">
-            <p className="prose-measure text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-graphite">
-              Contributions go through a pull request, automated schema validation, a preview build
-              and a moderation review. Published versions are immutable — a correction is a new
-              version, never an edit, so anyone who installed 1.0.0 can always see what 1.0.0
-              contained.
-            </p>
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-              <Button asChild>
-                <Link to="/submit">Submit a resource</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link to="/docs/contributing">Read the guide</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

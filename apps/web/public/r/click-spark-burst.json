@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "click-spark-burst",
+  "type": "registry:component",
+  "title": "Click Spark Burst",
+  "description": "Physics particle spark burst dissipating on user click.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "click-spark-burst.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function ClickSparkBurst({ className = \"w-full h-48 relative overflow-hidden bg-[#08090f] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [bursts, setBursts] = React.useState<{ id: number; x: number; y: number }[]>([]);\n  const idRef = React.useRef(0);\n  const fire = (e: React.MouseEvent<HTMLDivElement>) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    const b = { id: idRef.current++, x: e.clientX - r.left, y: e.clientY - r.top };\n    setBursts(bs => [...bs, b]);\n    setTimeout(() => setBursts(bs => bs.filter(x => x.id !== b.id)), 700);\n  };\n  return (\n    <div className={className} onClick={fire}>\n      {bursts.map(b => (\n        <div key={b.id} className=\"absolute pointer-events-none\" style={{ left: b.x, top: b.y }}>\n          {Array.from({ length: 8 }, (_, i) => (\n            <div key={i} className=\"absolute w-1 h-1 rounded-full\" style={{ background: [\"#ba442c\",\"#f59e0b\",\"#38bdf8\"][i%3], transformOrigin: \"0 0\", animation: `sparkPt 0.7s ease-out forwards`, animationDelay: `${i*0.02}s`, transform: `rotate(${i*45}deg)` }} />\n          ))}\n        </div>\n      ))}\n      <style>{`@keyframes sparkPt { 0% { transform: rotate(var(--r,0deg)) translateX(0) scale(1); opacity:1; } 100% { transform: rotate(var(--r,0deg)) translateX(35px) scale(0); opacity:0; } }`}</style>\n      <span className=\"absolute inset-0 flex items-center justify-center font-mono text-xs text-white/30\">Click anywhere</span>\n    </div>\n  );\n}\n",
+      "contentHash": "49205aba87d32d461711639118b5029839efb0a21d9878a44172780e6f86e082",
+      "sizeBytes": 1508
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/click-spark-burst.json"
+}

@@ -22,7 +22,7 @@ export function ClickSparkleTrail({ className }: ClickSparkleTrailProps) {
     <div
       onClick={handleClick}
       className={cn(
-        "relative h-64 w-full max-w-sm cursor-pointer overflow-hidden rounded-xl border border-line bg-paper p-6 select-none",
+        "relative h-64 w-full max-w-sm cursor-pointer overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-6 select-none",
         className
       )}
     >

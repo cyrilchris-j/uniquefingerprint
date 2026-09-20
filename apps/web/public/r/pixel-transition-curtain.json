@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "pixel-transition-curtain",
+  "type": "registry:component",
+  "title": "Pixel Transition Curtain",
+  "description": "Dithering pixel curtain wipe between route and view transitions.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "pixel-transition-curtain.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface PixelTransitionCurtainProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Pixel Transition Curtain\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function PixelTransitionCurtain({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: PixelTransitionCurtainProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Pixel Transition Curtain\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "01b2a9325db58e131f8d892481dd21669e88079293ae844200aa0c07134858ea",
+      "sizeBytes": 1457
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/pixel-transition-curtain.json"
+}

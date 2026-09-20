@@ -15,7 +15,7 @@ export function HoverCardPreviewStack({ className }: HoverCardPreviewStackProps)
     <div
       onPointerEnter={() => setFanned(true)}
       onPointerLeave={() => setFanned(false)}
-      className={cn("flex h-64 w-full max-w-sm items-center justify-center rounded-xl border border-line bg-paper p-6", className)}
+      className={cn("flex h-64 w-full max-w-sm items-center justify-center rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-6", className)}
     >
       <div className="relative h-36 w-52">
         {docs.map((title, idx) => {
@@ -24,7 +24,7 @@ export function HoverCardPreviewStack({ className }: HoverCardPreviewStackProps)
           return (
             <div
               key={title}
-              className="absolute inset-0 rounded-xl border border-line bg-paper p-4 shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="absolute inset-0 rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-4 shadow-md transition-all duration-300 flex flex-col justify-between"
               style={{
                 transform: `translateX(${x}px) rotate(${rot}deg)`,
                 zIndex: idx,

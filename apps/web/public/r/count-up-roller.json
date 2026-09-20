@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "count-up-roller",
+  "type": "registry:component",
+  "title": "Count Up Roller",
+  "description": "High-precision mechanical digit odometer roller with spring deceleration.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "count-up-roller.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function CountUpRoller({ target = 9841, duration = 2200, className = \"\" }: { target?: number; duration?: number; className?: string }): React.JSX.Element {\n  const [value, setValue] = React.useState(0);\n  React.useEffect(() => {\n    const start = Date.now();\n    const id = setInterval(() => {\n      const p = Math.min(1, (Date.now() - start) / duration);\n      const ease = 1 - Math.pow(1 - p, 4);\n      setValue(Math.floor(ease * target));\n      if (p >= 1) clearInterval(id);\n    }, 16);\n    return () => clearInterval(id);\n  }, [target, duration]);\n  return (\n    <div className={`font-mono font-black text-6xl text-ink tabular-nums select-none ${className}`}>\n      {String(value).padStart(String(target).length, \"0\").split(\"\").map((d, i) => (\n        <span key={i} className=\"inline-block\" style={{ transition: \"transform 0.1s ease\" }}>{d}</span>\n      ))}\n    </div>\n  );\n}\n",
+      "contentHash": "253e02c2750ae95016b88aa317215db67f74b18c8c1c0600d5d292450ec19d00",
+      "sizeBytes": 921
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/count-up-roller.json"
+}

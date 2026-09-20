@@ -196,7 +196,7 @@ export function buildInstallPlan(
 
   if (items.some((item) => item.designRules)) {
     warnings.push(
-      "Some resources ship a design.md. Install it with `openui design pull` so AI tools follow the same rules.",
+      "Some resources ship a design.md. Install it with `uniquefingerprint design pull` so AI tools follow the same rules.",
     );
   }
 

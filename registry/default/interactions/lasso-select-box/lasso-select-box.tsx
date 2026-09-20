@@ -23,9 +23,9 @@ export function LassoSelectBox({ className }: LassoSelectBoxProps) {
   };
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black p-6 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
       <div className="flex justify-between items-center pb-3 border-b border-line mb-4">
-        <span className="font-mono text-xs text-ink/60">SELECTED ({selected.length})</span>
+        <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>SELECTED ({selected.length})</span><span className="opacity-50 ml-auto">[RADAR V2]</span></div>
         <button
           type="button"
           onClick={() => setSelected([1, 2, 3, 4])}
@@ -46,7 +46,7 @@ export function LassoSelectBox({ className }: LassoSelectBoxProps) {
                 "flex h-20 cursor-pointer flex-col items-center justify-center rounded-lg border font-mono text-xs font-bold transition-all",
                 isSelected
                   ? "border-ink bg-ink text-paper shadow-md scale-95"
-                  : "border-line bg-paper text-ink hover:border-ink/60"
+                  : "border-white/10 bg-zinc-900/70 text-ink hover:border-ink/60"
               )}
             >
               <span>{node.label}</span>

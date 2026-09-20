@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "circular-text-orbit",
+  "type": "registry:component",
+  "title": "Circular Text Orbit",
+  "description": "Rotational text orbit along circular and elliptical vector paths.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "circular-text-orbit.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface CircularTextOrbitProps {\n  text?: string;\n  className?: string;\n  speedSec?: number;\n  centerSymbol?: string;\n  radius?: number;\n}\n\n/**\n * Circular Text Orbit — SVG textPath orbital animation with gravitational hub.\n */\nexport function CircularTextOrbit({\n  text = \"✦ OPENUI ✦ ORBITAL MOTION ✦ DESIGN ✦\",\n  className = \"\",\n  speedSec = 8,\n  centerSymbol = \"◈\",\n  radius = 45,\n}: CircularTextOrbitProps): React.JSX.Element {\n  const size = radius * 2 + 30;\n  const center = size / 2;\n  const pathD = `M ${center},${center} m -${radius},0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;\n  return (\n    <div className={`relative flex items-center justify-center select-none ${className}`} style={{ width: size, height: size }}>\n      <div className=\"absolute inset-0\" style={{ animation: `orbitSpin ${speedSec}s linear infinite` }}>\n        <svg viewBox={`0 0 ${size} ${size}`} className=\"w-full h-full\">\n          <path id=\"orbitPath\" d={pathD} fill=\"transparent\" />\n          <text className=\"font-mono text-[9px] font-bold fill-current uppercase tracking-widest\">\n            <textPath href=\"#orbitPath\">{text}</textPath>\n          </text>\n        </svg>\n      </div>\n      <div className=\"w-8 h-8 rounded-full bg-oxide/20 border border-oxide flex items-center justify-center text-xs font-mono text-oxide font-bold\">\n        {centerSymbol}\n      </div>\n      <style>{`@keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>\n    </div>\n  );\n}\n",
+      "contentHash": "e170b7110ff00c9895e61703a8819e8653fc157a767d10fe0ac793e173de3245",
+      "sizeBytes": 1594
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/circular-text-orbit.json"
+}

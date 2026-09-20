@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "developer-infra-landing",
+  "type": "registry:component",
+  "title": "Developer Platform Landing",
+  "description": "High-density technical infrastructure landing page with live terminal and telemetry.",
+  "category": "landing-pages",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "developer-infra-landing.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface DeveloperPlatformLandingProps {\n  title?: string;\n}\n\n/**\n * Developer Platform Landing\n * Full-scale production landing page composition.\n */\nexport function DeveloperPlatformLanding({ title = \"Developer Platform Landing\" }: DeveloperPlatformLandingProps): React.JSX.Element {\n  return (\n    <div className=\"w-full min-h-screen bg-paper text-ink font-sans\">\n      <header className=\"px-8 py-4 border-b border-line flex items-center justify-between\">\n        <span className=\"font-display font-bold text-lg\">OPENUI</span>\n        <nav className=\"flex gap-6 font-mono text-xs text-graphite\">\n          <a href=\"#catalogue\" className=\"hover:text-ink\">Catalogue</a>\n          <a href=\"#runtime\" className=\"hover:text-ink\">Runtime</a>\n          <a href=\"#engine\" className=\"hover:text-ink\">Engine</a>\n        </nav>\n      </header>\n      <main className=\"max-w-5xl mx-auto px-8 py-16 space-y-12\">\n        <div className=\"space-y-4\">\n          <span className=\"font-mono text-xs text-oxide uppercase font-bold\">FULL PAGE ARCHITECTURE</span>\n          <h1 className=\"font-display font-black text-5xl\">{title}</h1>\n        </div>\n        <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">\n          {[1, 2, 3].map((item) => (\n            <div key={item} className=\"p-6 rounded-2xl border border-line bg-surface/50\">\n              <span className=\"font-mono text-xs text-oxide font-bold\">0{item}</span>\n              <h3 className=\"font-display font-bold text-lg mt-2\">Architecture Core</h3>\n              <p className=\"font-mono text-xs text-graphite mt-2\">\n                Scalable design system with seamless integration and high performance runtime.\n              </p>\n            </div>\n          ))}\n        </div>\n      </main>\n    </div>\n  );\n}\n",
+      "contentHash": "a350deb16989c2e808c0cb4ee227cd8096fceae6fd308771e0c71d6116447bed",
+      "sizeBytes": 1799
+    }
+  ],
+  "tags": [
+    "landing",
+    "developer",
+    "infra"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/developer-infra-landing.json"
+}

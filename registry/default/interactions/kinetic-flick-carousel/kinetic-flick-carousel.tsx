@@ -15,7 +15,7 @@ export function KineticFlickCarousel({ className }: KineticFlickCarouselProps) {
   };
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black p-6 shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white select-none", className)}>
       <span className="font-mono text-xs text-ink/60 uppercase">MOMENTUM FLICK STAGE</span>
 
       <div className="relative h-32 w-64 overflow-hidden rounded-lg bg-line/10 flex items-center justify-center">
@@ -25,7 +25,7 @@ export function KineticFlickCarousel({ className }: KineticFlickCarouselProps) {
         >
           <div className="flex gap-3">
             {["Alpha", "Bravo", "Charlie"].map((c) => (
-              <div key={c} className="h-24 w-32 rounded-lg border border-line bg-paper p-3 shadow-sm flex items-center justify-center font-bold text-xs font-mono">
+              <div key={c} className="h-24 w-32 rounded-lg border border-white/10 bg-zinc-900/70 p-3 shadow-sm flex items-center justify-center font-bold text-xs font-mono">
                 {c}
               </div>
             ))}

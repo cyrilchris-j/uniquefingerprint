@@ -94,7 +94,10 @@ export function useSearch({ search }: UseSearchOptions): SearchState {
       const { indexEntryToSummary, loadIndex: readIndex } = await import("../../lib/registry.js");
       const { ADVANCED_RESOURCES } = await import("../../advanced/index.js");
       const indexValue = index.data ?? (await readIndex());
-      const coreSummaries = indexValue.items.map(indexEntryToSummary);
+      const advancedSlugs = new Set(ADVANCED_RESOURCES.map((r) => r.slug.toLowerCase()));
+      const coreSummaries = indexValue.items
+        .filter((item: import("@openui/types").RegistryIndexEntry) => !advancedSlugs.has(item.name.toLowerCase()))
+        .map(indexEntryToSummary);
 
       const advancedSummaries: import("@openui/types").ResourceSummary[] = ADVANCED_RESOURCES.map((adv) => ({
         id: `advanced/${adv.slug}`,

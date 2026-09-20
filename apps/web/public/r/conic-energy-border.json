@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "conic-energy-border",
+  "type": "registry:component",
+  "title": "Conic Gradient Energy Border",
+  "description": "Continuous rotating conic gradient border highlight powered by pure CSS.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "conic-energy-border.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function ConicGradientEnergyBorder({ className = \"\" }: { className?: string }): React.JSX.Element {\n  return (\n    <div className={`relative p-0.5 rounded-2xl ${className}`}\n      style={{ background: \"conic-gradient(from 0deg, #ba442c, #f59e0b, #38bdf8, #8b5cf6, #ba442c)\", animation: \"rotateBorder 3s linear infinite\" }}>\n      <div className=\"rounded-[14px] bg-[#0a0d14] p-6\">\n        <span className=\"font-mono text-[10px] text-oxide uppercase tracking-widest font-bold block mb-2\">CONIC BORDER</span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">Energy Border</h2>\n        <p className=\"font-mono text-xs text-white/50 mt-2\">Continuous rotating conic gradient powered by pure CSS.</p>\n      </div>\n      <style>{`@keyframes rotateBorder { to { --angle: 360deg; } }`}</style>\n    </div>\n  );\n}\n",
+      "contentHash": "b7a0b880a960e841f532da98221f86b78ea3aeb60d3198d19b12ba7dc128a6d9",
+      "sizeBytes": 860
+    }
+  ],
+  "tags": [
+    "css",
+    "border",
+    "gradient"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/conic-energy-border.json"
+}

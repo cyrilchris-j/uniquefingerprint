@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "scroll-reveal-chars",
+  "type": "registry:component",
+  "title": "Scroll Reveal Chars",
+  "description": "Intersection-triggered individual character fade and slide.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "scroll-reveal-chars.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function ScrollRevealChars({ text = \"Revealed by Scroll\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const ref = React.useRef<HTMLDivElement>(null);\n  const [revealed, setRevealed] = React.useState<boolean[]>(() => new Array(text.length).fill(false));\n  React.useEffect(() => {\n    const el = ref.current;\n    if (!el) return;\n    const obs = new IntersectionObserver(entries => {\n      if (entries[0].isIntersecting) {\n        text.split(\"\").forEach((_, i) => {\n          setTimeout(() => setRevealed(r => { const n = [...r]; n[i] = true; return n; }), i * 40);\n        });\n        obs.disconnect();\n      }\n    }, { threshold: 0.3 });\n    obs.observe(el);\n    return () => obs.disconnect();\n  }, [text]);\n  return (\n    <div ref={ref} className={`flex flex-wrap select-none ${className}`}>\n      {text.split(\"\").map((c, i) => (\n        <span key={i} className=\"font-display font-black text-4xl\" style={{ display: \"inline-block\", opacity: revealed[i] ? 1 : 0, transform: revealed[i] ? \"translateY(0)\" : \"translateY(20px)\", transition: `opacity 0.4s ${i * 0.04}s, transform 0.4s ${i * 0.04}s`, color: \"currentColor\" }}>\n          {c === \" \" ? \" \" : c}\n        </span>\n      ))}\n    </div>\n  );\n}\n",
+      "contentHash": "6f63ef4a73079730944fb91716135ced74bfc1e94b4f82452ba24fc64765ee53",
+      "sizeBytes": 1274
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/scroll-reveal-chars.json"
+}

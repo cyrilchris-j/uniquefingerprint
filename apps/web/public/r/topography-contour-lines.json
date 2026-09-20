@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "topography-contour-lines",
+  "type": "registry:component",
+  "title": "Topography Contour Lines",
+  "description": "Topographic elevation map lines breathing with Perlin noise.",
+  "category": "backgrounds",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "topography-contour-lines.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function TopographyContourLines({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    let t = 0, animId: number;\n    const noise = (x: number, y: number, z: number) => Math.sin(x * 0.8 + z) * Math.cos(y * 0.6 + z * 1.3) * Math.sin((x + y) * 0.4 + z * 0.7);\n    const draw = () => {\n      ctx.fillStyle = \"#0a0d14\";\n      ctx.fillRect(0, 0, w, h);\n      for (let level = 0; level < 12; level++) {\n        const threshold = -1 + (level / 11) * 2;\n        ctx.strokeStyle = `hsla(${160 + level * 14}, 70%, ${30 + level * 4}%, ${0.15 + level * 0.06})`;\n        ctx.lineWidth = 0.8;\n        ctx.beginPath();\n        const step = 6;\n        for (let x = 0; x < w; x += step) {\n          for (let y = 0; y < h; y += step) {\n            const v = noise(x / 80, y / 80, t);\n            if (Math.abs(v - threshold) < 0.08) {\n              ctx.moveTo(x, y);\n              ctx.lineTo(x + step, y);\n            }\n          }\n        }\n        ctx.stroke();\n      }\n      t += 0.008;\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => cancelAnimationFrame(animId);\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
+      "contentHash": "7db1747485ad5abf5945e118bdbaa5f74e09cd2b62cb5a4e2bcfc25166151d08",
+      "sizeBytes": 1586
+    }
+  ],
+  "tags": [
+    "background",
+    "procedural",
+    "canvas"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/topography-contour-lines.json"
+}

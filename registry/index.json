@@ -3,7 +3,7 @@
   "name": "openui",
   "homepage": "https://openui.dev",
   "version": "0.1.0",
-  "generatedAt": "2026-09-19T20:11:10.593Z",
+  "generatedAt": "2026-09-20T10:21:12.155Z",
   "namespaces": [
     "default"
   ],
@@ -3746,7 +3746,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/click-sparkle-trail.json",
-      "integrity": "sha256-0UnMAmmS17IccoKyV84LUZ83L5qX5xSTCS2QEYqGGfc=",
+      "integrity": "sha256-M9ddwJ1wi2DBR/WJ6iU9ac1zVVc+wwkD0aMvGMZ01Q4=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -3789,7 +3789,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/click-wave-emitter.json",
-      "integrity": "sha256-nuFjaf4YOhNvteRx85kY66iQfbsSh+1f4p2AwqQUR5I=",
+      "integrity": "sha256-eso+d3JCKck5LTwZyJa0+m0yIVm7mVtCYbHqF+st8o4=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -4326,7 +4326,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/color-eyedropper-loupe.json",
-      "integrity": "sha256-LktVsVe4BQLrM7uVVdrjGFbjmy3xtyv+vvDk37sZAu4=",
+      "integrity": "sha256-eHU61oNMD8EzMIGI3JUyEIrVPFIUMuR54seuWW+Sd3o=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -4672,7 +4672,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/command-palette-search.json",
-      "integrity": "sha256-7qwjHWpl1xXrFP9U+Ff0SDuzExU2xV8oCqq5gDVOVy4=",
+      "integrity": "sha256-CNNqs1/v4Z3MOB+uAm928h81RMB0COccaWyY+xAxu2M=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -5452,7 +5452,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/coordinate-crosshair-inspect.json",
-      "integrity": "sha256-mWvz9ShdPT7rhijBzvhndZ4yhe646nnfHCZPaul+zLE=",
+      "integrity": "sha256-BtO0W5KnfqFiFfX4sMjxUs6OREDv5UQK+Hx6+QhILPk=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -5495,7 +5495,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/coordinate-pin-drop.json",
-      "integrity": "sha256-YbnMVFhkz7A9/c5uBikg5I9PHCfE2RMOlIZAO2AAZBk=",
+      "integrity": "sha256-589boV7AeYrGgvJ1Ng/8zGZML45eQrj7ZppGi9DMoY8=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -5538,7 +5538,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/coordinate-reticle-tracker.json",
-      "integrity": "sha256-UP5HWA7PMNZqruhzkp7Ox7hZTB0QsTYYLwiyNwFXDWM=",
+      "integrity": "sha256-/fEmlm5B84MXBXkh2AAXLUUqktPulz8cVxM9kEiPKhg=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -7877,7 +7877,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/directional-hover-card.json",
-      "integrity": "sha256-Dg88ab8Msk7p5qO6FgQ/FhvewIKOeCD2DQk5U6rkGo4=",
+      "integrity": "sha256-gCAyjLhovkimuLT7z6SvYvDdtCZqVWB8AUF3VNvTIRo=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -7920,7 +7920,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/directional-pan-pad.json",
-      "integrity": "sha256-ogIO6zxTF0Xok7KQ66GZrAJ/Tu/QFAfPE+PFe6grk1c=",
+      "integrity": "sha256-ka6MD+IpMT2B/YbzEuM/OzDA7VVBVxvt8cQ63wKgkxc=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -7963,7 +7963,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/directional-scroll-indicator.json",
-      "integrity": "sha256-95cHb5EoS7ugyZM92D4hsruTrrT+RxwUS/E9ulaOgoY=",
+      "integrity": "sha256-EAtI+0qSwW7fcuu28HdbKKj+vBCX4VvdlG4m8hq6LVQ=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8090,7 +8090,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/dockable-sheet-drawer.json",
-      "integrity": "sha256-28hcvm/Knu+jldw4WclyZE5R+c3Ikc1idsC0+fn+SWg=",
+      "integrity": "sha256-UAcJDHK6dsEl+y2VX3+JGcCZ9YjXAPT36A0qlAy8Es4=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8429,7 +8429,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-drop-card-stack.json",
-      "integrity": "sha256-6UGy206HJ9vq2O8ubaIEl39foQ70637XAioZM5jUaf8=",
+      "integrity": "sha256-blMLAQvZLwQh0882DRc0//JfRsnbWsHTwM2M6XaxcnU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8472,7 +8472,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-drop-kanban-board.json",
-      "integrity": "sha256-YpYo8JFUyrnv127a8oIHTZYsUAyyX3Y34kxyma+8JDA=",
+      "integrity": "sha256-+HckZoTh99veWEyyTWGPs66GtECk/ddZGSDGyc2EFP8=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -8515,7 +8515,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-drop-shelf.json",
-      "integrity": "sha256-Bd7oZ+ZzJlmitkXi7lD4XNbvymHZRdhv6ascoaeToJA=",
+      "integrity": "sha256-CPYpTdfxF+VAB4SlfpDCA0TcxvheGohrA1/dvyYApqs=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -8558,7 +8558,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-drop-upload-zone.json",
-      "integrity": "sha256-DHA1tpjDloHT2bBwu2RTD0kQ5D+8S10fgtK4AzzfIAI=",
+      "integrity": "sha256-DSkqugJffBlN8WKLAr3JmEPXiCHFNWAV+kqEnfkDRRo=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8601,7 +8601,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-reorder-list.json",
-      "integrity": "sha256-FBOBNRpgTCDnFuSpYuwBPnEngUWJpQcjd6mowleYbfc=",
+      "integrity": "sha256-ctOXPNPCksrh3frgfUKP70wGdr8eIyttOCgSzVRSbbA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8644,7 +8644,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-rotate-dial.json",
-      "integrity": "sha256-D1VYVZHJc5Aqm6s66X72tCOGAge+nGQD0QUGzaAYPA8=",
+      "integrity": "sha256-oGhHc5ezFmmTje2e5UnK2IYo9ufzUXEXoDnEVVJcp0k=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8729,7 +8729,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/drag-snap-slider-notches.json",
-      "integrity": "sha256-G9LDHqV8XhhznCCLWCyNvmm000CEH2MW2BAVG4XzLOg=",
+      "integrity": "sha256-RqCLAM35BS8l2esU34mMhiUoBGW0+qRQX/HbGlihV30=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8772,7 +8772,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/draggable-range-bubble.json",
-      "integrity": "sha256-g7hgLGmCwRmhq7kkRb9DfsIkAc5TOjq99BTeLoiwM2k=",
+      "integrity": "sha256-CcLa1/YCHYkJQco1BPwVM57kYrbC8btrxvEcPpziXwA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -8815,7 +8815,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/draggable-sticker-board.json",
-      "integrity": "sha256-TU/iwz1F9b8Gz+HARkw6DMYohjdQIheXGX4+2QYB78c=",
+      "integrity": "sha256-Kf2d48IWz8+xGPEpm/JlH2WU3uX3iaHLdkyCF9Xd3vk=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -9802,7 +9802,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/elastic-pull-card.json",
-      "integrity": "sha256-1dLVMzOdtuUkjjyStNeWV030IWlhYwCUU9xIpb2PShc=",
+      "integrity": "sha256-O30aL1eW1eqa/5fWnaj0C+PsSfn/MG1pS9IjvaKS+pQ=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -9888,7 +9888,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/elastic-slider-fill.json",
-      "integrity": "sha256-4Dse5ZdTvSRTiCLrYAeIDy67juUSJGHrVxrvt7xyWXA=",
+      "integrity": "sha256-XZfqgY5ZMRz09l1sWIjIL+pQNlXynQKoCPzyTLkZoEw=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -9931,7 +9931,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/elastic-slider-knob.json",
-      "integrity": "sha256-iyhsqNX63hRtXWjOKt4RUGjZeunBwnvZvqZqgwJSTRg=",
+      "integrity": "sha256-jCPuRKfdCySn36eNWR/sagkX6+OID/tmuzCfDqWI2vw=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -11572,7 +11572,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/fluid-gesture-drawer-pull.json",
-      "integrity": "sha256-Rtts63iQIUkfbqQkfonQHyq7Dow0FFg9EYRk2dgUXOU=",
+      "integrity": "sha256-eHnWAUxGlMh9xM0Os/TC0cz51WR188e6sjM3cAZqhtM=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -11787,7 +11787,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/follow-path-cursor.json",
-      "integrity": "sha256-eXkWNSCP3hxppbKQ3ak9ibQg/VwAIhqgufRh/vVAnqg=",
+      "integrity": "sha256-4AAYMMSQec74N94nAFEA0VQ7ELWmePRRbgRr/9ppk2E=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -12427,7 +12427,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/gesture-swipe-action-list.json",
-      "integrity": "sha256-nKkUMyGpH3r27dvNS6nrCBPah1b7Ya2PgDVtRnhb14U=",
+      "integrity": "sha256-OGYt3wycBMnZu8MAyCenRfsYXKVKBTnWFV4KW4gkRp8=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -12470,7 +12470,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/gesture-swipe-carousel.json",
-      "integrity": "sha256-/L1oMnAiozZzkjq9+k9WMPL+wNAXyk42JMXoKtdj140=",
+      "integrity": "sha256-KWvHGabe7fvCGrxxa/wpWaKstGFo51ZV+ERAla2tsII=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -13849,7 +13849,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-audio-waveform-scrub.json",
-      "integrity": "sha256-h0AcKMhIg/3AEWoO6NI5bFCOpTTumkSpPqmrRHTtFAs=",
+      "integrity": "sha256-jPtKo4ze/oY33cT1WOlv81ONdvTp4XJlA+46KYkW2Ho=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -13892,7 +13892,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-card-preview-stack.json",
-      "integrity": "sha256-6Nqxhr8t7BNMksyKH9yrHb+9Z+NLU3hPCA11Yaopm7Y=",
+      "integrity": "sha256-E+NxkypGhnzL8ESzr4jzl9HE+BpTW18zkcyw96jXfy4=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -13935,7 +13935,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-expand-accordion-row.json",
-      "integrity": "sha256-+WfOQKL/gP5KCw5Rq6MVwwBUqYt5vCQ+v8725Y3vHRQ=",
+      "integrity": "sha256-SbVNdTosIZYT/pbTUXG707CFiEU/0uTVdKncTGgaF1Q=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14064,7 +14064,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-glitch-text-reveal.json",
-      "integrity": "sha256-iQKial6IEGlcj8gwHsy/gSn1Wie4pWswhejiRcXhbcU=",
+      "integrity": "sha256-pa7ik4k6VGNHlAADLxdnAMm54i/lVXl4Tl2xzSZ7RwQ=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14107,7 +14107,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-image-zoom-crosshair.json",
-      "integrity": "sha256-hS5mxcF+uONfSE+OCOFPwUpIv1HK/dH73hbgpJsb5yY=",
+      "integrity": "sha256-0SlOoJOti07oz+mvTsqNHATFEJcHny0NQxDQcf6ezcg=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14150,7 +14150,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-lens-magnifier.json",
-      "integrity": "sha256-goi2+VPke8xbqelN+XF2bkPXinnsFl+ReYCADPQ0Ky4=",
+      "integrity": "sha256-83Lo8a9+QP3ZYkeBCREn8qoVG4hHPvBzIJbfVAuZtWI=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14193,7 +14193,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-magnetic-pill.json",
-      "integrity": "sha256-yV797O7/4aUJxjmeJe7b2AZqt8Vkp9GMYNvZiJRQUBk=",
+      "integrity": "sha256-M/M7PZH61NJKOoLLqHIaxc3HkUmUvTXDnLPXfK3THIU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14236,7 +14236,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-magnify-dock.json",
-      "integrity": "sha256-sbVq4Mj8U64L/9olFpxCmnIzz1G4IO1VmoUFm2NObVE=",
+      "integrity": "sha256-A0wUZb63QeoQFgpjRAZ8uuTqlQ4VjESe6cyQfUzGxTY=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14279,7 +14279,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-parallax-typography.json",
-      "integrity": "sha256-oCPJjq5KZAnbGhw/6G+67qq1VHWa1onRmYB7EVGOe5I=",
+      "integrity": "sha256-BXyQMQdG+LNn6I8++i1p0A9ngnPaXxDOKB+Tr4SqoyA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14364,7 +14364,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-reveal-matrix.json",
-      "integrity": "sha256-kTahdev0Y5/JIHb7Ygrn+H28ik+RJ2bKj2AjC1Y4ir8=",
+      "integrity": "sha256-b4+N3ezpo0reIluWzNv90htXsmcmlxq0WiNUJ411Vw0=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -14407,7 +14407,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/hover-spotlight-card.json",
-      "integrity": "sha256-QuQfeUXPu8zET4/rjwF6U/s1zhvM3Gbeo5IuNQx5cIc=",
+      "integrity": "sha256-WgYS4U0DTTCiwBFqUlYagXIO9ZEBif7tJB9yrjjE3GU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -15455,7 +15455,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-code-fold.json",
-      "integrity": "sha256-fIsWfoDJhXHWx+IXlB5ITnoG4wBl2PQQduOMbox+k1k=",
+      "integrity": "sha256-UmQgsui3sRhqXdrBlAr+JfukOlxevOzGq3NmFGS2YjQ=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -15498,7 +15498,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-color-palette-bar.json",
-      "integrity": "sha256-9urHOO8XnYz5jkihaXVKeoMNhO3OJEsuZxBe6/8VPKA=",
+      "integrity": "sha256-EEjVb0CwN5fHbeJzAB5n2CnP4lcM1Oz/PvH1MT4Q7+E=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -15582,7 +15582,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-diff-slider.json",
-      "integrity": "sha256-cDsQN23OI7o1OxSi6jPARxjiX9AuZxpkC9BpaLqJsk4=",
+      "integrity": "sha256-rWTabnRoJVzAMZDGGG+dHXm6McYUYCZUfQwe7kjlAG0=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -15793,7 +15793,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-matrix-keypad.json",
-      "integrity": "sha256-6VYDFbtTimw/YWEJOoJdXDowNHzMe9Jyarb81zb8LDw=",
+      "integrity": "sha256-MNDx2UFi7m87TxmIiCoDDbAjPfxulO0sCZ0WkkPXqcc=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -15836,7 +15836,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-matrix-toggle.json",
-      "integrity": "sha256-HvZKFhKFKMPqkt1EUqEdYdPP2hmPSnlpWn3DWbWe+qY=",
+      "integrity": "sha256-amnfcxgKX4R59Hklqu2xsXQE/rM4lOsgwgpVAnsSs4U=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -16045,7 +16045,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-radar-chart.json",
-      "integrity": "sha256-mPqY3o46B2HNF82rgekHaHiCshnVtDsO+kG8BEGIQmE=",
+      "integrity": "sha256-5rcdC9IsXLYotOhkR3fzVjF95bkjvpnooKNtT9NM7h0=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -16088,7 +16088,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-range-gauge.json",
-      "integrity": "sha256-ptB3tsI/RQOroOoZGng2PIqcVvxY6zf6FjN6Zd/AxPU=",
+      "integrity": "sha256-j/EVPS6wuifuy6dI3WjygjOofPzmw6FSB7D7opj1wHo=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -16256,7 +16256,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-star-rating.json",
-      "integrity": "sha256-E3e4k7SoZZcpUxVrxJEypXd8L9yx8tIB3e4ZSiTLuk0=",
+      "integrity": "sha256-AiRasbSKIAvG7q9bn1kziKqVN0cIL69M0SQdj1o5JJg=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -16299,7 +16299,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/interactive-stepper-flow.json",
-      "integrity": "sha256-5Uqg9q0i0vp+OR36CQG1Zm0oJ7CgfUmB+UukzxPt6bw=",
+      "integrity": "sha256-iVlw7Ln9Il2n+n2tPMECV575R58OMUnS9TpmzWikXsM=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -16718,7 +16718,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/joystick-control-pad.json",
-      "integrity": "sha256-iHhfvNvuUIy84aPJsv2+gjQs/fZsqNevGXMHKUa3YqM=",
+      "integrity": "sha256-ZJPBCiarFRWTrh89PX5t1CJRHea6PQ7Y36zt4RH9FvI=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -16930,7 +16930,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-command-palette-menu.json",
-      "integrity": "sha256-DmcAxQwVj/QlrOiSbxA+3HYCGMeegEvJk9QUfDtLR0g=",
+      "integrity": "sha256-Heie6AZHvuuc2fFCVzMjCSRimyKw6QMOECdSQp/vevA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -16973,7 +16973,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-focus-trap-modal.json",
-      "integrity": "sha256-Qk+h2NqcF6O4f9vlzadehOFAG2KSAaYtO6eSh6sRaZs=",
+      "integrity": "sha256-j7fDAfN9bQOFmu8KJvdT6di+XFNYN8CfoEQ3r5yaavA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17016,7 +17016,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-list-navigation.json",
-      "integrity": "sha256-Wstg+zwEJLOyrT9HlXS+XVSeLTsjFg7INKnBQpV65iA=",
+      "integrity": "sha256-sgmNfiX6vHwLye5ctEgCO7/otyiJ0bnHXaTubj5Q23g=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17059,7 +17059,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-shortcut-matrix.json",
-      "integrity": "sha256-ZbbeCWX3U+ukl3WkfYIueBttUfkaR8v9gEiZlLe9twE=",
+      "integrity": "sha256-wYIvQZGAMiec498fvpFKUvQyUzaDOXwtnIsY619HAQU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17102,7 +17102,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-spatial-grid.json",
-      "integrity": "sha256-MOterP7QWuI8NdM1tE/tLhCzU+XGKIbVRuDMNVYVm8k=",
+      "integrity": "sha256-lb9D0XvJMIjUBjS95v1MDnF4fWIvVhsA3aLYYLqMlLI=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17145,7 +17145,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-stepper-numeric.json",
-      "integrity": "sha256-/mPZEywHAgKO2OMghGR5Pw/kAe2A6aoeUdVFunys/+c=",
+      "integrity": "sha256-+3fw4i7koeEyGOwDLYphUTdczxe2aLibwZJoNUMdZT0=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17188,7 +17188,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/keyboard-tab-navigator.json",
-      "integrity": "sha256-yD5Gww2Qg8OCB3jgkQKtH91z2jG8TkgkZ4OkS6VKTJo=",
+      "integrity": "sha256-viv0I7dsdR3pJI0gDKQh2KyV+iWlb4hrhF29wqHAD7Q=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17402,7 +17402,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/kinetic-flick-carousel.json",
-      "integrity": "sha256-l6UfH48qlLVvd7rbLg1lTe4wxcw2IxshzZ1zYG+ZYLk=",
+      "integrity": "sha256-5962+NUHhgcdeh2xXUw35REbp36GkKoHJIRvrSQHb38=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -17487,7 +17487,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/kinetic-pan-canvas.json",
-      "integrity": "sha256-xCUlsfz7lTy2pJlPy4XOp2Xq/exMPQLb+wG/d9XaSSg=",
+      "integrity": "sha256-xToRD2KqPnyr/dKCwZckMHL+aV1I60W+Uk4R/Fe4NY4=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -17786,7 +17786,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/lasso-select-box.json",
-      "integrity": "sha256-pB8OoATOl7m5K21XerdCDk+EbgHOOF9PlTlZtWHhiMg=",
+      "integrity": "sha256-R9KJQvaIdxz+X4gFpwU9F3NFzmB3C8lsPqDAFuuHbdQ=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -18506,7 +18506,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/magnetic-cursor-bubble.json",
-      "integrity": "sha256-fdosTy5S26ZLgfTvxzXAWM7Ow/ZQjZ9m8O3CeMbMGDg=",
+      "integrity": "sha256-kwl4+dTOcZR6NXdx1yqoG5AL33A2yCei2tvY3Oe59qk=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -18677,7 +18677,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/magnetic-item-grid.json",
-      "integrity": "sha256-MisUBsyyyIV+vTbOojdNPze3amiXNXTuI2FhO84pJNg=",
+      "integrity": "sha256-i0qZ2w1ErunEdAoLPdfvMKiH+aiBrKHRasTInx4sLS8=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -20207,7 +20207,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/multi-choice-tag-cloud.json",
-      "integrity": "sha256-G0KPljwcO3+b4WfAUQM4lUxcM44yhPRrrq6GRW5QoCk=",
+      "integrity": "sha256-jGvoEUFk3fbNjlQq9z6bVDah0bg6wwaVIdbjpQbo9Zs=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -20549,7 +20549,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/multi-select-checkbox-tree.json",
-      "integrity": "sha256-h3P7oXmgLgi2qJvoggmK4B8F5rSt8PmMntE1wqGBIew=",
+      "integrity": "sha256-dtsgxOw0AxTvNuhh7HCj4q9juO9BjrIwy6fzXQ7guxY=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -20592,7 +20592,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/multi-slider-equalizer.json",
-      "integrity": "sha256-eN7ZCD9BBctZQmkRkAS4Qd062RPtXTJGqat7OhP+Fmc=",
+      "integrity": "sha256-13TRysUXV0pLwaI7Q13iSjXjDggZvFUWOLf/kpKOqlU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -20678,7 +20678,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/multi-target-focus-ring.json",
-      "integrity": "sha256-xd7KJ9PQGGerDj+pU1AhRwMZQVfwZih6J6l4Nv9DDiU=",
+      "integrity": "sha256-brzeBkU/9j+mcFIIJa4gDMWvHhiC6uz0MJjpbC/wZJU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -22033,7 +22033,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/pan-zoom-minimap.json",
-      "integrity": "sha256-nw+32XdTi4f5uYA0wgCjQLFkd28bftNIbD1Tg5BPL6s=",
+      "integrity": "sha256-PAYGg4Im9Zs6vxbhql+qFaioUN0OMHfHghTKMN5rPf4=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -22671,7 +22671,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/pinch-zoom-card.json",
-      "integrity": "sha256-rqY9UEGY/uqoBsH9apbwJe1pw5F8h5US9lSedv5EZK8=",
+      "integrity": "sha256-6F7YtAppycZq2G0uEeM6WE9eQWoq8O32mIySvoJwTBY=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -22714,7 +22714,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/pinch-zoom-viewport.json",
-      "integrity": "sha256-1L+YH2VFDpLyvDaHi5/h+/3tYJu8YgNfMucH5piIbMQ=",
+      "integrity": "sha256-Jo4/603v9D7+XmU4I8dQHZjeqUlIPlk9+tfaHFqHhp8=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -22884,7 +22884,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/pointer-angle-compass.json",
-      "integrity": "sha256-1xhiuwTvBRKrNA3qNSylyYJz9Xe6rCIWhcB1cDi5M00=",
+      "integrity": "sha256-zp2cnlOOHuF/2mFYIv0oZdgxbcioRP959+ymeoNjzSU=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -22927,7 +22927,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/pointer-draw-canvas.json",
-      "integrity": "sha256-wr+BQ1JZm4qqqGxrV6hc4mwsDUuyIGivy+X5Mc3/QIc=",
+      "integrity": "sha256-7vqJQzY4QblPMboeoyV7+Q/Lk2tyWSWfqV8LjX/0NSc=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -23056,7 +23056,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/press-and-hold-button.json",
-      "integrity": "sha256-KLoF9xBl/zDrHtpVp0AUE5SL4SdjY/da2o77Cyko4zQ=",
+      "integrity": "sha256-Veb1T1m5dmunlRo5tk2O8DThaZ2Iaf2ofduAxsgbKe4=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -23857,7 +23857,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/radial-color-wheel-picker.json",
-      "integrity": "sha256-TWlmJ9ikSaOnRXBhB1h4b9r0KM81KT4beflRztQF7Iw=",
+      "integrity": "sha256-lSvhcFmHpFPq7l8qyU3XkL9qkrq16ot8pMrwRaB2tCc=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -23943,7 +23943,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/radial-context-menu.json",
-      "integrity": "sha256-+XrhRKwbvgJK7C+/j6ubUv7X2p4RqBUZgPpqQtQN1Mg=",
+      "integrity": "sha256-QWOL2wBCnLrKIYdvjGAVU55W4+Z9rEtMC1yNLVRET2g=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -24029,7 +24029,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/radial-progress-scrubber.json",
-      "integrity": "sha256-GUX3+xaNJm0fV3slgtYLR+/mEQJv8MrkQ+GTKOOzTug=",
+      "integrity": "sha256-0PyOIEPyZV3ffdybXaPhtiDnSI1kGI2nCnQxBgQhKIw=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -24201,7 +24201,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/range-slider-dual-thumbs.json",
-      "integrity": "sha256-qw56tyNfx77uhXmlUcYSNtmwPqPV5DZI5f0r3BcknjI=",
+      "integrity": "sha256-TVticNiwDHhs+k/EeDcw6gIVjt6XmTlTJtSBnyun6JI=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -25005,7 +25005,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/rubberband-elastic-sheet.json",
-      "integrity": "sha256-DB7+AeK/4IgeY1IButju5F3D7mdNYpIeVryhdb3fCiw=",
+      "integrity": "sha256-GlCEhhlqklflTb2lXyNON8FfFTBhlnFbnvWNL+0yLwM=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -25048,7 +25048,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/rubberband-elastic-toggle.json",
-      "integrity": "sha256-Y7Lq2dRPWMEo2gnRUky4pqiTSAO+qf+03ryzdiDnca8=",
+      "integrity": "sha256-ktKP7xh+8fksgwgTLUmAePfElguwx/E1SBDw7YYCkmI=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -25091,7 +25091,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/rubberband-pull-refresh.json",
-      "integrity": "sha256-wC7CN/h5BwYoZ4qCWHbxUFbA3zl+8+JzYQ/2kgpvUHE=",
+      "integrity": "sha256-FbLITqWFdH5/e6XwvujWhdRztIEuHoUZKUiW+mjF3PA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -25261,7 +25261,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/scratch-to-reveal-card.json",
-      "integrity": "sha256-pwcaX0JCQLBhX7re4zyGdLjwdI1ePnSWsKoU+h06NkE=",
+      "integrity": "sha256-sme2lw/8QiaxA3y/jPTM06TzJW/jAVPOov66W7/86SE=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -25683,7 +25683,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/scroll-spy-table-of-contents.json",
-      "integrity": "sha256-4/qpiO0JIkhZkyk1Qg2m+PDVxy1PyiEiXEM538IOD7o=",
+      "integrity": "sha256-sWhOQsMMu8hKzK3sdewiXYNWNdRgaMzfUvmJbFsZvrk=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -26528,7 +26528,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/slider-scrubber-timeline.json",
-      "integrity": "sha256-Hec2s8KN4NLp2SdAx0R5NyIFuLxkMCEOW3hyiHukmqA=",
+      "integrity": "sha256-+QnSz/tFC7cIxve4GexF+1BurxejaH+/UpCWBPFMsEE=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -26823,7 +26823,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/sortable-kanban-column.json",
-      "integrity": "sha256-MMIPur0/GTdxpt1V5lxaYGJJREKdCA57jtPK677xk0Q=",
+      "integrity": "sha256-YsbotZmCv8dTY5JusXv8R5D6EfFU/voFtwN4093KN98=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -27766,7 +27766,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/split-pane-resizer.json",
-      "integrity": "sha256-8OrmO0x3jN3By+rDysAs7kJQaoa3GAP9s1LnVhcLxQQ=",
+      "integrity": "sha256-QGjQRcFw/86v/12cSqcNUZH/8RVrITaeg1pWfUDR05Y=",
       "license": "MIT",
       "difficulty": "intermediate",
       "dna": {
@@ -29392,7 +29392,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/stepped-number-scrubber.json",
-      "integrity": "sha256-GYhoMsFaIVOIFf6eCU+Fg4bdXbm/vC1ec2sR59yD0SA=",
+      "integrity": "sha256-G7cbVQ34b9ohnMi/iWWkOe1blTbUEuJemn2ag8VyBhw=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -29478,7 +29478,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/stepped-timeline-milestones.json",
-      "integrity": "sha256-HdF1ZuIws99O3JByJLA82iXNBkEB39gbOi8YYalf4Oo=",
+      "integrity": "sha256-+4DfW8eq+5OAShluB9wn8uagMA/d9PuELfjpomOsrpA=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -30287,7 +30287,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/swipe-card-deck.json",
-      "integrity": "sha256-s3g3erpKx4twPYyuv8gj0VxRIW4Z/3HpDvV/jSSmCM4=",
+      "integrity": "sha256-MQc25sfTQp9yC2OUcjcVHDe1a+V2ORTY5xZ2yVNpt/Q=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -30330,7 +30330,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/swipe-to-confirm-slider.json",
-      "integrity": "sha256-Dch8ZHr78+I2Ee6GJN0ANHAKhseJ1nkB8nndeIdk+og=",
+      "integrity": "sha256-D1PDb6tko4UButxastlt/QJfsnSPxA6Lqk+j1s8LEsY=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -31626,7 +31626,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/tilt-parallax-scene.json",
-      "integrity": "sha256-D5RoE9UCSyG+sAFNbwR/3IzglEqFCiS+l4R5tb/QMLY=",
+      "integrity": "sha256-pkzS1VbXdQkj++E65LFaJokJur7hCyYZi6467KfotV0=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -32053,7 +32053,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/toggle-switch-morph.json",
-      "integrity": "sha256-+yTBAWDbHn/ElxRJwuUnAP07AAR0Xmz5eHmlXd25Ylk=",
+      "integrity": "sha256-ZIAfqMLJJ+2+DmqWmEeruI3/BGaHx/W+y8TJeDmS4bc=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {
@@ -34370,7 +34370,7 @@
         "cn"
       ],
       "url": "https://openui.dev/r/zoomable-image-lightbox.json",
-      "integrity": "sha256-1bafBiTnzl0gxotnucGyok573LAYhyJXNpov7nFsNtA=",
+      "integrity": "sha256-bP8gj8kNc+G2XgsYC9OnkRVnV9pSDfN7w0Po3CyW2QE=",
       "license": "MIT",
       "difficulty": "starter",
       "dna": {

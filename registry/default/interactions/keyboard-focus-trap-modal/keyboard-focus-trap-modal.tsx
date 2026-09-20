@@ -21,7 +21,7 @@ export function KeyboardFocusTrapModal({ className }: KeyboardFocusTrapModalProp
       </button>
 
       {open && (
-        <div className="rounded-xl border border-line bg-paper p-6 shadow-xl w-72 space-y-3">
+        <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white p-6 shadow-xl w-72 space-y-3">
           <h4 className="font-mono text-xs font-bold text-ink">Focus Trapped Scope</h4>
           <input
             type="text"

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "depth-carousel-3d",
+  "type": "registry:component",
+  "title": "Depth Carousel 3D",
+  "description": "Cylindrical carousel arranging items with 3D Z-depth perspective.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "depth-carousel-3d.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function DepthCarousel3d({ className = \"\" }: { className?: string }) {\n  const items = [\"Ocean Depths\", \"Mountain Peak\", \"City Lights\", \"Desert Dunes\", \"Arctic Glow\"];\n  const [active, setActive] = useState(2);\n  return (\n    <div className={`relative flex items-center justify-center h-72 overflow-hidden ${className}`} style={{ perspective: \"800px\" }}>\n      <div className=\"relative w-full flex items-center justify-center\" style={{ transformStyle: \"preserve-3d\" }}>\n        {items.map((item, i) => {\n          const offset = i - active;\n          const z = offset === 0 ? 0 : -120;\n          const x = offset * 160;\n          const opacity = Math.abs(offset) <= 2 ? 1 - Math.abs(offset) * 0.35 : 0;\n          const scale = offset === 0 ? 1 : 0.78 - Math.abs(offset) * 0.08;\n          return (\n            <button key={i} onClick={() => setActive(i)}\n              style={{ position: \"absolute\", transform: `translateX(${x}px) translateZ(${z}px) scale(${scale})`, opacity, transition: \"all 0.5s cubic-bezier(0.25,1,0.5,1)\", zIndex: offset === 0 ? 10 : 5 - Math.abs(offset), cursor: \"pointer\" }}>\n              <div style={{ width: 180, height: 110, borderRadius: 16, background: `hsl(${i * 60}, 60%, ${offset === 0 ? 55 : 35}%)`, display: \"flex\", alignItems: \"center\", justifyContent: \"center\", boxShadow: offset === 0 ? \"0 20px 60px rgba(0,0,0,0.4)\" : \"0 5px 20px rgba(0,0,0,0.2)\", border: offset === 0 ? \"2px solid rgba(255,255,255,0.3)\" : \"none\" }}>\n                <span style={{ color: \"#fff\", fontWeight: 700, fontSize: 14 }}>{item}</span>\n              </div>\n            </button>\n          );\n        })}\n      </div>\n      <div style={{ position: \"absolute\", bottom: 12, display: \"flex\", gap: 8 }}>\n        {items.map((_, i) => <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 4, background: i === active ? \"#fff\" : \"rgba(255,255,255,0.3)\", transition: \"all 0.3s\", border: \"none\", cursor: \"pointer\" }} />)}\n      </div>\n    </div>\n  );\n}",
+      "contentHash": "a1d8b5cb95ece0193788e54433ed52823aa42ce43b3360cabff046b9aaaf6d6a",
+      "sizeBytes": 2059
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/depth-carousel-3d.json"
+}

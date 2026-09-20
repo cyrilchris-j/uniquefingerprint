@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "dot-field-interactive",
+  "type": "registry:component",
+  "title": "Dot Field Interactive",
+  "description": "Matrix of micro-dots scaling and repelling from pointer coordinates.",
+  "category": "backgrounds",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "dot-field-interactive.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function DotFieldInteractive({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  const mouseRef = React.useRef({ x: -999, y: -999 });\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    const gap = 22;\n    let animId: number;\n    const draw = () => {\n      ctx.fillStyle = \"#08090f\";\n      ctx.fillRect(0, 0, w, h);\n      const { x: mx, y: my } = mouseRef.current;\n      for (let x = gap; x < w; x += gap) for (let y = gap; y < h; y += gap) {\n        const dist = Math.hypot(x - mx, y - my);\n        const influence = Math.max(0, 1 - dist / 100);\n        const r = 1.5 + influence * 5;\n        const alpha = 0.2 + influence * 0.8;\n        ctx.fillStyle = `hsla(${200 + influence * 120}, 80%, 65%, ${alpha})`;\n        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();\n      }\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    const onMove = (e: MouseEvent) => { const r = canvas.getBoundingClientRect(); mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top }; };\n    const onLeave = () => { mouseRef.current = { x: -999, y: -999 }; };\n    canvas.addEventListener(\"mousemove\", onMove);\n    canvas.addEventListener(\"mouseleave\", onLeave);\n    return () => { cancelAnimationFrame(animId); canvas.removeEventListener(\"mousemove\", onMove); canvas.removeEventListener(\"mouseleave\", onLeave); };\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
+      "contentHash": "fc514c871796c33abb66896fa52807755d30d1a564624aa38744e063d9090c5e",
+      "sizeBytes": 1788
+    }
+  ],
+  "tags": [
+    "background",
+    "procedural",
+    "canvas"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/dot-field-interactive.json"
+}

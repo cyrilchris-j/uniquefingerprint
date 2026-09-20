@@ -18,7 +18,7 @@ export function MagneticCursorBubble({ className }: MagneticCursorBubbleProps) {
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-xl border border-line bg-paper p-6 cursor-none select-none", className)}
+      className={cn("relative h-64 w-full max-w-sm overflow-hidden rounded-2xl border border-violet-500/30 bg-gradient-to-b from-[#140e1f] via-[#0d0914] to-black shadow-[0_0_25px_rgba(139,92,246,0.15)] text-violet-100 p-6 cursor-none select-none", className)}
     >
       <div
         className="pointer-events-none absolute -ml-4 -mt-4 h-8 w-8 rounded-full bg-ink transition-transform duration-100 ease-out"

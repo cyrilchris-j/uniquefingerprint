@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "logo-loop-ticker",
+  "type": "registry:component",
+  "title": "Logo Loop Ticker",
+  "description": "Infinite dual-direction ticker with velocity control and mask fades.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "logo-loop-ticker.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nconst LOGOS = [\"OPENUI\", \"MOTION\", \"CANVAS\", \"THREE.JS\", \"SPRING\", \"RUNTIME\", \"DESIGN\"];\nexport function LogoLoopTicker({ speed = 40, className = \"w-full overflow-hidden bg-paper border-y border-line py-3\" }: { speed?: number; className?: string }): React.JSX.Element {\n  return (\n    <div className={className}>\n      <div className=\"flex gap-12 whitespace-nowrap\" style={{ animation: `ticker ${speed}s linear infinite` }}>\n        {[...LOGOS, ...LOGOS].map((l, i) => (\n          <span key={i} className=\"font-mono text-xs font-bold text-graphite uppercase tracking-widest flex items-center gap-3\">\n            <span className=\"text-oxide\">✦</span> {l}\n          </span>\n        ))}\n      </div>\n      <style>{`@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>\n    </div>\n  );\n}\n",
+      "contentHash": "486dea69632ba9b551fab7dcdb03bc98c702e044357d1685b9f078c716e7a611",
+      "sizeBytes": 868
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/logo-loop-ticker.json"
+}

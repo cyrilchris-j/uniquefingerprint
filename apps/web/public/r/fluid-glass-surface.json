@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "fluid-glass-surface",
+  "type": "registry:component",
+  "title": "Fluid Glass Surface",
+  "description": "Liquid refraction glass surface distorting underlying background elements.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "fluid-glass-surface.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function FluidGlassSurface({ className = \"\" }: { className?: string }) {\n  const [pos, setPos] = useState({ x: 50, y: 50 });\n  return (\n    <div className={`relative flex items-center justify-center ${className}`}\n      style={{ width: \"100%\", height: 260, background: \"linear-gradient(135deg,#0d1117,#161b22)\", borderRadius: 20, overflow: \"hidden\", cursor: \"none\" }}\n      onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); setPos({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 }); }}>\n      <div style={{ position: \"absolute\", inset: 0, background: `radial-gradient(circle at ${pos.x}% ${pos.y}%, rgba(139,92,246,0.15) 0%, transparent 50%)`, pointerEvents: \"none\", transition: \"background 0.1s\" }} />\n      <div style={{ position: \"relative\", padding: \"28px 40px\", borderRadius: 20, background: \"rgba(255,255,255,0.04)\", backdropFilter: \"blur(20px)\", border: \"1px solid rgba(255,255,255,0.1)\", boxShadow: \"inset 0 1px 0 rgba(255,255,255,0.15), 0 20px 60px rgba(0,0,0,0.3)\", textAlign: \"center\" }}>\n        <div style={{ width: 48, height: 48, borderRadius: \"50%\", background: \"linear-gradient(135deg,rgba(139,92,246,0.6),rgba(59,130,246,0.6))\", margin: \"0 auto 12px\", backdropFilter: \"blur(8px)\" }} />\n        <p style={{ color: \"rgba(255,255,255,0.9)\", fontWeight: 700, fontSize: 16, margin: 0 }}>Glass Surface</p>\n        <p style={{ color: \"rgba(255,255,255,0.4)\", fontSize: 13, margin: \"6px 0 0\" }}>Fluid refraction with pointer glow</p>\n      </div>\n      <div style={{ position: \"absolute\", width: 20, height: 20, borderRadius: \"50%\", background: \"rgba(255,255,255,0.8)\", top: `${pos.y}%`, left: `${pos.x}%`, transform: \"translate(-50%,-50%)\", pointerEvents: \"none\", boxShadow: \"0 0 20px rgba(139,92,246,0.6)\", transition: \"top 0.05s, left 0.05s\" }} />\n    </div>\n  );\n}",
+      "contentHash": "179e299cd7e315826ac4aab255cbe2cfb37bf970bc25a1aedce0d865e84c1cf1",
+      "sizeBytes": 1887
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/fluid-glass-surface.json"
+}

@@ -54,7 +54,7 @@ export function PointerDrawCanvas({ className }: PointerDrawCanvasProps) {
   };
 
   return (
-    <div className={cn("relative h-72 w-full max-w-md rounded-xl border border-line bg-paper p-4 shadow-sm", className)}>
+    <div className={cn("relative h-72 w-full max-w-md rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a120e] via-[#060a08] to-black p-6 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-emerald-100 select-none", className)}>
       <div className="flex justify-between items-center pb-2 border-b border-line">
         <span className="font-mono text-xs text-ink/50">FREEHAND CANVAS</span>
         <button

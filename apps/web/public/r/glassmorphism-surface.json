@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glassmorphism-surface",
+  "type": "registry:component",
+  "title": "Glassmorphism Dynamic Surface",
+  "description": "Layered frosted glass acrylic with edge light refraction and backdrop filter.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glassmorphism-surface.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function GlassmorphismDynamicSurface({ className = \"\" }: { className?: string }): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl overflow-hidden ${className}`}\n      style={{ background: \"rgba(255,255,255,0.08)\", backdropFilter: \"blur(24px) saturate(180%)\", border: \"1px solid rgba(255,255,255,0.15)\", boxShadow: \"0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)\" }}>\n      <div className=\"absolute inset-0 rounded-2xl pointer-events-none\" style={{ background: \"linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)\" }} />\n      <span className=\"font-mono text-[10px] text-white/60 uppercase tracking-widest font-bold block mb-2\">GLASSMORPHISM</span>\n      <h2 className=\"font-display font-bold text-2xl text-white\">Dynamic Surface</h2>\n      <p className=\"font-mono text-xs text-white/50 mt-2\">Frosted acrylic with edge light refraction and backdrop filter.</p>\n    </div>\n  );\n}\n",
+      "contentHash": "8d08dc308bed0bf7bf37ac7d26f3736227a14fd4ce0dcfce93e58f4ed2868589",
+      "sizeBytes": 981
+    }
+  ],
+  "tags": [
+    "css",
+    "glassmorphism",
+    "surface"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glassmorphism-surface.json"
+}

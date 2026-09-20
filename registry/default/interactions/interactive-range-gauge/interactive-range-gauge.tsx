@@ -12,8 +12,8 @@ export function InteractiveRangeGauge({ className }: InteractiveRangeGaugeProps)
   const angle = (val / 100) * 180 - 90;
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
-      <span className="font-mono text-xs text-ink/60">CAPACITY GAUGE: {val}%</span>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-[#0e1218] via-[#090b0e] to-black p-6 shadow-[0_0_25px_rgba(6,182,212,0.15)] text-white select-none", className)}>
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-cyan-400 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /><span>CAPACITY GAUGE: {val}%</span><span className="opacity-50 ml-auto">[CYBER HUD]</span></div>
 
       <div className="relative flex h-28 w-48 items-end justify-center overflow-hidden border-b-2 border-line">
         <div

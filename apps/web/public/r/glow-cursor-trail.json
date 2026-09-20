@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glow-cursor-trail",
+  "type": "registry:component",
+  "title": "Glow Cursor Trail",
+  "description": "Soft radial glow orb smoothly interpolating behind pointer position.",
+  "category": "motion-design",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glow-cursor-trail.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function GlowCursorTrail({ className = \"w-full h-48 cursor-none relative overflow-hidden bg-[#08090f]\" }: { className?: string }): React.JSX.Element {\n  const [trail, setTrail] = React.useState<{ x: number; y: number; id: number }[]>([]);\n  const idRef = React.useRef(0);\n  return (\n    <div className={className} onMouseMove={e => {\n      const r = e.currentTarget.getBoundingClientRect();\n      const pt = { x: e.clientX - r.left, y: e.clientY - r.top, id: idRef.current++ };\n      setTrail(t => [...t.slice(-18), pt]);\n    }}>\n      {trail.map((pt, i) => {\n        const age = i / trail.length;\n        return (\n          <div key={pt.id} className=\"absolute rounded-full pointer-events-none\" style={{\n            width: 8 + age * 24, height: 8 + age * 24,\n            left: pt.x - (4 + age * 12), top: pt.y - (4 + age * 12),\n            background: `radial-gradient(circle, rgba(186,68,44,${age * 0.8}) 0%, transparent 70%)`,\n            filter: `blur(${(1 - age) * 4}px)`,\n          }} />\n        );\n      })}\n    </div>\n  );\n}\n",
+      "contentHash": "9c3e47ea317d5ae2f19666ec1c58b9a96d6cd0d72a7f2cfe4cf34eacced6da06",
+      "sizeBytes": 1073
+    }
+  ],
+  "tags": [
+    "motion",
+    "animation",
+    "interaction"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glow-cursor-trail.json"
+}

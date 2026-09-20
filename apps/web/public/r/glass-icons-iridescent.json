@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "glass-icons-iridescent",
+  "type": "registry:component",
+  "title": "Glass Icons Iridescent",
+  "description": "Translucent 3D glass icon set with internal light refraction.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "glass-icons-iridescent.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function GlassIconsIridescent({ className = \"\" }: { className?: string }) {\n  const [hov, setHov] = useState<number | null>(null);\n  const icons = [\n    { emoji: \"⚡\", label: \"Speed\", hue: 45 }, { emoji: \"🔒\", label: \"Secure\", hue: 220 },\n    { emoji: \"🌐\", label: \"Global\", hue: 160 }, { emoji: \"✨\", label: \"AI\", hue: 280 },\n    { emoji: \"📊\", label: \"Data\", hue: 190 }, { emoji: \"🎯\", label: \"Focus\", hue: 0 },\n  ];\n  return (\n    <div className={`flex flex-wrap gap-4 justify-center ${className}`}>\n      {icons.map((ic, i) => (\n        <div key={i} onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}\n          style={{ width: 72, height: 72, borderRadius: 20, background: hov === i ? `hsl(${ic.hue},70%,25%)` : \"rgba(255,255,255,0.06)\", backdropFilter: \"blur(12px)\", border: `1px solid hsl(${ic.hue},60%,${hov === i ? 50 : 25}%)`, display: \"flex\", flexDirection: \"column\", alignItems: \"center\", justifyContent: \"center\", gap: 4, cursor: \"pointer\", transition: \"all 0.3s cubic-bezier(0.25,1,0.5,1)\", transform: hov === i ? \"scale(1.12) translateY(-4px)\" : \"scale(1)\", boxShadow: hov === i ? `0 12px 30px hsl(${ic.hue},70%,30%)` : \"none\" }}>\n          <span style={{ fontSize: 24 }}>{ic.emoji}</span>\n          <span style={{ color: hov === i ? `hsl(${ic.hue},90%,80%)` : \"rgba(255,255,255,0.4)\", fontSize: 9, fontWeight: 600, letterSpacing: 0.5 }}>{ic.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}",
+      "contentHash": "9742bb99de58d658c61e56e9294d5bc95c58410ef163f84f227a7a1443534aee",
+      "sizeBytes": 1485
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/glass-icons-iridescent.json"
+}

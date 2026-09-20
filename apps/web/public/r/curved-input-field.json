@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "curved-input-field",
+  "type": "registry:component",
+  "title": "Curved Input Field",
+  "description": "Organic input box contouring dynamically to focus state.",
+  "category": "ui-elements",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "curved-input-field.tsx",
+      "type": "registry:component",
+      "content": "import { useState } from \"react\";\nexport default function CurvedInputField({ className = \"\" }: { className?: string }) {\n  const [value, setValue] = useState(\"\");\n  const [focused, setFocused] = useState(false);\n  return (\n    <div className={`flex flex-col gap-6 items-center ${className}`}>\n      {[\"Search components...\", \"Enter email address\", \"Your message here\"].map((ph, i) => {\n        const active = i === 0 ? focused : false;\n        return (\n          <div key={i} style={{ position: \"relative\", width: 280 }}>\n            <svg style={{ position: \"absolute\", inset: 0, overflow: \"visible\", pointerEvents: \"none\", zIndex: 1 }} width=\"280\" height=\"48\">\n              <rect x=\"1\" y=\"1\" width=\"278\" height=\"46\" rx=\"24\" fill=\"none\"\n                stroke={active ? \"#8b5cf6\" : \"rgba(255,255,255,0.15)\"} strokeWidth={active ? 2 : 1} />\n              {active && <rect x=\"1\" y=\"1\" width=\"278\" height=\"46\" rx=\"24\" fill=\"none\" stroke=\"rgba(139,92,246,0.3)\" strokeWidth=\"8\" style={{ filter: \"blur(4px)\" }} />}\n            </svg>\n            <input placeholder={ph} value={i === 0 ? value : \"\"} onChange={e => i === 0 && setValue(e.target.value)}\n              onFocus={() => i === 0 && setFocused(true)} onBlur={() => setFocused(false)}\n              style={{ width: \"100%\", height: 48, borderRadius: 24, border: \"none\", background: \"rgba(255,255,255,0.05)\", color: \"#fff\", padding: \"0 20px\", fontSize: 14, outline: \"none\", boxSizing: \"border-box\" }} />\n          </div>\n        );\n      })}\n    </div>\n  );\n}",
+      "contentHash": "2b64db9d643ea2989b60b352a8d25f590ef1add131847e909939abad44341d23",
+      "sizeBytes": 1509
+    }
+  ],
+  "tags": [
+    "ui",
+    "component",
+    "interactive"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/curved-input-field.json"
+}

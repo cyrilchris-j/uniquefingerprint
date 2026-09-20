@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "blur-text-flow",
+  "type": "registry:component",
+  "title": "Blur Text Flow",
+  "description": "Gaussian blur to razor-sharp typography transition with optical scaling.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "blur-text-flow.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function BlurTextFlow({ words = [\"Clarity\", \"Focus\", \"Precision\", \"Vision\"], className = \"\" }: { words?: string[]; className?: string }): React.JSX.Element {\n  const [i, setI] = React.useState(0);\n  const [phase, setPhase] = React.useState<\"in\" | \"out\">(\"in\");\n  React.useEffect(() => {\n    const id = setTimeout(() => {\n      if (phase === \"in\") { setTimeout(() => setPhase(\"out\"), 1500); }\n      else { setI(p => (p + 1) % words.length); setPhase(\"in\"); }\n    }, phase === \"in\" ? 400 : 400);\n    return () => clearTimeout(id);\n  }, [phase, words.length]);\n  return (\n    <div className={`text-center select-none ${className}`}>\n      <span className=\"font-display font-black text-5xl text-ink\" style={{ display: \"inline-block\", filter: phase === \"in\" ? \"blur(0px)\" : \"blur(16px)\", opacity: phase === \"in\" ? 1 : 0, transform: phase === \"in\" ? \"scale(1)\" : \"scale(0.92)\", transition: \"all 0.35s cubic-bezier(0.4,0,0.2,1)\" }}>\n        {words[i]}\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "4ff5e5234603a90c9c185eb1abb3a32f3595703db80f8aabaff108e4256e1552",
+      "sizeBytes": 1017
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/blur-text-flow.json"
+}

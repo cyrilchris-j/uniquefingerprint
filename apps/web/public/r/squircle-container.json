@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "squircle-container",
+  "type": "registry:component",
+  "title": "Squircle Geometric Container",
+  "description": "Apple-style superellipse continuous curvature border radius with CSS houdini fallback.",
+  "category": "css-layouts",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "squircle-container.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport interface SquircleGeometricContainerProps {\n  className?: string;\n}\n\n/**\n * Squircle Geometric Container\n */\nexport function SquircleGeometricContainer({ className = \"\" }: SquircleGeometricContainerProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">Squircle Geometric Container</h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "d04739f910ca453c42c38212fed6d86003e9fcf1b8865aef3d2cd781f27f4177",
+      "sizeBytes": 882
+    }
+  ],
+  "tags": [
+    "css",
+    "squircle",
+    "geometry"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/squircle-container.json"
+}

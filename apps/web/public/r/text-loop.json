@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openui.dev/schema/registry-item.json",
+  "name": "text-loop",
+  "type": "registry:component",
+  "title": "Text Loop",
+  "description": "Infinite continuous marquee with variable velocity and hover pause.",
+  "category": "text-animations",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "text-loop.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\n\nexport function TextLoop({ items = [\"Design Systems\", \"Motion Language\", \"Spatial Depth\", \"Runtime UI\"], speedMs = 2200, className = \"\" }: { items?: string[]; speedMs?: number; className?: string }): React.JSX.Element {\n  const [index, setIndex] = React.useState(0);\n  const [visible, setVisible] = React.useState(true);\n  React.useEffect(() => {\n    const id = setInterval(() => {\n      setVisible(false);\n      setTimeout(() => { setIndex(i => (i + 1) % items.length); setVisible(true); }, 300);\n    }, speedMs);\n    return () => clearInterval(id);\n  }, [items.length, speedMs]);\n  return (\n    <div className={`overflow-hidden ${className}`}>\n      <span className=\"font-display font-black text-3xl text-ink\" style={{ display: \"inline-block\", transition: \"opacity 0.3s, transform 0.3s\", opacity: visible ? 1 : 0, transform: visible ? \"translateY(0)\" : \"translateY(8px)\" }}>\n        {items[index]}\n      </span>\n    </div>\n  );\n}\n",
+      "contentHash": "2356d78ed7c6588717b0827dee6a58c1e51497149b959586b21d44fcf3febe97",
+      "sizeBytes": 965
+    }
+  ],
+  "tags": [
+    "typography",
+    "text",
+    "kinetic"
+  ],
+  "license": "MIT",
+  "url": "https://uniquefingerprint.web.app/r/text-loop.json"
+}

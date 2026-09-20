@@ -11,7 +11,7 @@ export function DragRotateDial({ className }: DragRotateDialProps) {
   const [angle, setAngle] = useState(45);
 
   return (
-    <div className={cn("inline-flex flex-col items-center gap-4 rounded-xl border border-line bg-paper p-6 shadow-sm", className)}>
+    <div className={cn("inline-flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md p-6 shadow-xl text-zinc-900 dark:text-zinc-100 select-none", className)}>
       <div className="flex justify-between w-full font-mono text-xs text-ink/60">
         <span>AZIMUTH ANGLE</span>
         <span className="font-bold text-ink">{angle}°</span>
