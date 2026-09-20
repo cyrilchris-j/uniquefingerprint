@@ -113,18 +113,18 @@ function CommandStep({
 
 const SPECIMEN_TABS = [
   {
-    id: "spatial-3d",
-    label: "3D Spatial",
-    slug: "interactive-wireframe-globe",
-    icon: Globe,
-    techBadge: "Three.js · WebGL",
-  },
-  {
     id: "particle-text",
     label: "Particle Text",
     slug: "particle-text",
     icon: Sparkles,
     techBadge: "Canvas 2D · Magnetic",
+  },
+  {
+    id: "spatial-3d",
+    label: "3D Spatial",
+    slug: "interactive-wireframe-globe",
+    icon: Globe,
+    techBadge: "Three.js · WebGL",
   },
   {
     id: "voice-pill-waveform",
