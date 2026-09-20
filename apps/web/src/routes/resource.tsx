@@ -324,6 +324,7 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 }
 
 export default function ResourcePage(): React.JSX.Element {
+  const navigate = useNavigate();
   const params = useParams<{ category: string; slug: string }>();
   const slug = params.slug ?? "";
   const [searchParams, setSearchParams] = useSearchParams();
@@ -477,7 +478,6 @@ export default function ResourcePage(): React.JSX.Element {
     );
   }
 
-  const navigate = useNavigate();
   const categoryDef = entry ? categoryBySlug(entry.category) : undefined;
   const categoryTitle =
     categoryDef?.title ??
