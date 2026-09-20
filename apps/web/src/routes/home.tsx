@@ -1,10 +1,18 @@
-import { Download } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Copy,
+  Download,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
 import { Button, EmptyState, SegmentedControl, Skeleton } from "@openui/ui";
+import { cn } from "@openui/utils";
 
-import { CodeBlock } from "../components/CodeBlock.js";
 import { usePWA } from "../components/PWAInstall.js";
 import { ResourceTile } from "../components/ResourceTile.js";
 import { SectionHeader } from "../components/SectionHeader.js";
@@ -17,6 +25,78 @@ import {
   ScrollReveal,
   WordReveal,
 } from "../visual-engine/index.js";
+
+function CommandStep({
+  step,
+  title,
+  command,
+}: {
+  step: string;
+  title: string;
+  command: string;
+}): React.JSX.Element {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(command);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // fallback
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-2.5 rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-mono text-paper font-semibold">
+            {step}
+          </span>
+          <span className="text-xs sm:text-[13px] font-medium text-ink tracking-tight">
+            {title}
+          </span>
+        </div>
+        <span className="font-mono text-[10px] text-graphite/60 uppercase tracking-wider">
+          Terminal
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between gap-3 rounded-lg border border-line/25 bg-[#0e0e11] px-3.5 py-2.5 text-[#f4f4f5] shadow-inner">
+        <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar font-mono text-xs sm:text-[13px]">
+          <span className="text-moss font-bold select-none">$</span>
+          <span className="whitespace-nowrap text-white/90">{command}</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => void handleCopy()}
+          className={cn(
+            "shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] transition-all duration-150 border cursor-pointer",
+            copied
+              ? "bg-moss/20 border-moss/40 text-moss"
+              : "bg-white/10 hover:bg-white/15 border-white/10 text-white/80 hover:text-white",
+          )}
+          title="Copy command"
+        >
+          {copied ? (
+            <>
+              <Check className="h-3 w-3" />
+              <span>Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy className="h-3 w-3" />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * The home page.
@@ -36,7 +116,7 @@ import {
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
   const { isInstalled, triggerInstall } = usePWA();
-  const [usageMethod, setUsageMethod] = React.useState<"global" | "ondemand" | "manual">("global");
+  const [usageMethod, setUsageMethod] = React.useState<"npx" | "pnpm" | "manual">("npx");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -189,9 +269,9 @@ export default function HomePage(): React.JSX.Element {
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="01 — Global CLI or Direct Code"
-          title="Install via global npm CLI or simply copy the code."
-          description="UniqueFingerprint is available globally as an npm package. You can install it globally to run CLI commands anywhere, use on-demand commands via npx / dlx, or skip the CLI entirely and use the open source code directly in your project."
+          eyebrow="01 — Get Started"
+          title="Add to your project in two commands."
+          description="Zero configuration and zero runtime lock-in. The CLI configures path aliases, verifies integrity, and places clean TypeScript source directly into your codebase."
           actions={
             <Button variant="ghost" size="sm" asChild>
               <Link to="/docs/cli">CLI documentation</Link>
@@ -199,139 +279,134 @@ export default function HomePage(): React.JSX.Element {
           }
         />
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <div className="flex flex-col gap-4 min-w-0">
+        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14 items-start">
+          {/* Left Column: Clean, Separate Commands */}
+          <div className="flex flex-col gap-5 min-w-0">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <SegmentedControl
                 label="Installation & usage methods"
                 hideLabel
                 size="sm"
                 value={usageMethod}
-                onValueChange={(val) => setUsageMethod(val as "global" | "ondemand" | "manual")}
+                onValueChange={(val) => setUsageMethod(val as "npx" | "pnpm" | "manual")}
                 options={[
-                  { value: "global", label: "Global CLI (npm)" },
-                  { value: "ondemand", label: "On-demand (npx)" },
+                  { value: "npx", label: "npx" },
+                  { value: "pnpm", label: "pnpm" },
                   { value: "manual", label: "Direct code" },
                 ]}
               />
               <span className="font-mono text-[11px] tracking-wider text-graphite/70">
-                {usageMethod === "global"
-                  ? "npm: uniquefingerprint"
-                  : usageMethod === "ondemand"
-                    ? "npx / dlx"
-                    : "zero tooling required"}
+                {usageMethod === "manual" ? "zero tooling required" : "automated setup"}
               </span>
             </div>
 
-            {usageMethod === "global" && (
-              <CodeBlock
-                className="min-w-0"
-                caption="terminal — global npm package"
-                language="bash"
-                maxLines={22}
-                code={`# 1. Install UniqueFingerprint CLI globally
-npm install -g uniquefingerprint
-
-# 2. Initialise your project configuration
-uniquefingerprint init
-
-# 3. Add components directly into your codebase
-uniquefingerprint add magnetic-button
-
-# 4. Add complete design systems or themes
-uniquefingerprint theme add swiss-editorial
-
-# 5. Search resources from terminal
-uniquefingerprint search buttons`}
-              />
-            )}
-
-            {usageMethod === "ondemand" && (
-              <CodeBlock
-                className="min-w-0"
-                caption="terminal — npx / pnpm dlx"
-                language="bash"
-                maxLines={22}
-                code={`# Run directly without installing globally
-npx uniquefingerprint init
-
-# Add components via npx
-npx uniquefingerprint add magnetic-button
-
-# Or use pnpm dlx / bunx
-pnpm dlx uniquefingerprint add magnetic-button
-
-# Inspect metadata, dependencies and design rules
-npx uniquefingerprint view magnetic-button`}
-              />
-            )}
-
-            {usageMethod === "manual" && (
-              <CodeBlock
-                className="min-w-0"
-                caption="src/components/magnetic-button.tsx"
-                language="tsx"
-                maxLines={22}
-                code={`// No CLI or package required — pure copy & paste open code
-// 1. Install peer helpers: pnpm add clsx tailwind-merge motion
-// 2. Drop the component source directly into your codebase:
-
-import * as React from "react";
-import { motion } from "motion/react";
-import { cn } from "@/lib/cn";
-
-export function MagneticButton({
-  children,
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={cn("px-4 py-2 border border-ink text-ink font-mono text-xs uppercase", className)}
-      {...props}
-    >
-      {children}
-    </motion.button>
-  );
-}`}
-              />
+            {usageMethod === "manual" ? (
+              <div className="flex flex-col gap-3.5">
+                <CommandStep
+                  step="1"
+                  title="Install peer dependencies"
+                  command="pnpm add clsx tailwind-merge motion"
+                />
+                <div className="rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-mono text-paper font-semibold">
+                      2
+                    </span>
+                    <span className="text-xs sm:text-[13px] font-medium text-ink tracking-tight">
+                      Copy component source code
+                    </span>
+                  </div>
+                  <p className="text-xs text-graphite leading-relaxed">
+                    Open any component from the catalogue, click the <strong>Code</strong> tab, and paste the TypeScript file into your project.
+                  </p>
+                  <div className="pt-1">
+                    <Button variant="outline" size="sm" asChild className="text-xs gap-1.5 w-fit">
+                      <Link to="/explore">
+                        <span>Browse Catalogue</span>
+                        <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3.5">
+                <CommandStep
+                  step="1"
+                  title="Initialize project configuration"
+                  command={
+                    usageMethod === "pnpm"
+                      ? "pnpm dlx uniquefingerprint init"
+                      : "npx uniquefingerprint init"
+                  }
+                />
+                <CommandStep
+                  step="2"
+                  title="Add component to your project"
+                  command={
+                    usageMethod === "pnpm"
+                      ? "pnpm dlx uniquefingerprint add magnetic-button"
+                      : "npx uniquefingerprint add magnetic-button"
+                  }
+                />
+              </div>
             )}
           </div>
 
-          <div className="flex flex-col gap-6 min-w-0">
-            <p className="prose-measure text-[0.95rem] leading-relaxed text-graphite">
-              UniqueFingerprint gives you complete ownership with zero runtime lock-in. Whether
-              you want automated CLI commands in your terminal or prefer copy-pasting raw code
-              straight into your repository, everything is designed to get out of your way.
-            </p>
+          {/* Right Column: Essential Content Only */}
+          <div className="flex flex-col justify-between gap-6 min-w-0 rounded-2xl border border-line/35 bg-paper/90 p-6 sm:p-8 shadow-xs">
+            <div>
+              <p className="font-display text-xl sm:text-2xl tracking-tight text-ink">
+                Complete code ownership.
+              </p>
+              <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite">
+                Components are copied directly into your repository as pure TypeScript and Tailwind CSS with zero runtime dependencies.
+              </p>
+            </div>
 
-            <ul className="flex flex-col">
-              {[
-                [
-                  "Global npm package",
-                  "Available globally on npm via npm install -g uniquefingerprint. Run CLI commands from any terminal in any directory.",
-                ],
-                [
-                  "Instant on-demand commands",
-                  "No global install needed if you prefer not to — run instantly using npx uniquefingerprint or pnpm dlx.",
-                ],
-                [
-                  "Direct code without CLI",
-                  "Don't want to use any CLI? Browse the registry, copy the raw component source, and paste it straight into your repo.",
-                ],
-                [
-                  "Zero runtime dependencies",
-                  "You own 100% of the code. No black-box npm runtime packages, no vendor lock-in, and full freedom to modify.",
-                ],
-              ].map(([title, body]) => (
-                <li key={title} className="border-t border-line py-4">
-                  <p className="font-display text-step-1 tracking-tight text-ink">{title}</p>
-                  <p className="mt-1 text-[0.88rem] leading-relaxed text-graphite">{body}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col gap-4 border-t border-line/20 pt-5">
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20 mt-0.5">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    Zero Runtime Lock-in
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Code lives in your repository. Customize, style, or refactor with total freedom.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 mt-0.5">
+                  <Zap className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    Auto Dependency Resolution
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Installs peer packages, sets up `@/lib/cn`, and checks for conflicts automatically.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 border border-sky-500/20 mt-0.5">
+                  <Sparkles className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
+                    No Black-Box NPM Packages
+                  </p>
+                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
+                    Accessible primitives, motion physics, and clean token contracts you can inspect.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
