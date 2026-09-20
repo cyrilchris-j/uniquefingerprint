@@ -1,6 +1,7 @@
 import {
   Activity,
   ArrowRight,
+  ArrowUpRight,
   Box,
   Check,
   Compass,
@@ -10,10 +11,12 @@ import {
   Github,
   Globe,
   Layers,
+  Package,
   Search,
   ShieldCheck,
   Sparkles,
   Star,
+  Terminal,
   Type,
   Zap,
 } from "lucide-react";
@@ -296,7 +299,8 @@ function HeroSpecimenShowcase(): React.JSX.Element {
 
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
-  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx">("pnpm");
+  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx" | "global">("pnpm");
+  const [copiedGlobal, setCopiedGlobal] = React.useState(false);
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -474,10 +478,11 @@ export default function HomePage(): React.JSX.Element {
                 hideLabel
                 size="sm"
                 value={usageMethod}
-                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx")}
+                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx" | "global")}
                 options={[
-                  { value: "pnpm", label: "pnpm" },
+                  { value: "pnpm", label: "pnpm dlx" },
                   { value: "npx", label: "npx" },
+                  { value: "global", label: "global CLI" },
                 ]}
               />
               <span className="font-mono text-[11px] tracking-wider text-graphite/70">
@@ -488,47 +493,110 @@ export default function HomePage(): React.JSX.Element {
             <div className="flex flex-col gap-3.5">
               <CommandStep
                 step="1"
-                title="Install any component directly"
+                title={usageMethod === "global" ? "Install globally once via npm" : "Install any component directly"}
                 command={
                   usageMethod === "pnpm"
                     ? "pnpm dlx uniquefingerprint add magnetic-spring-button"
-                    : "npx uniquefingerprint add magnetic-spring-button"
+                    : usageMethod === "npx"
+                    ? "npx uniquefingerprint add magnetic-spring-button"
+                    : "npm install -g uniquefingerprint"
                 }
               />
               <CommandStep
                 step="2"
-                title="Install multiple components at once"
+                title={usageMethod === "global" ? "Run directly anywhere from your terminal" : "Install multiple components at once"}
                 command={
                   usageMethod === "pnpm"
                     ? "pnpm dlx uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
-                    : "npx uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
+                    : usageMethod === "npx"
+                    ? "npx uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
+                    : "uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
                 }
               />
             </div>
           </div>
 
-          {/* Right Column: Essential Content Only */}
-          <div className="flex flex-col justify-between gap-6 min-w-0 rounded-2xl border border-line/35 bg-paper/90 p-6 sm:p-8 shadow-xs">
+          {/* Right Column: Official NPM Package & Global CLI */}
+          <div className="flex flex-col justify-between gap-6 min-w-0 rounded-2xl border border-line/35 bg-paper/90 p-6 sm:p-8 shadow-xs relative overflow-hidden group">
+            {/* Subtle background glow */}
+            <div className="absolute -top-16 -right-16 h-36 w-36 rounded-full bg-red-500/5 blur-2xl pointer-events-none" />
+
             <div>
-              <p className="font-display text-xl sm:text-2xl tracking-tight text-ink">
-                Complete code ownership.
-              </p>
+              <div className="flex items-center justify-between gap-3 flex-wrap mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#CB3837]/10 text-[#CB3837] border border-[#CB3837]/20 font-mono text-[11px] font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#CB3837] animate-pulse" />
+                    npm package
+                  </span>
+                  <span className="font-mono text-[11px] text-graphite/80 px-2 py-0.5 rounded bg-line/20">
+                    v0.1.1
+                  </span>
+                </div>
+
+                <a
+                  href="https://www.npmjs.com/package/uniquefingerprint"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-graphite hover:text-ink transition-colors"
+                >
+                  npmjs.com/package/uniquefingerprint
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+
+              <h3 className="font-display text-xl sm:text-2xl tracking-tight text-ink">
+                Global CLI: uniquefingerprint
+              </h3>
               <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite">
-                Components are copied directly into your repository as pure TypeScript and Tailwind CSS with zero runtime dependencies.
+                The official UniqueFingerprint registry package is published globally on npm. Install it once to scaffold 1,000+ interactive UI elements, physics shaders, and design tokens right into your project.
               </p>
+            </div>
+
+            {/* Quick Global Command Box */}
+            <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-ink/[0.03] border border-line/40 font-mono text-xs">
+              <div className="flex items-center gap-2.5 overflow-x-auto min-w-0">
+                <span className="text-graphite/60 select-none">$</span>
+                <span className="text-ink font-semibold select-all truncate">
+                  npm install -g uniquefingerprint
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={async () => {
+                  if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText("npm install -g uniquefingerprint");
+                    setCopiedGlobal(true);
+                    setTimeout(() => setCopiedGlobal(false), 2000);
+                  }
+                }}
+                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] bg-paper border border-line/40 hover:bg-line/20 text-graphite hover:text-ink transition-colors cursor-pointer"
+                title="Copy global install command"
+              >
+                {copiedGlobal ? (
+                  <>
+                    <Check className="h-3 w-3 text-moss" />
+                    <span className="text-moss">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3 w-3" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
             </div>
 
             <div className="flex flex-col gap-4 border-t border-line/20 pt-5">
               <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20 mt-0.5">
-                  <ShieldCheck className="h-3.5 w-3.5" />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#CB3837]/10 text-[#CB3837] border border-[#CB3837]/20 mt-0.5">
+                  <Terminal className="h-3.5 w-3.5" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    Zero Runtime Lock-in
+                    Global Terminal Command
                   </p>
                   <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Code lives in your repository. Customize, style, or refactor with total freedom.
+                    Install once with <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">npm i -g uniquefingerprint</code>. Run <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">uniquefingerprint add &lt;name&gt;</code> anywhere.
                   </p>
                 </div>
               </div>
@@ -539,28 +607,42 @@ export default function HomePage(): React.JSX.Element {
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    Auto Dependency Resolution
+                    Instant Dependency & Path Resolution
                   </p>
                   <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Installs peer packages, sets up @/lib/cn, and checks for conflicts automatically.
+                    Automatically resolves registry closures, configures <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">@/lib/cn</code>, and installs npm peer dependencies.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 border border-sky-500/20 mt-0.5">
-                  <Sparkles className="h-3.5 w-3.5" />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20 mt-0.5">
+                  <ShieldCheck className="h-3.5 w-3.5" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    No Black-Box NPM Packages
+                    Pure TypeScript & Zero Runtime Lock-in
                   </p>
                   <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Accessible primitives, motion physics, and clean token contracts you can inspect.
+                    Component source is copied directly into your repository with complete code ownership and MIT license.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* Footer View Package Link */}
+            <a
+              href="https://www.npmjs.com/package/uniquefingerprint"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3 rounded-xl bg-[#CB3837]/5 hover:bg-[#CB3837]/10 border border-[#CB3837]/15 transition-all text-xs text-ink font-mono group/btn"
+            >
+              <div className="flex items-center gap-2">
+                <Package className="h-4 w-4 text-[#CB3837]" />
+                <span className="font-medium">Inspect package on npmjs.com</span>
+              </div>
+              <ArrowRight className="h-3.5 w-3.5 text-[#CB3837] transform group-hover/btn:translate-x-0.5 transition-transform" />
+            </a>
           </div>
         </div>
       </section>
