@@ -93,12 +93,8 @@ import { ${advItem.title.replace(/[^a-zA-Z0-9]/g, "")} } from "./${advItem.slug}
 
 export default function Demo() {
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", background: "#fcfbf7" }}>
-      <div style={{ width: "100%", maxWidth: "600px", textAlign: "center" }}>
-        <h2 style={{ fontFamily: "serif", fontSize: "1.5rem", marginBottom: "0.5rem" }}>${advItem.title}</h2>
-        <p style={{ color: "#666", fontSize: "0.85rem", marginBottom: "1.5rem" }}>${advItem.description}</p>
-        <${advItem.title.replace(/[^a-zA-Z0-9]/g, "")} />
-      </div>
+    <div className="w-full min-h-screen flex items-center justify-center p-4">
+      <${advItem.title.replace(/[^a-zA-Z0-9]/g, "")} />
     </div>
   );
 }`,

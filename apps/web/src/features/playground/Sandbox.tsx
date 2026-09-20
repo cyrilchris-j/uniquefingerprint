@@ -7,6 +7,8 @@ import { EmptyState, Skeleton } from "@openui/ui";
 
 import { useTheme } from "../../hooks/use-theme.js";
 import { getCatalogueVisualPreview } from "../../visual-engine/catalogue-previews.js";
+import { getAdvancedItemBySlug } from "../../advanced/catalogue-data.js";
+import { AdvancedPreview } from "../../advanced/renderers/AdvancedPreview.js";
 import { BlobPreview } from "./BlobPreview.js";
 import { buildSandboxFiles } from "./files.js";
 
@@ -25,7 +27,13 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
   const computed = React.useMemo(() => buildSandboxFiles(item), [item]);
   const files = provided ?? computed;
 
-  if (!files["/App.tsx"]) {
+  const advItem = React.useMemo(() => getAdvancedItemBySlug(item.name), [item.name]);
+  const bespoke = React.useMemo(
+    () => getCatalogueVisualPreview(item.name, item.category),
+    [item.name, item.category],
+  );
+
+  if (!files["/App.tsx"] && !advItem && !bespoke) {
     return (
       <EmptyState
         eyebrow="No demo"
@@ -42,11 +50,6 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
     "/public/index.html": { code: getSandboxHtml(isDark), hidden: true },
     "/styles.css": { code: SANDBOX_CSS, hidden: true },
   };
-
-  const bespoke = React.useMemo(
-    () => getCatalogueVisualPreview(item.name, item.category),
-    [item.name, item.category],
-  );
 
   const previewHeight = view === "split" ? "22rem" : "32rem";
   const editorHeight = view === "split" ? "24rem" : "34rem";
@@ -87,14 +90,23 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
         {/* Visual Preview / BlobPreview Canvas Stage */}
         {view !== "code" ? (
           <div
-            className="relative overflow-hidden bg-[#f8f6f1] dark:bg-[#0c0c0b] flex items-center justify-center p-6 sm:p-10"
+            className="relative overflow-hidden bg-[#f8f6f1] dark:bg-[#0c0c0b] flex items-center justify-center p-4 sm:p-8"
             style={{
               minHeight: previewHeight,
               backgroundImage: "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
               backgroundSize: "16px 16px",
             }}
           >
-            {bespoke && !provided ? (
+            {advItem ? (
+              <div
+                key={refreshKey}
+                className="w-full h-full min-h-[22rem] sm:min-h-[28rem] flex items-center justify-center p-2 sm:p-4"
+              >
+                <div className="w-full max-w-4xl min-h-[20rem] sm:min-h-[26rem] rounded-xl overflow-hidden border border-line/25 bg-paper shadow-md flex items-center justify-center relative">
+                  <AdvancedPreview item={advItem} interactive className="w-full h-full min-h-[20rem] sm:min-h-[26rem]" />
+                </div>
+              </div>
+            ) : bespoke ? (
               <div
                 key={refreshKey}
                 className="w-full max-w-xl min-h-[16rem] sm:min-h-[20rem] p-6 sm:p-10 rounded-2xl bg-paper/95 border border-line/35 shadow-lg flex items-center justify-center relative backdrop-blur-xs mx-auto"
