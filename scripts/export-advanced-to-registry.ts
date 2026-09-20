@@ -70,7 +70,7 @@ async function run() {
         title: item.title,
         description: item.description,
         category: item.category,
-        resourceType: "component",
+        resourceType: "advanced",
         tags: item.tags,
         dependencies: item.dependencies,
         registryDependencies: ["cn"],

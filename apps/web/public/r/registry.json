@@ -18150,7 +18150,7 @@
       "title": "Liquid Chrome Fluid",
       "description": "Viscous metallic fluid reacting to mouse drag turbulence.",
       "category": "backgrounds",
-      "resourceType": "background",
+      "resourceType": "advanced",
       "tags": [
         "liquid",
         "chrome",
@@ -34398,7 +34398,7 @@
       "title": "Kinetic Editorial Hero",
       "description": "High-impact editorial hero with staggered character reveals, kinetic ticker, and magnetic CTA.",
       "category": "heroes",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "hero",
         "typography",
@@ -34421,7 +34421,7 @@
       "title": "Spatial Device 3D Hero",
       "description": "Interactive 3D hardware perspective canvas with pointer-driven parallax and lighting.",
       "category": "heroes",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "hero",
         "3d",
@@ -34445,7 +34445,7 @@
       "title": "Particle Constellation Hero",
       "description": "Quantum particle constellation canvas reacting to cursor proximity with title masking.",
       "category": "heroes",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "hero",
         "particles",
@@ -34468,7 +34468,7 @@
       "title": "Asymmetric Split Interactive Hero",
       "description": "Swiss grid asymmetric layout with smooth spring image reveal and typographic contrast.",
       "category": "heroes",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "hero",
         "asymmetric",
@@ -34491,7 +34491,7 @@
       "title": "Bento Spotlight Hero",
       "description": "Multi-cell bento showcase hero with radial cursor spotlight tracking and live metrics.",
       "category": "heroes",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "hero",
         "bento",
@@ -34514,7 +34514,7 @@
       "title": "Interactive Wireframe Globe",
       "description": "Procedural 3D geodesic wireframe globe reacting to drag and cursor velocity.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "globe",
@@ -34538,7 +34538,7 @@
       "title": "Floating 3D Card Stack",
       "description": "Perspective 3D transform card deck with spatial depth layering and fluid spring tilt.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "cards",
@@ -34561,7 +34561,7 @@
       "title": "Spatial Particle Nebula",
       "description": "BufferGeometry 3D point cloud nebula with organic orbital drift and depth falloff.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "particles",
@@ -34585,7 +34585,7 @@
       "title": "Isometric Cubes Scene",
       "description": "Interactive isometric matrix of floating volumetric prisms with spring hover oscillation.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "isometric",
@@ -34609,7 +34609,7 @@
       "title": "3D Model Viewer WebGL",
       "description": "Hardware-accelerated viewport with orbit controls, lighting presets, and canvas fallback.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "viewer",
@@ -34633,7 +34633,7 @@
       "title": "Dome Gallery 3D",
       "description": "Spherical dome gallery wrapping items in 3D panoramic space with inertial panning.",
       "category": "spatial-3d",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "3d",
         "gallery",
@@ -34657,7 +34657,7 @@
       "title": "Magnetic Spring Button",
       "description": "Tactile button drawn towards the pointer within a bounded spring attraction field.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "magnetic",
@@ -34680,7 +34680,7 @@
       "title": "Specular Liquid Button",
       "description": "Reflective specular highlight tracking pointer coordinates across a glossy button face.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "specular",
@@ -34703,7 +34703,7 @@
       "title": "Neon Energy Border Button",
       "description": "Conic gradient light beam tracing the perimeter on hover with haptic scale response.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "border",
@@ -34726,7 +34726,7 @@
       "title": "Hold To Confirm Button",
       "description": "Safety action button requiring continuous hold with circular countdown indicator.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "hold",
@@ -34749,7 +34749,7 @@
       "title": "Rubber Snap Button",
       "description": "Elastic button with exaggerated rubber-band recoil physics on release.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "rubber",
@@ -34772,7 +34772,7 @@
       "title": "Fuse Spark Button",
       "description": "Micro-spark particle emission tracing the button contour upon activation.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "spark",
@@ -34795,7 +34795,7 @@
       "title": "Sling Rebound Button",
       "description": "Directional slingshot drag and spring-loaded return button with velocity transfer.",
       "category": "buttons",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "button",
         "drag",
@@ -34818,7 +34818,7 @@
       "title": "Text Loop",
       "description": "Infinite continuous marquee with variable velocity and hover pause.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34841,7 +34841,7 @@
       "title": "Masked Heading",
       "description": "Dynamic gradient and image mask traveling across typographic glyphs.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34864,7 +34864,7 @@
       "title": "Particle Text",
       "description": "Letters assembled from thousands of magnetic particles that scatter on pointer approach.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34887,7 +34887,7 @@
       "title": "Split Flap Text",
       "description": "Mechanical airport departure board alphanumeric flip animation.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34910,7 +34910,7 @@
       "title": "Warp Text",
       "description": "Nonlinear spatial wave deformation across letterforms.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34933,7 +34933,7 @@
       "title": "Stroke Text",
       "description": "Animated SVG path outline stroke drawing with variable line width.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34956,7 +34956,7 @@
       "title": "Depth Text",
       "description": "Extruded faux-3D typographic layers with perspective shadow tracking.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -34979,7 +34979,7 @@
       "title": "Fold Text",
       "description": "Origami accordion paper fold reveal for headings and callouts.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35002,7 +35002,7 @@
       "title": "Echo Text",
       "description": "Cascading ghost trails lagging behind typography during transitions.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35025,7 +35025,7 @@
       "title": "Split Text Flow",
       "description": "Fluid word-by-word staggered reveal with directional velocity.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35048,7 +35048,7 @@
       "title": "Blur Text Flow",
       "description": "Gaussian blur to razor-sharp typography transition with optical scaling.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35071,7 +35071,7 @@
       "title": "Circular Text Orbit",
       "description": "Rotational text orbit along circular and elliptical vector paths.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35094,7 +35094,7 @@
       "title": "Text Type Stack",
       "description": "Typewriter cursor stack with realistic human cadence and deletion.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35117,7 +35117,7 @@
       "title": "Shuffle Decrypt",
       "description": "Cryptographic matrix glyph scrambling settling into plain text.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35140,7 +35140,7 @@
       "title": "Shiny Text Sheen",
       "description": "Prismatic metallic specular sheen passing across typography.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35163,7 +35163,7 @@
       "title": "Text Pressure Geo",
       "description": "Proximity-driven variable font weight and optical size scaling.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35186,7 +35186,7 @@
       "title": "Curved Loop Ribbon",
       "description": "Bezier curve ribbon text scrolling infinitely across 3D coordinates.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35209,7 +35209,7 @@
       "title": "Fuzzy Noise Text",
       "description": "Perlin noise film grain displacement on typographic silhouettes.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35232,7 +35232,7 @@
       "title": "Gradient Contour Text",
       "description": "Multi-stop harmonic gradient contour tracing letter edges.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35255,7 +35255,7 @@
       "title": "Falling Physics Text",
       "description": "Gravity-bound glyphs tumbling down and resting on floor boundaries.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35278,7 +35278,7 @@
       "title": "Text Cursor Follow",
       "description": "Floating label trailing pointer movement with spring latency.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35301,7 +35301,7 @@
       "title": "Decrypted Glyph Text",
       "description": "Cybernetic glyph reveal decoding character-by-character.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35324,7 +35324,7 @@
       "title": "True Focus Lens",
       "description": "Variable optical depth-of-field focusing on hovered words.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35347,7 +35347,7 @@
       "title": "Scroll Float Type",
       "description": "Scroll-velocity driven floating letters with inertia damping.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35370,7 +35370,7 @@
       "title": "Scroll Reveal Chars",
       "description": "Intersection-triggered individual character fade and slide.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35393,7 +35393,7 @@
       "title": "ASCII Render Text",
       "description": "Real-time rasterization of imagery and text into ASCII monospace glyphs.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35416,7 +35416,7 @@
       "title": "Scrambled Kinetic Text",
       "description": "Fast randomized glyph replacement for high-tech telemetry.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35439,7 +35439,7 @@
       "title": "Rotating Axis Text",
       "description": "3D axis rotational flip between multiple text phrases.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35462,7 +35462,7 @@
       "title": "Glitch Chromatic Text",
       "description": "RGB split chromatic aberration with periodic digital glitch impulses.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35485,7 +35485,7 @@
       "title": "Scroll Velocity Skew",
       "description": "Kinetic text skewing and stretching proportionally to page scroll velocity.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35508,7 +35508,7 @@
       "title": "Variable Proximity Sans",
       "description": "Font weight and width expanding towards pointer proximity coordinates.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35531,7 +35531,7 @@
       "title": "Count Up Roller",
       "description": "High-precision mechanical digit odometer roller with spring deceleration.",
       "category": "text-animations",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "typography",
         "text",
@@ -35554,7 +35554,7 @@
       "title": "Glow Cursor Trail",
       "description": "Soft radial glow orb smoothly interpolating behind pointer position.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35577,7 +35577,7 @@
       "title": "Scroll Expand Card",
       "description": "Container scaling smoothly from card to full-bleed hero on scroll progress.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35600,7 +35600,7 @@
       "title": "Ripple Distortion Lens",
       "description": "Procedural wave ripple distortion emitting outward from click coordinates.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35623,7 +35623,7 @@
       "title": "Elastic Mesh Grid",
       "description": "Interactive cloth mesh lattice deforming under pointer drag.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35646,7 +35646,7 @@
       "title": "Swarm Cursor Flock",
       "description": "Boids flocking algorithm following pointer velocity with spatial cohesion.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35669,7 +35669,7 @@
       "title": "Halftone Reveal Mask",
       "description": "Dot matrix halftone pattern expanding to reveal masked content.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35692,7 +35692,7 @@
       "title": "Pixel Swap Grid",
       "description": "Retro digital pixel mosaic rearranging between image states.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35715,7 +35715,7 @@
       "title": "Cursor Grid Mesh",
       "description": "Ambient background grid illuminating cells beneath cursor movement.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35738,7 +35738,7 @@
       "title": "Animated Content Fade",
       "description": "Orchestrated multi-element cascade with spring transitions.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35761,7 +35761,7 @@
       "title": "Fade Content Blur",
       "description": "Progressive blur and opacity fade for modal and drawer surfaces.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35784,7 +35784,7 @@
       "title": "Electric Border Trace",
       "description": "High-frequency plasma spark racing around element borders.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35807,7 +35807,7 @@
       "title": "Orbit Images Cluster",
       "description": "Gravitational planetary orbit of cards around a central focal hub.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35830,7 +35830,7 @@
       "title": "Pixel Transition Curtain",
       "description": "Dithering pixel curtain wipe between route and view transitions.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35853,7 +35853,7 @@
       "title": "Glare Hover Card",
       "description": "Holographic foil glare shifting dynamically with device tilt and mouse.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35876,7 +35876,7 @@
       "title": "Antigravity Float Mesh",
       "description": "Floating cards suspended in zero-gravity space with micro-gyrations.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35899,7 +35899,7 @@
       "title": "Logo Loop Ticker",
       "description": "Infinite dual-direction ticker with velocity control and mask fades.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35922,7 +35922,7 @@
       "title": "Target Cursor Reticle",
       "description": "Minimal tactical crosshair snapping onto interactive hit targets.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35945,7 +35945,7 @@
       "title": "Magic Rings Pulsar",
       "description": "Expanding concentric shockwave rings radiating from interaction points.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35968,7 +35968,7 @@
       "title": "Laser Flow Field",
       "description": "Collimated laser beam trajectories refracting through virtual lenses.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -35991,7 +35991,7 @@
       "title": "Magnet Lines Field",
       "description": "Vector field compass needles aligning with pointer magnetic poles.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36014,7 +36014,7 @@
       "title": "Ghost Cursor Lag",
       "description": "Delayed ghost silhouette creating ethereal motion blur trails.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36037,7 +36037,7 @@
       "title": "Gradual Blur Backdrop",
       "description": "Layered gradient blur backdrop for glassmorphism headers.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36060,7 +36060,7 @@
       "title": "Click Spark Burst",
       "description": "Physics particle spark burst dissipating on user click.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36083,7 +36083,7 @@
       "title": "Magnet Field Pull",
       "description": "Gravitational pull affecting nearby floating UI chips and buttons.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36106,7 +36106,7 @@
       "title": "Strands Motion Wave",
       "description": "Harmonic sine strands oscillating with dynamic wind physics.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36129,7 +36129,7 @@
       "title": "Sticker Peel Corner",
       "description": "Realistic 3D paper peel effect curling up from card corners.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36152,7 +36152,7 @@
       "title": "Pixel Trail Emitter",
       "description": "Decaying 8-bit pixel dust emitting behind moving cursor.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36175,7 +36175,7 @@
       "title": "Cubes Matrix Spin",
       "description": "3D cube voxel lattice reacting to pointer hover with wave ripple.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36198,7 +36198,7 @@
       "title": "Metallic Paint Canvas",
       "description": "Liquid mercury metallic surface swirling with mouse turbulence.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36221,7 +36221,7 @@
       "title": "Noise Surface Drift",
       "description": "Organic simplex noise displacement simulating topographic flow.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36244,7 +36244,7 @@
       "title": "Shape Blur Lens",
       "description": "Variable focal shape masking with backdrop filter refraction.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36267,7 +36267,7 @@
       "title": "Crosshair Reticle Aim",
       "description": "Precision coordinate overlay with real-time X/Y telemetry.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36290,7 +36290,7 @@
       "title": "Image Trail Cursor",
       "description": "Sequential image burst trail rendered along pointer motion vectors.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36313,7 +36313,7 @@
       "title": "Ribbons Flow Field",
       "description": "Curvilinear 3D ribbons weaving through 3D spatial boundaries.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36336,7 +36336,7 @@
       "title": "Splash Cursor Liquid",
       "description": "Navier-Stokes fluid dynamics simulation reacting to touch impulses.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36359,7 +36359,7 @@
       "title": "Meta Balls Canvas",
       "description": "Organic liquid metaball blobs coalescing and separating dynamically.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36382,7 +36382,7 @@
       "title": "Blob Cursor Physics",
       "description": "Elastic liquid blob trailing cursor with jelly inertia damping.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36405,7 +36405,7 @@
       "title": "Star Border Shimmer",
       "description": "Subtle starlight scintillation traveling along container borders.",
       "category": "motion-design",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "motion",
         "animation",
@@ -36428,7 +36428,7 @@
       "title": "Infinite Spiral Canvas",
       "description": "Logarithmic spiral gallery zooming infinitely into sub-items.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36451,7 +36451,7 @@
       "title": "Depth Carousel 3D",
       "description": "Cylindrical carousel arranging items with 3D Z-depth perspective.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36474,7 +36474,7 @@
       "title": "Morph Slider Path",
       "description": "SVG path morphing seamlessly between different state shapes.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36497,7 +36497,7 @@
       "title": "Drift Wall Parallax",
       "description": "Multi-layer infinite masonry wall with inertial pointer drift.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36520,7 +36520,7 @@
       "title": "Accordion Gallery Split",
       "description": "Horizontal split curtain accordion expanding on hover.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36543,7 +36543,7 @@
       "title": "Specular Button Lens",
       "description": "Fresnel lens reflection button with physical light falloff.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36566,7 +36566,7 @@
       "title": "Option Wheel 3D",
       "description": "Tactile mechanical selection wheel with inertia snapping.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36589,7 +36589,7 @@
       "title": "Curved Input Field",
       "description": "Organic input box contouring dynamically to focus state.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36612,7 +36612,7 @@
       "title": "Line Sidebar Rail",
       "description": "Ultralight minimal rail navigation with magnetic hover indicators.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36635,7 +36635,7 @@
       "title": "Animated List Stagger",
       "description": "List items entering with staggered spring physics and reorder animation.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36658,7 +36658,7 @@
       "title": "Scroll Stack Deck",
       "description": "Cards pinning and stacking over preceding layers during page scroll.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36681,7 +36681,7 @@
       "title": "Bubble Menu Radial",
       "description": "Radial menu blooming into floating action bubbles on trigger.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36704,7 +36704,7 @@
       "title": "Magic Bento Spotlight",
       "description": "Bento grid cells illuminated by pointer spotlight with border energy.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36727,7 +36727,7 @@
       "title": "Circular Gallery Carousel",
       "description": "Rotational 3D circular carousel with focal depth blurring.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36750,7 +36750,7 @@
       "title": "Reflective Card Foil",
       "description": "Holographic trading card foil shader reflecting device tilt.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36773,7 +36773,7 @@
       "title": "Card Nav Expand",
       "description": "Compact navigation card expanding into full modal interface.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36796,7 +36796,7 @@
       "title": "Stack Cards Drag",
       "description": "Swipeable stack of notification cards with physics throw and dismiss.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36819,7 +36819,7 @@
       "title": "Fluid Glass Surface",
       "description": "Liquid refraction glass surface distorting underlying background elements.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36842,7 +36842,7 @@
       "title": "Pill Nav Float",
       "description": "Floating glass pill navigation dock with active sliding pill indicator.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36865,7 +36865,7 @@
       "title": "Tilted Card Perspective",
       "description": "Card tilting toward pointer with multi-layer parallax depth.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36888,7 +36888,7 @@
       "title": "Masonry Grid Fluid",
       "description": "Pinterest-style fluid responsive column layout with smooth layout transitions.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36911,7 +36911,7 @@
       "title": "Glass Surface Acrylic",
       "description": "Frosted glass acrylic panel with dynamic chromatic border.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36934,7 +36934,7 @@
       "title": "Chroma Grid Fresnel",
       "description": "Color-shifting iridescent grid cells reacting to viewing angle.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36957,7 +36957,7 @@
       "title": "Folder Tree Interactive",
       "description": "Accordion folder tree with spring toggle and file preview badges.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -36980,7 +36980,7 @@
       "title": "Staggered Menu Cascade",
       "description": "Full-screen menu reveal with cascading typographic links.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37003,7 +37003,7 @@
       "title": "Lanyard Card Spring",
       "description": "ID badge card suspended from physics lanyard oscillating on drag.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37026,7 +37026,7 @@
       "title": "Profile Card Holo",
       "description": "Interactive identity badge with holographic sheen and live stats.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37049,7 +37049,7 @@
       "title": "Interactive Dock Magnify",
       "description": "macOS-style parabolic magnification dock with Gaussian curve physics.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37072,7 +37072,7 @@
       "title": "Gooey Nav Liquid",
       "description": "Liquid SVG filter navigation blobs stretching and merging on select.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37095,7 +37095,7 @@
       "title": "Pixel Card Retro",
       "description": "Retro aesthetic card with dithered borders and pixel-art hover states.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37118,7 +37118,7 @@
       "title": "Kinetic Carousel Swipe",
       "description": "High-velocity swipeable card carousel with spring snap settling.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37141,7 +37141,7 @@
       "title": "Spotlight Card Interactive",
       "description": "Cursor spotlight revealing subtle internal border gradients.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37164,7 +37164,7 @@
       "title": "Border Glow Card Pulse",
       "description": "Ambient luminous halo breathing smoothly around card edges.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37187,7 +37187,7 @@
       "title": "Flying Posters Gallery",
       "description": "Posters flying forward in 3D camera space on scroll.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37210,7 +37210,7 @@
       "title": "Card Swap Deck",
       "description": "Two cards smoothly swapping Z-order with parabolic trajectory.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37233,7 +37233,7 @@
       "title": "Glass Icons Iridescent",
       "description": "Translucent 3D glass icon set with internal light refraction.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37256,7 +37256,7 @@
       "title": "Decay Card Friction",
       "description": "Draggable card with calibrated friction and inertia decay.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37279,7 +37279,7 @@
       "title": "Flowing Menu Hover",
       "description": "Menu items revealing flowing image preview ribbons on hover.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37302,7 +37302,7 @@
       "title": "Elastic Slider Rebound",
       "description": "Range slider knob with rubber stretch physics when pulled beyond bounds.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37325,7 +37325,7 @@
       "title": "Rolling Counter Digits",
       "description": "Tabular mechanical digit drum rolling to new values.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37348,7 +37348,7 @@
       "title": "Infinite Menu Marquee",
       "description": "Endless cyclical marquee menu with interactive scrub control.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37371,7 +37371,7 @@
       "title": "Stepper Control Tactile",
       "description": "Numeric incrementer with spring feedback and haptic pulse.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37394,7 +37394,7 @@
       "title": "Bounce Cards Stack",
       "description": "Card stack fanning out in a bouncy spread on cursor entrance.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37417,7 +37417,7 @@
       "title": "Branched Menu Tree",
       "description": "Hierarchical tree menu branching with spring line connections.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37440,7 +37440,7 @@
       "title": "Folder Float Hover",
       "description": "Folder tab elevating with subtle 3D shadow depth on hover.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37463,7 +37463,7 @@
       "title": "Refine Frame Slider",
       "description": "Before/after image comparison slider with hairline cursor line.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37486,7 +37486,7 @@
       "title": "Thought Line Canvas",
       "description": "Organic generative pencil stroke connecting active thought nodes.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37509,7 +37509,7 @@
       "title": "Voice Pill Waveform",
       "description": "Audio reactive frequency bars pulsating inside a compact pill.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37532,7 +37532,7 @@
       "title": "Slosh Gauge Fluid",
       "description": "Liquid battery/volume gauge sloshing with device acceleration.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37555,7 +37555,7 @@
       "title": "Prompt Bar Action",
       "description": "Expansible AI prompt input with integrated tool chips and glow.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37578,7 +37578,7 @@
       "title": "Swipe Toast Dismiss",
       "description": "Notification toast with natural directional swipe-to-dismiss.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37601,7 +37601,7 @@
       "title": "Bell Toggle Ring",
       "description": "Notification bell swinging on spring hinge when activated.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37624,7 +37624,7 @@
       "title": "Call Chip Pulse",
       "description": "Live audio session chip with pulsating status radar aura.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37647,7 +37647,7 @@
       "title": "Status Mark Badge",
       "description": "Micro status badge transitioning through morphing geometry states.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37670,7 +37670,7 @@
       "title": "Glide Select Slider",
       "description": "Segmented selection indicator gliding smoothly along tracks.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37693,7 +37693,7 @@
       "title": "Swipe Row Actions",
       "description": "Mobile list item sliding left/right to reveal actionable buttons.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37716,7 +37716,7 @@
       "title": "Jelly Radio Switch",
       "description": "Radio button dot morphing through jelly squish on check.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37739,7 +37739,7 @@
       "title": "Comet Dial Gauge",
       "description": "Rotary gauge with luminous comet tail tracing the perimeter.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37762,7 +37762,7 @@
       "title": "Wake Slider Drag",
       "description": "Vertical slider displacing fluid wakes as the thumb moves.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37785,7 +37785,7 @@
       "title": "Code Slots Reveal",
       "description": "Two-factor authorization slot boxes auto-advancing with bounce.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37808,7 +37808,7 @@
       "title": "Dodge Field Pointer",
       "description": "Interactive button playfully dodging cursor until captured.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37831,7 +37831,7 @@
       "title": "Lattice Loader Orbit",
       "description": "Geometric orbital rings rotating around a pulsating core.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37854,7 +37854,7 @@
       "title": "Scrub Field Timeline",
       "description": "Audio/video scrubber with micro-waveform preview spikes.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37877,7 +37877,7 @@
       "title": "Warm Tooltip Float",
       "description": "Tooltip blooming smoothly with spring entrance and arrow trace.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37900,7 +37900,7 @@
       "title": "Slide Commit Slider",
       "description": "Slide-to-unlock safety slider with particle burst on completion.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37923,7 +37923,7 @@
       "title": "Rubber Segment Switch",
       "description": "Toggle control with rubbery rebound between segmented states.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37946,7 +37946,7 @@
       "title": "Pulse Heart Micro",
       "description": "Like button bursting with micro-particles and spring scale.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37969,7 +37969,7 @@
       "title": "Spring Check Box",
       "description": "Checkbox checkmark drawn with spring recoil dynamics.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -37992,7 +37992,7 @@
       "title": "Peek Rating Stars",
       "description": "Rating stars reacting with anticipatory bounce on hover.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -38015,7 +38015,7 @@
       "title": "Squish Switch Toggle",
       "description": "Tactile toggle switch squishing down during click state.",
       "category": "ui-elements",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "ui",
         "component",
@@ -38038,7 +38038,7 @@
       "title": "Shape Waves Canvas",
       "description": "Harmonic geometric wave contours rolling smoothly across viewport.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38061,7 +38061,7 @@
       "title": "Aero Shards SVG",
       "description": "Angular translucent aerodynamic shards drifting in parallax layers.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38084,7 +38084,7 @@
       "title": "Ghost Fibers Stream",
       "description": "Fiber-optic filament lines undulating in subtle ambient winds.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38107,7 +38107,7 @@
       "title": "CRT Warp Scanline",
       "description": "Retro cathode-ray tube phosphor curve with faint scanline hum.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38130,7 +38130,7 @@
       "title": "Molten Metal Flow",
       "description": "Liquid chrome metallic currents rippling with pointer friction.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38153,7 +38153,7 @@
       "title": "Gradient Waves Sine",
       "description": "Superimposed sine waves blending smooth gradient color bands.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38176,7 +38176,7 @@
       "title": "Web Threads Mesh",
       "description": "Triangulated network lattice connecting nodes within proximity.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38199,7 +38199,7 @@
       "title": "Topography Contour Lines",
       "description": "Topographic elevation map lines breathing with Perlin noise.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38222,7 +38222,7 @@
       "title": "Light Tunnel 3D",
       "description": "Infinite perspective light speed tunnel warping toward center.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38245,7 +38245,7 @@
       "title": "Sliced Waves Depth",
       "description": "Offset strata of undulating waves creating holographic depth.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38268,7 +38268,7 @@
       "title": "Acid Squares Grid",
       "description": "Fluorescent grid blocks pulsating with rhythmic phase shifts.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38291,7 +38291,7 @@
       "title": "Beam Scanner Laser",
       "description": "Horizontal laser telemetry scanner sweeping across a dark grid.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38314,7 +38314,7 @@
       "title": "Ferrofluid Pool Liquid",
       "description": "Magnetic ferrofluid spikes dancing to virtual magnetic impulses.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38337,7 +38337,7 @@
       "title": "Lightfall Stream",
       "description": "Luminous digital rain droplets falling with varied depth velocities.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38360,7 +38360,7 @@
       "title": "Liquid Ether Canvas",
       "description": "Ethereal smoke diffusion blending soft ambient color clouds.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38383,7 +38383,7 @@
       "title": "Prism Refract Color",
       "description": "Rainbow optical refraction splitting light rays across dark paper.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38406,7 +38406,7 @@
       "title": "Dark Veil Mesh",
       "description": "Translucent dark fabric undulating with slow wind simulation.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38429,7 +38429,7 @@
       "title": "Light Pillar Ambient",
       "description": "Volumetric light columns ascending gently from the bottom horizon.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38452,7 +38452,7 @@
       "title": "Silk Flow Harmonic",
       "description": "Liquid silk textile folds shifting in low-gravity waves.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38475,7 +38475,7 @@
       "title": "Floating Lines Vector",
       "description": "Mathematical bezier curves drifting with Brownian motion.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38498,7 +38498,7 @@
       "title": "Side Rays Ambient",
       "description": "Atmospheric sunbeams piercing through the left edge of the screen.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38521,7 +38521,7 @@
       "title": "Light Rays Shimmer",
       "description": "Crepuscular rays shimmering through virtual fog layers.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38544,7 +38544,7 @@
       "title": "Pixel Blast Canvas",
       "description": "Chaotic digital pixel particle dispersion bursting across view.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38567,7 +38567,7 @@
       "title": "Color Bends Flow",
       "description": "Chromatic ribbon currents bending and folding around cursor position.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38590,7 +38590,7 @@
       "title": "Evil Eye Geometry",
       "description": "Concentric hypnotic sacred geometry rings rotating in counter-phase.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38613,7 +38613,7 @@
       "title": "Line Waves Procedural",
       "description": "Mathematical wireframe landscape oscillating with frequency modulation.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38636,7 +38636,7 @@
       "title": "Radar Sweep Tactical",
       "description": "Aviation radar sweep beam highlighting coordinate blips.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38659,7 +38659,7 @@
       "title": "Soft Aurora Glow",
       "description": "Gentle Northern lights ribbons floating across dark night sky.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38682,7 +38682,7 @@
       "title": "Aurora Sky Harmonic",
       "description": "Multi-octave atmospheric curtains undulating with dynamic hues.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38705,7 +38705,7 @@
       "title": "Plasma Field Fluid",
       "description": "Classic demoscene plasma field calculated in high-speed 2D canvas.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38728,7 +38728,7 @@
       "title": "Plasma Wave Energy",
       "description": "High-energy electrical waves pulsing through luminous conduits.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38751,7 +38751,7 @@
       "title": "Particles Lattice Quantum",
       "description": "Grid of interactive quantum particles reacting to pointer repulsion.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38774,7 +38774,7 @@
       "title": "Gradient Blinds Slats",
       "description": "Venetian blind slats rotating to reveal alternating gradient angles.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38797,7 +38797,7 @@
       "title": "Grainient Mesh Noise",
       "description": "Micro-textured color gradient mesh with analog film grain.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38820,7 +38820,7 @@
       "title": "Grid Scan Matrix",
       "description": "Orthogonal matrix scanning lines with illuminated intersection nodes.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38843,7 +38843,7 @@
       "title": "Energy Beams Glow",
       "description": "Radiant neon energy beams intersecting at dynamic angles.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38866,7 +38866,7 @@
       "title": "Pixel Snow Ambient",
       "description": "Stylized retro square snowflake particles drifting downward.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38889,7 +38889,7 @@
       "title": "Lightning Bolt Canvas",
       "description": "Procedural electrical branch discharge illuminating the canvas.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38912,7 +38912,7 @@
       "title": "Prismatic Burst Radial",
       "description": "Kaleidoscopic radial prism burst refracting brilliant spectral hues.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38935,7 +38935,7 @@
       "title": "Galaxy Spiral Points",
       "description": "Logarithmic spiral galaxy with thousands of orbiting star nodes.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38958,7 +38958,7 @@
       "title": "Dither Matrix Retro",
       "description": "Ordered Bayer dithering shader reproducing 1-bit vintage display aesthetics.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -38981,7 +38981,7 @@
       "title": "Faulty Terminal Flicker",
       "description": "Glitching phosphor display with occasional horizontal sync loss.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39004,7 +39004,7 @@
       "title": "Ripple Grid Impulse",
       "description": "Grid vertices bouncing in harmonic ripples from cursor interaction.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39027,7 +39027,7 @@
       "title": "Dot Field Interactive",
       "description": "Matrix of micro-dots scaling and repelling from pointer coordinates.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39050,7 +39050,7 @@
       "title": "Dot Grid Canvas Rhythm",
       "description": "Precision dotted grid undulating in rhythmic spatial waves.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39073,7 +39073,7 @@
       "title": "Harmonic Threads Flow",
       "description": "Tensile thread lines vibrating at natural harmonic frequencies.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39096,7 +39096,7 @@
       "title": "Hyperspeed Tunnel Warp",
       "description": "Starfield streaks stretching into warp speed trails.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39119,7 +39119,7 @@
       "title": "Iridescence Sheen Fresnel",
       "description": "Soap-bubble thin-film interference sheen shifting on movement.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39142,7 +39142,7 @@
       "title": "Sine Waves Smooth",
       "description": "Clean trigonometric sine curves crossing in calm mathematical harmony.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39165,7 +39165,7 @@
       "title": "Grid Distortion Pointer",
       "description": "Rubber-sheet spatial grid warping around cursor mass.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39188,7 +39188,7 @@
       "title": "Ballpit Physics 2D",
       "description": "Rigid body physics simulation of colored balls bouncing in container.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39211,7 +39211,7 @@
       "title": "Energy Orb Glow",
       "description": "Pulsating plasma orb emitting luminous corona filaments.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39234,7 +39234,7 @@
       "title": "Letter Glitch Stream",
       "description": "Matrix-style vertical stream of cryptographic characters.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39257,7 +39257,7 @@
       "title": "Grid Motion Pan",
       "description": "Isometric infinite grid panning smoothly across infinite space.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39280,7 +39280,7 @@
       "title": "Shape Grid Cells",
       "description": "Modular grid cells cycling through geometric shape transformations.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39303,7 +39303,7 @@
       "title": "Balatro Shader Moire",
       "description": "Psychedelic swirling hypnotic moire wave pattern.",
       "category": "backgrounds",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "background",
         "procedural",
@@ -39326,7 +39326,7 @@
       "title": "Glassmorphism Dynamic Surface",
       "description": "Layered frosted glass acrylic with edge light refraction and backdrop filter.",
       "category": "css-layouts",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "css",
         "glassmorphism",
@@ -39349,7 +39349,7 @@
       "title": "Conic Gradient Energy Border",
       "description": "Continuous rotating conic gradient border highlight powered by pure CSS.",
       "category": "css-layouts",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "css",
         "border",
@@ -39372,7 +39372,7 @@
       "title": "Masked Radial Grid Background",
       "description": "Radial vignette gradient mask over micro-grid pattern for focused content areas.",
       "category": "css-layouts",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "css",
         "grid",
@@ -39395,7 +39395,7 @@
       "title": "Squircle Geometric Container",
       "description": "Apple-style superellipse continuous curvature border radius with CSS houdini fallback.",
       "category": "css-layouts",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "css",
         "squircle",
@@ -39418,7 +39418,7 @@
       "title": "CSS Chromatic Glitch",
       "description": "Pure CSS pseudo-element color split aberration with animated keyframe shifts.",
       "category": "css-layouts",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "css",
         "glitch",
@@ -39441,7 +39441,7 @@
       "title": "Studio Minimal Kinetic Landing",
       "description": "Complete editorial portfolio landing page with kinetic typography and bento showcase.",
       "category": "landing-pages",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "landing",
         "template",
@@ -39464,7 +39464,7 @@
       "title": "Spatial Hardware 3D Landing",
       "description": "Hardware launch page with 3D product turntable and interactive feature hotspots.",
       "category": "landing-pages",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "landing",
         "3d",
@@ -39488,7 +39488,7 @@
       "title": "Developer Platform Landing",
       "description": "High-density technical infrastructure landing page with live terminal and telemetry.",
       "category": "landing-pages",
-      "resourceType": "component",
+      "resourceType": "advanced",
       "tags": [
         "landing",
         "developer",

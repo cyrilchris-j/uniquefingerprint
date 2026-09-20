@@ -328,6 +328,12 @@ export default function ResourcePage(): React.JSX.Element {
 
   const advItem = slug ? getAdvancedItemBySlug(slug) : undefined;
 
+  // If this item is an Advanced resource, redirect immediately to its canonical Advanced showcase page
+  // so duplicate, generic component pages are never rendered under /components/:slug
+  if (advItem) {
+    return <Navigate to={`/advanced/${advItem.category}/${advItem.slug}`} replace />;
+  }
+
   const { entry, state: indexState } = useIndexEntry(slug);
   const itemState = useRegistryItem(slug);
   const related = useRelatedItems(entry);
@@ -453,10 +459,6 @@ export default function ResourcePage(): React.JSX.Element {
   }
 
   if (!entry) {
-    if (advItem) {
-      return <Navigate to={`/advanced/${advItem.category}/${advItem.slug}`} replace />;
-    }
-
     return (
       <div className="shell py-20">
         <EmptyState

@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import type { RegistryIndexEntry } from "@openui/types";
 import { cn } from "@openui/ui";
 
+import { getAdvancedItemBySlug } from "../advanced/index.js";
 import { DnaStrip } from "./DnaStrip.js";
 import { TilePreview } from "./TilePreview.js";
 
@@ -30,7 +31,8 @@ export interface ResourceTileProps {
 }
 
 export function ResourceTile({ item, index, withPreview = true, className }: ResourceTileProps): React.JSX.Element {
-  const href = `/${categorySegmentFor(item.category)}/${item.name}`;
+  const adv = getAdvancedItemBySlug(item.name);
+  const href = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${categorySegmentFor(item.category)}/${item.name}`;
   const dependencies = item.dependencies.filter((name) => name !== "react");
 
   return (
@@ -118,10 +120,13 @@ export function categorySegmentFor(category: string): string {
 
 /** A compact row used in lists (search results, collections) rather than tiles. */
 export function ResourceRow({ item }: { item: RegistryIndexEntry }): React.JSX.Element {
+  const adv = getAdvancedItemBySlug(item.name);
+  const href = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${categorySegmentFor(item.category)}/${item.name}`;
+
   return (
     <li className="group relative border-b border-line">
       <Link
-        to={`/${categorySegmentFor(item.category)}/${item.name}`}
+        to={href}
         className="flex flex-col gap-1 py-4 transition-colors duration-fast ease-editorial hover:bg-ink/[0.02] sm:flex-row sm:items-baseline sm:gap-6"
       >
         <span className="eyebrow w-[7.5rem] shrink-0">{item.type.replace("registry:", "")}</span>

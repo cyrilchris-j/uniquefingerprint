@@ -65,7 +65,9 @@ export function Masthead(): React.JSX.Element {
       isAdvanced?: boolean;
     }> = [];
 
-    // 1. First check Advanced resources (e.g. falling-physics-text)
+    const advancedSlugs = new Set(ADVANCED_RESOURCES.map((r) => r.slug.toLowerCase()));
+
+    // 1. First check Advanced resources (e.g. falling-physics-text, circular-text-orbit)
     for (const item of ADVANCED_RESOURCES) {
       if (
         item.title.toLowerCase().includes(q) ||
@@ -85,9 +87,14 @@ export function Masthead(): React.JSX.Element {
       }
     }
 
-    // 2. Check Core Registry items
+    // 2. Check Core Registry items (skip any item that is already in Advanced to prevent duplicate results)
     if (registryIndex.data?.items && matches.length < 6) {
       for (const item of registryIndex.data.items) {
+        const itemSlug = item.name.toLowerCase();
+        if (advancedSlugs.has(itemSlug)) {
+          continue;
+        }
+
         if (
           item.title.toLowerCase().includes(q) ||
           item.name.toLowerCase().includes(q) ||

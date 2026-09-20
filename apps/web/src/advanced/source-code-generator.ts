@@ -322,6 +322,62 @@ export function ${name}({
 }
 
 function generateTextAnimationCode(name: string, slug: string, title: string): string {
+  if (slug === "circular-text-orbit") {
+    return `import * as React from "react";
+
+export interface CircularTextOrbitProps {
+  text?: string;
+  className?: string;
+  speedSec?: number;
+  centerSymbol?: string;
+  radius?: number;
+}
+
+/**
+ * Circular Text Orbit
+ * Rotational text orbit along circular and elliptical vector paths with central gravitational focal hub.
+ */
+export function CircularTextOrbit({
+  text = "✦ OPENUI ✦ ORBITAL MOTION ✦ DESIGN ✦",
+  className = "",
+  speedSec = 8,
+  centerSymbol = "◈",
+  radius = 45,
+}: CircularTextOrbitProps): React.JSX.Element {
+  const size = radius * 2 + 30;
+  const center = size / 2;
+  const pathD = \`M \${center},\${center} m -\${radius},0 a \${radius},\${radius} 0 1,1 \${radius * 2},0 a \${radius},\${radius} 0 1,1 -\${radius * 2},0\`;
+
+  return (
+    <div className={\`relative flex items-center justify-center select-none \${className}\`} style={{ width: size, height: size }}>
+      <div
+        className="absolute inset-0"
+        style={{
+          animation: \`spin \${speedSec}s linear infinite\`,
+        }}
+      >
+        <svg viewBox={\`0 0 \${size} \${size}\`} className="w-full h-full">
+          <path id="orbitPath" d={pathD} fill="transparent" />
+          <text className="font-mono text-[9px] font-bold fill-current uppercase tracking-widest text-ink">
+            <textPath href="#orbitPath">{text}</textPath>
+          </text>
+        </svg>
+      </div>
+      <div className="w-8 h-8 rounded-full bg-oxide/20 border border-oxide flex items-center justify-center text-xs font-mono text-oxide font-bold shadow-xs">
+        {centerSymbol}
+      </div>
+      <style>{\`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      \`}</style>
+    </div>
+  );
+}
+`;
+  }
+
   return `import * as React from "react";
 
 export interface ${name}Props {

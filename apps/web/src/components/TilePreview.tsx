@@ -6,6 +6,7 @@ import { Skeleton } from "@openui/ui";
 
 import { useInView } from "../hooks/use-in-view.js";
 import { getCatalogueVisualPreview } from "../visual-engine/catalogue-previews.js";
+import { getAdvancedItemBySlug } from "../advanced/index.js";
 
 /**
  * Lazy tile preview.
@@ -25,6 +26,8 @@ const TileSandbox = React.lazy(() =>
 export function TilePreview({ item }: { item: RegistryIndexEntry }): React.JSX.Element {
   const { ref, inView } = useInView<HTMLDivElement>({ once: true, rootMargin: "600px" });
   const bespoke = getCatalogueVisualPreview(item.name, item.category);
+  const adv = getAdvancedItemBySlug(item.name);
+  const targetHref = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${item.category}/${item.name}`;
 
   return (
     <div ref={ref} className="border-b border-line/25 bg-[#f9f8f5] dark:bg-[#0e0e0d] overflow-hidden pointer-events-none select-none relative h-44 flex items-center justify-center">
@@ -36,7 +39,7 @@ export function TilePreview({ item }: { item: RegistryIndexEntry }): React.JSX.E
         </React.Suspense>
       ) : (
         <Link
-          to={`/${item.category}/${item.name}`}
+          to={targetHref}
           className="flex h-44 items-end bg-[#f9f8f5] dark:bg-[#0e0e0d] p-4 w-full"
           tabIndex={-1}
           aria-hidden
