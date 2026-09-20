@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "countdown-timer-unit",
   "type": "registry:component",
   "title": "Countdown Timer Unit",

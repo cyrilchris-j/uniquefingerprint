@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "matrix-binary-curtain",
   "type": "registry:background",
   "title": "Matrix Binary Curtain",

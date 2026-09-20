@@ -1,9 +1,9 @@
 {
-  "$schema": "https://openui.dev/schema/registry.json",
+  "$schema": "../schema/registry.json",
   "name": "openui",
   "homepage": "https://openui.dev",
   "version": "0.1.0",
-  "generatedAt": "2026-09-20T13:54:28.766Z",
+  "generatedAt": "2026-09-20T14:02:08.103Z",
   "namespaces": [
     "default"
   ],

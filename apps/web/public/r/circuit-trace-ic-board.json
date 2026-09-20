@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "circuit-trace-ic-board",
   "type": "registry:background",
   "title": "Circuit Trace IC Board",

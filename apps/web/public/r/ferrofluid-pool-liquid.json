@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "ferrofluid-pool-liquid",
   "type": "registry:component",
   "title": "Ferrofluid Pool Liquid",

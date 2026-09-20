@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "scroll-spy-table-of-contents",
   "type": "registry:interaction",
   "title": "Scroll Spy Table of Contents",

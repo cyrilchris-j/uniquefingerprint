@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "pan-and-zoom-stage",
   "type": "registry:layout",
   "title": "Pan and Zoom Stage",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "serverless-function-logs",
   "type": "registry:block",
   "title": "Serverless Function Logs",

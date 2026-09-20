@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "aurora-curtain-drape",
   "type": "registry:background",
   "title": "Aurora Curtain Drape",

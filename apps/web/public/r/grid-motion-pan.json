@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "grid-motion-pan",
   "type": "registry:component",
   "title": "Grid Motion Pan",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "baseline-grid-overlay",
   "type": "registry:text",
   "title": "Baseline Grid Overlay",

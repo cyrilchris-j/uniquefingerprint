@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "realtime-collaborative-whiteboard",
   "type": "registry:block",
   "title": "Realtime Collaborative Whiteboard",

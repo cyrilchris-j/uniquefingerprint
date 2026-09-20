@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "holy-grail-layout",
   "type": "registry:layout",
   "title": "Holy Grail Layout",

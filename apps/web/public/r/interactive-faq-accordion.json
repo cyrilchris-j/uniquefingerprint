@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "interactive-faq-accordion",
   "type": "registry:section",
   "title": "Interactive FAQ Accordion",

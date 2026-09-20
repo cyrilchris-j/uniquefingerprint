@@ -111,6 +111,7 @@ export function toBuiltItem(
 
   return {
     ...item.item,
+    $schema: "../schema/registry-item.json",
     files,
     url: artifactUrl(item.item.name, namespace, options.baseUrl),
     ...(item.designMarkdown ? { designRules: item.designMarkdown } : {}),
@@ -191,7 +192,7 @@ export async function buildRegistry(options: BuildRegistryOptions): Promise<Buil
   });
 
   const index: RegistryIndex = {
-    $schema: `${homepage.replace(/\/+$/, "")}/schema/registry.json`,
+    $schema: "../schema/registry.json",
     name: "openui",
     homepage,
     version,

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "iridescence-sheen-fresnel",
   "type": "registry:component",
   "title": "Iridescence Sheen Fresnel",

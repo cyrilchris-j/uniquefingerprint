@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "acrostic-column",
   "type": "registry:text",
   "title": "Acrostic Column",

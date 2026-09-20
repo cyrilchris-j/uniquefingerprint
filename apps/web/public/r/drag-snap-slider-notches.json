@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "drag-snap-slider-notches",
   "type": "registry:interaction",
   "title": "Drag Snap Slider Notches",

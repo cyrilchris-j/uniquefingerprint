@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "spatial-particle-nebula",
   "type": "registry:component",
   "title": "Spatial Particle Nebula",

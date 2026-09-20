@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "audit-log-export-modal",
   "type": "registry:block",
   "title": "Audit Log Export Modal",

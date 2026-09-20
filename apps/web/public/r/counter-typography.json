@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "counter-typography",
   "type": "registry:text",
   "title": "Counter Typography",

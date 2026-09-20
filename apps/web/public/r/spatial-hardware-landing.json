@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "spatial-hardware-landing",
   "type": "registry:component",
   "title": "Spatial Hardware 3D Landing",

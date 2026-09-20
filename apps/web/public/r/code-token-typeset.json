@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "code-token-typeset",
   "type": "registry:text",
   "title": "Code Token Typeset",

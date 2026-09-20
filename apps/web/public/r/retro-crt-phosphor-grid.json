@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "retro-crt-phosphor-grid",
   "type": "registry:background",
   "title": "Retro CRT Phosphor Grid",

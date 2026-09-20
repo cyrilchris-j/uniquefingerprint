@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "audit-compliance-badges",
   "type": "registry:section",
   "title": "Audit Compliance Badges",

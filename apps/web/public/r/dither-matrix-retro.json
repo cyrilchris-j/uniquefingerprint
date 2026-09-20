@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "dither-matrix-retro",
   "type": "registry:component",
   "title": "Dither Matrix Retro",

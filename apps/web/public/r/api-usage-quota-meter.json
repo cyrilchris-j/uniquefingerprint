@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "api-usage-quota-meter",
   "type": "registry:block",
   "title": "API Usage Quota Meter",

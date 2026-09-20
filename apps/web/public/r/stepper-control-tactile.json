@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "stepper-control-tactile",
   "type": "registry:component",
   "title": "Stepper Control Tactile",

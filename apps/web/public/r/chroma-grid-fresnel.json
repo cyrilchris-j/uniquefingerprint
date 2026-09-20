@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "chroma-grid-fresnel",
   "type": "registry:component",
   "title": "Chroma Grid Fresnel",

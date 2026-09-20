@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "soundwave-equalizer-bars",
   "type": "registry:background",
   "title": "Soundwave Equalizer Bars",

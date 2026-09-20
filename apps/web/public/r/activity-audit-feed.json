@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "activity-audit-feed",
   "type": "registry:block",
   "title": "Activity Audit Feed",

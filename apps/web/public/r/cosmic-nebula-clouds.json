@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "cosmic-nebula-clouds",
   "type": "registry:background",
   "title": "Cosmic Nebula Clouds",

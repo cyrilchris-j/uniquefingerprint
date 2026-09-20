@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "hover-magnetic-pill",
   "type": "registry:interaction",
   "title": "Hover Magnetic Pill",

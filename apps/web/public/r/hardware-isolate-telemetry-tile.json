@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "hardware-isolate-telemetry-tile",
   "type": "registry:block",
   "title": "Hardware Isolate Telemetry Tile",

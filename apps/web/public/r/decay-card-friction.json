@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "decay-card-friction",
   "type": "registry:component",
   "title": "Decay Card Friction",

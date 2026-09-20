@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "call-chip-pulse",
   "type": "registry:component",
   "title": "Call Chip Pulse",

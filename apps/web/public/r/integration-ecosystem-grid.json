@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "integration-ecosystem-grid",
   "type": "registry:section",
   "title": "Integration Ecosystem Grid",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "beta-waitlist-card",
   "type": "registry:section",
   "title": "Beta Waitlist Card",

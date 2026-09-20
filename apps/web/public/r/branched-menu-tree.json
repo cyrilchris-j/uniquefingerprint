@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "branched-menu-tree",
   "type": "registry:component",
   "title": "Branched Menu Tree",

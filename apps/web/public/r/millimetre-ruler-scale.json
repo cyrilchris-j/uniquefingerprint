@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "millimetre-ruler-scale",
   "type": "registry:text",
   "title": "Millimetre Ruler Scale",

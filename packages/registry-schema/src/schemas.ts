@@ -213,7 +213,7 @@ function validateItemFiles(
 /** The object shape, before file validation. Extended by the built artifact. */
 export const registryItemBaseSchema = z
   .object({
-    $schema: z.string().url().optional(),
+    $schema: z.string().min(1).optional(),
     name: registryItemNameSchema,
     type: registryItemTypeSchema,
     title: z.string().min(2).max(LIMITS.title),
@@ -283,7 +283,7 @@ export const registryIndexEntrySchema = z.object({
 });
 
 export const registryIndexSchema = z.object({
-  $schema: z.string().url(),
+  $schema: z.string().min(1),
   name: z.string().min(1).max(64),
   homepage: z.string().url(),
   version: semverSchema,
@@ -295,7 +295,7 @@ export const registryIndexSchema = z.object({
 /** `openui.json` — the project configuration written by `openui init`. */
 export const openuiConfigSchema = z
   .object({
-    $schema: z.string().url().optional(),
+    $schema: z.string().min(1).optional(),
     registry: z.string().url(),
     namespaces: z.array(namespaceSchema).min(1).default(["default"]),
     aliases: z.object({

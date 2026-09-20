@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "pan-zoom-minimap",
   "type": "registry:interaction",
   "title": "Pan Zoom Minimap",

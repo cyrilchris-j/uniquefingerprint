@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "magnetic-dock",
   "type": "registry:motion",
   "title": "Magnetic Dock",

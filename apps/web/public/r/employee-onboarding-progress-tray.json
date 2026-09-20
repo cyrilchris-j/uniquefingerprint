@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../schema/registry-item.json",
   "name": "employee-onboarding-progress-tray",
   "type": "registry:block",
   "title": "Employee Onboarding Progress Tray",
