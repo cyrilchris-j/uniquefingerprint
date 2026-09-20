@@ -135,6 +135,16 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
           {filteredItems.map((item) => (
             <article
               key={item.slug}
+              id={`item-${item.slug}`}
+              data-item-slug={item.slug}
+              onClick={() => {
+                try {
+                  sessionStorage.setItem("openui_last_clicked_item", item.slug);
+                  sessionStorage.setItem(`openui_scroll_${window.location.pathname}`, String(window.scrollY));
+                  sessionStorage.setItem(`openui_target_item_${window.location.pathname}`, item.slug);
+                  sessionStorage.setItem("openui_last_origin_path", window.location.pathname);
+                } catch {}
+              }}
               className="group relative flex flex-col justify-between overflow-hidden border border-line bg-paper rounded-lg transition-all duration-fast hover:border-ink/60 hover:shadow-xs"
             >
               {/* Live Preview Container */}
@@ -155,7 +165,18 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
                   </div>
 
                   <h3 className="font-display font-semibold text-ink text-base group-hover:text-ink">
-                    <Link to={`/advanced/${item.category}/${item.slug}`} className="focus:outline-hidden">
+                    <Link
+                      to={`/advanced/${item.category}/${item.slug}`}
+                      onClick={() => {
+                        try {
+                          sessionStorage.setItem("openui_last_clicked_item", item.slug);
+                          sessionStorage.setItem(`openui_scroll_${window.location.pathname}`, String(window.scrollY));
+                          sessionStorage.setItem(`openui_target_item_${window.location.pathname}`, item.slug);
+                          sessionStorage.setItem("openui_last_origin_path", window.location.pathname);
+                        } catch {}
+                      }}
+                      className="focus:outline-hidden"
+                    >
                       <span className="absolute inset-0 z-10" aria-hidden="true" />
                       {item.title}
                     </Link>

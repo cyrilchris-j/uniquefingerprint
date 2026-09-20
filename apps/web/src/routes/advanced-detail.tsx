@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Link, useParams } from "react-router";
-import { ArrowUpRight, RotateCcw } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router";
+import { ArrowLeft, ArrowUpRight, RotateCcw } from "lucide-react";
 import { Button, EmptyState, Tabs, TabsContent, TabsList, TabsTrigger } from "@openui/ui";
 
 import { CodeBlock } from "../components/CodeBlock.js";
@@ -12,6 +12,7 @@ import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
 export default function AdvancedDetailPage(): React.JSX.Element {
   const { slug, category } = useParams<{ slug: string; category: string }>();
   const item = slug ? getAdvancedItemBySlug(slug) : undefined;
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = React.useState<"preview" | "code" | "install">("preview");
   const [viewport, setViewport] = React.useState<"desktop" | "tablet" | "mobile">("desktop");
@@ -56,8 +57,42 @@ export default function AdvancedDetailPage(): React.JSX.Element {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleReturn = () => {
+    try {
+      sessionStorage.setItem("openui_returning", "true");
+      if (item) {
+        sessionStorage.setItem("openui_last_clicked_item", item.slug);
+        sessionStorage.setItem(`openui_target_item_/${item.category}`, item.slug);
+        sessionStorage.setItem("openui_target_item_/advanced", item.slug);
+      }
+    } catch {
+      // Ignore
+    }
+
+    const lastOrigin = sessionStorage.getItem("openui_last_origin_path");
+    if (lastOrigin && lastOrigin !== window.location.pathname) {
+      navigate(lastOrigin);
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(`/advanced?category=${item.category}`);
+    }
+  };
+
   return (
-    <div className="shell pt-8 sm:pt-16 pb-0">
+    <div className="shell pt-8 sm:pt-12 pb-0">
+      {/* Return to Previous View Action */}
+      <div className="mb-4">
+        <button
+          type="button"
+          onClick={handleReturn}
+          className="group inline-flex items-center gap-2 px-3 py-1.5 -ml-3 rounded-lg text-xs font-mono tracking-wider uppercase text-graphite hover:text-ink hover:bg-surface/80 dark:hover:bg-zinc-800/60 border border-transparent hover:border-line/30 transition-all cursor-pointer"
+        >
+          <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-graphite group-hover:text-ink" />
+          <span>Return to {item.category.charAt(0).toUpperCase() + item.category.slice(1)}</span>
+        </button>
+      </div>
+
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="mb-6">
         <ol className="flex items-center gap-2 font-mono text-[11px] text-graphite">

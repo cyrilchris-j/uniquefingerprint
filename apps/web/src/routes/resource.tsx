@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowRight,
   Check,
   Code2,
@@ -15,8 +16,9 @@ import {
   Zap,
 } from "lucide-react";
 import * as React from "react";
-import { Link, Navigate, useParams, useSearchParams } from "react-router";
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
+import { categoryBySlug } from "../lib/registry.js";
 
 import {
   Button,
@@ -475,11 +477,50 @@ export default function ResourcePage(): React.JSX.Element {
     );
   }
 
+  const navigate = useNavigate();
+  const categoryDef = entry ? categoryBySlug(entry.category) : undefined;
+  const categoryTitle =
+    categoryDef?.title ??
+    (entry?.category ? entry.category.charAt(0).toUpperCase() + entry.category.slice(1) : "Catalogue");
+
+  const handleReturn = () => {
+    try {
+      sessionStorage.setItem("openui_returning", "true");
+      if (entry) {
+        sessionStorage.setItem("openui_last_clicked_item", entry.name);
+        sessionStorage.setItem(`openui_target_item_/${entry.category}`, entry.name);
+      }
+    } catch {
+      // Ignore storage errors
+    }
+
+    const lastOrigin = sessionStorage.getItem("openui_last_origin_path");
+    if (lastOrigin && lastOrigin !== window.location.pathname) {
+      navigate(lastOrigin);
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(entry ? `/${entry.category}` : "/explore");
+    }
+  };
+
   return (
     <article className="pb-16">
       {/* ------------------------------------------------------------ */}
       {/* Header                                                        */}
-      <header className="shell pt-6 sm:pt-12">
+      <header className="shell pt-6 sm:pt-10">
+        {/* Return to Catalogue Action */}
+        <div className="mb-4 sm:mb-6">
+          <button
+            type="button"
+            onClick={handleReturn}
+            className="group inline-flex items-center gap-2 px-3 py-1.5 -ml-3 rounded-lg text-xs font-mono tracking-wider uppercase text-graphite hover:text-ink hover:bg-surface/80 dark:hover:bg-zinc-800/60 border border-transparent hover:border-line/30 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-graphite group-hover:text-ink" />
+            <span>Return to {categoryTitle}</span>
+          </button>
+        </div>
+
         <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             <h1 className="optically-align text-3xl sm:text-5xl lg:text-step-5 max-w-[20ch] text-balance leading-[1.08]">{entry.title}</h1>

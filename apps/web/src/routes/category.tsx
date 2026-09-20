@@ -79,6 +79,12 @@ export default function CategoryPage({ category }: CategoryPageProps): React.JSX
     return result.filter((item) => String(item.dna?.[dnaKey] ?? "") === filterValue);
   }, [items, facet, filterValue, subcategoryFilter]);
 
+  React.useEffect(() => {
+    if (!state.isLoading && visible.length > 0) {
+      window.dispatchEvent(new CustomEvent("openui:content_ready"));
+    }
+  }, [state.isLoading, visible.length]);
+
   if (!definition) {
     return (
       <div className="shell py-20">

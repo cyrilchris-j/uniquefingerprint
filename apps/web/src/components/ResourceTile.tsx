@@ -30,6 +30,17 @@ export interface ResourceTileProps {
   className?: string;
 }
 
+function recordTileClick(itemName: string) {
+  try {
+    sessionStorage.setItem("openui_last_clicked_item", itemName);
+    sessionStorage.setItem(`openui_scroll_${window.location.pathname}`, String(window.scrollY));
+    sessionStorage.setItem(`openui_target_item_${window.location.pathname}`, itemName);
+    sessionStorage.setItem("openui_last_origin_path", window.location.pathname);
+  } catch {
+    // Ignore storage issues
+  }
+}
+
 export function ResourceTile({ item, index, withPreview = true, className }: ResourceTileProps): React.JSX.Element {
   const adv = getAdvancedItemBySlug(item.name);
   const href = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${categorySegmentFor(item.category)}/${item.name}`;
@@ -37,6 +48,9 @@ export function ResourceTile({ item, index, withPreview = true, className }: Res
 
   return (
     <article
+      id={`item-${item.name}`}
+      data-item-slug={item.name}
+      onClick={() => recordTileClick(item.name)}
       className={cn(
         "group relative flex flex-col bg-white dark:bg-[#141413] border border-line/30 dark:border-line/20 rounded-xl overflow-hidden shadow-xs hover:shadow-lg hover:border-ink/40 dark:hover:border-ink/50 transition-all duration-normal ease-editorial hover:-translate-y-0.5",
         withPreview ? "" : "p-5 sm:p-6",
@@ -69,6 +83,7 @@ export function ResourceTile({ item, index, withPreview = true, className }: Res
       <h3 className={cn("max-w-[24ch] font-display text-xl sm:text-step-2 leading-tight sm:leading-[1.1] tracking-tight text-ink", withPreview ? "mt-3 px-5 sm:px-6" : "mt-2.5 sm:mt-3")}>
         <Link
           to={href}
+          onClick={() => recordTileClick(item.name)}
           className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
         >
           {item.title}
@@ -124,9 +139,10 @@ export function ResourceRow({ item }: { item: RegistryIndexEntry }): React.JSX.E
   const href = adv ? `/advanced/${adv.category}/${adv.slug}` : `/${categorySegmentFor(item.category)}/${item.name}`;
 
   return (
-    <li className="group relative border-b border-line">
+    <li id={`item-${item.name}`} data-item-slug={item.name} className="group relative border-b border-line">
       <Link
         to={href}
+        onClick={() => recordTileClick(item.name)}
         className="flex flex-col gap-1 py-4 transition-colors duration-fast ease-editorial hover:bg-ink/[0.02] sm:flex-row sm:items-baseline sm:gap-6"
       >
         <span className="eyebrow w-[7.5rem] shrink-0">{item.type.replace("registry:", "")}</span>
