@@ -507,9 +507,9 @@ export default function HomePage(): React.JSX.Element {
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="02 — Interactive Studio & Playground"
-          title="Selected because they declare their fingerprint."
-          description="Every component, procedural canvas, and kinetic interaction runs directly in an isolated sandbox. Select any resource, preview interactions, test responsiveness, and grab direct install commands."
+          eyebrow="02 — Playground"
+          title="Interactive playground."
+          description="Experiment with all 1,038+ components, kinetic motions, and 3D scenes live in an isolated sandbox. Test responsiveness, inspect design tokens, and copy instant CLI install commands."
           actions={
             <Button variant="ghost" size="sm" asChild>
               <Link to="/explore">All resources</Link>
