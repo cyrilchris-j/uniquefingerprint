@@ -93,6 +93,7 @@ import {
   RotatingAxisTextPreview,
   ScrollVelocitySkewPreview,
   VariableProximitySansPreview,
+  LensMagnifyTextPreview,
 
   // UI Previews
   InfiniteSpiralPreview,
@@ -243,7 +244,7 @@ export function AdvancedPreview({
 
   return (
     <div
-      className={`relative w-full h-full min-h-[190px] flex items-center justify-center overflow-hidden select-none bg-paper/50 ${className}`}
+      className={`relative w-full h-full min-h-[190px] flex items-center justify-center overflow-hidden select-none bg-transparent ${className}`}
       data-preview-family={item.previewFamily}
       data-technology={item.technology}
       data-slug={item.slug}
@@ -476,7 +477,7 @@ function renderItemPreview(
       case "masked-heading":
         return <MaskedHeadingPreview />;
       case "particle-text":
-        return <ParticleText text="OPENUI" />;
+        return <ParticleText text="CYRIL CHRIS" />;
       case "split-flap-text":
         return <SplitFlap words={["OPENUI", "MOTION", "DESIGN", "FUTURE"]} />;
       case "warp-text":
@@ -517,6 +518,8 @@ function renderItemPreview(
         return <DecryptedGlyphTextPreview />;
       case "true-focus-lens":
         return <TrueFocus sentence="DYNAMIC MOTION WITH OPTICAL FOCUS" />;
+      case "lens-magnify-text":
+        return <LensMagnifyTextPreview />;
       case "scroll-float-type":
         return <ScrollFloatTypePreview />;
       case "scroll-reveal-chars":

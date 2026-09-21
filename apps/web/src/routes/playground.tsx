@@ -10,13 +10,11 @@ import {
   Skeleton,
 } from "@openui/ui";
 
-import { SectionHeader } from "../components/SectionHeader.js";
 import { Sandbox, SandboxSkeleton } from "../features/playground/Sandbox.js";
 import { buildSandboxFiles } from "../features/playground/files.js";
 import { useRegistryIndex, useRegistryItem } from "../features/resources/use-catalogue.js";
 import { categorySegmentFor } from "../components/ResourceTile.js";
 import { useDocumentTitle } from "../hooks/use-document-title.js";
-import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
 
 /**
@@ -122,15 +120,8 @@ export default function Demo() {
   }, [itemData]);
 
   return (
-    <div className="shell py-16">
-      <SectionHeader
-        as="h1"
-        eyebrow="Playground"
-        title="Interactive Sandbox."
-        description="The preview runs inside a sandboxed iframe with isolated rendering and live interaction."
-      />
-
-      <div className="mt-10 grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
+    <div className="shell pt-6 sm:pt-10 pb-12">
+      <div className="grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
         {/* Resource picker */}
         <aside aria-label="Choose a resource">
           <div className="flex items-baseline justify-between">
@@ -151,26 +142,33 @@ export default function Demo() {
             />
           </div>
 
-          <div className="mt-3 max-h-[32rem] overflow-y-auto border-t border-line">
+          <div className="mt-3 max-h-[36rem] lg:max-h-[calc(100vh-14rem)] overflow-y-auto border-t border-line divide-y divide-line/25 pr-1">
             {index.isLoading ? (
               <Skeleton lines={8} className="pt-4" />
             ) : (
               <ul>
                 {options.map((option) => (
-                  <li key={option.name} className="border-b border-line">
+                  <li key={option.name}>
                     <button
                       type="button"
                       aria-current={option.name === selected ? "true" : undefined}
                       onClick={() => setParams({ item: option.name }, { replace: true })}
                       className={[
-                        "flex w-full flex-col items-start gap-0.5 py-2.5 text-left transition-colors duration-fast",
-                        option.name === selected ? "text-ink" : "text-graphite hover:text-ink",
+                        "flex w-full items-center justify-between gap-3 py-2.5 px-2 rounded-md text-left transition-all duration-fast cursor-pointer",
+                        option.name === selected
+                          ? "bg-surface/90 text-ink font-medium shadow-2xs"
+                          : "text-graphite hover:text-ink hover:bg-surface/40",
                       ].join(" ")}
                     >
-                      <span className="text-[0.85rem]">{option.title}</span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-graphite/70">
-                        {option.category} {option.isAdvanced ? "· Adv" : ""}
-                      </span>
+                      <div className="flex flex-col min-w-0 pr-1">
+                        <span className="text-[0.88rem] leading-snug">{option.title}</span>
+                        <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-graphite/70 mt-0.5">
+                          {option.category} {option.isAdvanced ? "· Adv" : ""}
+                        </span>
+                      </div>
+                      {option.name === selected && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-moss shrink-0" />
+                      )}
                     </button>
                   </li>
                 ))}
@@ -204,21 +202,6 @@ export default function Demo() {
         </div>
       </div>
 
-      <nav aria-label="Browse by category" className="mt-20 border-t border-line pt-6">
-        <p className="eyebrow mb-4">Browse</p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3">
-          {CATALOGUE_CATEGORIES.map((category) => (
-            <li key={category.slug}>
-              <Link
-                to={`/${category.slug}`}
-                className="text-[0.9rem] text-graphite transition-colors duration-fast hover:text-ink"
-              >
-                {category.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </div>
   );
 }
@@ -234,9 +217,9 @@ function PlaygroundSurface({
 }: SurfaceProps): React.JSX.Element {
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-step-2 leading-tight tracking-tight">{item.title}</h2>
+          <h1 className="font-display text-step-2 leading-tight tracking-tight">{item.title}</h1>
           <p className="mt-1 flex flex-wrap items-center gap-2">
             <Link
               to={`/${categorySegmentFor(item.category)}/${item.name}`}

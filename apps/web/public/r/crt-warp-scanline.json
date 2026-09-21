@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "crt-warp-scanline",
   "type": "registry:component",
   "title": "CRT Warp Scanline",

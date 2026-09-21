@@ -111,6 +111,7 @@ export function toBuiltItem(
 
   return {
     ...item.item,
+    $schema: `${options.baseUrl.replace(/\/r\/?$/, "")}/schema/registry-item.json`,
     files,
     url: artifactUrl(item.item.name, namespace, options.baseUrl),
     ...(item.designMarkdown ? { designRules: item.designMarkdown } : {}),

@@ -191,14 +191,14 @@ function PWAInstallBanner({
         <div className="flex items-center gap-3.5 pr-6">
           <img
             src="/logo.png"
-            alt="OpenUI"
+            alt="UniqueFingerprint"
             width={48}
             height={48}
             className="h-12 w-12 shrink-0 rounded-xl object-contain shadow-md ring-1 ring-line/50"
           />
           <div className="min-w-0">
             <h2 className="font-display text-step-0 font-medium tracking-tight text-ink">
-              Download OpenUI App
+              Download UniqueFingerprint App
             </h2>
             <p className="text-xs text-graphite leading-relaxed">
               Install for instant offline access and native app feel.
@@ -256,15 +256,15 @@ function PWAInstallModal({
           <div className="flex items-center gap-3 mb-2">
             <img
               src="/logo.png"
-              alt="OpenUI"
+              alt="UniqueFingerprint"
               width={40}
               height={40}
               className="h-10 w-10 rounded-xl object-contain shadow-sm ring-1 ring-line/50"
             />
             <div>
-              <DialogTitle>Download & Install OpenUI</DialogTitle>
+              <DialogTitle>Download & Install UniqueFingerprint</DialogTitle>
               <DialogDescription>
-                Experience OpenUI as a standalone native app on your device.
+                Experience UniqueFingerprint as a standalone native app on your device.
               </DialogDescription>
             </div>
           </div>

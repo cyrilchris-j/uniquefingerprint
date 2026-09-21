@@ -290,7 +290,12 @@ export function MagneticTiltButtonPreview() {
 export function RadialColorWheelPickerPreview() {
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none overflow-hidden bg-paper p-3">
-      <div className="relative w-24 h-24 rounded-full border border-line/40 flex items-center justify-center shadow-md bg-gradient-to-tr from-rose-500 via-amber-400 via-emerald-400 via-cyan-400 to-indigo-500">
+      <div
+        className="relative w-24 h-24 rounded-full border border-line/40 flex items-center justify-center shadow-md"
+        style={{
+          background: "conic-gradient(from 0deg, #f43f5e, #fbbf24, #34d399, #22d3ee, #818cf8, #f43f5e)",
+        }}
+      >
         <div className="w-14 h-14 rounded-full bg-paper flex flex-col items-center justify-center shadow-inner">
           <span className="font-mono text-[9px] font-bold text-ink">360°</span>
           <span className="font-mono text-[7px] text-oxide font-bold">HSL</span>

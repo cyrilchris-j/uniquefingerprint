@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "linear-gradient-mesh",
   "type": "registry:background",
   "title": "Linear Gradient Mesh",

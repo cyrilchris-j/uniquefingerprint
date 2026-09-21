@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "diffraction-grating-sheen",
   "type": "registry:background",
   "title": "Diffraction Grating Sheen",

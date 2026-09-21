@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "comet-dial-gauge",
   "type": "registry:component",
   "title": "Comet Dial Gauge",

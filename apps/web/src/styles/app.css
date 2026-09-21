@@ -87,8 +87,8 @@ main#main {
   /* A code block: monospace, horizontally scrollable, and never the only place
      the information exists — every block has a copy control. */
   .code-plate {
-    background-color: hsl(var(--ink));
-    color: hsl(var(--paper));
+    background-color: #0e0e12;
+    color: #f4f4f5;
     font-family: var(--font-mono);
     font-size: 0.82rem;
     line-height: 1.7;
@@ -98,8 +98,8 @@ main#main {
   }
 
   .code-plate--light {
-    background-color: hsl(var(--ink) / 0.04);
-    color: hsl(var(--ink));
+    background-color: #0e0e12;
+    color: #f4f4f5;
     border: 1px solid hsl(var(--line) / var(--line-alpha));
   }
 

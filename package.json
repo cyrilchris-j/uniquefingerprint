@@ -23,7 +23,7 @@
     "validate:catalog": "tsx scripts/validate-catalog.ts",
     "materialize:registry": "tsx scripts/materialize-registry.ts",
     "generate:mount-tests": "tsx scripts/generate-mount-tests.ts",
-    "build:registry": "tsx scripts/build-registry.ts",
+    "build:registry": "tsx scripts/build-registry.ts && tsx scripts/export-advanced-to-registry.ts",
     "generate:search": "tsx scripts/generate-search-index.ts",
     "generate:og": "tsx scripts/generate-og.ts",
     "release": "tsx scripts/release.ts",

@@ -9,7 +9,6 @@ import {
   ADVANCED_RESOURCES,
   getAdvancedItemBySlug,
   type AdvancedCategorySlug,
-  type AdvancedTechnology,
 } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
 
@@ -20,15 +19,11 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
   const itemMatch = pathCategory ? getAdvancedItemBySlug(pathCategory) : undefined;
 
   const selectedCategory = (pathCategory ?? params.get("category") ?? "all") as AdvancedCategorySlug | "all";
-  const selectedTech = (params.get("tech") ?? "all") as AdvancedTechnology | "all";
   const searchQuery = params.get("q")?.toLowerCase() ?? "";
 
   const filteredItems = React.useMemo(() => {
     return ADVANCED_RESOURCES.filter((item) => {
       if (selectedCategory !== "all" && item.category !== selectedCategory) {
-        return false;
-      }
-      if (selectedTech !== "all" && item.technology !== selectedTech) {
         return false;
       }
       if (searchQuery) {
@@ -40,7 +35,7 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
       }
       return true;
     });
-  }, [selectedCategory, selectedTech, searchQuery]);
+  }, [selectedCategory, searchQuery]);
 
   if (itemMatch) {
     return <Navigate to={`/advanced/${itemMatch.category}/${itemMatch.slug}`} replace />;
@@ -80,35 +75,6 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
               })),
             ]}
           />
-
-          <p className="eyebrow text-graphite text-[11px] self-start sm:self-auto">
-            {filteredItems.length} {filteredItems.length === 1 ? "resource" : "resources"} available
-          </p>
-        </div>
-
-        {/* Technology Filter Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-          <span className="font-mono text-[10px] text-graphite uppercase tracking-wider mr-1">Tech:</span>
-          {[
-            { id: "all", label: "All Technologies" },
-            { id: "three-webgl", label: "Three.js / WebGL" },
-            { id: "canvas-2d", label: "Procedural Canvas" },
-            { id: "spring-physics", label: "Spring Physics" },
-            { id: "dom-motion", label: "DOM Motion" },
-            { id: "css-transforms", label: "CSS Layouts" },
-          ].map((tech) => (
-            <button
-              key={tech.id}
-              onClick={() => updateParam("tech", tech.id)}
-              className={`px-2.5 py-1 rounded border text-[11px] font-mono transition-colors ${
-                selectedTech === tech.id
-                  ? "bg-ink text-paper border-ink"
-                  : "bg-surface/50 text-graphite border-line/40 hover:text-ink hover:border-line"
-              }`}
-            >
-              {tech.label}
-            </button>
-          ))}
         </div>
       </div>
 
@@ -135,6 +101,16 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
           {filteredItems.map((item) => (
             <article
               key={item.slug}
+              id={`item-${item.slug}`}
+              data-item-slug={item.slug}
+              onClick={() => {
+                try {
+                  sessionStorage.setItem("openui_last_clicked_item", item.slug);
+                  sessionStorage.setItem(`openui_scroll_${window.location.pathname}`, String(window.scrollY));
+                  sessionStorage.setItem(`openui_target_item_${window.location.pathname}`, item.slug);
+                  sessionStorage.setItem("openui_last_origin_path", window.location.pathname);
+                } catch {}
+              }}
               className="group relative flex flex-col justify-between overflow-hidden border border-line bg-paper rounded-lg transition-all duration-fast hover:border-ink/60 hover:shadow-xs"
             >
               {/* Live Preview Container */}
@@ -155,7 +131,18 @@ export default function AdvancedExplorerPage(): React.JSX.Element {
                   </div>
 
                   <h3 className="font-display font-semibold text-ink text-base group-hover:text-ink">
-                    <Link to={`/advanced/${item.category}/${item.slug}`} className="focus:outline-hidden">
+                    <Link
+                      to={`/advanced/${item.category}/${item.slug}`}
+                      onClick={() => {
+                        try {
+                          sessionStorage.setItem("openui_last_clicked_item", item.slug);
+                          sessionStorage.setItem(`openui_scroll_${window.location.pathname}`, String(window.scrollY));
+                          sessionStorage.setItem(`openui_target_item_${window.location.pathname}`, item.slug);
+                          sessionStorage.setItem("openui_last_origin_path", window.location.pathname);
+                        } catch {}
+                      }}
+                      className="focus:outline-hidden"
+                    >
                       <span className="absolute inset-0 z-10" aria-hidden="true" />
                       {item.title}
                     </Link>

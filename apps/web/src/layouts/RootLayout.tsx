@@ -1,9 +1,11 @@
 import * as React from "react";
-import { Outlet, ScrollRestoration } from "react-router";
+import { Outlet } from "react-router";
 
+import { FloatingScrollControls } from "../components/FloatingScrollControls.js";
 import { Footer } from "../components/Footer.js";
 import { Masthead } from "../components/Masthead.js";
 import { PWAProvider } from "../components/PWAInstall.js";
+import { SmartScrollRestoration } from "../components/SmartScrollRestoration.js";
 
 /**
  * The root layout.
@@ -12,10 +14,11 @@ import { PWAProvider } from "../components/PWAInstall.js";
  *
  *  - a **skip link** as the first focusable element, so a keyboard user does not
  *    traverse the entire index on every page,
- *  - `ScrollRestoration`, so a browser Back returns to where the user was rather
- *    than to the top of the previous page,
+ *  - `SmartScrollRestoration`, so a browser Back or Return returns to the exact
+ *    card / position the user was rather than to the top of the previous page,
  *  - a single `<main>` landmark with `tabIndex={-1}`, which is what the skip link
  *    targets and what makes route changes announceable.
+ *  - `FloatingScrollControls`, unobtrusive vertical navigation on the right side.
  *
  * The page background is set on `<body>` rather than here, so the area outside
  * the shell is the same colour as the content — otherwise overscroll on macOS
@@ -39,7 +42,8 @@ export function RootLayout(): React.JSX.Element {
         </main>
 
         <Footer />
-        <ScrollRestoration getKey={(location) => location.pathname} />
+        <FloatingScrollControls />
+        <SmartScrollRestoration />
       </div>
     </PWAProvider>
   );

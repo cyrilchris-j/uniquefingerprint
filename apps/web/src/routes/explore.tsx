@@ -55,6 +55,12 @@ export default function ExplorePage(): React.JSX.Element {
     setParams(next, { replace: true });
   };
 
+  React.useEffect(() => {
+    if (!index.isLoading && items.length > 0) {
+      window.dispatchEvent(new CustomEvent("openui:content_ready"));
+    }
+  }, [index.isLoading, items.length]);
+
   return (
     <div className="shell py-8 sm:py-16">
       <SectionHeader

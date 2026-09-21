@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "anti-slop",
   "type": "registry:ai",
   "title": "Anti-Slop Rules",
@@ -30,5 +30,5 @@
       "auditable"
     ]
   },
-  "url": "https://openui.dev/r/anti-slop.json"
+  "url": "https://uniquefingerprint.web.app/r/anti-slop.json"
 }

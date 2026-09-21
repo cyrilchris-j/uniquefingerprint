@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "molten-metal-flow",
   "type": "registry:component",
   "title": "Molten Metal Flow",

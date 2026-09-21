@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "multi-region-latency-benchmarker",
   "type": "registry:block",
   "title": "Multi-region Latency Benchmarker",

@@ -15,7 +15,11 @@ import { useTheme, type Theme } from "../hooks/use-theme.js";
  * The options carry icons *and* labels at larger sizes: an icon-only control
  * for a three-state setting is a guessing game.
  */
-export function ThemeToggle(): React.JSX.Element {
+export interface ThemeToggleProps {
+  showLabels?: boolean;
+}
+
+export function ThemeToggle({ showLabels = false }: ThemeToggleProps): React.JSX.Element {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -32,17 +36,17 @@ export function ThemeToggle(): React.JSX.Element {
               options={[
                 {
                   value: "light",
-                  label: <span className="hidden 2xl:inline">Light</span>,
+                  label: showLabels ? "Light" : undefined,
                   icon: <Sun aria-hidden className="h-3.5 w-3.5" />,
                 },
                 {
                   value: "dark",
-                  label: <span className="hidden 2xl:inline">Dark</span>,
+                  label: showLabels ? "Dark" : undefined,
                   icon: <Moon aria-hidden className="h-3.5 w-3.5" />,
                 },
                 {
                   value: "system",
-                  label: <span className="hidden 2xl:inline">System</span>,
+                  label: showLabels ? "System" : undefined,
                   icon: <Monitor aria-hidden className="h-3.5 w-3.5" />,
                 },
               ]}

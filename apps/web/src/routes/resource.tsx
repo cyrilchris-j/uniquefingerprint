@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowRight,
   Check,
   Code2,
@@ -15,12 +16,12 @@ import {
   Zap,
 } from "lucide-react";
 import * as React from "react";
-import { Link, Navigate, useParams, useSearchParams } from "react-router";
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router";
 import { getAdvancedItemBySlug } from "../advanced/index.js";
+import { categoryBySlug } from "../lib/registry.js";
 
 import {
   Button,
-  CopyButton,
   EmptyState,
   SegmentedControl,
   Skeleton,
@@ -78,7 +79,7 @@ interface InstallationSectionProps {
 }
 
 function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
-  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("npm");
   const [copied, setCopied] = React.useState(false);
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -94,15 +95,6 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
         return `pnpm dlx uniquefingerprint add ${entryName}`;
       case "npm":
         return `npx uniquefingerprint add ${entryName}`;
-    }
-  };
-
-  const getPeerCommand = (pm: "pnpm" | "npm") => {
-    switch (pm) {
-      case "pnpm":
-        return `pnpm add clsx tailwind-merge`;
-      case "npm":
-        return `npm i clsx tailwind-merge`;
     }
   };
 
@@ -164,7 +156,7 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 
             {/* Package Manager selector */}
             <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
-              {(["pnpm", "npm"] as const).map((pm) => (
+              {(["npm", "pnpm"] as const).map((pm) => (
                 <button
                   key={pm}
                   type="button"
@@ -279,41 +271,41 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
         </div>
 
         <h3 className="font-display text-xl sm:text-2xl tracking-tight text-ink">
-          Or install manually
+          Or copy manually
         </h3>
         <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite max-w-2xl">
-          Copy the source from the Code tab into your project. The source imports{" "}
-          <code className="font-mono text-[0.82rem] px-1.5 py-0.5 rounded bg-surface border border-line/30 text-ink">
-            @/lib/cn
-          </code>
-          ; the CLI rewrites that alias to match your project's configuration.
+          Take full control of the code by copying the component source directly into your codebase. No CLI or external registry lock-in required.
         </p>
 
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+          <div className="p-4 sm:p-5 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
             <div>
-              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">Step 1 • Dependencies</span>
-              <p className="text-xs text-graphite mt-1">Install peer utilities used by components:</p>
-            </div>
-            <div className="flex items-center justify-between bg-ink/95 text-paper px-3 py-2 rounded-lg font-mono text-xs">
-              <span className="truncate mr-2">{getPeerCommand(pkgManager)}</span>
-              <CopyButton value={getPeerCommand(pkgManager)} label="Copy peer dependencies install" className="h-6 w-6 text-paper shrink-0" />
-            </div>
-          </div>
-
-          <div className="p-4 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
-            <div>
-              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">Step 2 • Component Code</span>
-              <p className="text-xs text-graphite mt-1">Copy typescript and demo files directly from the Code tab.</p>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">1. Inspect & Copy Source</span>
+              <p className="text-xs text-graphite mt-1.5 leading-relaxed">
+                Open the Code tab above to view, explore, and copy the full unminified TypeScript/React component source code.
+              </p>
             </div>
             <button
               type="button"
               onClick={onViewCode}
-              className="text-left font-mono text-xs text-moss hover:underline flex items-center gap-1 cursor-pointer font-medium"
+              className="text-left font-mono text-xs text-moss hover:underline flex items-center gap-1.5 cursor-pointer font-medium pt-1"
             >
+              <Code2 className="h-3.5 w-3.5" />
               <span>Switch to Code tab</span>
               <ArrowRight className="h-3 w-3" />
             </button>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-xl border border-line/30 bg-surface/50 flex flex-col justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">2. Paste into Your Project</span>
+              <p className="text-xs text-graphite mt-1.5 leading-relaxed">
+                Create a new file in your components folder (e.g. <code className="font-mono text-[11px] px-1 py-0.5 rounded bg-surface border border-line/30 text-ink">components/{entryName}.tsx</code>), paste the code, and import it directly into your application.
+              </p>
+            </div>
+            <div className="font-mono text-[10.5px] text-graphite/70 flex items-center gap-1.5 pt-1">
+              <span>✓ Self-contained & ready to use</span>
+            </div>
           </div>
         </div>
       </div>
@@ -322,6 +314,7 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 }
 
 export default function ResourcePage(): React.JSX.Element {
+  const navigate = useNavigate();
   const params = useParams<{ category: string; slug: string }>();
   const slug = params.slug ?? "";
   const [searchParams, setSearchParams] = useSearchParams();
@@ -475,11 +468,49 @@ export default function ResourcePage(): React.JSX.Element {
     );
   }
 
+  const categoryDef = entry ? categoryBySlug(entry.category) : undefined;
+  const categoryTitle =
+    categoryDef?.title ??
+    (entry?.category ? entry.category.charAt(0).toUpperCase() + entry.category.slice(1) : "Catalogue");
+
+  const handleReturn = () => {
+    try {
+      sessionStorage.setItem("openui_returning", "true");
+      if (entry) {
+        sessionStorage.setItem("openui_last_clicked_item", entry.name);
+        sessionStorage.setItem(`openui_target_item_/${entry.category}`, entry.name);
+      }
+    } catch {
+      // Ignore storage errors
+    }
+
+    const lastOrigin = sessionStorage.getItem("openui_last_origin_path");
+    if (lastOrigin && lastOrigin !== window.location.pathname) {
+      navigate(lastOrigin);
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(entry ? `/${entry.category}` : "/explore");
+    }
+  };
+
   return (
-    <article className="pb-16">
+    <article className="pb-4 sm:pb-6">
       {/* ------------------------------------------------------------ */}
       {/* Header                                                        */}
-      <header className="shell pt-6 sm:pt-12">
+      <header className="shell pt-6 sm:pt-10">
+        {/* Return to Catalogue Action */}
+        <div className="mb-4 sm:mb-6">
+          <button
+            type="button"
+            onClick={handleReturn}
+            className="group inline-flex items-center gap-2 px-3 py-1.5 -ml-3 rounded-lg text-xs font-mono tracking-wider uppercase text-graphite hover:text-ink hover:bg-surface/80 dark:hover:bg-zinc-800/60 border border-transparent hover:border-line/30 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-graphite group-hover:text-ink" />
+            <span>Return to {categoryTitle}</span>
+          </button>
+        </div>
+
         <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             <h1 className="optically-align text-3xl sm:text-5xl lg:text-step-5 max-w-[20ch] text-balance leading-[1.08]">{entry.title}</h1>
@@ -699,7 +730,7 @@ export default function ResourcePage(): React.JSX.Element {
       {/* Related                                                       */}
       {/* ------------------------------------------------------------ */}
       {related.length > 0 ? (
-        <section className="shell mt-24">
+        <section className="shell mt-16 sm:mt-20">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-5">
             <p className="eyebrow">Composes with</p>
             <p className="eyebrow">Shared tags and category</p>
@@ -712,14 +743,6 @@ export default function ResourcePage(): React.JSX.Element {
         </section>
       ) : null}
 
-      {/* Report / licence footer */}
-      <div className="shell mt-8 -mb-10 sm:-mb-20">
-        <div className="flex items-center justify-end">
-          <p className="eyebrow text-[10px] text-graphite/70">
-            Licence {entry.license ?? "not declared"} · verify before redistribution
-          </p>
-        </div>
-      </div>
     </article>
   );
 }

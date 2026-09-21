@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "glass-icons-iridescent",
   "type": "registry:component",
   "title": "Glass Icons Iridescent",

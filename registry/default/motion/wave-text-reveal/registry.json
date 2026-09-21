@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "wave-text-reveal",
   "type": "registry:motion",
   "title": "Wave Text Reveal",

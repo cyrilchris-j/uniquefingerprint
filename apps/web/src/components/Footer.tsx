@@ -1,128 +1,93 @@
 import { Link } from "react-router";
-
-import { CATALOGUE_CATEGORIES } from "../lib/registry.js";
 import { usePWA } from "./PWAInstall.js";
 
 /**
- * The footer.
+ * Minimal, classical, premium footer.
  *
- * Not a row of social icons — a final, complete index of the registry, doubled
- * as the sitemap. On a long catalogue page this is how someone who has scrolled
- * to the bottom navigates rather than scrolling back up, so it is required to be
- * genuinely complete.
- *
- * The licence line is not boilerplate. A registry's credibility depends on every
- * resource stating its licence, so the site states its own in the same place it
- * asks contributors to state theirs.
+ * Clean editorial aesthetic with concise navigation, quiet typography,
+ * and zero unnecessary vertical weight.
  */
 export function Footer(): React.JSX.Element {
   const year = new Date().getFullYear();
   const { isInstalled, triggerInstall } = usePWA();
 
   return (
-    <footer className="mt-14 sm:mt-24 border-t border-line">
-      <div className="shell grid gap-8 sm:gap-10 py-10 sm:py-16 grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr]">
-        <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-3">
+    <footer className="border-t border-line/35 bg-paper/60 backdrop-blur-xs">
+      <div className="shell py-8 sm:py-9 flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
+        {/* Brand identity */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+          <Link to="/" className="flex items-center gap-2.5 group">
             <img
               src="/logo.png"
               alt="UniqueFingerprint"
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30"
+              width={26}
+              height={26}
+              className="h-6.5 w-6.5 rounded-md object-contain ring-1 ring-line/40 transition-transform group-hover:scale-105 shadow-2xs"
             />
-            <p className="font-display text-step-2 leading-none tracking-tight text-ink">UniqueFingerprint</p>
-          </div>
-          <p className="mt-4 max-w-[34ch] text-[0.9rem] leading-relaxed text-graphite">
-            An open registry of UI resources that carry a design fingerprint — with the design
-            rules written down, so a model or a teammate can follow them.
+            <span className="font-display text-lg tracking-tight text-ink font-medium">
+              UniqueFingerprint
+            </span>
+          </Link>
+
+          <span className="hidden sm:inline text-line/60 font-mono text-xs select-none">/</span>
+
+          <p className="text-xs text-graphite font-serif italic max-w-md">
+            An open registry of UI resources crafted with distinctive design fingerprints.
           </p>
-          <p className="eyebrow mt-6">Interfaces should have a fingerprint.</p>
         </div>
 
-        <nav aria-label="Registry">
-          <p className="eyebrow mb-4">Registry</p>
-          <ul className="flex flex-col gap-2">
-            {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
-              <li key={category.slug}>
-                <Link
-                  to={`/${category.slug}`}
-                  className="text-[0.85rem] text-graphite transition-colors duration-fast hover:text-ink"
-                >
-                  {category.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <nav aria-label="Systems">
-          <p className="eyebrow mb-4">Systems</p>
-          <ul className="flex flex-col gap-2">
-            {CATALOGUE_CATEGORIES.slice(4).map((category) => (
-              <li key={category.slug}>
-                <Link
-                  to={`/${category.slug}`}
-                  className="text-[0.85rem] text-graphite transition-colors duration-fast hover:text-ink"
-                >
-                  {category.title}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                to="/playground"
-                className="text-[0.85rem] text-graphite transition-colors duration-fast hover:text-ink"
-              >
-                Playground
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <nav aria-label="Project">
-          <p className="eyebrow mb-4">Project</p>
-          <ul className="flex flex-col gap-2">
-            {[
-              ["/docs", "Documentation"],
-              ["/docs/installation", "Installation"],
-              ["/docs/cli", "CLI"],
-              ["/docs/registry", "Registry"],
-              ["/docs/design-systems", "Design systems"],
-              ["/contributors", "Contributors"],
-            ].map(([to, label]) => (
-              <li key={to}>
-                <Link
-                  to={to!}
-                  className="text-[0.85rem] text-graphite transition-colors duration-fast hover:text-ink"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-            {!isInstalled && (
-              <li>
-                <button
-                  type="button"
-                  onClick={triggerInstall}
-                  className="text-[0.85rem] text-graphite transition-colors duration-fast hover:text-ink text-left inline-flex items-center gap-1.5"
-                >
-                  Download App (PWA)
-                </button>
-              </li>
-            )}
-          </ul>
+        {/* Curated Navigation Links */}
+        <nav aria-label="Footer Navigation" className="flex flex-wrap items-center gap-x-5 sm:gap-x-7 gap-y-2 text-xs font-mono">
+          <Link
+            to="/components"
+            className="text-graphite transition-colors duration-fast hover:text-ink"
+          >
+            Components
+          </Link>
+          <Link
+            to="/advanced"
+            className="text-graphite transition-colors duration-fast hover:text-ink inline-flex items-center gap-1.5"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-moss inline-block" />
+            <span>Advanced</span>
+          </Link>
+          <Link
+            to="/playground"
+            className="text-graphite transition-colors duration-fast hover:text-ink"
+          >
+            Playground
+          </Link>
+          <Link
+            to="/docs"
+            className="text-graphite transition-colors duration-fast hover:text-ink"
+          >
+            Docs
+          </Link>
+          <a
+            href="https://github.com/cyrilchris-j/uniquefingerprint"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-graphite transition-colors duration-fast hover:text-ink"
+          >
+            GitHub
+          </a>
+          {!isInstalled && (
+            <button
+              type="button"
+              onClick={triggerInstall}
+              className="text-graphite transition-colors duration-fast hover:text-ink cursor-pointer"
+            >
+              App (PWA)
+            </button>
+          )}
         </nav>
       </div>
 
-      <div className="border-t border-line">
-        <div className="shell flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-graphite">
-            © {year} UniqueFingerprint · MIT licensed · every resource states its own licence
-          </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-graphite">
-            Open code · Distinctive design · Composable systems
-          </p>
+      {/* Sub-bar hairline */}
+      <div className="border-t border-line/20">
+        <div className="shell py-3.5 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10.5px] font-mono text-graphite/70">
+          <span>© {year} UniqueFingerprint · MIT License</span>
+          <span className="uppercase tracking-[0.16em] text-[9.5px]">Crafted for modern interfaces</span>
         </div>
       </div>
     </footer>

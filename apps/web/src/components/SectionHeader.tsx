@@ -23,6 +23,8 @@ export interface SectionHeaderProps {
   /** Actions (a link, a filter toggle) pinned to the end of the rule. */
   actions?: React.ReactNode;
   className?: string;
+  /** Toggle whether the top border hairline is shown. Defaults to false for h1 and true for h2. */
+  showBorder?: boolean;
 }
 
 export function SectionHeader({
@@ -32,9 +34,10 @@ export function SectionHeader({
   as: Heading = "h2",
   actions,
   className,
+  showBorder = Heading !== "h1",
 }: SectionHeaderProps): React.JSX.Element {
   return (
-    <header className={cn("border-t border-line pt-4 sm:pt-5", className)}>
+    <header className={cn(showBorder ? "border-t border-line pt-4 sm:pt-5" : "", className)}>
       <div className="flex flex-wrap items-baseline justify-between gap-2.5 sm:gap-3">
         {eyebrow ? <p className="eyebrow text-[10px] sm:text-[11px]">{eyebrow}</p> : <span />}
         {actions ? <div className="flex items-center gap-2 sm:gap-3">{actions}</div> : null}

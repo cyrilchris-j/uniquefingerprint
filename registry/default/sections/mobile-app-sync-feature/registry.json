@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "mobile-app-sync-feature",
   "type": "registry:section",
   "title": "Mobile App Sync Feature",

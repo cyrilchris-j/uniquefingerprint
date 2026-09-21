@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "magnetic-button",
   "type": "registry:component",
   "title": "Magnetic Button",
@@ -61,6 +61,6 @@
       "semanticPurpose": "primary-cta"
     }
   },
-  "url": "https://openui.dev/r/magnetic-button.json",
+  "url": "https://uniquefingerprint.web.app/r/magnetic-button.json",
   "designRules": "# Magnetic Button\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Medium\nShape: Sharp\nMotion: Expressive\nTypography: Grotesk\nColor: Accent Only\n\n## Typography\n\nHeading: Instrument Serif\nBody: Inter\nMono: JetBrains Mono\n\n## Motion\n\nFast: 140ms\nNormal: 220ms\nSlow: 600ms\n\n## Rules\n\n- Motion answers the pointer; it never runs unprompted.\n- Resting state must be indistinguishable from a plain bordered button.\n- Clamp travel so the control never leaves its own footprint.\n- Provide focus-visible styling that is visible on both paper and ink.\n\n## Avoid\n\n- Spring overshoot that pulls the label out from under the cursor.\n- Decorating the magnet with colour, glow or blur.\n- Animating on hover with no pointer movement.\n"
 }

@@ -2,6 +2,7 @@ import {
   Box,
   ChevronDown,
   Download,
+  Github,
   Layers,
   Layout,
   LayoutGrid,
@@ -9,6 +10,7 @@ import {
   Palette,
   Search,
   Sparkles,
+  Star,
   X,
 } from "lucide-react";
 import * as React from "react";
@@ -44,6 +46,7 @@ import { usePWA } from "./PWAInstall.js";
  * with a thumb.
  */
 export function Masthead(): React.JSX.Element {
+  const { user } = useAuth();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -162,11 +165,11 @@ export function Masthead(): React.JSX.Element {
 
   return (
     <header className="masthead">
-      <div className="shell flex h-14 sm:h-16 items-center justify-between gap-4 max-w-full min-w-0">
-        <div className="flex items-center gap-5 xl:gap-7 2xl:gap-9 min-w-0">
+      <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 flex h-14 sm:h-16 items-center justify-between gap-2.5 sm:gap-4 min-w-0">
+        <div className="flex items-center gap-2.5 sm:gap-3.5 xl:gap-4 2xl:gap-6 min-w-0 shrink-0">
           <Link
             to="/"
-            className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus-visible:outline-none"
+            className="flex items-center gap-2 sm:gap-2.5 shrink-0 group focus-visible:outline-none"
           >
             <img
               src="/logo.png"
@@ -175,20 +178,20 @@ export function Masthead(): React.JSX.Element {
               height={36}
               className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-contain shadow-xs ring-1 ring-line/30 transition-transform duration-fast ease-editorial group-hover:scale-105"
             />
-            <span className="font-display text-xl sm:text-step-2 leading-none tracking-tight text-ink">
+            <span className="font-display text-base sm:text-lg 2xl:text-xl leading-none tracking-tight text-ink whitespace-nowrap">
               UniqueFingerprint
             </span>
           </Link>
 
-          <nav aria-label="Catalogue" className="hidden xl:block min-w-0">
-            <ul className="flex items-center gap-3.5 2xl:gap-5 min-w-0">
+          <nav aria-label="Catalogue" className="hidden xl:block shrink-0">
+            <ul className="flex items-center gap-2 xl:gap-2.5 2xl:gap-4">
               {CATALOGUE_CATEGORIES.slice(0, 4).map((category) => (
-                <li key={category.slug}>
+                <li key={category.slug} className="shrink-0">
                   <NavLink
                     to={`/${category.slug}`}
                     className={({ isActive }) =>
                       cn(
-                        "eyebrow whitespace-nowrap text-[11px] 2xl:text-[11.5px] tracking-[0.14em] 2xl:tracking-[0.18em] transition-colors duration-fast ease-editorial hover:text-ink py-1",
+                        "eyebrow whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[11.5px] tracking-[0.1em] xl:tracking-[0.12em] 2xl:tracking-[0.16em] transition-colors duration-fast ease-editorial hover:text-ink py-1",
                         isActive ? "text-ink font-semibold" : "text-graphite",
                       )
                     }
@@ -198,13 +201,13 @@ export function Masthead(): React.JSX.Element {
                 </li>
               ))}
 
-              <li>
+              <li className="shrink-0">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
                       className={cn(
-                        "eyebrow whitespace-nowrap text-[11px] 2xl:text-[11.5px] tracking-[0.14em] 2xl:tracking-[0.18em] transition-colors duration-fast ease-editorial hover:text-ink flex items-center gap-1 focus-visible:outline-none cursor-pointer py-1",
+                        "eyebrow whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[11.5px] tracking-[0.1em] xl:tracking-[0.12em] 2xl:tracking-[0.16em] transition-colors duration-fast ease-editorial hover:text-ink flex items-center gap-1 focus-visible:outline-none cursor-pointer py-1",
                         isSystemsActive ? "text-ink font-semibold" : "text-graphite",
                       )}
                       aria-label="Systems menu"
@@ -382,26 +385,26 @@ export function Masthead(): React.JSX.Element {
                 </DropdownMenu>
               </li>
 
-              <li>
+              <li className="shrink-0">
                 <NavLink
                   to="/advanced"
                   className={({ isActive }) =>
                     cn(
-                      "relative inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-[0.14em] font-semibold transition-all duration-300 group",
+                      "relative inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] xl:text-[10.5px] 2xl:text-[11px] font-mono uppercase tracking-[0.1em] font-semibold transition-all duration-300 group shrink-0",
                       "border border-oxide/60 bg-gradient-to-r from-oxide/[0.12] via-amber-500/[0.14] to-oxide/[0.12] text-oxide shadow-xs hover:shadow-md hover:border-oxide hover:from-oxide hover:to-oxide hover:text-paper",
                       "dark:border-amber-400/50 dark:bg-gradient-to-r dark:from-amber-500/[0.16] dark:via-orange-500/[0.14] dark:to-amber-500/[0.16] dark:text-amber-300 dark:hover:border-amber-300 dark:hover:from-amber-500 dark:hover:to-amber-600 dark:hover:text-black",
                       isActive && "bg-gradient-to-r from-oxide to-amber-600 text-paper border-transparent font-bold shadow-md shadow-oxide/20 dark:text-black dark:from-amber-400 dark:to-orange-400",
                     )
                   }
                 >
-                  <span className="relative flex h-2 w-2">
+                  <span className="relative flex h-1.5 w-1.5 2xl:h-2 2xl:w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-oxide dark:bg-amber-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-oxide dark:bg-amber-400 group-hover:bg-paper dark:group-hover:bg-black" />
+                    <span className="relative inline-flex rounded-full h-full w-full bg-oxide dark:bg-amber-400 group-hover:bg-paper dark:group-hover:bg-black" />
                   </span>
                   <span className="font-bold tracking-wider">Advanced</span>
                   <span
                     className={cn(
-                      "px-1.5 py-0.5 rounded-full text-[9.5px] font-mono font-bold leading-none transition-colors",
+                      "px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold leading-none transition-colors",
                       "bg-oxide text-paper group-hover:bg-paper group-hover:text-oxide",
                       "dark:bg-amber-400 dark:text-black dark:group-hover:bg-black dark:group-hover:text-amber-300",
                     )}
@@ -414,7 +417,7 @@ export function Masthead(): React.JSX.Element {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
           <div ref={searchBoxRef} className="relative hidden xl:flex items-center">
             <form
               role="search"
@@ -424,7 +427,7 @@ export function Masthead(): React.JSX.Element {
                 setSearchFocused(false);
                 navigate(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : "/search");
               }}
-              className="flex items-center gap-2 border-b border-line/80 focus-within:border-ink dark:focus-within:border-white transition-colors duration-fast px-1 py-0.5"
+              className="flex items-center gap-1.5 border-b border-line/80 focus-within:border-ink dark:focus-within:border-white transition-colors duration-fast px-1 py-0.5"
             >
               <Search aria-hidden className="h-3.5 w-3.5 text-graphite shrink-0" />
               <label htmlFor="masthead-search" className="sr-only">
@@ -439,9 +442,13 @@ export function Masthead(): React.JSX.Element {
                   setTerm(event.target.value);
                   setSearchFocused(true);
                 }}
-                placeholder="Search resources..."
-                className="h-8 sm:h-9 w-36 lg:w-48 xl:w-56 2xl:w-64 bg-transparent font-mono text-[11px] tracking-[0.12em] text-ink placeholder:text-graphite/60 focus:w-48 lg:focus:w-60 xl:focus:w-68 2xl:focus:w-76 focus:outline-none"
-                style={{ transition: "width var(--motion-normal) var(--motion-ease)" }}
+                placeholder={user ? "Search..." : "Search 1,038+..."}
+                className={cn(
+                  "h-8 sm:h-9 bg-transparent font-mono text-[11px] tracking-[0.06em] text-ink placeholder:text-graphite/60 focus:outline-none transition-all duration-300",
+                  user
+                    ? "w-20 xl:w-28 2xl:w-36 focus:w-28 xl:focus:w-36 2xl:focus:w-48"
+                    : "w-20 xl:w-24 2xl:w-32 focus:w-28 xl:focus:w-32 2xl:focus:w-44",
+                )}
               />
             </form>
 
@@ -520,6 +527,19 @@ export function Masthead(): React.JSX.Element {
             <ThemeToggle />
           </div>
 
+          <a
+            href="https://github.com/cyrilchris-j/uniquefingerprint"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-2 sm:px-2.5 2xl:px-3 py-1 sm:py-1.5 rounded-full border border-line bg-surface/80 hover:bg-ink hover:text-paper hover:border-ink dark:bg-surface/50 dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-200 group text-ink font-mono text-[11px] sm:text-xs font-semibold shrink-0 shadow-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oxide"
+            title="Star uniquefingerprint on GitHub"
+            aria-label="Star cyrilchris-j/uniquefingerprint on GitHub"
+          >
+            <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+            <span className="hidden 2xl:inline font-medium">Star repo</span>
+            <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-500 fill-amber-500 group-hover:text-amber-400 group-hover:fill-amber-400 shrink-0" />
+          </a>
+
           <Link
             to="/search"
             aria-label="Search the registry"
@@ -555,6 +575,34 @@ export function Masthead(): React.JSX.Element {
           style={{ paddingBottom: "max(3rem, env(safe-area-inset-bottom, 0px))" }}
         >
           <nav aria-label="Catalogue" className="shell py-6">
+            {/* GitHub Repository Star Banner for Mobile */}
+            <div className="mb-5">
+              <a
+                href="https://github.com/cyrilchris-j/uniquefingerprint"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 rounded-xl border border-line bg-surface/80 hover:border-ink dark:hover:border-white transition-all group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink text-paper dark:bg-white dark:text-black shrink-0">
+                    <Github className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-display text-xs text-ink font-bold leading-tight truncate">
+                      cyrilchris-j / uniquefingerprint
+                    </p>
+                    <p className="font-mono text-[10px] text-graphite truncate">
+                      Open source modern UI registry
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[11px] font-mono font-bold shrink-0">
+                  <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
+                  <span>Star repo</span>
+                </div>
+              </a>
+            </div>
+
             <form
               role="search"
               onSubmit={(event) => {
@@ -698,7 +746,7 @@ export function Masthead(): React.JSX.Element {
 
             <div className="mt-8 pt-6 border-t border-line flex items-center justify-between">
               <span className="eyebrow">Colour theme</span>
-              <ThemeToggle />
+              <ThemeToggle showLabels />
             </div>
           </nav>
         </div>

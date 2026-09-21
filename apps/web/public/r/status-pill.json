@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "status-pill",
   "type": "registry:component",
   "title": "Status Pill",
@@ -60,6 +60,6 @@
       "semanticPurpose": "system-state-indicator"
     }
   },
-  "url": "https://openui.dev/r/status-pill.json",
+  "url": "https://uniquefingerprint.web.app/r/status-pill.json",
   "designRules": "# Status Pill\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Dense\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Accent Only\n\n## Rules\n\n- Every tone pairs a colour with a glyph; state never depends on hue alone.\n- Square corners, 11px monospace, uppercase, 0.16em tracking.\n- The pill states a fact — it never carries an action.\n- Provide an srLabel whenever the visible text is an abbreviation.\n\n## Avoid\n\n- Rounded badges with soft tints.\n- Animated pulses for \"live\" states.\n- Using the pill as a count badge; that is a different component.\n"
 }

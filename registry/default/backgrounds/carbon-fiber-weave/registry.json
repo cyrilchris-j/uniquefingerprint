@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "carbon-fiber-weave",
   "type": "registry:background",
   "title": "Carbon Fiber Weave",

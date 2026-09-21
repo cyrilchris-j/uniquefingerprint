@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "stepper-form-wizard",
   "type": "registry:component",
   "title": "Stepper Form Wizard",

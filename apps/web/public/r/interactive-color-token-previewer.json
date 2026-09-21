@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "interactive-color-token-previewer",
   "type": "registry:section",
   "title": "Interactive Color Token Previewer",
@@ -61,6 +61,6 @@
       "semanticPurpose": "interactive-color-token-previewer-section"
     }
   },
-  "url": "https://openui.dev/r/interactive-color-token-previewer.json",
+  "url": "https://uniquefingerprint.web.app/r/interactive-color-token-previewer.json",
   "designRules": "# Design System\n\nGenre: Swiss\nMacrostructure: Mosaic\nDensity: Compact\nShape: Sharp\nMotion: Subtle\nTypography: Grotesk\nColor: Accent Only\n\n## Rules\n\n- Interactive Color Token Previewer Interaction: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

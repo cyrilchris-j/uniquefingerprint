@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "golden-ratio-split",
   "type": "registry:layout",
   "title": "Golden Ratio Split",
@@ -63,6 +63,6 @@
       "semanticPurpose": "harmonic-golden-split"
     }
   },
-  "url": "https://openui.dev/r/golden-ratio-split.json",
+  "url": "https://uniquefingerprint.web.app/r/golden-ratio-split.json",
   "designRules": "# Design System\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: None\nTypography: Serif Display\nColor: High Contrast\n\n## Rules\n\n- Golden Ratio Balance: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

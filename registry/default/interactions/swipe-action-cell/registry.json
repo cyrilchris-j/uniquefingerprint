@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "swipe-action-cell",
   "type": "registry:interaction",
   "title": "Swipe Action Cell",
