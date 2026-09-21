@@ -33,6 +33,7 @@ import { useRegistryIndex } from "../features/resources/use-catalogue.js";
 import { CATALOGUE_CATEGORIES, itemsInCategory, itemsWithDesignRules } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
+import { PlaygroundWorkspace } from "../features/playground/PlaygroundWorkspace.js";
 import {
   AuroraField,
   ScrollReveal,
@@ -330,30 +331,7 @@ export default function HomePage(): React.JSX.Element {
     })).filter((category) => category.count > 0);
   }, [index.data]);
 
-  const featured = React.useMemo(() => {
-    if (!index.data) return [];
-    return itemsWithDesignRules(index.data)
-      .filter((item) => item.dna?.genre && item.dna?.macrostructure)
-      .slice(0, 6);
-  }, [index.data]);
 
-  const totalItems = index.data?.items.length ?? 0;
-  const advancedCount = ADVANCED_RESOURCES.length;
-  const grandTotal = totalItems > 0 ? totalItems : 1038;
-
-  const featuredAdvanced = React.useMemo(() => {
-    const slugs = [
-      "kinetic-editorial-hero",
-      "interactive-wireframe-globe",
-      "aurora-sky-harmonic",
-      "true-focus-lens",
-      "magnetic-spring-button",
-      "depth-carousel-3d",
-    ];
-    return slugs
-      .map((slug) => getAdvancedItemBySlug(slug))
-      .filter((item): item is NonNullable<typeof item> => item !== undefined);
-  }, []);
 
   return (
     <>
@@ -363,23 +341,9 @@ export default function HomePage(): React.JSX.Element {
       <section className="shell relative pt-6 sm:pt-12 lg:pt-16">
         <AuroraField opacity={0.16} className="-top-10 -left-10 -right-10 h-96 pointer-events-none" />
         <div className="grid gap-8 lg:grid-cols-[minmax(0,6.5fr)_minmax(0,5.5fr)] lg:gap-12 relative z-10 items-center">
-          {/* Left Column: Heading, Thesis, Action CTAs & Metrics */}
-          <div className="min-w-0 flex flex-col justify-between">
+          {/* Left Column: Heading, Thesis, Action CTAs */}
+          <div className="min-w-0 flex flex-col justify-center">
             <div>
-              {/* Release announcement pill */}
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-oxide/40 bg-oxide/10 text-oxide text-xs font-mono uppercase tracking-wider mb-4 hover:border-oxide transition-colors duration-fast group"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-oxide opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-oxide" />
-                </span>
-                <span className="font-semibold">UniqueFingerprint 2.0</span>
-                <span className="text-graphite font-normal">·</span>
-                <span className="text-ink group-hover:text-oxide transition-colors">1,038+ Open Source UI Components &rarr;</span>
-              </Link>
-
               <h1 className="optically-align text-balance text-3xl sm:text-5xl lg:text-step-5 font-normal leading-[1.08] tracking-tight text-ink">
                 Interfaces should have a{" "}
                 <span className="bg-gradient-to-r from-oxide via-amber-500 to-orange-500 bg-clip-text text-transparent font-bold">
@@ -422,59 +386,11 @@ export default function HomePage(): React.JSX.Element {
                 </Button>
               </div>
             </div>
-
-            {/* Metrics stats row */}
-            <div className="mt-8 pt-6 border-t border-line/40 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  {grandTotal > 0 ? `${grandTotal.toLocaleString()}+` : "1,038+"}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Published Items
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-oxide">
-                  {advancedCount > 0 ? `${advancedCount}+` : "220+"}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  WebGL 3D & Shaders
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  0
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Runtime Bloat
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  100%
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Open Source (MIT)
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Interactive Live Specimen Showcase Stage */}
           <div className="flex flex-col gap-3 min-w-0">
             <HeroSpecimenShowcase />
-            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl border border-line/30 bg-surface/50 text-xs font-mono text-graphite">
-              <Link
-                to="/advanced"
-                className="hover:text-ink transition-colors flex items-center gap-1.5"
-              >
-                <Sparkles className="h-3.5 w-3.5 text-oxide" />
-                <span>Browse all 220+ Advanced Resources</span>
-              </Link>
-              <span className="font-semibold text-ink">
-                {grandTotal.toLocaleString()} in catalogue
-              </span>
-            </div>
           </div>
         </div>
       </section>
@@ -587,13 +503,13 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 02 — Featured, chosen by rule                                     */}
+      {/* 02 — Interactive Studio & Playground                             */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="02 — Fingerprinted resources"
+          eyebrow="02 — Interactive Studio & Playground"
           title="Selected because they declare their fingerprint."
-          description="Not an editorial pick. These are the resources that state a complete design DNA — genre, macrostructure, density, shape and motion — which is the minimum this registry asks before something is published."
+          description="Every component, procedural canvas, and kinetic interaction runs directly in an isolated sandbox. Select any resource, preview interactions, test responsiveness, and grab direct install commands."
           actions={
             <Button variant="ghost" size="sm" asChild>
               <Link to="/explore">All resources</Link>
@@ -601,101 +517,8 @@ export default function HomePage(): React.JSX.Element {
           }
         />
 
-        <div className="catalogue-grid mt-10">
-          {index.isLoading ? (
-            <div className="bg-paper p-6">
-              <Skeleton lines={5} />
-            </div>
-          ) : featured.length === 0 ? (
-            <div className="bg-paper p-6">
-              <EmptyState
-                bordered={false}
-                eyebrow="Nothing published"
-                title="No resources declare a full design fingerprint yet."
-                description="Run pnpm build:registry to publish the first-party set."
-              />
-            </div>
-          ) : (
-            featured.map((item, position) => (
-              <ScrollReveal key={item.name} delayMs={position * 40}>
-                <ResourceTile item={item} index={position + 1} withPreview />
-              </ScrollReveal>
-            ))
-          )}
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* 03 — Advanced Ecosystem Showcase                                 */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <SectionHeader
-          eyebrow="03 — Advanced Ecosystem (220+)"
-          title="Spatial 3D, procedural canvases, and kinetic interactions."
-          description="Engineered for high-end digital products: GPU-accelerated Three.js WebGL scenes, organic canvas simulations, haptic micro-interactions, and kinetic typography with zero external runtime bloat."
-          actions={
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/advanced">Browse All 220+ Resources &rarr;</Link>
-            </Button>
-          }
-        />
-
-        {/* Featured Advanced Grid */}
-        <div className="catalogue-grid mt-10">
-          {featuredAdvanced.map((advItem, position) => (
-            <ScrollReveal key={advItem.slug} delayMs={position * 40}>
-              <article
-                className="group relative flex flex-col justify-between overflow-hidden border border-line/30 dark:border-line/20 bg-paper rounded-xl transition-all duration-normal ease-editorial hover:shadow-lg hover:border-ink/40 dark:hover:border-ink/50 hover:-translate-y-0.5"
-              >
-                {/* Live Preview Container */}
-                <div
-                  className="h-44 sm:h-52 w-full border-b border-line/25 overflow-hidden relative flex items-center justify-center bg-[#f8f6f1] dark:bg-[#0c0c0b] p-4"
-                  style={{
-                    backgroundImage: "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
-                    backgroundSize: "14px 14px",
-                  }}
-                >
-                  <div className="w-full h-full flex items-center justify-center pointer-events-none transform scale-90">
-                    <AdvancedPreview item={advItem} />
-                  </div>
-                </div>
-
-                {/* Meta & Info */}
-                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="eyebrow text-[10px] uppercase tracking-wider text-graphite">
-                        {advItem.category} · {advItem.technology}
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-line/50 text-ink/70 bg-surface/50">
-                        {advItem.fingerprint.performanceTier}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-semibold text-ink text-lg tracking-tight group-hover:text-oxide transition-colors">
-                      <Link to={`/advanced/${advItem.category}/${advItem.slug}`} className="focus:outline-hidden">
-                        <span className="absolute inset-0 z-10" aria-hidden="true" />
-                        {advItem.title}
-                      </Link>
-                    </h3>
-
-                    <p className="mt-1.5 text-[0.85rem] leading-relaxed text-graphite line-clamp-2">
-                      {advItem.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3 border-t border-line/20 flex items-center justify-between text-[11px] font-mono text-graphite">
-                    <span className="truncate text-[10px] text-graphite/80">
-                      {advItem.tags.slice(0, 2).map((t) => `#${t}`).join(" ")}
-                    </span>
-                    <span className="text-ink/70 group-hover:text-oxide transition-colors flex items-center gap-1 font-medium">
-                      Explore &rarr;
-                    </span>
-                  </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
+        <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs">
+          <PlaygroundWorkspace embedded initialItem="cloth-simulation-banner" />
         </div>
       </section>
     </>

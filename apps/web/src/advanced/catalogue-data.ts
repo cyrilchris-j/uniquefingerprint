@@ -41,7 +41,7 @@ export const ADVANCED_CATEGORIES: readonly AdvancedCategoryMeta[] = [
     title: "Text Animations",
     description: "Glyph decryption, variable font proximity, sine wave type, and chromatic aberration.",
     icon: "T",
-    itemCount: 32,
+    itemCount: 33,
   },
   {
     slug: "ui-elements",

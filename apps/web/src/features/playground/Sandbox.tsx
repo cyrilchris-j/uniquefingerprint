@@ -3,7 +3,7 @@ import { Code2, RotateCcw } from "lucide-react";
 import * as React from "react";
 
 import type { BuiltRegistryItem } from "@openui/types";
-import { EmptyState, Skeleton } from "@openui/ui";
+import { cn, EmptyState, Skeleton } from "@openui/ui";
 
 import { useTheme } from "../../hooks/use-theme.js";
 import { getCatalogueVisualPreview } from "../../visual-engine/catalogue-previews.js";
@@ -54,6 +54,12 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
   const previewHeight = view === "split" ? "22rem" : "32rem";
   const editorHeight = view === "split" ? "24rem" : "34rem";
 
+  const isFullBleed =
+    item.category === "interactions" ||
+    item.category === "backgrounds" ||
+    item.category === "layouts" ||
+    item.category === "sections";
+
   return (
     <div className={className}>
       <div className="rounded-xl border border-line/30 dark:border-line/20 overflow-hidden shadow-xs bg-paper">
@@ -90,10 +96,13 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
         {/* Visual Preview / BlobPreview Canvas Stage */}
         {view !== "code" ? (
           <div
-            className="relative overflow-hidden bg-[#f8f6f1] dark:bg-[#0c0c0b] flex items-center justify-center p-4 sm:p-8"
+            className={cn(
+              "relative overflow-hidden bg-[#f8f6f1] dark:bg-[#0c0c0b] flex flex-col items-center justify-center",
+              isFullBleed ? "p-0" : "p-4 sm:p-8",
+            )}
             style={{
               minHeight: previewHeight,
-              backgroundImage: "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
+              backgroundImage: isFullBleed ? undefined : "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
               backgroundSize: "16px 16px",
             }}
           >
@@ -107,14 +116,29 @@ export function Sandbox({ item, view = "split", files: provided, className }: Sa
                 </div>
               </div>
             ) : bespoke ? (
-              <div
-                key={refreshKey}
-                className="w-full max-w-xl min-h-[16rem] sm:min-h-[20rem] p-6 sm:p-10 rounded-2xl bg-paper/95 border border-line/35 shadow-lg flex items-center justify-center relative backdrop-blur-xs mx-auto"
-              >
-                <div className="w-full flex items-center justify-center">
-                  {bespoke}
+              isFullBleed ? (
+                <div
+                  key={refreshKey}
+                  style={{ minHeight: previewHeight }}
+                  className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden"
+                >
+                  <div
+                    style={{ minHeight: previewHeight }}
+                    className="w-full h-full flex flex-col items-center justify-center"
+                  >
+                    {bespoke}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div
+                  key={refreshKey}
+                  className="w-full max-w-xl min-h-[16rem] sm:min-h-[20rem] p-6 sm:p-10 rounded-2xl bg-paper/95 border border-line/35 shadow-lg flex items-center justify-center relative backdrop-blur-xs mx-auto"
+                >
+                  <div className="w-full h-full flex items-center justify-center">
+                    {bespoke}
+                  </div>
+                </div>
+              )
             ) : (
               <BlobPreview key={refreshKey} files={files} height={previewHeight} scrollable />
             )}

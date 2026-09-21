@@ -70,7 +70,7 @@ export default function BuilderPage(): React.JSX.Element {
   }, [items]);
 
   const installCommand =
-    stack.length > 0 ? `pnpm dlx uniquefingerprint add ${stack.join(" ")}` : "pnpm dlx uniquefingerprint add <resource>";
+    stack.length > 0 ? `npx uniquefingerprint add ${stack.join(" ")}` : "npx uniquefingerprint add <resource>";
 
   const move = (from: number, to: number) => {
     if (to < 0 || to >= stack.length) return;

@@ -1,4 +1,17 @@
-import { Github, Lock, Globe, Trash2, Heart, ArrowUpRight } from "lucide-react";
+import {
+  Github,
+  Lock,
+  Globe,
+  Trash2,
+  Heart,
+  ArrowUpRight,
+  Mail,
+  Copy,
+  Check,
+  LogOut,
+  ShieldCheck,
+  Database,
+} from "lucide-react";
 import * as React from "react";
 import { Link } from "react-router";
 
@@ -38,11 +51,35 @@ import type { ResourceSummary } from "@openui/types";
  * send a user id at all. There is nothing here for a client to tamper with.
  */
 
+function getInitials(name: string | null | undefined, email: string | null | undefined): string {
+  if (name) {
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    const first = parts[0];
+    const second = parts[1];
+    if (first && second) {
+      return ((first[0] ?? "") + (second[0] ?? "")).toUpperCase();
+    }
+    if (first && first.length >= 2) {
+      return first.slice(0, 2).toUpperCase();
+    }
+    if (first && first.length === 1) {
+      return first.toUpperCase();
+    }
+  }
+  if (email) {
+    return email.slice(0, 2).toUpperCase();
+  }
+  return "UI";
+}
+
 export function ProfilePage(): React.JSX.Element {
-  const { user, token } = useAuth();
+  const { user, token, signOut } = useAuth();
   useDocumentTitle("Profile — OpenUI");
 
   const [savedData, setSavedData] = React.useState(() => getFavoritesAsPaginated(user?.id));
+  const [copiedEmail, setCopiedEmail] = React.useState(false);
+  const [copiedId, setCopiedId] = React.useState(false);
+  const [imageFailed, setImageFailed] = React.useState(false);
 
   React.useEffect(() => {
     if (user?.id) {
@@ -65,65 +102,198 @@ export function ProfilePage(): React.JSX.Element {
 
   const savedItems = savedData.items;
 
+  const handleCopyEmail = () => {
+    if (user?.email) {
+      void navigator.clipboard.writeText(user.email);
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    }
+  };
+
+  const handleCopyId = () => {
+    if (user?.id) {
+      void navigator.clipboard.writeText(user.id);
+      setCopiedId(true);
+      setTimeout(() => setCopiedId(false), 2000);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (err) {
+      console.error("Sign out failed", err);
+    }
+  };
+
   return (
-    <div className="max-w-xl space-y-6">
-      <div className="border-b border-line pb-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="eyebrow text-xs text-graphite uppercase tracking-widest">Profile</p>
-            <h2 className="font-display text-2xl sm:text-3xl text-ink tracking-tight">Public Identity</h2>
+    <div className="w-full max-w-2xl mx-auto space-y-6">
+      {/* 1. Main Profile Card (Centered, Glassmorphic & Modern) */}
+      <div className="relative overflow-hidden rounded-2xl border border-line/60 bg-paper/70 backdrop-blur-xl p-6 sm:p-8 shadow-xs text-center flex flex-col items-center">
+        {/* Subtle ambient background glow */}
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-28 bg-oxide/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Avatar with gradient border & live session dot */}
+        <div className="relative mb-3.5">
+          <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full p-[2px] bg-gradient-to-tr from-oxide via-ink/20 to-moss/50 shadow-md">
+            <div className="w-full h-full rounded-full bg-surface/90 flex items-center justify-center overflow-hidden border border-line/40">
+              {user?.photoUrl && !imageFailed ? (
+                <img
+                  src={user.photoUrl}
+                  alt={displayName}
+                  onError={() => setImageFailed(true)}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="font-display text-2xl sm:text-3xl font-semibold tracking-wider text-ink select-none">
+                  {getInitials(displayName, user?.email)}
+                </span>
+              )}
+            </div>
           </div>
-          <span className="font-mono text-xs px-3 py-1 rounded-full uppercase tracking-wider bg-line/10 border border-line text-graphite font-semibold">
+          {/* Active live session indicator */}
+          <div
+            className="absolute bottom-1 right-1 h-5 w-5 rounded-full bg-paper flex items-center justify-center shadow-xs border border-line/40"
+            title="Active Session"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-moss opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-moss" />
+            </span>
+          </div>
+        </div>
+
+        {/* User Display Name */}
+        <h2 className="font-display text-2xl sm:text-3xl text-ink font-normal tracking-tight">
+          {displayName}
+        </h2>
+
+        {/* Email Pill with Click to Copy */}
+        <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface/80 border border-line/50 shadow-2xs">
+          <Mail className="h-3.5 w-3.5 text-graphite" />
+          <span className="font-mono text-xs text-graphite break-all">{user?.email ?? "no-email"}</span>
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            className="ml-1 text-graphite hover:text-ink transition-colors p-0.5"
+            title="Copy email"
+            aria-label="Copy email address"
+          >
+            {copiedEmail ? (
+              <Check className="h-3 w-3 text-moss" />
+            ) : (
+              <Copy className="h-3 w-3" />
+            )}
+          </button>
+        </div>
+
+        {/* Badges / Pill Tags */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-line/20 text-ink border border-line/60">
+            <ShieldCheck className="h-3 w-3 text-moss" />
             {user?.role ?? "user"}
           </span>
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono text-graphite bg-surface border border-line/40">
+            <Lock className="h-3 w-3 text-oxide" />
+            OAuth 2.0 Verified
+          </span>
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono text-graphite bg-surface border border-line/40">
+            <Database className="h-3 w-3 text-azure" />
+            Cloud Synced
+          </span>
         </div>
-        <p className="mt-1.5 text-sm text-graphite leading-relaxed">
-          Your public identity in the registry, synced directly from your verified Google / GitHub session.
-        </p>
+
+        {/* Quick Action Buttons */}
+        <div className="mt-6 pt-5 border-t border-line/40 w-full flex flex-wrap items-center justify-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopyId}
+            className="font-mono text-xs flex items-center gap-1.5"
+          >
+            {copiedId ? (
+              <>
+                <Check className="h-3.5 w-3.5 text-moss" />
+                <span>Copied ID</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-3.5 w-3.5" />
+                <span>Copy User ID</span>
+              </>
+            )}
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => void handleSignOut()}
+            className="font-mono text-xs text-graphite hover:text-oxide hover:bg-oxide/10 flex items-center gap-1.5"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            <span>Sign out</span>
+          </Button>
+        </div>
       </div>
 
-      <div className="rounded-lg border border-line bg-paper/60 p-4 sm:p-5 shadow-xs">
-        <dl className="divide-y divide-line/60">
-          <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-6">
-            <dt className="text-sm font-medium text-graphite sm:w-[9rem] shrink-0">
-              Display name
-            </dt>
-            <dd className="text-base font-medium text-ink break-words">
-              {displayName}
+      {/* 2. Detailed Account Credentials Card */}
+      <div className="rounded-2xl border border-line/60 bg-paper/60 backdrop-blur-md p-5 sm:p-6 shadow-xs">
+        <div className="flex items-center justify-between border-b border-line/60 pb-3 mb-4">
+          <div>
+            <h3 className="font-display text-base text-ink tracking-tight">Security & Credentials</h3>
+            <p className="text-xs text-graphite">Verified session credentials and database access permissions.</p>
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-moss/10 border border-moss/20 text-moss text-[10px] font-mono font-medium">
+            <span className="h-1.5 w-1.5 rounded-full bg-moss animate-pulse" />
+            <span>Encrypted</span>
+          </div>
+        </div>
+
+        <dl className="divide-y divide-line/40 text-xs sm:text-sm">
+          <div className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <dt className="text-graphite font-medium">Full Name</dt>
+            <dd className="font-medium text-ink">{displayName}</dd>
+          </div>
+
+          <div className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <dt className="text-graphite font-medium">Verified Email</dt>
+            <dd className="font-mono text-ink text-xs sm:text-sm">{user?.email ?? "Unknown"}</dd>
+          </div>
+
+          <div className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <dt className="text-graphite font-medium">Unique User ID</dt>
+            <dd className="font-mono text-graphite text-xs break-all flex items-center gap-1.5">
+              <span>{user?.id ? `${user.id.slice(0, 16)}...` : "—"}</span>
+              <button
+                type="button"
+                onClick={handleCopyId}
+                className="text-graphite hover:text-ink transition-colors p-0.5"
+                title="Copy full ID"
+              >
+                {copiedId ? <Check className="h-3 w-3 text-moss" /> : <Copy className="h-3 w-3" />}
+              </button>
             </dd>
           </div>
 
-          <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-6">
-            <dt className="text-sm font-medium text-graphite sm:w-[9rem] shrink-0">
-              Email address
-            </dt>
-            <dd className="font-mono text-sm sm:text-base text-ink break-all">
-              {user?.email ?? "Unknown"}
-            </dd>
+          <div className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <dt className="text-graphite font-medium">Authentication Provider</dt>
+            <dd className="font-mono text-ink text-xs uppercase tracking-wide">Firebase / OAuth 2.0</dd>
           </div>
 
-          <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-6">
-            <dt className="text-sm font-medium text-graphite sm:w-[9rem] shrink-0">
-              Account role
-            </dt>
-            <dd className="font-mono text-sm uppercase tracking-wide text-ink font-semibold">
-              {user?.role ?? "user"}
-            </dd>
+          <div className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <dt className="text-graphite font-medium">Database Authorization</dt>
+            <dd className="font-mono text-ink text-xs">Row-Level Security (RLS) Enforced</dd>
           </div>
         </dl>
-
-        <p className="mt-4 pt-3 border-t border-line/40 text-xs text-graphite/80 leading-relaxed">
-          Your role is verified against database row-level security on every request.
-        </p>
       </div>
 
-      {/* --- User Saved Resources Section in Profile --- */}
-      <div className="rounded-lg border border-line bg-paper/60 p-4 sm:p-5 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-line pb-3">
+      {/* 4. Saved Resources Section */}
+      <div className="rounded-2xl border border-line/60 bg-paper/60 backdrop-blur-md p-5 sm:p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-line/60 pb-3">
           <div className="flex items-center gap-2">
             <Heart className="h-4 w-4 text-oxide fill-oxide/20" />
-            <h3 className="font-display text-lg text-ink">Saved Resources</h3>
-            <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-line/15 border border-line text-graphite">
+            <h3 className="font-display text-base sm:text-lg text-ink">Saved Resources</h3>
+            <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-line/20 border border-line text-graphite font-medium">
               {savedItems.length}
             </span>
           </div>
@@ -138,17 +308,28 @@ export function ProfilePage(): React.JSX.Element {
         </div>
 
         {savedItems.length === 0 ? (
-          <div className="py-6 text-center">
-            <p className="text-sm text-graphite">No components saved yet.</p>
-            <p className="text-xs text-graphite/70 mt-1">
-              Browse components and click Save to access them anytime here.
+          <div className="py-8 px-4 text-center flex flex-col items-center">
+            <div className="h-12 w-12 rounded-2xl bg-line/10 border border-line/40 flex items-center justify-center mb-3">
+              <Heart className="h-5 w-5 text-graphite/60" />
+            </div>
+            <p className="text-sm font-medium text-ink">Your saved library is empty</p>
+            <p className="text-xs text-graphite max-w-sm mt-1 leading-relaxed">
+              Save buttons on any component, text effect, or motion pattern add items directly to your personal library.
             </p>
-            <Button size="sm" variant="outline" asChild className="mt-4">
-              <Link to="/explore">Explore Catalogue</Link>
-            </Button>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+              <Button size="sm" variant="outline" asChild className="text-xs font-mono">
+                <Link to="/explore">Explore Components</Link>
+              </Button>
+              <Button size="sm" variant="ghost" asChild className="text-xs font-mono text-graphite hover:text-ink">
+                <Link to="/advanced/text-animations">Text Effects</Link>
+              </Button>
+              <Button size="sm" variant="ghost" asChild className="text-xs font-mono text-graphite hover:text-ink">
+                <Link to="/advanced">Advanced</Link>
+              </Button>
+            </div>
           </div>
         ) : (
-          <ul className="divide-y divide-line/60">
+          <ul className="divide-y divide-line/40">
             {savedItems.slice(0, 5).map((resource) => {
               const adv = getAdvancedItemBySlug(resource.slug);
               const itemHref = adv
@@ -158,10 +339,10 @@ export function ProfilePage(): React.JSX.Element {
               return (
                 <li
                   key={resource.id}
-                  className="flex items-center justify-between gap-3 py-3 hover:bg-line/5 rounded-sm px-1.5 transition-colors"
+                  className="flex items-center justify-between gap-3 py-3 hover:bg-line/10 rounded-lg px-2.5 transition-colors group"
                 >
                   <Link to={itemHref} className="flex flex-col gap-0.5 min-w-0 flex-1">
-                    <span className="font-medium text-sm text-ink hover:text-oxide transition-colors truncate">
+                    <span className="font-medium text-sm text-ink group-hover:text-oxide transition-colors truncate">
                       {resource.title}
                     </span>
                     <span className="text-xs text-graphite line-clamp-1">
@@ -233,7 +414,7 @@ export function FavoritesPage(): React.JSX.Element {
   }, [localFavorites.items, remoteData?.items]);
 
   return (
-    <div className="space-y-5">
+    <div className="w-full max-w-2xl mx-auto space-y-6">
       <div className="border-b border-line pb-3">
         <p className="eyebrow text-[10px] text-graphite uppercase tracking-widest">Favourites</p>
         <h2 className="font-display text-2xl text-ink tracking-tight">Saved Resources</h2>
