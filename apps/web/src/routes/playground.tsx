@@ -276,26 +276,15 @@ function PlaygroundSurface({
           </Button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite hidden sm:inline">Engine:</span>
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border border-line/30 bg-paper text-ink">
-              <span className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />
-              Active
-            </span>
-            <span className="font-mono text-[11px] px-2 py-0.5 rounded border border-line/30 bg-paper text-graphite">
-              {item.meta?.dna?.motionLanguage ?? "subtle motion"}
-            </span>
-          </div>
-
-          <Link
-            to={resourceHref}
-            className="inline-flex items-center gap-1 text-[11px] font-mono text-graphite hover:text-oxide transition-colors border-l border-line/40 pl-3"
-            title="Open dedicated page with code, preview and CLI"
-          >
-            <span>Open Page</span>
-            <ArrowUpRight className="h-3 w-3" />
-          </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-graphite hidden sm:inline">Engine:</span>
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border border-line/30 bg-paper text-ink">
+            <span className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />
+            Active
+          </span>
+          <span className="font-mono text-[11px] px-2 py-0.5 rounded border border-line/30 bg-paper text-graphite">
+            {item.meta?.dna?.motionLanguage ?? "subtle motion"}
+          </span>
         </div>
       </div>
 
