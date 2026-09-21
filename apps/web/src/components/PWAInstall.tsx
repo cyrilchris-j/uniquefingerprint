@@ -194,7 +194,7 @@ function PWAInstallBanner({
             alt="UniqueFingerprint"
             width={48}
             height={48}
-            className="h-12 w-12 shrink-0 rounded-xl object-contain shadow-md ring-1 ring-line/50"
+            className="h-12 w-12 shrink-0 object-contain mix-blend-screen"
           />
           <div className="min-w-0">
             <h2 className="font-display text-step-0 font-medium tracking-tight text-ink">
@@ -259,7 +259,7 @@ function PWAInstallModal({
               alt="UniqueFingerprint"
               width={40}
               height={40}
-              className="h-10 w-10 rounded-xl object-contain shadow-sm ring-1 ring-line/50"
+              className="h-10 w-10 object-contain mix-blend-screen"
             />
             <div>
               <DialogTitle>Download & Install UniqueFingerprint</DialogTitle>

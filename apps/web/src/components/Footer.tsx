@@ -22,7 +22,7 @@ export function Footer(): React.JSX.Element {
               alt="UniqueFingerprint"
               width={26}
               height={26}
-              className="h-6.5 w-6.5 rounded-md object-contain ring-1 ring-line/40 transition-transform group-hover:scale-105 shadow-2xs"
+              className="h-6.5 w-6.5 object-contain mix-blend-screen transition-transform group-hover:scale-105"
             />
             <span className="font-display text-lg tracking-tight text-ink font-medium">
               UniqueFingerprint
