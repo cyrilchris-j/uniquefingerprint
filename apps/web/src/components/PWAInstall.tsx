@@ -176,7 +176,7 @@ function PWAInstallBanner({
   return (
     <aside
       aria-label="Download OpenUI App"
-      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300 sm:bottom-6 sm:left-auto sm:right-6"
+      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300 sm:bottom-20 sm:left-auto sm:right-6"
     >
       <div className="relative flex flex-col gap-3 rounded-2xl border border-line bg-paper/95 p-4 shadow-2xl backdrop-blur-md dark:border-line/70 dark:bg-paper/90">
         <button

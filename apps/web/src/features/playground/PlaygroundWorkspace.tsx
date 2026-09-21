@@ -142,7 +142,7 @@ export default function Demo() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
+    <div className="grid gap-8 lg:grid-cols-[18.5rem_minmax(0,1fr)] xl:grid-cols-[20.5rem_minmax(0,1fr)] lg:gap-10 xl:gap-14 items-start">
       {/* Resource picker */}
       <aside aria-label="Choose a resource">
         <div className="flex items-baseline justify-between">
@@ -176,7 +176,7 @@ export default function Demo() {
           />
         </div>
 
-        <div className="mt-3 max-h-64 sm:max-h-80 lg:max-h-[34rem] overflow-y-auto border-t border-line divide-y divide-line/25 pr-1">
+        <div className="mt-3 max-h-64 sm:max-h-80 lg:max-h-[30rem] overflow-y-auto border-t border-line divide-y divide-line/25 pr-1 pb-4">
           {index.isLoading ? (
             <Skeleton lines={8} className="pt-4" />
           ) : (

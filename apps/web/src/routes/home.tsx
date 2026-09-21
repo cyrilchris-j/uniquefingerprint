@@ -505,7 +505,7 @@ export default function HomePage(): React.JSX.Element {
       {/* ---------------------------------------------------------------- */}
       {/* 02 — Interactive Studio & Playground                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
+      <section className="shell mt-12 sm:mt-24 lg:mt-32 mb-16 sm:mb-24 lg:mb-32">
         <SectionHeader
           eyebrow="02 — Playground"
           title="Interactive playground."
@@ -517,7 +517,7 @@ export default function HomePage(): React.JSX.Element {
           }
         />
 
-        <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs">
+        <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs overflow-hidden">
           <PlaygroundWorkspace embedded initialItem="kinetic-editorial-hero" />
         </div>
       </section>
