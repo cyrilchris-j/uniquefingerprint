@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import * as React from "react";
 import { Link, useSearchParams } from "react-router";
 
@@ -217,6 +218,11 @@ function PlaygroundSurface({
 }: SurfaceProps): React.JSX.Element {
   const [copied, setCopied] = React.useState(false);
 
+  const adv = getAdvancedItemBySlug(item.name);
+  const resourceHref = adv
+    ? `/advanced/${adv.category}/${adv.slug}`
+    : `/${categorySegmentFor(item.category)}/${item.name}`;
+
   const handleCopy = () => {
     void navigator.clipboard.writeText(`npx uniquefingerprint add ${item.name}`);
     setCopied(true);
@@ -230,7 +236,7 @@ function PlaygroundSurface({
           <h1 className="font-display text-step-2 leading-tight tracking-tight">{item.title}</h1>
           <p className="mt-1 flex flex-wrap items-center gap-2">
             <Link
-              to={`/${categorySegmentFor(item.category)}/${item.name}`}
+              to={resourceHref}
               className="eyebrow transition-colors hover:text-ink"
             >
               {item.name}
@@ -239,6 +245,18 @@ function PlaygroundSurface({
             {item.license ? <Badge tone="moss">{item.license}</Badge> : null}
           </p>
         </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          asChild
+          className="h-8 px-3.5 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5 hover:border-oxide hover:text-oxide transition-colors"
+        >
+          <Link to={resourceHref} title={`Open dedicated page for ${item.title}`}>
+            <span>Open</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </Button>
       </div>
 
       {/* Visual Engine Controls Toolbar */}
@@ -258,15 +276,26 @@ function PlaygroundSurface({
           </Button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-graphite hidden sm:inline">Engine:</span>
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border border-line/30 bg-paper text-ink">
-            <span className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />
-            Active
-          </span>
-          <span className="font-mono text-[11px] px-2 py-0.5 rounded border border-line/30 bg-paper text-graphite">
-            {item.meta?.dna?.motionLanguage ?? "subtle motion"}
-          </span>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-graphite hidden sm:inline">Engine:</span>
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border border-line/30 bg-paper text-ink">
+              <span className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />
+              Active
+            </span>
+            <span className="font-mono text-[11px] px-2 py-0.5 rounded border border-line/30 bg-paper text-graphite">
+              {item.meta?.dna?.motionLanguage ?? "subtle motion"}
+            </span>
+          </div>
+
+          <Link
+            to={resourceHref}
+            className="inline-flex items-center gap-1 text-[11px] font-mono text-graphite hover:text-oxide transition-colors border-l border-line/40 pl-3"
+            title="Open dedicated page with code, preview and CLI"
+          >
+            <span>Open Page</span>
+            <ArrowUpRight className="h-3 w-3" />
+          </Link>
         </div>
       </div>
 
