@@ -733,7 +733,7 @@ export default function ResourcePage(): React.JSX.Element {
         <section className="shell mt-16 sm:mt-20">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-5">
             <p className="eyebrow">Composes with</p>
-            <p className="eyebrow">Shared tags and category</p>
+            <p className="eyebrow">Related {entry?.category ?? "items"}</p>
           </div>
           <div className="catalogue-grid mt-8">
             {related.map((candidate, position) => (

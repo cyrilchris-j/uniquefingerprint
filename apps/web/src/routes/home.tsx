@@ -337,9 +337,6 @@ export default function HomePage(): React.JSX.Element {
       .slice(0, 6);
   }, [index.data]);
 
-  const totalItems = index.data?.items.length ?? 0;
-  const advancedCount = ADVANCED_RESOURCES.length;
-  const grandTotal = totalItems > 0 ? totalItems : 1038;
 
   const featuredAdvanced = React.useMemo(() => {
     const slugs = [
@@ -363,23 +360,9 @@ export default function HomePage(): React.JSX.Element {
       <section className="shell relative pt-6 sm:pt-12 lg:pt-16">
         <AuroraField opacity={0.16} className="-top-10 -left-10 -right-10 h-96 pointer-events-none" />
         <div className="grid gap-8 lg:grid-cols-[minmax(0,6.5fr)_minmax(0,5.5fr)] lg:gap-12 relative z-10 items-center">
-          {/* Left Column: Heading, Thesis, Action CTAs & Metrics */}
-          <div className="min-w-0 flex flex-col justify-between">
+          {/* Left Column: Heading, Thesis, Action CTAs */}
+          <div className="min-w-0 flex flex-col justify-center">
             <div>
-              {/* Release announcement pill */}
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-oxide/40 bg-oxide/10 text-oxide text-xs font-mono uppercase tracking-wider mb-4 hover:border-oxide transition-colors duration-fast group"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-oxide opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-oxide" />
-                </span>
-                <span className="font-semibold">UniqueFingerprint 2.0</span>
-                <span className="text-graphite font-normal">·</span>
-                <span className="text-ink group-hover:text-oxide transition-colors">1,038+ Open Source UI Components &rarr;</span>
-              </Link>
-
               <h1 className="optically-align text-balance text-3xl sm:text-5xl lg:text-step-5 font-normal leading-[1.08] tracking-tight text-ink">
                 Interfaces should have a{" "}
                 <span className="bg-gradient-to-r from-oxide via-amber-500 to-orange-500 bg-clip-text text-transparent font-bold">
@@ -422,59 +405,11 @@ export default function HomePage(): React.JSX.Element {
                 </Button>
               </div>
             </div>
-
-            {/* Metrics stats row */}
-            <div className="mt-8 pt-6 border-t border-line/40 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  {grandTotal > 0 ? `${grandTotal.toLocaleString()}+` : "1,038+"}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Published Items
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-oxide">
-                  {advancedCount > 0 ? `${advancedCount}+` : "220+"}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  WebGL 3D & Shaders
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  0
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Runtime Bloat
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  100%
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-graphite mt-1">
-                  Open Source (MIT)
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Interactive Live Specimen Showcase Stage */}
           <div className="flex flex-col gap-3 min-w-0">
             <HeroSpecimenShowcase />
-            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl border border-line/30 bg-surface/50 text-xs font-mono text-graphite">
-              <Link
-                to="/advanced"
-                className="hover:text-ink transition-colors flex items-center gap-1.5"
-              >
-                <Sparkles className="h-3.5 w-3.5 text-oxide" />
-                <span>Browse all 220+ Advanced Resources</span>
-              </Link>
-              <span className="font-semibold text-ink">
-                {grandTotal.toLocaleString()} in catalogue
-              </span>
-            </div>
           </div>
         </div>
       </section>

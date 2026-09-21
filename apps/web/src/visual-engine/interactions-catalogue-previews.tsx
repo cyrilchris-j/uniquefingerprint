@@ -1459,30 +1459,71 @@ export function KineticFlickCarouselPreview() {
 // 41. Kinetic Pan Canvas
 export function KineticPanCanvasPreview() {
   const [pan, setPan] = React.useState({ x: 0, y: 0 });
+  const isDraggingRef = React.useRef(false);
+  const lastPosRef = React.useRef({ x: 0, y: 0 });
 
   React.useEffect(() => {
     let t = 0;
     const loop = setInterval(() => {
-      t += 0.04;
-      setPan({ x: Math.sin(t) * 20, y: Math.cos(t * 0.7) * 15 });
+      if (!isDraggingRef.current) {
+        t += 0.04;
+        setPan((p) => ({ x: p.x + Math.sin(t) * 1.5, y: p.y + Math.cos(t * 0.7) * 1.2 }));
+      }
     }, 40);
     return () => clearInterval(loop);
   }, []);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none bg-[#0e1014] p-4 text-white overflow-hidden">
+    <div
+      onPointerDown={(e) => {
+        isDraggingRef.current = true;
+        lastPosRef.current = { x: e.clientX, y: e.clientY };
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }}
+      onPointerMove={(e) => {
+        if (!isDraggingRef.current) return;
+        const dx = e.clientX - lastPosRef.current.x;
+        const dy = e.clientY - lastPosRef.current.y;
+        lastPosRef.current = { x: e.clientX, y: e.clientY };
+        setPan((p) => ({ x: p.x + dx, y: p.y + dy }));
+      }}
+      onPointerUp={(e) => {
+        isDraggingRef.current = false;
+        try {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        } catch {}
+      }}
+      className="relative w-full h-full min-h-[22rem] sm:min-h-[32rem] flex items-center justify-center select-none bg-[#0e1014] p-4 text-white overflow-hidden cursor-grab active:cursor-grabbing"
+    >
       {/* Infinite Grid Background */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-25 pointer-events-none"
         style={{
           backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+          backgroundSize: "28px 28px",
           backgroundPosition: `${pan.x}px ${pan.y}px`,
         }}
       />
 
-      <div className="relative z-10 px-3 py-1.5 rounded-lg border border-cyan-500/40 bg-black/60 backdrop-blur-xs font-mono text-[9px] text-cyan-400">
-        PAN: {Math.round(pan.x)}, {Math.round(pan.y)}
+      {/* Axis crosshair guidelines */}
+      <div
+        className="absolute w-full h-[1px] bg-cyan-500/20 pointer-events-none"
+        style={{ top: `calc(50% + ${pan.y % 100}px)` }}
+      />
+      <div
+        className="absolute h-full w-[1px] bg-cyan-500/20 pointer-events-none"
+        style={{ left: `calc(50% + ${pan.x % 100}px)` }}
+      />
+
+      {/* HUD Telemetry readout */}
+      <div className="relative z-10 flex flex-col items-center gap-2 pointer-events-none select-none">
+        <div className="px-4 py-2 rounded-xl border border-cyan-500/40 bg-black/80 backdrop-blur-md font-mono text-[11px] text-cyan-400 shadow-xl flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span>PAN: X {Math.round(pan.x)} · Y {Math.round(pan.y)}</span>
+        </div>
+        <span className="font-mono text-[9px] uppercase tracking-widest text-white/50">
+          Click & Drag to Pan Infinite Grid
+        </span>
       </div>
     </div>
   );
