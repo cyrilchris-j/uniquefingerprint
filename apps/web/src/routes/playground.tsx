@@ -215,6 +215,14 @@ function PlaygroundSurface({
   item,
   sandboxFiles,
 }: SurfaceProps): React.JSX.Element {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    void navigator.clipboard.writeText(`npx uniquefingerprint add ${item.name}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -238,15 +246,15 @@ function PlaygroundSurface({
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-graphite">Install:</span>
           <code className="font-mono text-[11px] px-2 py-0.5 rounded bg-paper border border-line/30 text-ink">
-            pnpm dlx uniquefingerprint add {item.name}
+            npx uniquefingerprint add {item.name}
           </code>
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigator.clipboard.writeText(`pnpm dlx uniquefingerprint add ${item.name}`)}
+            onClick={handleCopy}
             className="h-6 px-2 text-[10px] font-mono uppercase tracking-wider"
           >
-            Copy
+            {copied ? "Copied" : "Copy"}
           </Button>
         </div>
 

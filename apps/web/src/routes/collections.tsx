@@ -187,7 +187,7 @@ export function CollectionPage(): React.JSX.Element {
       <div className="mt-8">
         <p className="eyebrow mb-2">Install the whole collection</p>
         <code className="block overflow-x-auto border border-line bg-ink/95 px-4 py-3 font-mono text-[0.78rem] text-paper">
-          pnpm dlx uniquefingerprint add{" "}
+          npx uniquefingerprint add{" "}
           {data.items.map((item) => item.resource.slug).join(" ") || "<nothing yet>"}
         </code>
       </div>
