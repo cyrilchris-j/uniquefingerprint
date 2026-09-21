@@ -331,27 +331,7 @@ export default function HomePage(): React.JSX.Element {
     })).filter((category) => category.count > 0);
   }, [index.data]);
 
-  const featured = React.useMemo(() => {
-    if (!index.data) return [];
-    return itemsWithDesignRules(index.data)
-      .filter((item) => item.dna?.genre && item.dna?.macrostructure)
-      .slice(0, 6);
-  }, [index.data]);
 
-
-  const featuredAdvanced = React.useMemo(() => {
-    const slugs = [
-      "kinetic-editorial-hero",
-      "interactive-wireframe-globe",
-      "aurora-sky-harmonic",
-      "true-focus-lens",
-      "magnetic-spring-button",
-      "depth-carousel-3d",
-    ];
-    return slugs
-      .map((slug) => getAdvancedItemBySlug(slug))
-      .filter((item): item is NonNullable<typeof item> => item !== undefined);
-  }, []);
 
   return (
     <>
@@ -531,93 +511,14 @@ export default function HomePage(): React.JSX.Element {
           title="Selected because they declare their fingerprint."
           description="Every component, procedural canvas, and kinetic interaction runs directly in an isolated sandbox. Select any resource, preview interactions, test responsiveness, and grab direct install commands."
           actions={
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/explore">All resources</Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/playground">Full Studio View &rarr;</Link>
-              </Button>
-            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/explore">All resources</Link>
+            </Button>
           }
         />
 
         <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs">
           <PlaygroundWorkspace embedded initialItem="cloth-simulation-banner" />
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* 03 — Advanced Ecosystem Showcase                                 */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <SectionHeader
-          eyebrow="03 — Advanced Ecosystem (220+)"
-          title="Spatial 3D, procedural canvases, and kinetic interactions."
-          description="Engineered for high-end digital products: GPU-accelerated Three.js WebGL scenes, organic canvas simulations, haptic micro-interactions, and kinetic typography with zero external runtime bloat."
-          actions={
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/advanced">Browse All 220+ Resources &rarr;</Link>
-            </Button>
-          }
-        />
-
-        {/* Featured Advanced Grid */}
-        <div className="catalogue-grid mt-10">
-          {featuredAdvanced.map((advItem, position) => (
-            <ScrollReveal key={advItem.slug} delayMs={position * 40}>
-              <article
-                className="group relative flex flex-col justify-between overflow-hidden border border-line/30 dark:border-line/20 bg-paper rounded-xl transition-all duration-normal ease-editorial hover:shadow-lg hover:border-ink/40 dark:hover:border-ink/50 hover:-translate-y-0.5"
-              >
-                {/* Live Preview Container */}
-                <div
-                  className="h-44 sm:h-52 w-full border-b border-line/25 overflow-hidden relative flex items-center justify-center bg-[#f8f6f1] dark:bg-[#0c0c0b] p-4"
-                  style={{
-                    backgroundImage: "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
-                    backgroundSize: "14px 14px",
-                  }}
-                >
-                  <div className="w-full h-full flex items-center justify-center pointer-events-none transform scale-90">
-                    <AdvancedPreview item={advItem} />
-                  </div>
-                </div>
-
-                {/* Meta & Info */}
-                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="eyebrow text-[10px] uppercase tracking-wider text-graphite">
-                        {advItem.category} · {advItem.technology}
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-line/50 text-ink/70 bg-surface/50">
-                        {advItem.fingerprint.performanceTier}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-semibold text-ink text-lg tracking-tight group-hover:text-oxide transition-colors">
-                      <Link to={`/advanced/${advItem.category}/${advItem.slug}`} className="focus:outline-hidden">
-                        <span className="absolute inset-0 z-10" aria-hidden="true" />
-                        {advItem.title}
-                      </Link>
-                    </h3>
-
-                    <p className="mt-1.5 text-[0.85rem] leading-relaxed text-graphite line-clamp-2">
-                      {advItem.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3 border-t border-line/20 flex items-center justify-between text-[11px] font-mono text-graphite">
-                    <span className="truncate text-[10px] text-graphite/80">
-                      {advItem.tags.slice(0, 2).map((t) => `#${t}`).join(" ")}
-                    </span>
-                    <span className="text-ink/70 group-hover:text-oxide transition-colors flex items-center gap-1 font-medium">
-                      Explore &rarr;
-                    </span>
-                  </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
         </div>
       </section>
     </>
