@@ -36,7 +36,10 @@ export function useCategoryItems(categorySlug: string): {
 /** One resource's built artifact, including inlined file source. */
 export function useRegistryItem(name: string, namespace = "default"): AsyncState<BuiltRegistryItem> {
   return useAsync(
-    (signal) => loadItem(name, namespace).then(assertNotAborted(signal)),
+    (signal) =>
+      !name
+        ? Promise.resolve(undefined as unknown as BuiltRegistryItem)
+        : loadItem(name, namespace).then(assertNotAborted(signal)),
     [name, namespace],
   );
 }

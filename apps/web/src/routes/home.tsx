@@ -33,6 +33,7 @@ import { useRegistryIndex } from "../features/resources/use-catalogue.js";
 import { CATALOGUE_CATEGORIES, itemsInCategory, itemsWithDesignRules } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
+import { PlaygroundWorkspace } from "../features/playground/PlaygroundWorkspace.js";
 import {
   AuroraField,
   ScrollReveal,
@@ -522,41 +523,27 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 02 — Featured, chosen by rule                                     */}
+      {/* 02 — Interactive Studio & Playground                             */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
-          eyebrow="02 — Fingerprinted resources"
+          eyebrow="02 — Interactive Studio & Playground"
           title="Selected because they declare their fingerprint."
-          description="Not an editorial pick. These are the resources that state a complete design DNA — genre, macrostructure, density, shape and motion — which is the minimum this registry asks before something is published."
+          description="Every component, procedural canvas, and kinetic interaction runs directly in an isolated sandbox. Select any resource, preview interactions, test responsiveness, and grab direct install commands."
           actions={
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/explore">All resources</Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/explore">All resources</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/playground">Full Studio View &rarr;</Link>
+              </Button>
+            </div>
           }
         />
 
-        <div className="catalogue-grid mt-10">
-          {index.isLoading ? (
-            <div className="bg-paper p-6">
-              <Skeleton lines={5} />
-            </div>
-          ) : featured.length === 0 ? (
-            <div className="bg-paper p-6">
-              <EmptyState
-                bordered={false}
-                eyebrow="Nothing published"
-                title="No resources declare a full design fingerprint yet."
-                description="Run pnpm build:registry to publish the first-party set."
-              />
-            </div>
-          ) : (
-            featured.map((item, position) => (
-              <ScrollReveal key={item.name} delayMs={position * 40}>
-                <ResourceTile item={item} index={position + 1} withPreview />
-              </ScrollReveal>
-            ))
-          )}
+        <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs">
+          <PlaygroundWorkspace embedded initialItem="cloth-simulation-banner" />
         </div>
       </section>
 
