@@ -24,7 +24,7 @@ export interface PlaygroundWorkspaceProps {
 }
 
 export function PlaygroundWorkspace({
-  initialItem,
+  initialItem = "kinetic-editorial-hero",
   embedded = false,
 }: PlaygroundWorkspaceProps): React.JSX.Element {
   const [params, setParams] = useSearchParams();
@@ -68,11 +68,12 @@ export function PlaygroundWorkspace({
   // Local selection for embedded mode, URL param sync for standalone page
   const advancedQuery = params.get("advanced");
   const urlItem = params.get("item") ?? (advancedQuery ? advancedQuery : "");
-  const [localSelected, setLocalSelected] = React.useState(initialItem ?? options[0]?.name ?? "");
+  const defaultSlug = initialItem || "kinetic-editorial-hero";
+  const [localSelected, setLocalSelected] = React.useState(urlItem || defaultSlug);
 
   const selected = embedded
-    ? localSelected || (options[0]?.name ?? "")
-    : urlItem || localSelected || (options[0]?.name ?? "");
+    ? localSelected || defaultSlug
+    : urlItem || localSelected || defaultSlug;
 
   const advItem = React.useMemo(() => getAdvancedItemBySlug(selected), [selected]);
   const coreItem = useRegistryItem(advItem ? "" : selected);

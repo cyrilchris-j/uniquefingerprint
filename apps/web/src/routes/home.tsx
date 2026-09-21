@@ -518,7 +518,7 @@ export default function HomePage(): React.JSX.Element {
         />
 
         <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs">
-          <PlaygroundWorkspace embedded initialItem="cloth-simulation-banner" />
+          <PlaygroundWorkspace embedded initialItem="kinetic-editorial-hero" />
         </div>
       </section>
     </>

@@ -30,7 +30,6 @@ import { ADVANCED_RESOURCES } from "../advanced/index.js";
 import { categorySegmentFor } from "./ResourceTile.js";
 import { useAuth } from "../lib/auth.js";
 import { AccountMenu } from "./AccountMenu.js";
-import { ThemeToggle } from "./ThemeToggle.js";
 import { usePWA } from "./PWAInstall.js";
 
 /**
@@ -523,9 +522,7 @@ export function Masthead(): React.JSX.Element {
             )}
           </div>
 
-          <div className="hidden xl:block">
-            <ThemeToggle />
-          </div>
+
 
           <a
             href="https://github.com/cyrilchris-j/uniquefingerprint"
@@ -744,10 +741,7 @@ export function Masthead(): React.JSX.Element {
               ))}
             </ul>
 
-            <div className="mt-8 pt-6 border-t border-line flex items-center justify-between">
-              <span className="eyebrow">Colour theme</span>
-              <ThemeToggle showLabels />
-            </div>
+
           </nav>
         </div>
       ) : null}
