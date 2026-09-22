@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "ghost-cursor-lag",
   "type": "registry:component",
   "title": "Ghost Cursor Lag",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface GhostCursorLagProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Ghost Cursor Lag\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function GhostCursorLag({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: GhostCursorLagProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Ghost Cursor Lag\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "97f2dc39495fdd38ddf8925a0aa4e013bd89e2a0e37f65bfc0b7125c0889d869",
       "sizeBytes": 1417
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GhostCursorLag } from \"./ghost-cursor-lag\";\n\nexport default function GhostCursorLagDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <GhostCursorLag />\n    </div>\n  );\n}\n",
+      "contentHash": "8d7a2c33123ebb5d3e88476542c0c0cfc160ca98ccf2a95b1275a2a7a2529ce9",
+      "sizeBytes": 339
     }
   ],
   "tags": [

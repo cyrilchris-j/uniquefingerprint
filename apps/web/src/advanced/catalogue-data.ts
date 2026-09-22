@@ -41,7 +41,7 @@ export const ADVANCED_CATEGORIES: readonly AdvancedCategoryMeta[] = [
     title: "Text Animations",
     description: "Glyph decryption, variable font proximity, sine wave type, and chromatic aberration.",
     icon: "T",
-    itemCount: 32,
+    itemCount: 33,
   },
   {
     slug: "ui-elements",
@@ -166,6 +166,7 @@ const textNames = [
   ["text-cursor-follow", "Text Cursor Follow", "Floating label trailing pointer movement with spring latency."],
   ["decrypted-glyph-text", "Decrypted Glyph Text", "Cybernetic glyph reveal decoding character-by-character."],
   ["true-focus-lens", "True Focus Lens", "Variable optical depth-of-field focusing on hovered words."],
+  ["lens-magnify-text", "Lens Magnify Text", "Interactive floating magnification lens zooming into high-precision typography."],
   ["scroll-float-type", "Scroll Float Type", "Scroll-velocity driven floating letters with inertia damping."],
   ["scroll-reveal-chars", "Scroll Reveal Chars", "Intersection-triggered individual character fade and slide."],
   ["ascii-render-text", "ASCII Render Text", "Real-time rasterization of imagery and text into ASCII monospace glyphs."],

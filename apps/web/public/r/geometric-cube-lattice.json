@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "geometric-cube-lattice",
   "type": "registry:background",
   "title": "Geometric Cube Lattice",
@@ -63,6 +63,6 @@
       "semanticPurpose": "isometric-cube-texture"
     }
   },
-  "url": "https://openui.dev/r/geometric-cube-lattice.json",
+  "url": "https://uniquefingerprint.web.app/r/geometric-cube-lattice.json",
   "designRules": "# Design System\n\nGenre: Technical\nMacrostructure: Full Bleed\nDensity: Medium\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: High Contrast\n\n## Rules\n\n- Passive Cube Illusion: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

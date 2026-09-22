@@ -1,10 +1,23 @@
 import {
+  Activity,
   ArrowRight,
+  ArrowUpRight,
+  Box,
   Check,
+  Compass,
   Copy,
   Download,
+  ExternalLink,
+  Github,
+  Globe,
+  Layers,
+  Package,
+  Search,
   ShieldCheck,
   Sparkles,
+  Star,
+  Terminal,
+  Type,
   Zap,
 } from "lucide-react";
 import * as React from "react";
@@ -20,6 +33,7 @@ import { useRegistryIndex } from "../features/resources/use-catalogue.js";
 import { CATALOGUE_CATEGORIES, itemsInCategory, itemsWithDesignRules } from "../lib/registry.js";
 import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
+import { PlaygroundWorkspace } from "../features/playground/PlaygroundWorkspace.js";
 import {
   AuroraField,
   ScrollReveal,
@@ -98,24 +112,216 @@ function CommandStep({
   );
 }
 
-/**
- * The home page.
- *
- * The composition is the argument. Where a generated landing page would put
- * giant centred text over a violet gradient, this one:
- *
- *  - opens with an **asymmetric** split: a wide statement column and a narrow
- *    index column that immediately shows what the registry contains,
- *  - draws structure with **hairlines and type**, not with cards and shadows,
- *  - shows the **design rules themselves** — the `anti-slop` rule text is
- *    rendered as content, so the product's thesis is visible rather than claimed.
- *
- * Every number on the page is read from the built registry index. Nothing is
- * hard-coded, so the page cannot drift from what is actually published.
- */
+const SPECIMEN_TABS = [
+  {
+    id: "particle-text",
+    label: "Particle Text",
+    slug: "particle-text",
+    icon: Sparkles,
+    techBadge: "Canvas 2D · Magnetic",
+  },
+  {
+    id: "spatial-3d",
+    label: "3D Spatial",
+    slug: "interactive-wireframe-globe",
+    icon: Globe,
+    techBadge: "Three.js · WebGL",
+  },
+  {
+    id: "voice-pill-waveform",
+    label: "Voice Waveform",
+    slug: "voice-pill-waveform",
+    icon: Activity,
+    techBadge: "Interactive Audio Pill",
+  },
+  {
+    id: "lens-magnify-text",
+    label: "Lens Magnify",
+    slug: "lens-magnify-text",
+    icon: Search,
+    techBadge: "Magnification Optics",
+  },
+] as const;
+
+function HeroSpecimenShowcase(): React.JSX.Element {
+  const [activeTab, setActiveTab] = React.useState<number>(0);
+  const [copied, setCopied] = React.useState(false);
+  const [pm, setPm] = React.useState<"npx" | "pnpm">("npx");
+
+  const tab = SPECIMEN_TABS[activeTab] ?? SPECIMEN_TABS[0];
+  const item = getAdvancedItemBySlug(tab.slug);
+
+  const cliCommand =
+    pm === "npx"
+      ? `npx uniquefingerprint add ${tab.slug}`
+      : `pnpm dlx uniquefingerprint add ${tab.slug}`;
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(cliCommand);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // fallback
+    }
+  };
+
+  return (
+    <div className="flex flex-col rounded-2xl border border-line bg-paper shadow-md dark:shadow-2xl overflow-hidden transition-all duration-300">
+      {/* Tab Selector Header */}
+      <div className="flex items-center justify-between border-b border-line bg-surface/80 dark:bg-surface/40 px-3 py-2 sm:px-4">
+        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          {SPECIMEN_TABS.map((t, idx) => {
+            const Icon = t.icon;
+            const isActive = activeTab === idx;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setActiveTab(idx)}
+                className={cn(
+                  "flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-mono font-medium transition-all duration-150 cursor-pointer whitespace-nowrap",
+                  isActive
+                    ? "bg-ink text-paper dark:bg-white dark:text-black shadow-xs font-semibold"
+                    : "text-graphite hover:text-ink hover:bg-line/20",
+                )}
+              >
+                <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0" />
+                <span>{t.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="hidden sm:flex items-center gap-1.5 shrink-0 pl-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-moss opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-moss" />
+          </span>
+          <span className="font-mono text-[10px] text-graphite uppercase tracking-wider font-semibold">
+            Interactive
+          </span>
+        </div>
+      </div>
+
+      {/* Interactive Canvas Viewport */}
+      <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#faf8f4] dark:bg-[#0c0c0e] border-b border-line flex items-center justify-center p-4 text-line dark:text-white/20">
+        {/* Subtle dot matrix grid - light & dark responsive */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-40 dark:opacity-25"
+          style={{
+            backgroundImage: "radial-gradient(currentColor 1.2px, transparent 1.2px)",
+            backgroundSize: "16px 16px",
+          }}
+        />
+
+        {/* Ambient subtle warm glow */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-oxide/[0.04] via-transparent to-oxide/[0.03] dark:from-oxide/10 dark:to-transparent" />
+
+        {/* Specimen Live Indicator Pill */}
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-paper/95 dark:bg-black/70 backdrop-blur-md border border-line text-ink dark:text-white/90 text-[10px] font-mono shadow-2xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-moss animate-pulse" />
+          <span>{tab.techBadge}</span>
+        </div>
+
+        {/* Live Preview Component */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center">
+          {item ? (
+            <AdvancedPreview item={item} />
+          ) : (
+            <div className="text-graphite font-mono text-xs">Loading preview...</div>
+          )}
+        </div>
+      </div>
+
+      {/* Specimen Info & Copy Action Footer */}
+      <div className="p-4 sm:p-5 flex flex-col gap-3.5 bg-paper">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-oxide font-bold">
+                {item?.category ?? tab.id}
+              </span>
+              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded border border-line/50 text-graphite bg-surface">
+                {item?.fingerprint.performanceTier ?? "60fps"}
+              </span>
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-ink tracking-tight truncate">
+              {item?.title ?? tab.label}
+            </h3>
+            <p className="mt-0.5 text-xs text-graphite line-clamp-1">
+              {item?.description}
+            </p>
+          </div>
+
+          {item && (
+            <Link
+              to={`/advanced/${item.category}/${item.slug}`}
+              className="shrink-0 flex items-center gap-1 text-xs font-mono font-semibold text-oxide hover:text-ink transition-colors mt-1"
+            >
+              <span>Inspect</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          )}
+        </div>
+
+        {/* CLI Command Pill */}
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-line/30 bg-[#0e0e11] px-3 py-2 text-[#f4f4f5] shadow-inner">
+          <div className="flex items-center gap-2 min-w-0 overflow-x-auto no-scrollbar font-mono text-xs">
+            <div className="flex items-center rounded-md bg-white/10 p-0.5 shrink-0">
+              {(["npx", "pnpm"] as const).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setPm(p)}
+                  className={cn(
+                    "px-1.5 py-0.5 text-[10px] font-mono rounded transition-colors cursor-pointer",
+                    pm === p
+                      ? "bg-white/25 text-white font-bold shadow-2xs"
+                      : "text-white/50 hover:text-white"
+                  )}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+            <span className="text-moss font-bold select-none">$</span>
+            <span className="whitespace-nowrap text-white/90 truncate">{cliCommand}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => void handleCopy()}
+            className={cn(
+              "shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] transition-all border cursor-pointer",
+              copied
+                ? "bg-moss/20 border-moss/40 text-moss"
+                : "bg-white/10 hover:bg-white/20 border-white/10 text-white/80 hover:text-white",
+            )}
+            title="Copy command"
+          >
+            {copied ? (
+              <>
+                <Check className="h-3 w-3" />
+                <span>Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-3 w-3" />
+                <span>Copy</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage(): React.JSX.Element {
   const index = useRegistryIndex();
-  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx">("pnpm");
+  const [usageMethod, setUsageMethod] = React.useState<"pnpm" | "npx" | "global">("npx");
 
   const counts = React.useMemo(() => {
     if (!index.data) return [];
@@ -125,146 +331,72 @@ export default function HomePage(): React.JSX.Element {
     })).filter((category) => category.count > 0);
   }, [index.data]);
 
-  const featured = React.useMemo(() => {
-    if (!index.data) return [];
-    // Featured items are chosen by a *rule*, not by hand: they must declare a
-    // full design fingerprint, which is the registry's own quality bar.
-    return itemsWithDesignRules(index.data)
-      .filter((item) => item.dna?.genre && item.dna?.macrostructure)
-      .slice(0, 6);
-  }, [index.data]);
 
-  const totalItems = index.data?.items.length ?? 0;
-  const advancedCount = ADVANCED_RESOURCES.length;
-  const grandTotal = totalItems + advancedCount;
-
-  const featuredAdvanced = React.useMemo(() => {
-    const slugs = [
-      "kinetic-editorial-hero",
-      "interactive-wireframe-globe",
-      "aurora-sky-harmonic",
-      "true-focus-lens",
-      "magnetic-spring-button",
-      "depth-carousel-3d",
-    ];
-    return slugs
-      .map((slug) => getAdvancedItemBySlug(slug))
-      .filter((item): item is NonNullable<typeof item> => item !== undefined);
-  }, []);
 
   return (
     <>
       {/* ---------------------------------------------------------------- */}
       {/* Opening statement                                                 */}
       {/* ---------------------------------------------------------------- */}
-      <section className="shell relative pt-6 sm:pt-14 lg:pt-20">
+      <section className="shell relative pt-6 sm:pt-12 lg:pt-16">
         <AuroraField opacity={0.16} className="-top-10 -left-10 -right-10 h-96 pointer-events-none" />
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16 relative z-10">
-          <div className="min-w-0">
-            <p className="eyebrow text-xs sm:text-[11px] tracking-[0.22em] text-graphite mb-3">
-              Open registry · MIT · v{index.data?.version ?? "0.1.0"}
-            </p>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,6.5fr)_minmax(0,5.5fr)] lg:gap-12 relative z-10 items-center">
+          {/* Left Column: Heading, Thesis, Action CTAs */}
+          <div className="min-w-0 flex flex-col justify-center">
+            <div>
+              <h1 className="optically-align text-balance text-3xl sm:text-5xl lg:text-step-5 font-normal leading-[1.08] tracking-tight text-ink">
+                Interfaces should have a{" "}
+                <span className="bg-gradient-to-r from-oxide via-amber-500 to-orange-500 bg-clip-text text-transparent font-bold">
+                  distinctive fingerprint.
+                </span>
+              </h1>
 
-            <h1 className="optically-align text-balance text-3xl sm:text-5xl lg:text-step-5 font-normal leading-[1.06] tracking-tight text-ink">
-              <WordReveal text="Interfaces should have a fingerprint." />
-            </h1>
+              <p className="prose-measure mt-4 sm:mt-6 text-[0.95rem] sm:text-step-1 leading-relaxed text-graphite">
+                Most modern interfaces feel identical because they lack intentional design rules.
+                UniqueFingerprint is an open architecture of 1,038+ production-ready React
+                components, GPU-accelerated WebGL scenes, kinetic typography, and procedural
+                shaders. Direct code ownership. Zero runtime lock-in.
+              </p>
 
-            <p className="prose-measure mt-4 sm:mt-6 text-[0.95rem] sm:text-step-1 leading-relaxed text-graphite">
-              Most generated interfaces look the same because nothing ever told them not to. UniqueFingerprint
-              is an open registry of components, text effects, motion, layouts, themes and design
-              systems — each one shipping its source, a demo, and the <em>design rules</em> that
-              make it work. Install the code. Keep the rules.
-            </p>
+              <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3">
+                <Button
+                  asChild
+                  className="h-11 sm:h-12 px-6 justify-center font-mono text-xs uppercase tracking-widest bg-ink text-paper hover:bg-ink/90 font-semibold shadow-md cursor-pointer"
+                >
+                  <Link to="/explore">Explore 1,038+ Components &rarr;</Link>
+                </Button>
 
-            <div className="mt-6 sm:mt-8 flex flex-col gap-3 w-full max-w-[34rem]">
-              <Button
-                asChild
-                className="w-full h-12 justify-center font-mono text-xs uppercase tracking-widest bg-ink text-paper hover:bg-ink/90 font-medium"
-              >
-                <Link to="/explore">Explore the registry</Link>
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="w-full h-12 justify-center font-mono text-xs uppercase tracking-widest border-line text-ink hover:border-ink hover:bg-ink hover:text-paper font-medium transition-colors"
-              >
-                <Link to="/docs/registry">How the registry works</Link>
-              </Button>
+                <a
+                  href="https://github.com/cyrilchris-j/uniquefingerprint"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-5 rounded-lg border border-line bg-surface/80 hover:bg-ink hover:text-paper dark:hover:bg-white dark:hover:text-black transition-all font-mono text-xs uppercase tracking-wider font-semibold shadow-2xs group"
+                >
+                  <Github className="h-4 w-4 transition-transform group-hover:scale-110" />
+                  <span>Star on GitHub</span>
+                  <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                </a>
+
+                <Button
+                  variant="outline"
+                  asChild
+                  className="h-11 sm:h-12 px-5 justify-center font-mono text-xs uppercase tracking-widest border-line text-ink hover:border-oxide hover:text-oxide font-semibold transition-colors"
+                >
+                  <Link to="/advanced">220+ 3D & Shaders</Link>
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* The index column: a live inventory, not a feature list. */}
-          <aside className="min-w-0 lg:pt-2">
-            <div className="border-t border-line pt-6">
-              <p className="eyebrow mb-3">Registry index</p>
-              {index.isLoading ? (
-                <Skeleton lines={6} className="mt-4" />
-              ) : index.error ? (
-                <EmptyState
-                  eyebrow="Unavailable"
-                  title="The registry index could not be loaded."
-                  description={index.error.message}
-                  bordered={false}
-                  className="px-0 py-6"
-                />
-              ) : (
-                <dl className="mt-2">
-                  {/* Advanced Ecosystem Category */}
-                  <div className="flex items-baseline justify-between gap-4 border-b border-line py-2.5 bg-oxide/[0.04] -mx-2 px-2 rounded">
-                    <dt>
-                      <Link
-                        to="/advanced"
-                        className="text-[0.9rem] text-oxide font-medium transition-colors duration-fast hover:text-ink flex items-center gap-2"
-                      >
-                        <span>Advanced</span>
-                        <span className="inline-flex items-center gap-1 rounded-full border border-oxide/40 bg-oxide/15 px-1.5 py-0.5 text-[9px] font-mono text-oxide font-semibold uppercase tracking-wider">
-                          220+
-                        </span>
-                      </Link>
-                    </dt>
-                    <dd className="font-mono text-[0.8rem] tracking-[0.08em] text-oxide font-bold">
-                      {String(advancedCount).padStart(2, "0")}
-                    </dd>
-                  </div>
-
-                  {counts.map((category) => (
-                    <div
-                      key={category.slug}
-                      className="flex items-baseline justify-between gap-4 border-b border-line py-2.5"
-                    >
-                      <dt>
-                        <Link
-                          to={`/${category.slug}`}
-                          className="text-[0.9rem] text-ink transition-colors duration-fast hover:text-oxide"
-                        >
-                          {category.title}
-                        </Link>
-                      </dt>
-                      <dd className="font-mono text-[0.8rem] tracking-[0.08em] text-graphite">
-                        {String(category.count).padStart(2, "0")}
-                      </dd>
-                    </div>
-                  ))}
-                  <div className="flex items-baseline justify-between gap-4 py-3">
-                    <div>
-                      <dt className="eyebrow">Total published</dt>
-                      <p className="text-[10px] font-mono text-graphite/60 mt-0.5">
-                        {totalItems} registry · {advancedCount} advanced
-                      </p>
-                    </div>
-                    <dd className="font-mono text-[0.85rem] tracking-[0.08em] text-ink font-semibold">
-                      {grandTotal.toLocaleString()}
-                    </dd>
-                  </div>
-                </dl>
-              )}
-            </div>
-          </aside>
+          {/* Right Column: Interactive Live Specimen Showcase Stage */}
+          <div className="flex flex-col gap-3 min-w-0">
+            <HeroSpecimenShowcase />
+          </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* CLI & Direct Code Usage                                          */}
+      {/* 01 — CLI & Direct Code Usage                                     */}
       {/* ---------------------------------------------------------------- */}
       <section className="shell mt-12 sm:mt-24 lg:mt-32">
         <SectionHeader
@@ -273,19 +405,20 @@ export default function HomePage(): React.JSX.Element {
           description="Zero configuration and zero runtime lock-in. The CLI configures path aliases, verifies integrity, and places clean TypeScript source directly into your codebase."
         />
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14 items-start">
-          {/* Left Column: Clean, Separate Commands */}
-          <div className="flex flex-col gap-5 min-w-0">
-            <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8 items-stretch">
+          {/* Left Column: Commands */}
+          <div className="flex flex-col gap-4 min-w-0">
+            <div className="flex items-center justify-between gap-3 h-8">
               <SegmentedControl
                 label="Package manager"
                 hideLabel
                 size="sm"
                 value={usageMethod}
-                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx")}
+                onValueChange={(val) => setUsageMethod(val as "pnpm" | "npx" | "global")}
                 options={[
-                  { value: "pnpm", label: "pnpm" },
                   { value: "npx", label: "npx" },
+                  { value: "pnpm", label: "pnpm dlx" },
+                  { value: "global", label: "global CLI" },
                 ]}
               />
               <span className="font-mono text-[11px] tracking-wider text-graphite/70">
@@ -296,77 +429,73 @@ export default function HomePage(): React.JSX.Element {
             <div className="flex flex-col gap-3.5">
               <CommandStep
                 step="1"
-                title="Install any component directly"
+                title={usageMethod === "global" ? "Install globally once via npm" : "Install any component directly"}
                 command={
                   usageMethod === "pnpm"
-                    ? "pnpm dlx uniquefingerprint add magnetic-button"
-                    : "npx uniquefingerprint add magnetic-button"
+                    ? "pnpm dlx uniquefingerprint add magnetic-spring-button"
+                    : usageMethod === "npx"
+                    ? "npx uniquefingerprint add magnetic-spring-button"
+                    : "npm install -g uniquefingerprint"
                 }
               />
               <CommandStep
                 step="2"
-                title="Install multiple components at once"
+                title={usageMethod === "global" ? "Run directly from anywhere" : "Install multiple components at once"}
                 command={
                   usageMethod === "pnpm"
-                    ? "pnpm dlx uniquefingerprint add magnetic-button liquid-chrome-fluid"
-                    : "npx uniquefingerprint add magnetic-button liquid-chrome-fluid"
+                    ? "pnpm dlx uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
+                    : usageMethod === "npx"
+                    ? "npx uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
+                    : "uniquefingerprint add magnetic-spring-button liquid-chrome-fluid"
                 }
               />
             </div>
           </div>
 
-          {/* Right Column: Essential Content Only */}
-          <div className="flex flex-col justify-between gap-6 min-w-0 rounded-2xl border border-line/35 bg-paper/90 p-6 sm:p-8 shadow-xs">
-            <div>
-              <p className="font-display text-xl sm:text-2xl tracking-tight text-ink">
-                Complete code ownership.
-              </p>
-              <p className="mt-2 text-[0.9rem] leading-relaxed text-graphite">
-                Components are copied directly into your repository as pure TypeScript and Tailwind CSS with zero runtime dependencies.
-              </p>
+          {/* Right Column: Balanced Package Details */}
+          <div className="flex flex-col gap-4 min-w-0">
+            <div className="flex items-center justify-between gap-3 h-8">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#CB3837]/10 text-[#CB3837] border border-[#CB3837]/20 font-mono text-[11px] font-semibold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#CB3837]" />
+                  uniquefingerprint
+                </span>
+                <span className="font-mono text-[11px] text-graphite/80 px-2 py-0.5 rounded bg-line/20">
+                  v0.1.1
+                </span>
+              </div>
+              <span className="font-mono text-[11px] tracking-wider text-graphite/70">
+                pure code ownership
+              </span>
             </div>
 
-            <div className="flex flex-col gap-4 border-t border-line/20 pt-5">
-              <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20 mt-0.5">
-                  <ShieldCheck className="h-3.5 w-3.5" />
+            <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col justify-center gap-2 rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs min-h-[82px]">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#CB3837]/10 text-[#CB3837] border border-[#CB3837]/20">
+                    <Terminal className="h-3 w-3" />
+                  </div>
+                  <span className="font-mono text-xs font-semibold text-ink uppercase tracking-wider">
+                    Global CLI & On-Demand
+                  </span>
                 </div>
-                <div>
-                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    Zero Runtime Lock-in
-                  </p>
-                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Code lives in your repository. Customize, style, or refactor with total freedom.
-                  </p>
-                </div>
+                <p className="text-xs text-graphite leading-relaxed">
+                  Install globally with <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">npm i -g uniquefingerprint</code> or run instantly with <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">npx</code> / <code className="font-mono text-ink bg-line/20 px-1 py-0.5 rounded text-[11px]">pnpm dlx</code>.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 mt-0.5">
-                  <Zap className="h-3.5 w-3.5" />
+              <div className="flex flex-col justify-center gap-2 rounded-xl border border-line/35 bg-paper/95 p-4 sm:p-5 shadow-2xs min-h-[82px]">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-moss/10 text-moss border border-moss/20">
+                    <ShieldCheck className="h-3 w-3" />
+                  </div>
+                  <span className="font-mono text-xs font-semibold text-ink uppercase tracking-wider">
+                    Zero Runtime Lock-In
+                  </span>
                 </div>
-                <div>
-                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    Auto Dependency Resolution
-                  </p>
-                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Installs peer packages, sets up `@/lib/cn`, and checks for conflicts automatically.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 border border-sky-500/20 mt-0.5">
-                  <Sparkles className="h-3.5 w-3.5" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-ink uppercase tracking-wider font-mono">
-                    No Black-Box NPM Packages
-                  </p>
-                  <p className="mt-0.5 text-xs text-graphite leading-relaxed">
-                    Accessible primitives, motion physics, and clean token contracts you can inspect.
-                  </p>
-                </div>
+                <p className="text-xs text-graphite leading-relaxed">
+                  Raw TypeScript & Tailwind CSS components copied directly to your project with automatic peer dependency resolution.
+                </p>
               </div>
             </div>
           </div>
@@ -374,13 +503,13 @@ export default function HomePage(): React.JSX.Element {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Featured, chosen by rule                                          */}
+      {/* 02 — Interactive Studio & Playground                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
+      <section className="shell mt-12 sm:mt-24 lg:mt-32 mb-16 sm:mb-24 lg:mb-32">
         <SectionHeader
-          eyebrow="02 — Fingerprinted resources"
-          title="Selected because they declare their fingerprint."
-          description="Not an editorial pick. These are the resources that state a complete design DNA — genre, macrostructure, density, shape and motion — which is the minimum this registry asks before something is published."
+          eyebrow="02 — Playground"
+          title="Interactive playground."
+          description="Experiment with all 1,038+ components, kinetic motions, and 3D scenes live in an isolated sandbox. Test responsiveness, inspect design tokens, and copy instant CLI install commands."
           actions={
             <Button variant="ghost" size="sm" asChild>
               <Link to="/explore">All resources</Link>
@@ -388,105 +517,10 @@ export default function HomePage(): React.JSX.Element {
           }
         />
 
-        <div className="catalogue-grid mt-10">
-          {index.isLoading ? (
-            <div className="bg-paper p-6">
-              <Skeleton lines={5} />
-            </div>
-          ) : featured.length === 0 ? (
-            <div className="bg-paper p-6">
-              <EmptyState
-                bordered={false}
-                eyebrow="Nothing published"
-                title="No resources declare a full design fingerprint yet."
-                description="Run pnpm build:registry to publish the first-party set."
-              />
-            </div>
-          ) : (
-            featured.map((item, position) => (
-              <ScrollReveal key={item.name} delayMs={position * 40}>
-                <ResourceTile item={item} index={position + 1} withPreview />
-              </ScrollReveal>
-            ))
-          )}
+        <div className="mt-8 rounded-2xl border border-line/40 bg-paper/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 shadow-xs overflow-hidden">
+          <PlaygroundWorkspace embedded initialItem="kinetic-editorial-hero" />
         </div>
       </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Advanced Ecosystem Showcase                                      */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="shell mt-12 sm:mt-24 lg:mt-32">
-        <SectionHeader
-          eyebrow="03 — Advanced Ecosystem (220+)"
-          title="Spatial 3D, procedural canvases, and kinetic interactions."
-          description="Engineered for high-end digital products: GPU-accelerated Three.js WebGL scenes, organic canvas simulations, haptic micro-interactions, and kinetic typography with zero external runtime bloat."
-          actions={
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/advanced">Browse All 220+ Resources &rarr;</Link>
-            </Button>
-          }
-        />
-
-        {/* Featured Advanced Grid */}
-        <div className="catalogue-grid mt-10">
-          {featuredAdvanced.map((advItem, position) => (
-            <ScrollReveal key={advItem.slug} delayMs={position * 40}>
-              <article
-                className="group relative flex flex-col justify-between overflow-hidden border border-line/30 dark:border-line/20 bg-paper rounded-xl transition-all duration-normal ease-editorial hover:shadow-lg hover:border-ink/40 dark:hover:border-ink/50 hover:-translate-y-0.5"
-              >
-                {/* Live Preview Container */}
-                <div
-                  className="h-44 sm:h-52 w-full border-b border-line/25 overflow-hidden relative flex items-center justify-center bg-[#f8f6f1] dark:bg-[#0c0c0b] p-4"
-                  style={{
-                    backgroundImage: "radial-gradient(hsl(var(--line) / 0.12) 1px, transparent 1px)",
-                    backgroundSize: "14px 14px",
-                  }}
-                >
-                  <div className="w-full h-full flex items-center justify-center pointer-events-none transform scale-90">
-                    <AdvancedPreview item={advItem} />
-                  </div>
-                </div>
-
-                {/* Meta & Info */}
-                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="eyebrow text-[10px] uppercase tracking-wider text-graphite">
-                        {advItem.category} · {advItem.technology}
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-line/50 text-ink/70 bg-surface/50">
-                        {advItem.fingerprint.performanceTier}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-semibold text-ink text-lg tracking-tight group-hover:text-oxide transition-colors">
-                      <Link to={`/advanced/${advItem.category}/${advItem.slug}`} className="focus:outline-hidden">
-                        <span className="absolute inset-0 z-10" aria-hidden="true" />
-                        {advItem.title}
-                      </Link>
-                    </h3>
-
-                    <p className="mt-1.5 text-[0.85rem] leading-relaxed text-graphite line-clamp-2">
-                      {advItem.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3 border-t border-line/20 flex items-center justify-between text-[11px] font-mono text-graphite">
-                    <span className="truncate text-[10px] text-graphite/80">
-                      {advItem.tags.slice(0, 2).map((t) => `#${t}`).join(" ")}
-                    </span>
-                    <span className="text-ink/70 group-hover:text-oxide transition-colors flex items-center gap-1 font-medium">
-                      Explore &rarr;
-                    </span>
-                  </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-
     </>
   );
 }

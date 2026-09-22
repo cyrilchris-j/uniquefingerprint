@@ -3,9 +3,10 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createHash } from "node:crypto";
 import { hashFiles, sha256Integrity } from "@openui/utils/node";
-import { ADVANCED_RESOURCES } from "../apps/web/src/advanced/catalogue-data.js";
+import { ADVANCED_RESOURCES, generateAdvancedDemoCode } from "../apps/web/src/advanced/index.js";
+import { REGISTRY_BASE_URL, REGISTRY_INDEX_FILE, SITE_HOMEPAGE, WEB_REGISTRY_OUT } from "./lib/paths.js";
 
-const REGISTRY_DIR = join(process.cwd(), "apps", "web", "public", "r");
+const REGISTRY_DIR = WEB_REGISTRY_OUT;
 const REGISTRY_JSON_PATH = join(REGISTRY_DIR, "registry.json");
 const INDEX_JSON_PATH = join(REGISTRY_DIR, "index.json");
 
@@ -19,7 +20,9 @@ async function run() {
   // Read existing registry.json
   const registryRaw = await readFile(REGISTRY_JSON_PATH, "utf8");
   const registryData = JSON.parse(registryRaw);
-  const existingNames = new Set(registryData.items.map((i: any) => i.name));
+
+  registryData.$schema = `${SITE_HOMEPAGE.replace(/\/+$/, "")}/schema/registry.json`;
+  registryData.homepage = SITE_HOMEPAGE;
 
   // Clean out any old items without integrity
   registryData.items = registryData.items.filter((i: any) => i.integrity);
@@ -32,10 +35,18 @@ async function run() {
     const content = item.sourceCode;
     const sizeBytes = Buffer.byteLength(content, "utf8");
     const contentHash = sha256(content);
-    const integrity = sha256Integrity(hashFiles([{ path: `${slug}.tsx`, content }]));
+
+    const demoContent = generateAdvancedDemoCode(item);
+    const demoSizeBytes = Buffer.byteLength(demoContent, "utf8");
+    const demoContentHash = sha256(demoContent);
+
+    const integrity = sha256Integrity(hashFiles([
+      { path: `${slug}.tsx`, content },
+      { path: "demo.tsx", content: demoContent },
+    ]));
 
     const artifact = {
-      $schema: "https://openui.dev/schema/registry-item.json",
+      $schema: `${SITE_HOMEPAGE.replace(/\/+$/, "")}/schema/registry-item.json`,
       name: slug,
       type: "registry:component",
       title: item.title,
@@ -51,10 +62,17 @@ async function run() {
           contentHash,
           sizeBytes,
         },
+        {
+          path: "demo.tsx",
+          type: "registry:component",
+          content: demoContent,
+          contentHash: demoContentHash,
+          sizeBytes: demoSizeBytes,
+        },
       ],
       tags: item.tags,
       license: "MIT",
-      url: `https://uniquefingerprint.web.app/r/${slug}.json`,
+      url: `${REGISTRY_BASE_URL.replace(/\/+$/, "")}/${slug}.json`,
     };
 
     // Write individual item JSON file
@@ -74,7 +92,7 @@ async function run() {
         tags: item.tags,
         dependencies: item.dependencies,
         registryDependencies: ["cn"],
-        url: `https://uniquefingerprint.web.app/r/${slug}.json`,
+        url: `${REGISTRY_BASE_URL.replace(/\/+$/, "")}/${slug}.json`,
         integrity,
         license: "MIT",
       });
@@ -84,15 +102,18 @@ async function run() {
   }
 
   // Update registry.json and index.json
-  const updatedJson = JSON.stringify(registryData, null, 2);
+  const updatedJson = `${JSON.stringify(registryData, null, 2)}\n`;
   await writeFile(REGISTRY_JSON_PATH, updatedJson, "utf8");
   if (existsSync(INDEX_JSON_PATH)) {
     await writeFile(INDEX_JSON_PATH, updatedJson, "utf8");
   }
+  await writeFile(REGISTRY_INDEX_FILE, updatedJson, "utf8");
 
   console.log(`Successfully exported all ${ADVANCED_RESOURCES.length} advanced items! (${addedCount} newly added to registry index).`);
   console.log(`Total registry items now: ${registryData.items.length}`);
 }
+
+export { run as exportAdvancedToRegistry };
 
 run().catch((err) => {
   console.error("Export failed:", err);

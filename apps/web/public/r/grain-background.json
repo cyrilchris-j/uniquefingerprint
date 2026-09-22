@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "grain-background",
   "type": "registry:background",
   "title": "Grain Background",
@@ -60,6 +60,6 @@
       "semanticPurpose": "editorial-backdrop"
     }
   },
-  "url": "https://openui.dev/r/grain-background.json",
+  "url": "https://uniquefingerprint.web.app/r/grain-background.json",
   "designRules": "# Grain Background\n\nGenre: Industrial\nMacrostructure: Full Bleed\nDensity: Dense\nShape: Sharp\nMotion: None\nTypography: Monospace\nColor: Monochrome\n\n## Rules\n\n- Grain opacity stays under 0.12 wherever text sits above it.\n- One grain layer per surface; nesting two doubles the density unexpectedly.\n- Use `multiply` on dark surfaces and `overlay` on light ones.\n- Grain must never be the only separator between two regions.\n\n## Avoid\n\n- Animated grain or `.webp` noise textures that tile visibly.\n- Grain behind body copy at small sizes; it reduces perceived contrast.\n"
 }

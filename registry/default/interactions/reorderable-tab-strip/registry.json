@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "reorderable-tab-strip",
   "type": "registry:interaction",
   "title": "Reorderable Tab Strip",

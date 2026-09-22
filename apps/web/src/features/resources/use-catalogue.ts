@@ -36,7 +36,10 @@ export function useCategoryItems(categorySlug: string): {
 /** One resource's built artifact, including inlined file source. */
 export function useRegistryItem(name: string, namespace = "default"): AsyncState<BuiltRegistryItem> {
   return useAsync(
-    (signal) => loadItem(name, namespace).then(assertNotAborted(signal)),
+    (signal) =>
+      !name
+        ? Promise.resolve(undefined as unknown as BuiltRegistryItem)
+        : loadItem(name, namespace).then(assertNotAborted(signal)),
     [name, namespace],
   );
 }
@@ -54,7 +57,7 @@ export function useIndexEntry(name: string): {
   return { entry, state };
 }
 
-/** Items that share at least one tag with `entry`, most overlap first. */
+/** Items strictly within the same category as `entry`, ranked by tag overlap. */
 export function useRelatedItems(entry: RegistryIndexEntry | undefined): readonly RegistryIndexEntry[] {
   const state = useRegistryIndex();
 
@@ -62,18 +65,16 @@ export function useRelatedItems(entry: RegistryIndexEntry | undefined): readonly
     if (!state.data || !entry) return [];
     const tags = new Set(entry.tags);
 
-    return state.data.items
-      .filter((candidate) => candidate.name !== entry.name)
+    // Strictly enforce matching category (e.g. components only suggest components, text suggests text, motion suggests motion)
+    const sameCategoryCandidates = state.data.items.filter(
+      (candidate) => candidate.name !== entry.name && candidate.category === entry.category,
+    );
+
+    return sameCategoryCandidates
       .map((candidate) => ({
         candidate,
-        overlap:
-          candidate.tags.filter((tag) => tags.has(tag)).length +
-          // A shared category is a weaker signal than a shared tag, so it counts
-          // for less — this ordering is why related items feel relevant.
-          (candidate.category === entry.category ? 0.5 : 0) +
-          (candidate.resourceType === entry.resourceType ? 0.25 : 0),
+        overlap: candidate.tags.filter((tag) => tags.has(tag)).length,
       }))
-      .filter((scored) => scored.overlap > 0.25)
       .sort((a, b) => b.overlap - a.overlap || a.candidate.name.localeCompare(b.candidate.name))
       .slice(0, 3)
       .map((scored) => scored.candidate);

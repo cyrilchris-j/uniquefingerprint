@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "status-beacon-badge",
   "type": "registry:component",
   "title": "Status Beacon Badge",

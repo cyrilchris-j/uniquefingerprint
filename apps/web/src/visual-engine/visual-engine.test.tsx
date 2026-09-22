@@ -107,7 +107,7 @@ describe("OpenUI Visual Engine Component Mounting", () => {
 
   it("renders Fade primitive without throwing", async () => {
     const { container, unmount } = await mountComponent(
-      <Fade inView>
+      <Fade show>
         <span data-testid="child">Hello Visual Engine</span>
       </Fade>,
     );
@@ -117,7 +117,7 @@ describe("OpenUI Visual Engine Component Mounting", () => {
 
   it("renders Slide primitive without throwing", async () => {
     const { container, unmount } = await mountComponent(
-      <Slide direction="up" inView>
+      <Slide direction="up" show>
         <span>Sliding Content</span>
       </Slide>,
     );
@@ -127,7 +127,7 @@ describe("OpenUI Visual Engine Component Mounting", () => {
 
   it("renders BlurReveal primitive without throwing", async () => {
     const { container, unmount } = await mountComponent(
-      <BlurReveal inView>
+      <BlurReveal show>
         <span>Revealed Content</span>
       </BlurReveal>,
     );
@@ -137,7 +137,7 @@ describe("OpenUI Visual Engine Component Mounting", () => {
 
   it("renders ScrambleDecryption component", async () => {
     const { container, unmount } = await mountComponent(
-      <ScrambleDecryption text="OPENUI" trigger="auto" speedMs={20} />,
+      <ScrambleDecryption text="OPENUI" autoPlay speedMs={20} />,
     );
     expect(container).toBeDefined();
     await unmount();

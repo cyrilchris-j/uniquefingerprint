@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "customer-support-call-scheduler",
   "type": "registry:block",
   "title": "Customer Support Call Scheduler",

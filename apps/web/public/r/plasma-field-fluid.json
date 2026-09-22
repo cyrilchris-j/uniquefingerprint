@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "plasma-field-fluid",
   "type": "registry:component",
   "title": "Plasma Field Fluid",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function PlasmaFieldFluid({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    let t = 0, animId: number;\n    const draw = () => {\n      const imageData = ctx.createImageData(w, h);\n      for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) {\n        const v = Math.sin(x / 20 + t) + Math.sin(y / 18 + t * 1.1) + Math.sin((x + y) / 25 + t * 0.8) + Math.sin(Math.sqrt(x * x + y * y) / 22 + t);\n        const r = Math.floor(128 + 127 * Math.sin(v * Math.PI));\n        const g = Math.floor(128 + 127 * Math.sin(v * Math.PI + 2.09));\n        const b = Math.floor(128 + 127 * Math.sin(v * Math.PI + 4.18));\n        const i = (y * w + x) * 4;\n        imageData.data[i] = r; imageData.data[i+1] = g; imageData.data[i+2] = b; imageData.data[i+3] = 255;\n      }\n      ctx.putImageData(imageData, 0, 0);\n      t += 0.04;\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => cancelAnimationFrame(animId);\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
       "contentHash": "35fb6325afeb6155f6d690cef7f1b5e6d96b80362955be2f4cf41e20b489bfb2",
       "sizeBytes": 1431
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { PlasmaFieldFluid } from \"./plasma-field-fluid\";\n\nexport default function PlasmaFieldFluidDemo(): React.JSX.Element {\n  return (\n    <div className=\"relative flex min-h-[480px] w-full overflow-hidden rounded-2xl bg-neutral-950 border border-neutral-800\">\n      {/* Background canvas layer */}\n      <PlasmaFieldFluid className=\"absolute inset-0 h-full w-full\" />\n\n      {/* Foreground content layer */}\n      <div className=\"relative z-10 flex h-full w-full flex-col items-center justify-center p-8 text-center my-auto\">\n        <span className=\"rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-mono font-medium text-neutral-300 backdrop-blur-md\">\n          Ambient Canvas Engine\n        </span>\n        <h2 className=\"mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-white\">\n          Plasma Field Fluid\n        </h2>\n        <p className=\"mt-3 max-w-md text-sm sm:text-base text-neutral-400\">\n          Hardware-accelerated ambient visuals that react seamlessly to viewport and pointer interactions.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "7e004398197c7cdf1b069a76879e43e13240c4ced4e3f29108d7e58c65100c98",
+      "sizeBytes": 1117
     }
   ],
   "tags": [

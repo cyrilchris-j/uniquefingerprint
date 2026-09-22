@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "form-survey-builder",
   "type": "registry:block",
   "title": "Form Survey Builder",

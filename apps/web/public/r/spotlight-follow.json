@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "spotlight-follow",
   "type": "registry:interaction",
   "title": "Spotlight Follow",
@@ -61,6 +61,6 @@
       "semanticPurpose": "card-surface-reveal"
     }
   },
-  "url": "https://openui.dev/r/spotlight-follow.json",
+  "url": "https://uniquefingerprint.web.app/r/spotlight-follow.json",
   "designRules": "# Spotlight Follow\n\nGenre: Industrial\nMacrostructure: Full Bleed\nDensity: Dense\nShape: Sharp\nMotion: Subtle\nTypography: Monospace\nColor: Neon On Dark\n\n## Motion\n\nFast: 120ms\nNormal: 200ms\nSlow: 320ms\n\n## Rules\n\n- One radial highlight, low alpha, no hard edge.\n- The highlight communicates the active region; it is not decoration.\n- Focus must recentre the highlight so keyboard users see the same feedback.\n- Disabled under prefers-reduced-motion.\n\n## Avoid\n\n- Multi-colour spotlight gradients.\n- Highlights bright enough to wash out body text.\n- Applying it to every card on the page at once.\n"
 }

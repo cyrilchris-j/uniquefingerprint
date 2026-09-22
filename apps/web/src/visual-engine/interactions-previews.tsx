@@ -4,44 +4,85 @@ import { CATALOGUE_INTERACTIONS_PREVIEWS } from "./interactions-catalogue-previe
 
 // 1. Click Sparkle Trail
 export function ClickSparkleTrailPreview() {
-  const [sparks, setSparks] = React.useState<Array<{ id: number; x: number; y: number; size: number }>>([
-    { id: 1, x: 60, y: 50, size: 16 },
-    { id: 2, x: 140, y: 40, size: 22 },
-    { id: 3, x: 210, y: 70, size: 14 },
-    { id: 4, x: 100, y: 110, size: 18 },
-  ]);
+  const [sparks, setSparks] = React.useState<
+    Array<{ id: number; x: number; y: number; size: number; color: string; rot: number }>
+  >([]);
+  const [clickCount, setClickCount] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
+  const spawnBurst = (cx: number, cy: number, count = 8) => {
+    const colors = ["#f59e0b", "#ba442c", "#fbbf24", "#f97316", "#ffffff", "#ec4899"];
+    const newSparks = Array.from({ length: count }, (_, i) => {
+      const angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+      const dist = 24 + Math.random() * 55;
+      return {
+        id: Date.now() + Math.random() + i,
+        x: cx + Math.cos(angle) * dist,
+        y: cy + Math.sin(angle) * dist,
+        size: 14 + Math.random() * 16,
+        color: colors[i % colors.length] ?? "#f59e0b",
+        rot: Math.random() * 360,
+      };
+    });
+    setSparks((prev) => [...prev.slice(-20), ...newSparks]);
+  };
+
+  // Ambient gentle sparkles centered around the central badge
   React.useEffect(() => {
     const interval = setInterval(() => {
-      const rx = 30 + Math.random() * 200;
-      const ry = 25 + Math.random() * 110;
-      const id = Date.now() + Math.random();
-      setSparks((prev) => [...prev.slice(-6), { id, x: rx, y: ry, size: 12 + Math.random() * 14 }]);
-    }, 600);
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const cx = rect.width / 2 + (Math.random() - 0.5) * 120;
+        const cy = rect.height / 2 + (Math.random() - 0.5) * 60;
+        spawnBurst(cx, cy, 2);
+      }
+    }, 800);
     return () => clearInterval(interval);
   }, []);
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setClickCount((c) => c + 1);
+    spawnBurst(x, y, 10);
+  };
+
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center select-none overflow-hidden bg-gradient-to-b from-paper to-line/5 p-4">
-      <div className="flex flex-col items-center gap-1 z-10">
+    <div
+      ref={containerRef}
+      onClick={handleClick}
+      className="relative w-full h-full min-h-[22rem] sm:min-h-[28rem] flex flex-col items-center justify-center select-none overflow-hidden bg-gradient-to-b from-paper via-surface/30 to-line/5 p-4 cursor-pointer"
+    >
+      <div className="flex flex-col items-center gap-2 z-10 pointer-events-none">
         <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-oxide font-bold">
           ✦ Interactive Burst
         </span>
-        <div className="px-3 py-1.5 rounded-full border border-line/40 bg-paper/80 shadow-xs flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-          <span className="font-display text-xs text-ink">Click Sparkle Trail</span>
+        <div className="px-4 py-2 rounded-full border border-line/50 bg-paper/90 shadow-md flex items-center gap-2.5 backdrop-blur-xs">
+          <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" />
+          <span className="font-display text-sm font-medium text-ink">Click Sparkle Trail</span>
+          {clickCount > 0 && (
+            <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-full bg-oxide/10 text-oxide font-bold">
+              +{clickCount}
+            </span>
+          )}
         </div>
+        <span className="font-mono text-[9px] text-graphite/70 uppercase tracking-widest mt-1">
+          Click anywhere to radiate sparkling stars
+        </span>
       </div>
 
       {sparks.map((s) => (
         <span
           key={s.id}
-          className="absolute text-amber-500 font-bold transition-all duration-700 animate-ping"
+          className="absolute font-bold transition-all duration-700 animate-ping pointer-events-none drop-shadow-xs"
           style={{
             left: `${s.x}px`,
             top: `${s.y}px`,
             fontSize: `${s.size}px`,
-            opacity: 0.85,
+            color: s.color,
+            transform: `translate(-50%, -50%) rotate(${s.rot}deg)`,
+            opacity: 0.9,
           }}
         >
           ✦
@@ -53,75 +94,273 @@ export function ClickSparkleTrailPreview() {
 
 // 2. Click Wave Emitter
 export function ClickWaveEmitterPreview() {
-  const [waves, setWaves] = React.useState<number[]>([0, 1, 2]);
+  const [ripples, setRipples] = React.useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [pulseKey, setPulseKey] = React.useState(0);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setWaves((prev) => [...prev.slice(-4), Date.now()]);
-    }, 1200);
+      setPulseKey((k) => k + 1);
+    }, 1800);
     return () => clearInterval(interval);
   }, []);
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now() + Math.random();
+    setRipples((prev) => [...prev.slice(-6), { id, x, y }]);
+  };
+
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none overflow-hidden bg-paper">
-      {/* Expanding Ripple Rings */}
-      <div className="relative flex items-center justify-center">
-        <div className="w-10 h-10 rounded-full bg-oxide/20 border border-oxide flex items-center justify-center z-10 shadow-xs">
-          <div className="w-4 h-4 rounded-full bg-oxide animate-pulse" />
+    <div
+      onClick={handleClick}
+      className="relative w-full h-full min-h-[22rem] sm:min-h-[32rem] flex items-center justify-center select-none overflow-hidden bg-[#0a0c10] text-white cursor-pointer"
+    >
+      {/* Background radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(242,100,25,0.08)_0%,transparent_70%)] pointer-events-none" />
+
+      {/* Central Omnidirectional Pulse */}
+      <div key={pulseKey} className="relative flex items-center justify-center pointer-events-none">
+        <div className="w-12 h-12 rounded-full bg-oxide/20 border border-oxide flex items-center justify-center z-10 shadow-lg shadow-oxide/20">
+          <div className="w-4 h-4 rounded-full bg-oxide animate-pulse shadow-md shadow-oxide" />
         </div>
 
-        <div className="absolute w-20 h-20 rounded-full border border-oxide/50 animate-ping opacity-75" />
-        <div className="absolute w-32 h-32 rounded-full border border-oxide/30 animate-pulse opacity-50" />
-        <div className="absolute w-44 h-44 rounded-full border border-line/30" />
+        <div className="absolute w-32 h-32 rounded-full border border-oxide/60 animate-ping opacity-60" />
+        <div className="absolute w-56 h-56 rounded-full border border-oxide/40 animate-pulse opacity-40" />
+        <div className="absolute w-80 h-80 rounded-full border border-oxide/20 opacity-30" />
+        <div className="absolute w-[28rem] h-[28rem] rounded-full border border-white/10 opacity-20" />
+        <div className="absolute w-[38rem] h-[38rem] rounded-full border border-white/5 opacity-10" />
       </div>
 
-      <div className="absolute bottom-3 left-0 right-0 text-center">
-        <span className="font-mono text-[9px] uppercase tracking-widest text-graphite">
-          Omnidirectional Pulse
-        </span>
+      {/* User Click Ripples */}
+      {ripples.map((r) => (
+        <span
+          key={r.id}
+          className="absolute rounded-full border-2 border-amber-400 pointer-events-none animate-ping"
+          style={{
+            left: `${r.x - 30}px`,
+            top: `${r.y - 30}px`,
+            width: "60px",
+            height: "60px",
+            opacity: 0.9,
+          }}
+        />
+      ))}
+
+      {/* Bottom status badge */}
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
+        <div className="px-3.5 py-1.5 rounded-full border border-white/15 bg-black/70 backdrop-blur-md font-mono text-[10px] text-white/80 shadow-lg flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-oxide animate-ping" />
+          <span className="uppercase tracking-wider font-semibold">Click Anywhere to Emit Impulse Wave</span>
+        </div>
       </div>
     </div>
   );
 }
 
 // 3. Color Eyedropper Loupe
+const LOUPE_SWATCHES = [
+  { name: "Solar Amber", hex: "#F59E0B", rgb: "245, 158, 11" },
+  { name: "Terra Oxide", hex: "#BA442C", rgb: "186, 68, 44" },
+  { name: "Crimson Rose", hex: "#E11D48", rgb: "225, 29, 72" },
+  { name: "Neon Violet", hex: "#8B5CF6", rgb: "139, 92, 246" },
+  { name: "Electric Cyan", hex: "#06B6D4", rgb: "6, 182, 212" },
+  { name: "Hyper Emerald", hex: "#10B981", rgb: "16, 185, 129" },
+  { name: "Cobalt Blue", hex: "#3B82F6", rgb: "59, 130, 246" },
+  { name: "Vivid Pink", hex: "#EC4899", rgb: "236, 72, 153" },
+];
+
 export function ColorEyedropperLoupePreview() {
-  const [pos, setPos] = React.useState({ x: 120, y: 70 });
+  const [activeIdx, setActiveIdx] = React.useState(1);
+  const [loupePos, setLoupePos] = React.useState(20);
+  const [copied, setCopied] = React.useState(false);
+  const isHoveredRef = React.useRef(false);
+
+  // Smooth ambient sweep when not hovered
   React.useEffect(() => {
     let t = 0;
     let frame: number;
     const loop = () => {
-      t += 0.03;
-      setPos({
-        x: 120 + Math.sin(t) * 45,
-        y: 70 + Math.cos(t * 0.8) * 20,
-      });
+      if (!isHoveredRef.current) {
+        t += 0.02;
+        // Smooth sine wave between 10% and 90%
+        const pct = 50 + Math.sin(t) * 38;
+        setLoupePos(pct);
+        const idx = Math.min(
+          LOUPE_SWATCHES.length - 1,
+          Math.max(0, Math.floor((pct / 100) * LOUPE_SWATCHES.length))
+        );
+        setActiveIdx(idx);
+      }
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  return (
-    <div className="relative w-full h-full select-none overflow-hidden bg-paper flex items-center justify-center p-4">
-      {/* Palette strip in background */}
-      <div className="w-full max-w-[240px] h-10 rounded-lg overflow-hidden flex border border-line/40 opacity-70">
-        <div className="flex-1 bg-amber-500" />
-        <div className="flex-1 bg-oxide" />
-        <div className="flex-1 bg-rose-600" />
-        <div className="flex-1 bg-violet-600" />
-        <div className="flex-1 bg-cyan-600" />
-        <div className="flex-1 bg-emerald-600" />
-      </div>
+  const activeColor = LOUPE_SWATCHES[activeIdx] ?? LOUPE_SWATCHES[0]!;
 
-      {/* Floating Loupe Lens */}
-      <div
-        className="absolute w-20 h-20 rounded-full border-2 border-ink bg-white/95 dark:bg-[#181816]/95 shadow-xl flex flex-col items-center justify-center pointer-events-none"
-        style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
-      >
-        <div className="w-6 h-6 rounded-full bg-oxide shadow-inner border border-white/40 mb-0.5" />
-        <span className="font-mono text-[8.5px] font-bold text-ink">#BA442C</span>
-        <span className="font-mono text-[7px] text-graphite">SAMPLING</span>
+  const handleCopy = (hex: string) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(hex).catch(() => {});
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+    const pct = (x / rect.width) * 100;
+    const idx = Math.min(
+      LOUPE_SWATCHES.length - 1,
+      Math.max(0, Math.floor((x / rect.width) * LOUPE_SWATCHES.length))
+    );
+    setLoupePos(pct);
+    setActiveIdx(idx);
+  };
+
+  return (
+    <div className="relative w-full h-full min-h-[22rem] sm:min-h-[28rem] select-none overflow-hidden bg-radial from-surface/30 via-paper to-line/5 flex flex-col items-center justify-center p-4 sm:p-6">
+      {/* Centered Inspector Station */}
+      <div className="relative w-full max-w-md mx-auto flex flex-col items-center gap-5">
+        {/* Top Station Header */}
+        <div className="flex items-center justify-between w-full px-1">
+          <div className="flex items-center gap-2">
+            <span
+              className="w-2.5 h-2.5 rounded-full shadow-xs transition-colors duration-200"
+              style={{ backgroundColor: activeColor.hex }}
+            />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
+              Color Eyedropper Loupe
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/80 border border-line/40 text-[9px] font-mono text-graphite shadow-2xs">
+            <span>SAMPLING</span>
+            <span className="font-bold text-ink">{activeColor.hex}</span>
+          </div>
+        </div>
+
+        {/* Loupe Tracking Track & Canvas */}
+        <div className="relative w-full flex flex-col items-center">
+          {/* Loupe Stage Area */}
+          <div className="relative w-full h-32 flex items-end justify-start overflow-visible pointer-events-none">
+            {/* Floating Loupe Lens */}
+            <div
+              className="absolute bottom-0 flex flex-col items-center transition-[left] duration-75 ease-out"
+              style={{
+                left: `${loupePos}%`,
+                transform: "translateX(-50%)",
+              }}
+            >
+              {/* Glass Lens */}
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-ink/70 dark:border-white/80 bg-paper/95 dark:bg-[#14151a]/95 shadow-2xl backdrop-blur-md flex flex-col items-center justify-center relative overflow-hidden ring-4 ring-black/10 dark:ring-white/10">
+                {/* Specular glass reflection glare */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent pointer-events-none" />
+
+                {/* 3x3 magnified optical pixel grid */}
+                <div className="grid grid-cols-3 gap-0.5 p-1 rounded-xs bg-black/40 border border-white/20 mb-1 shadow-inner">
+                  {[-1, 0, 1].map((dy) =>
+                    [-1, 0, 1].map((dx) => {
+                      const isCenter = dx === 0 && dy === 0;
+                      return (
+                        <div
+                          key={`${dx}-${dy}`}
+                          className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-2xs flex items-center justify-center transition-colors duration-150 ${
+                            isCenter ? "ring-1 ring-white" : "opacity-75"
+                          }`}
+                          style={{
+                            backgroundColor: activeColor.hex,
+                            filter: isCenter ? "none" : `brightness(${1 + (dx + dy) * 0.12})`,
+                          }}
+                        >
+                          {isCenter && (
+                            <span className="text-[9px] font-bold text-white drop-shadow-xs">+</span>
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                {/* Hex readout inside lens */}
+                <span className="font-mono text-[10px] font-bold text-ink tracking-wider">
+                  {activeColor.hex}
+                </span>
+                <span className="font-mono text-[7px] uppercase tracking-wider text-graphite font-semibold">
+                  {copied ? "COPIED!" : activeColor.name}
+                </span>
+              </div>
+
+              {/* Reticle Stem Needle pointing to swatch */}
+              <div className="w-0.5 h-3.5 bg-ink/70 dark:bg-white/70 shadow-xs" />
+              <div
+                className="w-2 h-2 -mt-0.5 rounded-full border border-white shadow-sm transition-colors duration-150"
+                style={{ backgroundColor: activeColor.hex }}
+              />
+            </div>
+          </div>
+
+          {/* Interactive Swatch Strip */}
+          <div
+            onPointerEnter={() => {
+              isHoveredRef.current = true;
+            }}
+            onPointerLeave={() => {
+              isHoveredRef.current = false;
+            }}
+            onPointerMove={handlePointerMove}
+            className="relative w-full h-12 rounded-xl overflow-hidden flex border border-line/60 shadow-md cursor-crosshair bg-surface"
+          >
+            {LOUPE_SWATCHES.map((swatch, i) => (
+              <button
+                key={swatch.hex}
+                onClick={() => handleCopy(swatch.hex)}
+                className="flex-1 h-full relative group transition-transform focus:outline-none"
+                style={{ backgroundColor: swatch.hex }}
+                title={`${swatch.name} (${swatch.hex}) — Click to copy`}
+              >
+                <span className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Color Details Readout Bar */}
+        <div className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-line/40 bg-surface/60 backdrop-blur-xs text-xs">
+          <div className="flex items-center gap-2">
+            <div
+              className="w-5 h-5 rounded-md border border-white/20 shadow-xs transition-colors duration-150"
+              style={{ backgroundColor: activeColor.hex }}
+            />
+            <div className="flex flex-col">
+              <span className="font-display font-medium text-ink text-[11px] leading-tight">
+                {activeColor.name}
+              </span>
+              <span className="font-mono text-[9px] text-graphite">
+                RGB({activeColor.rgb})
+              </span>
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleCopy(activeColor.hex)}
+            className="px-2.5 py-1 rounded-lg border border-line/50 bg-paper hover:bg-surface font-mono text-[9px] font-semibold text-ink flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+          >
+            {copied ? (
+              <>
+                <span className="text-emerald-500 font-bold">✓</span>
+                <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+              </>
+            ) : (
+              <>
+                <span>Copy Hex</span>
+                <span className="font-bold text-oxide">{activeColor.hex}</span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -157,16 +396,23 @@ export function CommandPaletteSearchPreview() {
 
 // 5. Coordinate Crosshair Inspect
 export function CoordinateCrosshairInspectPreview() {
-  const [coords, setCoords] = React.useState({ x: 135, y: 72 });
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = React.useState({ x: 260, y: 150 });
+  const isHoveredRef = React.useRef(false);
+
   React.useEffect(() => {
     let t = 0;
     let frame: number;
     const loop = () => {
-      t += 0.04;
-      setCoords({
-        x: Math.round(135 + Math.sin(t) * 50),
-        y: Math.round(72 + Math.cos(t * 1.3) * 28),
-      });
+      if (!isHoveredRef.current) {
+        t += 0.035;
+        const w = containerRef.current?.clientWidth || 500;
+        const h = containerRef.current?.clientHeight || 300;
+        setCoords({
+          x: Math.round(w / 2 + Math.sin(t) * (w * 0.28)),
+          y: Math.round(h / 2 + Math.cos(t * 1.3) * (h * 0.24)),
+        });
+      }
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
@@ -174,32 +420,53 @@ export function CoordinateCrosshairInspectPreview() {
   }, []);
 
   return (
-    <div className="relative w-full h-full select-none overflow-hidden bg-paper flex items-center justify-center">
+    <div
+      ref={containerRef}
+      onPointerEnter={() => {
+        isHoveredRef.current = true;
+      }}
+      onPointerLeave={() => {
+        isHoveredRef.current = false;
+      }}
+      onPointerMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setCoords({
+          x: Math.round(e.clientX - rect.left),
+          y: Math.round(e.clientY - rect.top),
+        });
+      }}
+      className="relative w-full h-full min-h-[22rem] sm:min-h-[32rem] select-none overflow-hidden bg-[#0c0d12] flex items-center justify-center cursor-crosshair text-white"
+    >
       {/* Grid lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--line)/0.1)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--line)/0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
       {/* Crosshair Lines */}
       <div
-        className="absolute top-0 bottom-0 w-[1px] bg-oxide/60 pointer-events-none"
+        className="absolute top-0 bottom-0 w-[1px] bg-cyan-400/70 pointer-events-none"
         style={{ left: `${coords.x}px` }}
       />
       <div
-        className="absolute left-0 right-0 h-[1px] bg-oxide/60 pointer-events-none"
+        className="absolute left-0 right-0 h-[1px] bg-cyan-400/70 pointer-events-none"
         style={{ top: `${coords.y}px` }}
       />
 
       {/* Target Reticle */}
       <div
-        className="absolute w-7 h-7 -ml-3.5 -mt-3.5 rounded-full border border-oxide flex items-center justify-center pointer-events-none shadow-xs"
+        className="absolute w-8 h-8 -ml-4 -mt-4 rounded-full border border-cyan-400 flex items-center justify-center pointer-events-none shadow-lg"
         style={{ left: `${coords.x}px`, top: `${coords.y}px` }}
       >
-        <div className="w-1.5 h-1.5 rounded-full bg-oxide" />
+        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-cyan-400 shadow-xs animate-pulse" />
       </div>
 
       {/* Readout */}
-      <div className="absolute top-2.5 right-3 font-mono text-[9px] px-2 py-0.5 rounded bg-paper/90 border border-line/40 text-ink">
-        X: <span className="text-oxide font-bold">{coords.x}</span> Y:{" "}
-        <span className="text-oxide font-bold">{coords.y}</span>
+      <div className="absolute top-3.5 right-4 font-mono text-[10px] px-3 py-1.5 rounded-lg bg-black/80 border border-cyan-500/40 text-white shadow-lg pointer-events-none flex items-center gap-2 backdrop-blur-md">
+        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+        <span>INSPECT: X <span className="text-cyan-400 font-bold">{coords.x}</span> · Y <span className="text-cyan-400 font-bold">{coords.y}</span></span>
+      </div>
+
+      {/* Instruction */}
+      <div className="absolute bottom-3 left-4 font-mono text-[9px] uppercase tracking-widest text-white/40 pointer-events-none">
+        Move cursor over canvas to inspect coordinates
       </div>
     </div>
   );
@@ -290,7 +557,12 @@ export function MagneticTiltButtonPreview() {
 export function RadialColorWheelPickerPreview() {
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none overflow-hidden bg-paper p-3">
-      <div className="relative w-24 h-24 rounded-full border border-line/40 flex items-center justify-center shadow-md bg-gradient-to-tr from-rose-500 via-amber-400 via-emerald-400 via-cyan-400 to-indigo-500">
+      <div
+        className="relative w-24 h-24 rounded-full border border-line/40 flex items-center justify-center shadow-md"
+        style={{
+          background: "conic-gradient(from 0deg, #f43f5e, #fbbf24, #34d399, #22d3ee, #818cf8, #f43f5e)",
+        }}
+      >
         <div className="w-14 h-14 rounded-full bg-paper flex flex-col items-center justify-center shadow-inner">
           <span className="font-mono text-[9px] font-bold text-ink">360°</span>
           <span className="font-mono text-[7px] text-oxide font-bold">HSL</span>

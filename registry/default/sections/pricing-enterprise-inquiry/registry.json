@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "pricing-enterprise-inquiry",
   "type": "registry:section",
   "title": "Pricing Enterprise Inquiry",

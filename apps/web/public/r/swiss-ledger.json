@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "swiss-ledger",
   "type": "registry:theme",
   "title": "Swiss Ledger",
@@ -48,5 +48,5 @@
       "semanticPurpose": "swiss-theme-definition"
     }
   },
-  "url": "https://openui.dev/r/swiss-ledger.json"
+  "url": "https://uniquefingerprint.web.app/r/swiss-ledger.json"
 }

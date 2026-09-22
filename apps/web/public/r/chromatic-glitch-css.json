@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "chromatic-glitch-css",
   "type": "registry:component",
   "title": "CSS Chromatic Glitch",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function CSSChromaticGlitch({ text = \"CHROMATIC\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  return (\n    <div className={`relative inline-block font-mono font-black text-5xl select-none ${className}`}>\n      <span className=\"relative z-10 text-white\">{text}</span>\n      <span className=\"absolute inset-0 text-red-500\" style={{ clipPath: \"inset(30% 0 40% 0)\", transform: \"translateX(-4px)\", mixBlendMode: \"screen\", animation: \"glitchR 2s steps(2) infinite\" }}>{text}</span>\n      <span className=\"absolute inset-0 text-cyan-400\" style={{ clipPath: \"inset(60% 0 10% 0)\", transform: \"translateX(4px)\", mixBlendMode: \"screen\", animation: \"glitchC 2.2s steps(2) infinite\" }}>{text}</span>\n      <style>{`\n        @keyframes glitchR { 0%,45%,55%,100% { clip-path: inset(30% 0 40% 0); transform: translateX(-4px); } 50% { clip-path: inset(10% 0 60% 0); transform: translateX(4px); } }\n        @keyframes glitchC { 0%,40%,60%,100% { clip-path: inset(60% 0 10% 0); transform: translateX(4px); } 50% { clip-path: inset(40% 0 30% 0); transform: translateX(-4px); } }\n      `}</style>\n    </div>\n  );\n}\n",
       "contentHash": "9243bdf3ef6c92b3e3689652d20fe9884673659cca9a661911a7903b569dc547",
       "sizeBytes": 1170
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { CSSChromaticGlitch } from \"./chromatic-glitch-css\";\n\nexport default function CSSChromaticGlitchDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[400px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-2xl\">\n        <CSSChromaticGlitch className=\"w-full\" />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a034c94df5c5cb70226675d0a868e1a1506da31c814aa43173d0cb8edcf2a273",
+      "sizeBytes": 430
     }
   ],
   "tags": [

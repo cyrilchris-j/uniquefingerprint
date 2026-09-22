@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "magnetic-spring-button",
   "type": "registry:component",
   "title": "Magnetic Spring Button",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function MagneticSpringButton({ children = \"Magnetic\", onClick }: { children?: React.ReactNode; onClick?: () => void }): React.JSX.Element {\n  const [offset, setOffset] = React.useState({ x: 0, y: 0 });\n  const btnRef = React.useRef<HTMLButtonElement>(null);\n  const onMove = (e: React.MouseEvent<HTMLButtonElement>) => {\n    const r = btnRef.current!.getBoundingClientRect();\n    setOffset({ x: (e.clientX - r.left - r.width / 2) * 0.4, y: (e.clientY - r.top - r.height / 2) * 0.4 });\n  };\n  return (\n    <button ref={btnRef} onClick={onClick} onMouseMove={onMove} onMouseLeave={() => setOffset({ x: 0, y: 0 })}\n      className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase tracking-wider shadow-lg\"\n      style={{ transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`, transition: \"transform 0.25s cubic-bezier(0.16,1,0.3,1)\" }}>\n      ✦ {children}\n    </button>\n  );\n}\n",
       "contentHash": "30d2cbf8a291b6b529e753cb42f202cca24aefe9ed0fbef1e73f8e63bbf935fa",
       "sizeBytes": 950
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MagneticSpringButton } from \"./magnetic-spring-button\";\n\nexport default function MagneticSpringButtonDemo(): React.JSX.Element {\n  const handleClick = () => {\n    console.log(\"Magnetic Spring Button triggered!\");\n  };\n\n  return (\n    <div className=\"flex min-h-[280px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <MagneticSpringButton onClick={handleClick}>\n        Magnetic Spring Button\n      </MagneticSpringButton>\n    </div>\n  );\n}\n",
+      "contentHash": "c320a6d58bd08a869624d4b56e8d10966c5c2febc721128aff971811f7800c11",
+      "sizeBytes": 534
     }
   ],
   "tags": [

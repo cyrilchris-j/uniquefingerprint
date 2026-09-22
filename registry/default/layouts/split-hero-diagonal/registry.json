@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "split-hero-diagonal",
   "type": "registry:layout",
   "title": "Split Hero Diagonal",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "kinetic-editorial-hero",
   "type": "registry:component",
   "title": "Kinetic Editorial Hero",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface KineticEditorialHeroProps {\n  headline?: string;\n  subhead?: string;\n  ctaText?: string;\n}\n\n/**\n * Kinetic Editorial Hero\n */\nexport function KineticEditorialHero({\n  headline = \"Interfaces Should Have a Fingerprint\",\n  subhead = \"Next-generation runtime design ecosystem with 60FPS procedural canvas and spatial depth.\",\n  ctaText = \"Explore Catalogue\",\n}: KineticEditorialHeroProps): React.JSX.Element {\n  return (\n    <section className=\"relative w-full min-h-[500px] flex flex-col justify-center px-8 py-16 bg-paper border-b border-line overflow-hidden select-none\">\n      <div className=\"max-w-4xl mx-auto flex flex-col gap-6\">\n        <div className=\"inline-flex items-center gap-2 px-3 py-1 rounded-full border border-oxide/40 bg-oxide/10 text-oxide font-mono text-xs font-semibold w-fit\">\n          <span className=\"w-2 h-2 rounded-full bg-oxide animate-ping\" />\n          <span>OPENUI // ADVANCED</span>\n        </div>\n        <h1 className=\"font-display font-black text-4xl sm:text-6xl text-ink tracking-tight leading-none\">{headline}</h1>\n        <p className=\"font-mono text-sm sm:text-base text-graphite max-w-2xl\">{subhead}</p>\n        <div className=\"flex flex-wrap gap-4 pt-4\">\n          <button className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:bg-oxide transition-colors\">{ctaText} →</button>\n          <button className=\"px-6 py-3 rounded-xl border border-line bg-surface text-ink font-mono text-xs font-bold uppercase tracking-wider hover:border-ink transition-colors\">View Source</button>\n        </div>\n      </div>\n    </section>\n  );\n}\n",
       "contentHash": "168cce45d3205f037fcb326d0d9e645ea8ff7706c0cc09126e9220dba9c5a760",
       "sizeBytes": 1681
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { KineticEditorialHero } from \"./kinetic-editorial-hero\";\n\nexport default function KineticEditorialHeroDemo(): React.JSX.Element {\n  return (\n    <div className=\"w-full overflow-hidden rounded-2xl bg-neutral-950 border border-neutral-800\">\n      <KineticEditorialHero />\n    </div>\n  );\n}\n",
+      "contentHash": "1d4cd73937034039fdfbc51c789057c97b30bc206f569f2472fc64ac5924e3c6",
+      "sizeBytes": 328
     }
   ],
   "tags": [

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "stroke-text",
   "type": "registry:component",
   "title": "Stroke Text",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function StrokeText({ text = \"OPENUI\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [progress, setProgress] = React.useState(0);\n  React.useEffect(() => {\n    let p = 0;\n    const id = setInterval(() => { p += 2; setProgress(Math.min(p, 100)); if (p >= 100) clearInterval(id); }, 16);\n    return () => clearInterval(id);\n  }, [text]);\n  return (\n    <div className={`relative select-none ${className}`}>\n      <svg viewBox=\"0 0 400 100\" className=\"w-full\">\n        <text x=\"50%\" y=\"75\" textAnchor=\"middle\" fontFamily=\"monospace\" fontSize=\"72\" fontWeight=\"900\"\n          fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeDasharray=\"1000\" strokeDashoffset={1000 - progress * 10}\n          style={{ transition: \"stroke-dashoffset 0.05s linear\" }} className=\"text-oxide\">\n          {text}\n        </text>\n      </svg>\n    </div>\n  );\n}\n",
       "contentHash": "40d6248169648e50265d9877fa32390941e865b351e8198d025f4bc32a0593be",
       "sizeBytes": 919
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { StrokeText } from \"./stroke-text\";\n\nexport default function StrokeTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <StrokeText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "64483a81e6826c32ae5b7d8ca9fb4d329128cb25946431ba8eee3da46332678e",
+      "sizeBytes": 473
     }
   ],
   "tags": [

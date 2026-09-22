@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "code-slots-reveal",
   "type": "registry:component",
   "title": "Code Slots Reveal",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface CodeSlotsRevealProps { className?: string; length?: number; onComplete?: (code: string) => void; }\nexport function CodeSlotsReveal({ className = \"\", length = 6, onComplete }: CodeSlotsRevealProps) {\n  const [values, setValues] = useState(Array(length).fill(\"\"));\n  const inputRefs = useRef<HTMLInputElement[]>([]);\n  const handleKey = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {\n    if (e.key === \"Backspace\") { if (!values[i] && i > 0) inputRefs.current[i - 1]?.focus(); setValues((v) => { const n = [...v]; n[i] = \"\"; return n; }); return; }\n    if (!/d/.test(e.key)) return;\n    const n = [...values]; n[i] = e.key; setValues(n);\n    if (i < length - 1) inputRefs.current[i + 1]?.focus();\n    if (i === length - 1) onComplete?.(n.join(\"\"));\n  };\n  return (\n    <div className={`flex flex-col items-center gap-6 ${className}`}>\n      <p className=\"font-mono text-[9px] text-[#555] uppercase font-bold\">Enter verification code</p>\n      <div className=\"flex gap-2\">\n        {values.map((val, i) => (\n          <input key={i} ref={(el) => { if (el) inputRefs.current[i] = el; }} value={val} onKeyDown={(e) => handleKey(i, e)} readOnly maxLength={1}\n            className=\"w-10 h-12 rounded-xl text-center font-mono font-bold text-base bg-[#0d0f14] outline-none caret-transparent cursor-default transition-all\"\n            style={{ border: `1.5px solid ${val ? \"#ba442c\" : \"#1e1e1e\"}`, color: \"white\", transform: val ? \"scale(1.05)\" : \"none\", boxShadow: val ? \"0 0 8px rgba(186,68,44,0.3)\" : \"none\" }} />\n        ))}\n      </div>\n      <button onClick={() => { setValues(Array(length).fill(\"\")); inputRefs.current[0]?.focus(); }} className=\"font-mono text-[9px] text-[#333] hover:text-[#ba442c] transition-colors\">Clear</button>\n    </div>\n  );\n}",
       "contentHash": "14bfdac52a5087a744046fa4e546d2db2389c8f7cb008efc68feff27e3fdb81f",
       "sizeBytes": 1833
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { CodeSlotsReveal } from \"./code-slots-reveal\";\n\nexport default function CodeSlotsRevealDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <CodeSlotsReveal />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c23a92616799219b609ceb2a4e59e89f0a3697cdea687a01b5820ff21439d115",
+      "sizeBytes": 398
     }
   ],
   "tags": [

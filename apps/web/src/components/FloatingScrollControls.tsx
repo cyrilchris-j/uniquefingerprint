@@ -102,7 +102,7 @@ export function FloatingScrollControls(): React.JSX.Element | null {
   return (
     <aside
       aria-label="Page scroll navigation"
-      className="fixed right-3.5 sm:right-6 bottom-6 sm:bottom-8 z-40 pointer-events-auto select-none transition-all duration-300 animate-in fade-in zoom-in-95"
+      className="fixed right-3.5 sm:right-6 bottom-20 sm:bottom-24 z-40 pointer-events-auto select-none transition-all duration-300 animate-in fade-in zoom-in-95"
     >
       <div className="flex flex-col items-center gap-1 p-1 rounded-full bg-paper/85 dark:bg-[#181816]/90 backdrop-blur-md border border-line/40 dark:border-line/30 shadow-md hover:shadow-xl transition-all duration-200">
         {/* Scroll to Top */}

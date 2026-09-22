@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "sticky-tab-bar-layout",
   "type": "registry:layout",
   "title": "Sticky Tab Bar Layout",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "dropdown-filter-menu",
   "type": "registry:component",
   "title": "Dropdown Filter Menu",

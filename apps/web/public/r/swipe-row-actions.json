@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "swipe-row-actions",
   "type": "registry:component",
   "title": "Swipe Row Actions",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nconst ROWS = [\"Design Token Review\", \"Motion Spec Draft\", \"Canvas Engine v3\", \"Registry Deploy\"];\nexport interface SwipeRowActionsProps { className?: string; }\nexport function SwipeRowActions({ className = \"\" }: SwipeRowActionsProps) {\n  const [offsets, setOffsets] = useState<Record<number, number>>({});\n  const starts = useRef<Record<number, number>>({});\n  const setOffset = (i: number, v: number) => setOffsets((o) => ({ ...o, [i]: v }));\n  return (\n    <div className={`flex flex-col ${className}`}>\n      {ROWS.map((row, i) => (\n        <div key={row} className=\"relative overflow-hidden border-b border-[#1e1e1e]\">\n          <div className=\"absolute right-0 top-0 bottom-0 flex items-center\"><button className=\"h-full px-4 bg-[#1a3020] font-mono text-[9px] text-[#2a6040]\">Archive</button><button className=\"h-full px-4 bg-[#3a1010] font-mono text-[9px] text-[#ba442c]\">Delete</button></div>\n          <div className=\"relative bg-[#0d0f14] px-4 py-3 flex items-center justify-between\"\n            style={{ transform: `translateX(${offsets[i] ?? 0}px)`, transition: Math.abs(offsets[i] ?? 0) < 2 ? \"transform 0.3s ease\" : \"none\", cursor: \"grab\" }}\n            onPointerDown={(e) => { starts.current[i] = e.clientX; (e.target as HTMLElement).setPointerCapture(e.pointerId); }}\n            onPointerMove={(e) => { if (starts.current[i] !== undefined) setOffset(i, Math.min(0, e.clientX - starts.current[i])); }}\n            onPointerUp={() => { setOffset(i, (offsets[i] ?? 0) < -40 ? -80 : 0); starts.current[i] = undefined as any; }}>\n            <span className=\"font-mono text-xs text-[#888]\">{row}</span>\n            <span className=\"font-mono text-[9px] text-[#333]\">← swipe</span>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "3302f7b5a1bc19331f473a4f50ceeb6be956eb1a7ad40a3c61c8d09afc7a8554",
       "sizeBytes": 1809
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SwipeRowActions } from \"./swipe-row-actions\";\n\nexport default function SwipeRowActionsDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <SwipeRowActions />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "bb6fc8c5dd8689432d9def69f8c8621a25bca0fb8444074dee498a32cbedc4a8",
+      "sizeBytes": 398
     }
   ],
   "tags": [

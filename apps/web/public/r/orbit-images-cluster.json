@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "orbit-images-cluster",
   "type": "registry:component",
   "title": "Orbit Images Cluster",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nconst ITEMS = [\"🌙\", \"⭐\", \"🪐\", \"☄️\", \"🌟\"];\nexport function OrbitImagesCluster({ className = \"relative w-48 h-48 flex items-center justify-center\" }: { className?: string }): React.JSX.Element {\n  return (\n    <div className={className}>\n      <div className=\"w-12 h-12 rounded-full bg-oxide/20 border border-oxide flex items-center justify-center font-mono text-xl z-10\">◈</div>\n      {ITEMS.map((item, i) => {\n        const angle = (i / ITEMS.length) * 360;\n        return (\n          <div key={i} className=\"absolute\" style={{ width: \"100%\", height: \"100%\", animation: `orbit ${3+i*0.5}s linear infinite`, animationDelay: `-${i * 0.8}s` }}>\n            <div className=\"absolute text-xl\" style={{ top: \"5%\", left: \"50%\", transform: \"translateX(-50%)\" }}>{item}</div>\n          </div>\n        );\n      })}\n      <style>{`@keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>\n    </div>\n  );\n}\n",
       "contentHash": "b457b8b6d370eb4ea1b6768e73f4d17d3523bb0121084817f54a0d3cc343f464",
       "sizeBytes": 987
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { OrbitImagesCluster } from \"./orbit-images-cluster\";\n\nexport default function OrbitImagesClusterDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <OrbitImagesCluster />\n    </div>\n  );\n}\n",
+      "contentHash": "5f013de64c56d3433aa7ceb77dd313f55e97e5a95478fd99b03d6e452252cc70",
+      "sizeBytes": 355
     }
   ],
   "tags": [

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "grid-pattern-mask",
   "type": "registry:component",
   "title": "Masked Radial Grid Background",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface MaskedRadialGridBackgroundProps {\n  className?: string;\n}\n\n/**\n * Masked Radial Grid Background\n */\nexport function MaskedRadialGridBackground({ className = \"\" }: MaskedRadialGridBackgroundProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">Masked Radial Grid Background</h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "25298edf469927796fdaff227be2166062868a44800c5b88a5f7eab8f9599d25",
       "sizeBytes": 884
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MaskedRadialGridBackground } from \"./grid-pattern-mask\";\n\nexport default function MaskedRadialGridBackgroundDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[400px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-2xl\">\n        <MaskedRadialGridBackground className=\"w-full\" />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "7c55ba7c3ff6ef5b671179b2167ebe95991afe63c750c66ff49d8b080f7e77b0",
+      "sizeBytes": 451
     }
   ],
   "tags": [

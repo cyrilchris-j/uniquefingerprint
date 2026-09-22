@@ -176,7 +176,7 @@ function PWAInstallBanner({
   return (
     <aside
       aria-label="Download OpenUI App"
-      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300 sm:bottom-6 sm:left-auto sm:right-6"
+      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300 sm:bottom-20 sm:left-auto sm:right-6"
     >
       <div className="relative flex flex-col gap-3 rounded-2xl border border-line bg-paper/95 p-4 shadow-2xl backdrop-blur-md dark:border-line/70 dark:bg-paper/90">
         <button
@@ -194,7 +194,7 @@ function PWAInstallBanner({
             alt="UniqueFingerprint"
             width={48}
             height={48}
-            className="h-12 w-12 shrink-0 rounded-xl object-contain shadow-md ring-1 ring-line/50"
+            className="h-12 w-12 shrink-0 object-contain mix-blend-screen"
           />
           <div className="min-w-0">
             <h2 className="font-display text-step-0 font-medium tracking-tight text-ink">
@@ -259,7 +259,7 @@ function PWAInstallModal({
               alt="UniqueFingerprint"
               width={40}
               height={40}
-              className="h-10 w-10 rounded-xl object-contain shadow-sm ring-1 ring-line/50"
+              className="h-10 w-10 object-contain mix-blend-screen"
             />
             <div>
               <DialogTitle>Download & Install UniqueFingerprint</DialogTitle>

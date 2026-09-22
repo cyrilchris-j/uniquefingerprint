@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "text-loop",
   "type": "registry:component",
   "title": "Text Loop",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function TextLoop({ items = [\"Design Systems\", \"Motion Language\", \"Spatial Depth\", \"Runtime UI\"], speedMs = 2200, className = \"\" }: { items?: string[]; speedMs?: number; className?: string }): React.JSX.Element {\n  const [index, setIndex] = React.useState(0);\n  const [visible, setVisible] = React.useState(true);\n  React.useEffect(() => {\n    const id = setInterval(() => {\n      setVisible(false);\n      setTimeout(() => { setIndex(i => (i + 1) % items.length); setVisible(true); }, 300);\n    }, speedMs);\n    return () => clearInterval(id);\n  }, [items.length, speedMs]);\n  return (\n    <div className={`overflow-hidden ${className}`}>\n      <span className=\"font-display font-black text-3xl text-ink\" style={{ display: \"inline-block\", transition: \"opacity 0.3s, transform 0.3s\", opacity: visible ? 1 : 0, transform: visible ? \"translateY(0)\" : \"translateY(8px)\" }}>\n        {items[index]}\n      </span>\n    </div>\n  );\n}\n",
       "contentHash": "2356d78ed7c6588717b0827dee6a58c1e51497149b959586b21d44fcf3febe97",
       "sizeBytes": 965
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { TextLoop } from \"./text-loop\";\n\nexport default function TextLoopDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <TextLoop\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "171e47453bf78670bac1975e248fe0914ffcaf760f6d7b1c8e5fead74aa59363",
+      "sizeBytes": 465
     }
   ],
   "tags": [

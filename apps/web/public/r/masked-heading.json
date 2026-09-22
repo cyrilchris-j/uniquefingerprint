@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "masked-heading",
   "type": "registry:component",
   "title": "Masked Heading",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function MaskedHeading({ text = \"The Future of Interfaces\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [x, setX] = React.useState(0);\n  React.useEffect(() => {\n    const id = setInterval(() => setX(p => (p + 0.4) % 200), 16);\n    return () => clearInterval(id);\n  }, []);\n  return (\n    <div className={`relative overflow-hidden select-none ${className}`} style={{ WebkitBackgroundClip: \"text\", WebkitTextFillColor: \"transparent\", backgroundClip: \"text\", background: `linear-gradient(90deg, #1a1a2e ${x - 20}%, #ba442c ${x}%, #f59e0b ${x + 15}%, #38bdf8 ${x + 30}%, #1a1a2e ${x + 50}%)`, backgroundSize: \"200% 100%\", display: \"inline-block\" }}>\n      <span className=\"font-display font-black text-4xl tracking-tight\">{text}</span>\n    </div>\n  );\n}\n",
       "contentHash": "954d15f99b4a711108938f8ae762b785b831d8caee488778b890931db7cb8014",
       "sizeBytes": 832
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MaskedHeading } from \"./masked-heading\";\n\nexport default function MaskedHeadingDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <MaskedHeading\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "af284070d9dc249c5842b145a398deee34e85365ab2e84b51776aaac00f899a6",
+      "sizeBytes": 485
     }
   ],
   "tags": [

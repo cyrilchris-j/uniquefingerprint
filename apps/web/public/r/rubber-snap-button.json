@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "rubber-snap-button",
   "type": "registry:component",
   "title": "Rubber Snap Button",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function RubberSnapButton({ children = \"Snap!\", onClick }: { children?: React.ReactNode; onClick?: () => void }): React.JSX.Element {\n  const [scale, setScale] = React.useState({ x: 1, y: 1 });\n  const snap = () => {\n    setScale({ x: 1.35, y: 0.7 });\n    setTimeout(() => setScale({ x: 0.85, y: 1.2 }), 80);\n    setTimeout(() => setScale({ x: 1.1, y: 0.92 }), 160);\n    setTimeout(() => setScale({ x: 1, y: 1 }), 260);\n    onClick?.();\n  };\n  return (\n    <button onClick={snap} className=\"px-6 py-3 rounded-xl bg-oxide text-paper font-mono text-xs font-bold uppercase tracking-wider shadow-lg select-none\"\n      style={{ transform: `scaleX(${scale.x}) scaleY(${scale.y})`, transition: \"transform 0.08s ease\" }}>\n      {children}\n    </button>\n  );\n}\n",
       "contentHash": "9036c2ccebb8415076343073d1ca99462a0a04c6b3bebaa43491d4282602d187",
       "sizeBytes": 792
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RubberSnapButton } from \"./rubber-snap-button\";\n\nexport default function RubberSnapButtonDemo(): React.JSX.Element {\n  const handleClick = () => {\n    console.log(\"Rubber Snap Button triggered!\");\n  };\n\n  return (\n    <div className=\"flex min-h-[280px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <RubberSnapButton onClick={handleClick}>\n        Rubber Snap Button\n      </RubberSnapButton>\n    </div>\n  );\n}\n",
+      "contentHash": "8d841c93e95dc2f0c48e65038e34dda2fa6de4e4d58506ec8b291675ff962f67",
+      "sizeBytes": 506
     }
   ],
   "tags": [

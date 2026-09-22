@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "radar-sweep-tactical",
   "type": "registry:component",
   "title": "Radar Sweep Tactical",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function RadarSweepTactical({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    const cx = w / 2, cy = h / 2;\n    const R = Math.min(w, h) * 0.42;\n    let angle = 0;\n    const blips = Array.from({ length: 8 }, () => ({ r: Math.random() * R * 0.9, a: Math.random() * Math.PI * 2, life: 0 }));\n    let animId: number;\n    const draw = () => {\n      ctx.fillStyle = \"rgba(0, 10, 5, 0.3)\";\n      ctx.fillRect(0, 0, w, h);\n      ctx.strokeStyle = \"rgba(0, 255, 100, 0.15)\";\n      for (let i = 1; i <= 4; i++) { ctx.beginPath(); ctx.arc(cx, cy, R * i / 4, 0, Math.PI * 2); ctx.stroke(); }\n      ctx.beginPath(); ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy); ctx.stroke();\n      ctx.beginPath(); ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R); ctx.stroke();\n      const grad = ctx.createConicalGradient ? undefined : null;\n      ctx.fillStyle = \"rgba(0, 255, 80, 0.04)\";\n      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, angle - 0.6, angle); ctx.closePath(); ctx.fill();\n      ctx.strokeStyle = \"rgba(0, 255, 80, 0.9)\";\n      ctx.lineWidth = 1.5;\n      ctx.beginPath(); ctx.moveTo(cx, cy);\n      ctx.lineTo(cx + Math.cos(angle) * R, cy + Math.sin(angle) * R);\n      ctx.stroke();\n      for (const b of blips) {\n        const angleDiff = ((angle - b.a) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);\n        if (angleDiff < 0.15) b.life = 1;\n        b.life *= 0.985;\n        if (b.life > 0.05) {\n          const bx = cx + Math.cos(b.a) * b.r, by = cy + Math.sin(b.a) * b.r;\n          ctx.fillStyle = `rgba(0, 255, 80, ${b.life})`;\n          ctx.beginPath(); ctx.arc(bx, by, 3, 0, Math.PI * 2); ctx.fill();\n        }\n      }\n      angle = (angle + 0.025) % (Math.PI * 2);\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => cancelAnimationFrame(animId);\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
       "contentHash": "8729930e4aba2397631bc7de5f6a0e7d520a88a699ae18f2179db34c6e9b313b",
       "sizeBytes": 2296
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RadarSweepTactical } from \"./radar-sweep-tactical\";\n\nexport default function RadarSweepTacticalDemo(): React.JSX.Element {\n  return (\n    <div className=\"relative flex min-h-[480px] w-full overflow-hidden rounded-2xl bg-neutral-950 border border-neutral-800\">\n      {/* Background canvas layer */}\n      <RadarSweepTactical className=\"absolute inset-0 h-full w-full\" />\n\n      {/* Foreground content layer */}\n      <div className=\"relative z-10 flex h-full w-full flex-col items-center justify-center p-8 text-center my-auto\">\n        <span className=\"rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-mono font-medium text-neutral-300 backdrop-blur-md\">\n          Ambient Canvas Engine\n        </span>\n        <h2 className=\"mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-white\">\n          Radar Sweep Tactical\n        </h2>\n        <p className=\"mt-3 max-w-md text-sm sm:text-base text-neutral-400\">\n          Hardware-accelerated ambient visuals that react seamlessly to viewport and pointer interactions.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "ee3074fa9ab6830612a44dfd58b92f941f26d5f3d413680ecb1fee4645a88e02",
+      "sizeBytes": 1127
     }
   ],
   "tags": [

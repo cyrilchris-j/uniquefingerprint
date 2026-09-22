@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "feed-stream-layout",
   "type": "registry:layout",
   "title": "Feed Stream Layout",
@@ -63,6 +63,6 @@
       "semanticPurpose": "chronological-stream-shell"
     }
   },
-  "url": "https://openui.dev/r/feed-stream-layout.json",
+  "url": "https://uniquefingerprint.web.app/r/feed-stream-layout.json",
   "designRules": "# Design System\n\nGenre: Minimal\nMacrostructure: Split\nDensity: Medium\nShape: Rounded\nMotion: None\nTypography: Grotesk\nColor: High Contrast\n\n## Rules\n\n- Social Stream Timeline: the interaction model is part of the design, not an add-on.\n- Reduced motion replaces animation with a state change; nothing is hidden behind motion.\n- The component composes through `cn` and never hardcodes colours.\n\n## Avoid\n\n- Reskinning this resource and republishing it under a new name.\n- Adding shadows or radii that contradict its shape language.\n"
 }

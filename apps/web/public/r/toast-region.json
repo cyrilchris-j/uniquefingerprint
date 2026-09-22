@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "toast-region",
   "type": "registry:component",
   "title": "Toast Region",
@@ -61,6 +61,6 @@
       "semanticPurpose": "action-notification"
     }
   },
-  "url": "https://openui.dev/r/toast-region.json",
+  "url": "https://uniquefingerprint.web.app/r/toast-region.json",
   "designRules": "# Toast Region\n\nGenre: Technical\nMacrostructure: Stack\nDensity: Compact\nShape: Sharp\nMotion: Subtle\nTypography: Monospace\nColor: Accent Only\n\n## Motion\n\nFast: 180ms\nNormal: 240ms\nSlow: 320ms\n\n## Rules\n\n- Errors are assertive and persist longer; everything else is polite.\n- Toasts never take focus and never block the underlying interface.\n- One region, mounted for the lifetime of the app.\n- The border colour carries the tone; never fill the surface with a saturated tint.\n\n## Avoid\n\n- Stacking more than three toasts at once.\n- Auto-dismissing an error the user must act on.\n- Toasts for information the user can already see.\n"
 }

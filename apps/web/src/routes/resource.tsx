@@ -79,7 +79,7 @@ interface InstallationSectionProps {
 }
 
 function InstallationSection({ entryName, onViewCode }: InstallationSectionProps): React.JSX.Element {
-  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("npm");
   const [copied, setCopied] = React.useState(false);
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -156,7 +156,7 @@ function InstallationSection({ entryName, onViewCode }: InstallationSectionProps
 
             {/* Package Manager selector */}
             <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
-              {(["pnpm", "npm"] as const).map((pm) => (
+              {(["npm", "pnpm"] as const).map((pm) => (
                 <button
                   key={pm}
                   type="button"
@@ -733,7 +733,7 @@ export default function ResourcePage(): React.JSX.Element {
         <section className="shell mt-16 sm:mt-20">
           <div className="flex items-baseline justify-between gap-4 border-t border-line pt-5">
             <p className="eyebrow">Composes with</p>
-            <p className="eyebrow">Shared tags and category</p>
+            <p className="eyebrow">Related {entry?.category ?? "items"}</p>
           </div>
           <div className="catalogue-grid mt-8">
             {related.map((candidate, position) => (

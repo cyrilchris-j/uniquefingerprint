@@ -36,7 +36,12 @@ import { cn } from "@openui/utils";
 import { CodeBlock } from "../components/CodeBlock.js";
 import { DnaStrip } from "../components/DnaStrip.js";
 import { MetaRow } from "../components/SectionHeader.js";
-import { getAdvancedItemBySlug, getAdvancedItemsByCategory } from "../advanced/index.js";
+import {
+  getAdvancedItemBySlug,
+  getAdvancedItemsByCategory,
+  generateAdvancedDemoCode,
+  CN_HELPER_CODE,
+} from "../advanced/index.js";
 import { AdvancedPreview } from "../advanced/renderers/AdvancedPreview.js";
 import { useDocumentTitle, useMetaDescription } from "../hooks/use-document-title.js";
 import { openSignInDialog, useAuth } from "../lib/auth.js";
@@ -50,7 +55,7 @@ interface AdvancedInstallSectionProps {
 }
 
 function AdvancedInstallSection({ slug, onViewCode }: AdvancedInstallSectionProps): React.JSX.Element {
-  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("pnpm");
+  const [pkgManager, setPkgManager] = React.useState<"pnpm" | "npm">("npm");
   const [copied, setCopied] = React.useState(false);
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -123,7 +128,7 @@ function AdvancedInstallSection({ slug, onViewCode }: AdvancedInstallSectionProp
 
             {/* Package Manager selector */}
             <div className="flex items-center rounded-lg bg-white/[0.06] p-0.5 border border-white/5">
-              {(["pnpm", "npm"] as const).map((pm) => (
+              {(["npm", "pnpm"] as const).map((pm) => (
                 <button
                   key={pm}
                   type="button"
@@ -660,11 +665,25 @@ export default function AdvancedDetailPage(): React.JSX.Element {
 
           {/* Source Code ---------------------------------------------------- */}
           <TabsContent value="code" className="py-6 sm:py-10">
-            <div className="mx-auto max-w-4xl">
+            <div className="mx-auto max-w-4xl flex flex-col gap-6">
               <CodeBlock
                 caption={`openui/${item.category}/${item.slug}.tsx`}
                 language="tsx"
                 code={item.sourceCode}
+                showLineNumbers
+                maxLines={40}
+              />
+              <CodeBlock
+                caption="demo.tsx"
+                language="tsx"
+                code={generateAdvancedDemoCode(item)}
+                showLineNumbers
+                maxLines={40}
+              />
+              <CodeBlock
+                caption="lib/cn.ts"
+                language="tsx"
+                code={CN_HELPER_CODE}
                 showLineNumbers
                 maxLines={40}
               />

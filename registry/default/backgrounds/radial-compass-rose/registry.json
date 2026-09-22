@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "radial-compass-rose",
   "type": "registry:background",
   "title": "Radial Compass Rose",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "ripple-distortion-lens",
   "type": "registry:component",
   "title": "Ripple Distortion Lens",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function RippleDistortionLens({ className = \"w-full h-48 relative overflow-hidden bg-[#0a0d14] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [ripples, setRipples] = React.useState<{ x: number; y: number; id: number }[]>([]);\n  const idRef = React.useRef(0);\n  const addRipple = (e: React.MouseEvent<HTMLDivElement>) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    const rp = { x: e.clientX - r.left, y: e.clientY - r.top, id: idRef.current++ };\n    setRipples(rs => [...rs, rp]);\n    setTimeout(() => setRipples(rs => rs.filter(r => r.id !== rp.id)), 800);\n  };\n  return (\n    <div className={className} onClick={addRipple}>\n      <span className=\"absolute inset-0 flex items-center justify-center font-mono text-xs text-white/30\">Click to ripple</span>\n      {ripples.map(rp => (\n        <div key={rp.id} className=\"absolute rounded-full border border-oxide/60 pointer-events-none\"\n          style={{ left: rp.x, top: rp.y, transform: \"translate(-50%,-50%)\", animation: \"rippleOut 0.8s ease-out forwards\" }} />\n      ))}\n      <style>{`@keyframes rippleOut { from { width:0;height:0;opacity:1; } to { width:200px;height:200px;opacity:0; } }`}</style>\n    </div>\n  );\n}\n",
       "contentHash": "4ef019ba288c85e058b2df88a7741b28e943a45fbbc271f22a37f222618f25b8",
       "sizeBytes": 1252
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RippleDistortionLens } from \"./ripple-distortion-lens\";\n\nexport default function RippleDistortionLensDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <RippleDistortionLens />\n    </div>\n  );\n}\n",
+      "contentHash": "87c9c8bd8dff2183d756d40dd2391f5f1f26858727f0581d3f6bfc07b7097706",
+      "sizeBytes": 363
     }
   ],
   "tags": [

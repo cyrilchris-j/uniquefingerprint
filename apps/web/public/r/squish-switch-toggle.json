@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "squish-switch-toggle",
   "type": "registry:component",
   "title": "Squish Switch Toggle",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface SquishSwitchToggleProps { className?: string; label?: string; defaultOn?: boolean; onChange?: (on: boolean) => void; }\nexport function SquishSwitchToggle({ className = \"\", label = \"Dark Mode\", defaultOn = false, onChange }: SquishSwitchToggleProps) {\n  const [on, setOn] = useState(defaultOn); const [pressed, setPressed] = useState(false);\n  const toggle = () => { setPressed(true); setTimeout(() => { setOn((o) => { const next = !o; onChange?.(next); return next; }); setPressed(false); }, 150); };\n  return (\n    <div className={`flex items-center gap-4 ${className}`}>\n      <button onClick={toggle} className=\"relative focus:outline-none\"\n        style={{ width: 52, height: 28, borderRadius: 14, background: on ? \"#ba442c\" : \"#1e1e1e\", border: `1.5px solid ${on ? \"#ba442c\" : \"#2a2a2a\"}`, transform: pressed ? \"scaleX(1.08) scaleY(0.9)\" : \"scale(1)\", transition: \"all 0.3s cubic-bezier(0.16,1,0.3,1)\" }}>\n        <div className=\"absolute top-1 rounded-full bg-white shadow\" style={{ left: on ? \"calc(100% - 22px)\" : 4, width: 18, height: 18, transition: \"left 0.35s cubic-bezier(0.16,1,0.3,1)\" }} />\n      </button>\n      <span className=\"font-mono text-xs\" style={{ color: on ? \"#ba442c\" : \"#555\", transition: \"color 0.3s\" }}>{label}</span>\n    </div>\n  );\n}",
       "contentHash": "cf67a19363bb75933e7a4f31400404abd4e3175ec70acdff6f0cd3174d7ce893",
       "sizeBytes": 1330
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SquishSwitchToggle } from \"./squish-switch-toggle\";\n\nexport default function SquishSwitchToggleDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <SquishSwitchToggle />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "df15269cd02aa85b3c3a59c27f9b757f45e0080b912227723429ed9d60b3f01b",
+      "sizeBytes": 410
     }
   ],
   "tags": [

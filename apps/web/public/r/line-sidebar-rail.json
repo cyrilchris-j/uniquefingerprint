@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "line-sidebar-rail",
   "type": "registry:component",
   "title": "Line Sidebar Rail",
@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function LineSidebarRail({ className = \"\" }: { className?: string }) {\n  const items = [\n    { icon: \"🏠\", label: \"Home\" }, { icon: \"📊\", label: \"Analytics\" }, { icon: \"🛒\", label: \"Store\" },\n    { icon: \"💬\", label: \"Messages\" }, { icon: \"⚙️\", label: \"Settings\" },\n  ];\n  const [active, setActive] = useState(0);\n  return (\n    <div className={`flex gap-4 ${className}`}>\n      <nav style={{ width: 56, display: \"flex\", flexDirection: \"column\", gap: 4, padding: 8, background: \"rgba(255,255,255,0.03)\", borderRadius: 16, border: \"1px solid rgba(255,255,255,0.08)\", position: \"relative\" }}>\n        <div style={{ position: \"absolute\", left: 0, top: `${active * 52 + 8 + 8}px`, width: 3, height: 36, background: \"#8b5cf6\", borderRadius: \"0 3px 3px 0\", transition: \"top 0.3s cubic-bezier(0.34,1.56,0.64,1)\" }} />\n        {items.map((item, i) => (\n          <button key={i} onClick={() => setActive(i)}\n            title={item.label}\n            style={{ width: 40, height: 40, borderRadius: 10, border: \"none\", background: i === active ? \"rgba(139,92,246,0.2)\" : \"transparent\", cursor: \"pointer\", display: \"flex\", alignItems: \"center\", justifyContent: \"center\", fontSize: 18, transition: \"background 0.2s\" }}>\n            {item.icon}\n          </button>\n        ))}\n      </nav>\n      <div style={{ flex: 1, padding: 16, background: \"rgba(255,255,255,0.02)\", borderRadius: 12, border: \"1px solid rgba(255,255,255,0.08)\", display: \"flex\", alignItems: \"center\", justifyContent: \"center\" }}>\n        <span style={{ color: \"rgba(255,255,255,0.5)\", fontSize: 14 }}>{items[active].label} Panel</span>\n      </div>\n    </div>\n  );\n}",
       "contentHash": "cfd1da4c331e68cefcb88fa850d38aa7f2431138bf9b244829c21de5f5104ee6",
       "sizeBytes": 1684
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { LineSidebarRail } from \"./line-sidebar-rail\";\n\nexport default function LineSidebarRailDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <LineSidebarRail />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a84bec01225b22e860834c23b9e4257edd1dc1c184655d66478ed590cec5408d",
+      "sizeBytes": 398
     }
   ],
   "tags": [

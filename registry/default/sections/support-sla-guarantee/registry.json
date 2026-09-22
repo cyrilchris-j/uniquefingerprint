@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "support-sla-guarantee",
   "type": "registry:section",
   "title": "Support SLA Guarantee",

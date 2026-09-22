@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "electric-border-trace",
   "type": "registry:component",
   "title": "Electric Border Trace",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface ElectricBorderTraceProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Electric Border Trace\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function ElectricBorderTrace({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: ElectricBorderTraceProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Electric Border Trace\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "d8b455dd977722eecf822c80a1a8da25c418f4d619b2d63de45ea4ac0c5c07e4",
       "sizeBytes": 1442
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { ElectricBorderTrace } from \"./electric-border-trace\";\n\nexport default function ElectricBorderTraceDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <ElectricBorderTrace />\n    </div>\n  );\n}\n",
+      "contentHash": "ebc910fd8212f4f0e6f35f723cd515493393eb079a779d4bbf924be8bba68c15",
+      "sizeBytes": 359
     }
   ],
   "tags": [

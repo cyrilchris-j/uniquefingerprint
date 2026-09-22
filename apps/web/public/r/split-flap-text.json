@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "split-flap-text",
   "type": "registry:component",
   "title": "Split Flap Text",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function SplitFlapText({ text = \"OPENUI\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !#\";\n  const [display, setDisplay] = React.useState(() => text.split(\"\").map(() => \" \"));\n  React.useEffect(() => {\n    const intervals = text.split(\"\").map((target, i) =>\n      setTimeout(() => {\n        let step = 0;\n        const id = setInterval(() => {\n          setDisplay(d => { const n = [...d]; n[i] = step < chars.length - 1 ? chars[step] : target; return n; });\n          if (step++ >= chars.indexOf(target.toUpperCase())) clearInterval(id);\n        }, 40);\n      }, i * 120)\n    );\n    return () => intervals.forEach(clearTimeout);\n  }, [text]);\n  return (\n    <div className={`flex gap-1 ${className}`}>\n      {display.map((c, i) => (\n        <div key={i} className=\"w-10 h-14 bg-zinc-900 border border-zinc-700 rounded-md flex items-center justify-center font-mono text-xl font-bold text-amber-400 select-none shadow-inner\">\n          {c}\n        </div>\n      ))}\n    </div>\n  );\n}\n",
       "contentHash": "251e712b1aa688d1e6d59d77b8152674e820fa82d5a77709595f23c34ff182ec",
       "sizeBytes": 1110
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SplitFlapText } from \"./split-flap-text\";\n\nexport default function SplitFlapTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <SplitFlapText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "dce74fadf06619e1c599b640b83c6ee198becb86a360c54bba398612dbc1c161",
+      "sizeBytes": 486
     }
   ],
   "tags": [

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "interactive-dock-magnify",
   "type": "registry:component",
   "title": "Interactive Dock Magnify",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst DOCK = [\"⌘\", \"◈\", \"▦\", \"⨀\", \"〰\", \"✦\", \"T\"];\nexport interface InteractiveDockMagnifyProps { className?: string; }\nexport function InteractiveDockMagnify({ className = \"\" }: InteractiveDockMagnifyProps) {\n  const [hovered, setHovered] = useState<number | null>(null);\n  const getScale = (i: number) => hovered === null ? 1 : Math.max(1, 1.8 - Math.abs(i - hovered) * 0.4);\n  return (\n    <div className={`flex items-end justify-center gap-2 px-4 py-3 rounded-2xl ${className}`}\n      style={{ background: \"rgba(13,15,20,0.8)\", backdropFilter: \"blur(16px)\", border: \"1px solid rgba(255,255,255,0.06)\" }}>\n      {DOCK.map((icon, i) => (\n        <button key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}\n          style={{ transform: `scale(${getScale(i)})`, transformOrigin: \"bottom center\", transition: \"transform 0.2s cubic-bezier(0.16,1,0.3,1)\" }}\n          className=\"w-10 h-10 rounded-xl bg-[#1a1a2a] border border-[#2a2a2a] flex items-center justify-center font-mono text-sm text-[#888] hover:text-[#ba442c] hover:border-[#ba442c] transition-colors\">\n          {icon}\n        </button>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "29c5cefb3c29cd5b8f51776a19a63d2180125d675034159c85c071138624ff8c",
       "sizeBytes": 1212
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { InteractiveDockMagnify } from \"./interactive-dock-magnify\";\n\nexport default function InteractiveDockMagnifyDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <InteractiveDockMagnify />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "9f3171118e552e0c7a194260c05dc035a2c761bd06782feb4472e3e5051b3f78",
+      "sizeBytes": 426
     }
   ],
   "tags": [

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "echo-text",
   "type": "registry:component",
   "title": "Echo Text",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function EchoText({ text = \"ECHO\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const echoes = 4;\n  return (\n    <div className={`relative select-none font-display font-black text-5xl ${className}`}>\n      {Array.from({ length: echoes }, (_, i) => (\n        <span key={i} className=\"absolute inset-0\" style={{ opacity: 0.15 - i * 0.03, transform: `translate(${(i + 1) * 8}px, 0)`, filter: `blur(${i * 1.5}px)`, color: \"#ba442c\", animationDelay: `${i * 0.05}s` }}>\n          {text}\n        </span>\n      ))}\n      <span className=\"relative text-ink\">{text}</span>\n    </div>\n  );\n}\n",
       "contentHash": "ffa8a0ba91b1fdef96e1adbf8a9b46e89807f095b6c301de6a25041a68f49eee",
       "sizeBytes": 656
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { EchoText } from \"./echo-text\";\n\nexport default function EchoTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <EchoText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "9452fc3697a4a444cb3a03c5aebd2ea04f7222c6d43af92de8e95f4828c5436e",
+      "sizeBytes": 465
     }
   ],
   "tags": [

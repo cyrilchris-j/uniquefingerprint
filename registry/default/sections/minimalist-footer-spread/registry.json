@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "../../../../schema/registry-item.json",
   "name": "minimalist-footer-spread",
   "type": "registry:section",
   "title": "Minimalist Footer Spread",

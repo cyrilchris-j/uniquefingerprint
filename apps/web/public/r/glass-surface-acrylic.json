@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "glass-surface-acrylic",
   "type": "registry:component",
   "title": "Glass Surface Acrylic",
@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function GlassSurfaceAcrylic({ className = \"\" }: { className?: string }) {\n  const [blur, setBlur] = useState(20);\n  const [opacity, setOpacity] = useState(0.08);\n  return (\n    <div className={`relative flex flex-col items-center justify-center gap-6 ${className}`}\n      style={{ width: \"100%\", height: 300, background: \"linear-gradient(135deg,#667eea,#764ba2,#f093fb)\", borderRadius: 20, overflow: \"hidden\" }}>\n      <div style={{ position: \"absolute\", inset: 0, backgroundImage: \"url(\\\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.1'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E\\\")\" }} />\n      <div style={{ position: \"relative\", padding: \"24px 36px\", borderRadius: 20, background: `rgba(255,255,255,${opacity})`, backdropFilter: `blur(${blur}px)`, border: \"1px solid rgba(255,255,255,0.3)\", boxShadow: \"inset 0 1px 0 rgba(255,255,255,0.4), 0 20px 60px rgba(0,0,0,0.2)\", textAlign: \"center\", minWidth: 200 }}>\n        <p style={{ color: \"#fff\", fontWeight: 700, fontSize: 18, margin: \"0 0 4px\" }}>Acrylic Glass</p>\n        <p style={{ color: \"rgba(255,255,255,0.7)\", fontSize: 13, margin: 0 }}>backdrop-filter blur demo</p>\n      </div>\n      <div style={{ display: \"flex\", gap: 16, alignItems: \"center\", background: \"rgba(0,0,0,0.2)\", padding: \"10px 16px\", borderRadius: 12 }}>\n        <span style={{ color: \"#fff\", fontSize: 11, opacity: 0.7 }}>Blur</span>\n        <input type=\"range\" min={0} max={40} value={blur} onChange={e => setBlur(+e.target.value)} style={{ width: 80 }} />\n        <span style={{ color: \"#fff\", fontSize: 11 }}>{blur}px</span>\n      </div>\n    </div>\n  );\n}",
       "contentHash": "e48bcb9769a5bc262239ec93a7c579c020f77007a4dc192a354d6bcb7a1c5c3a",
       "sizeBytes": 1758
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GlassSurfaceAcrylic } from \"./glass-surface-acrylic\";\n\nexport default function GlassSurfaceAcrylicDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <GlassSurfaceAcrylic />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "15b6c7e8fceb0724f34a31aadee422e77c49d17d8a4117ab160b1f43fbef6021",
+      "sizeBytes": 414
     }
   ],
   "tags": [

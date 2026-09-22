@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "ballpit-physics-2d",
   "type": "registry:component",
   "title": "Ballpit Physics 2D",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function BallpitPhysics2D({ className = \"w-full h-full min-h-[260px]\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement?.clientWidth ?? 600);\n    let h = (canvas.height = canvas.parentElement?.clientHeight ?? 300);\n    type Ball = { x: number; y: number; vx: number; vy: number; r: number; color: string };\n    const colors = [\"#f43f5e\",\"#f59e0b\",\"#3b82f6\",\"#10b981\",\"#8b5cf6\",\"#ec4899\"];\n    const balls: Ball[] = Array.from({ length: 30 }, (_, i) => ({\n      x: 40 + Math.random() * (w - 80), y: Math.random() * h / 2, vx: (Math.random() - 0.5) * 3, vy: Math.random() * 2,\n      r: 10 + Math.random() * 14, color: colors[i % colors.length]\n    }));\n    let animId: number;\n    const draw = () => {\n      ctx.fillStyle = \"#07080e\";\n      ctx.fillRect(0, 0, w, h);\n      for (const b of balls) {\n        b.vy += 0.2;\n        b.x += b.vx; b.y += b.vy;\n        if (b.x - b.r < 0) { b.x = b.r; b.vx *= -0.8; }\n        if (b.x + b.r > w) { b.x = w - b.r; b.vx *= -0.8; }\n        if (b.y + b.r > h) { b.y = h - b.r; b.vy *= -0.72; b.vx *= 0.97; }\n        ctx.fillStyle = b.color;\n        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();\n        ctx.fillStyle = \"rgba(255,255,255,0.25)\";\n        ctx.beginPath(); ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.35, 0, Math.PI * 2); ctx.fill();\n      }\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => cancelAnimationFrame(animId);\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
       "contentHash": "913d7cd09a28db19779491b9fd77c940c8eda6906a0de73075983c03da4242f9",
       "sizeBytes": 1795
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { BallpitPhysics2D } from \"./ballpit-physics-2d\";\n\nexport default function BallpitPhysics2DDemo(): React.JSX.Element {\n  return (\n    <div className=\"relative flex min-h-[480px] w-full overflow-hidden rounded-2xl bg-neutral-950 border border-neutral-800\">\n      {/* Background canvas layer */}\n      <BallpitPhysics2D className=\"absolute inset-0 h-full w-full\" />\n\n      {/* Foreground content layer */}\n      <div className=\"relative z-10 flex h-full w-full flex-col items-center justify-center p-8 text-center my-auto\">\n        <span className=\"rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-mono font-medium text-neutral-300 backdrop-blur-md\">\n          Ambient Canvas Engine\n        </span>\n        <h2 className=\"mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-white\">\n          Ballpit Physics 2D\n        </h2>\n        <p className=\"mt-3 max-w-md text-sm sm:text-base text-neutral-400\">\n          Hardware-accelerated ambient visuals that react seamlessly to viewport and pointer interactions.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "2914c9940272b2839a60ec9fdfd445ae869fe4823a4f763d01ecd72ab489e7d7",
+      "sizeBytes": 1117
     }
   ],
   "tags": [

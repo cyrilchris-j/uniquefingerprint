@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "dodge-field-pointer",
   "type": "registry:component",
   "title": "Dodge Field Pointer",
@@ -18,6 +18,13 @@
       "content": "import { useState, useRef } from \"react\";\nexport default function DodgeFieldPointer({ className = \"\" }: { className?: string }) {\n  const [pos, setPos] = useState({ x: 50, y: 50 });\n  const [caught, setCaught] = useState(false);\n  const containerRef = useRef<HTMLDivElement>(null);\n  const handleMouseMove = (e: React.MouseEvent) => {\n    if (caught) return;\n    const r = containerRef.current!.getBoundingClientRect();\n    const mx = ((e.clientX - r.left) / r.width) * 100;\n    const my = ((e.clientY - r.top) / r.height) * 100;\n    const dx = pos.x - mx; const dy = pos.y - my;\n    const dist = Math.hypot(dx, dy);\n    if (dist < 25) {\n      const angle = Math.atan2(dy, dx);\n      const flee = 30;\n      setPos(p => ({\n        x: Math.max(10, Math.min(90, p.x + Math.cos(angle) * flee)),\n        y: Math.max(10, Math.min(90, p.y + Math.sin(angle) * flee)),\n      }));\n    }\n  };\n  return (\n    <div ref={containerRef} className={`relative ${className}`}\n      style={{ width: \"100%\", height: 220, background: \"rgba(255,255,255,0.02)\", border: \"1px solid rgba(255,255,255,0.08)\", borderRadius: 16, overflow: \"hidden\", cursor: \"crosshair\" }}\n      onMouseMove={handleMouseMove} onClick={() => { if (Math.hypot(pos.x - 50, pos.y - 50) < 20) setCaught(true); }}>\n      <button style={{\n        position: \"absolute\", left: `${pos.x}%`, top: `${pos.y}%`, transform: \"translate(-50%,-50%)\",\n        padding: \"8px 16px\", borderRadius: 20, background: caught ? \"#10b981\" : \"#8b5cf6\",\n        border: \"none\", color: \"#fff\", fontWeight: 700, fontSize: 12,\n        transition: \"left 0.4s cubic-bezier(0.34,1.56,0.64,1), top 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.3s\",\n        cursor: \"pointer\", pointerEvents: \"none\", boxShadow: caught ? \"0 0 20px #10b981\" : \"0 0 16px #8b5cf6\",\n      }}>{caught ? \"✓ Caught!\" : \"Catch me!\"}</button>\n      {caught && <button onClick={() => { setCaught(false); setPos({ x: 50, y: 50 }); }} style={{ position: \"absolute\", bottom: 16, left: \"50%\", transform: \"translateX(-50%)\", padding: \"6px 16px\", borderRadius: 8, background: \"rgba(255,255,255,0.1)\", border: \"1px solid rgba(255,255,255,0.2)\", color: \"#fff\", cursor: \"pointer\", fontSize: 12 }}>Reset</button>}\n    </div>\n  );\n}",
       "contentHash": "561ea55c0ea9f24e8fe1c3ad636385ef7eeb6cdf8d0568d3d9d8ed2be8d3e83d",
       "sizeBytes": 2215
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { DodgeFieldPointer } from \"./dodge-field-pointer\";\n\nexport default function DodgeFieldPointerDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <DodgeFieldPointer />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a3b781b6aad1703f1ef8a4633bbd655861d3f6910274827c6b0c52ef2179de09",
+      "sizeBytes": 406
     }
   ],
   "tags": [

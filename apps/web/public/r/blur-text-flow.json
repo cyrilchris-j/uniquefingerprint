@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "blur-text-flow",
   "type": "registry:component",
   "title": "Blur Text Flow",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function BlurTextFlow({ words = [\"Clarity\", \"Focus\", \"Precision\", \"Vision\"], className = \"\" }: { words?: string[]; className?: string }): React.JSX.Element {\n  const [i, setI] = React.useState(0);\n  const [phase, setPhase] = React.useState<\"in\" | \"out\">(\"in\");\n  React.useEffect(() => {\n    const id = setTimeout(() => {\n      if (phase === \"in\") { setTimeout(() => setPhase(\"out\"), 1500); }\n      else { setI(p => (p + 1) % words.length); setPhase(\"in\"); }\n    }, phase === \"in\" ? 400 : 400);\n    return () => clearTimeout(id);\n  }, [phase, words.length]);\n  return (\n    <div className={`text-center select-none ${className}`}>\n      <span className=\"font-display font-black text-5xl text-ink\" style={{ display: \"inline-block\", filter: phase === \"in\" ? \"blur(0px)\" : \"blur(16px)\", opacity: phase === \"in\" ? 1 : 0, transform: phase === \"in\" ? \"scale(1)\" : \"scale(0.92)\", transition: \"all 0.35s cubic-bezier(0.4,0,0.2,1)\" }}>\n        {words[i]}\n      </span>\n    </div>\n  );\n}\n",
       "contentHash": "4ff5e5234603a90c9c185eb1abb3a32f3595703db80f8aabaff108e4256e1552",
       "sizeBytes": 1017
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { BlurTextFlow } from \"./blur-text-flow\";\n\nexport default function BlurTextFlowDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <BlurTextFlow\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "222c9f3797a71f41f843fb4a486f65b3827fa342698d69033a5fa5379ad512ce",
+      "sizeBytes": 482
     }
   ],
   "tags": [

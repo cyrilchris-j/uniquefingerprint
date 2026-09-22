@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "glitch-chromatic-text",
   "type": "registry:component",
   "title": "Glitch Chromatic Text",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function GlitchChromaticText({ text = \"GLITCH\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [active, setActive] = React.useState(false);\n  React.useEffect(() => {\n    const fire = () => { setActive(true); setTimeout(() => setActive(false), 180); };\n    const id = setInterval(fire, 1800 + Math.random() * 1200);\n    return () => clearInterval(id);\n  }, []);\n  return (\n    <div className={`relative font-mono font-black text-5xl select-none inline-block ${className}`}>\n      <span className=\"relative z-10 text-white\">{text}</span>\n      {active && <>\n        <span className=\"absolute inset-0 text-red-500 z-0\" style={{ transform: \"translate(-3px, 1px)\", mixBlendMode: \"screen\" }}>{text}</span>\n        <span className=\"absolute inset-0 text-cyan-400 z-0\" style={{ transform: \"translate(3px, -1px)\", mixBlendMode: \"screen\" }}>{text}</span>\n      </>}\n    </div>\n  );\n}\n",
       "contentHash": "3d8b146231f9d9b53323405eb5b73f2d16ceaf5831d5c7dd3bf019753689e802",
       "sizeBytes": 953
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GlitchChromaticText } from \"./glitch-chromatic-text\";\n\nexport default function GlitchChromaticTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <GlitchChromaticText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "278ba47f53ecbdc4b92e5874fa27865c11a6618c6b97459b83301966092e5138",
+      "sizeBytes": 510
     }
   ],
   "tags": [

@@ -906,7 +906,7 @@ export function KeycapBadgePreview() {
       {["⌘", "⇧", "⌥", "K"].map((k) => (
         <div
           key={k}
-          className="w-8 h-8 rounded-lg border-b-4 border-line/60 bg-paper border border-line/40 shadow-md flex items-center justify-center font-bold text-xs text-ink hover:translate-y-0.5 transition-transform"
+          className="w-8 h-8 rounded-lg border border-line/40 border-b-4 border-b-line/70 bg-paper shadow-md flex items-center justify-center font-bold text-xs text-ink hover:translate-y-0.5 transition-transform"
         >
           {k}
         </div>

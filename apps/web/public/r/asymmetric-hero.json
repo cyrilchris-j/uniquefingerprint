@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "asymmetric-hero",
   "type": "registry:section",
   "title": "Asymmetric Hero",
@@ -62,6 +62,6 @@
       "semanticPurpose": "brand-landing-masthead"
     }
   },
-  "url": "https://openui.dev/r/asymmetric-hero.json",
+  "url": "https://uniquefingerprint.web.app/r/asymmetric-hero.json",
   "designRules": "# Asymmetric Hero\n\nGenre: Editorial\nMacrostructure: Asymmetric\nDensity: Airy\nShape: Sharp\nMotion: Subtle\nTypography: Serif Display\nColor: High Contrast\n\n## Motion\n\nFast: 180ms\nNormal: 320ms\nSlow: 600ms\n\n## Rules\n\n- Enter at the top-right, exit down the left rail.\n- One display statement, one supporting paragraph, one action group.\n- The index rail carries facts (counts, dates, constraints), not adjectives.\n- The statement must read as a claim, not a benefit.\n\n## Avoid\n\n- Centred headlines over a three-column feature grid.\n- Background gradients behind the statement.\n- More than two calls to action.\n"
 }

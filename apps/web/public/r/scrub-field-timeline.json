@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "scrub-field-timeline",
   "type": "registry:component",
   "title": "Scrub Field Timeline",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nconst BARS = Array.from({ length: 40 }, () => 0.2 + Math.random() * 0.8);\nexport interface ScrubFieldTimelineProps { className?: string; duration?: number; }\nexport function ScrubFieldTimeline({ className = \"\", duration = 180 }: ScrubFieldTimelineProps) {\n  const [progress, setProgress] = useState(0.3);\n  const trackRef = useRef<HTMLDivElement>(null);\n  const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, \"0\")}:${String(Math.floor(s % 60)).padStart(2, \"0\")}`;\n  const move = (e: React.PointerEvent) => { const r = trackRef.current!.getBoundingClientRect(); setProgress(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width))); };\n  return (\n    <div className={`flex flex-col gap-3 ${className}`}>\n      <div ref={trackRef} onPointerDown={(e) => { (e.target as HTMLElement).setPointerCapture(e.pointerId); move(e); }} onPointerMove={(e) => { if (e.buttons) move(e); }} className=\"relative h-12 flex items-center cursor-ew-resize gap-0.5\">\n        {BARS.map((h, i) => <div key={i} style={{ flex: 1, height: `${h * 100}%`, borderRadius: 2, background: i / BARS.length < progress ? \"#ba442c\" : \"#1e1e1e\", transition: \"background 0.1s\" }} />)}\n        <div className=\"absolute top-0 bottom-0 w-0.5 bg-white pointer-events-none\" style={{ left: `${progress * 100}%` }}><div className=\"absolute -top-1 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow\" /></div>\n      </div>\n      <div className=\"flex justify-between font-mono text-[9px] text-[#555]\"><span>{fmt(progress * duration)}</span><span>{fmt(duration)}</span></div>\n    </div>\n  );\n}",
       "contentHash": "72e5c8185bb47b0685c2bdc3e32a01836ba52a68d57b8302adee70ddfaeef6be",
       "sizeBytes": 1617
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { ScrubFieldTimeline } from \"./scrub-field-timeline\";\n\nexport default function ScrubFieldTimelineDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <ScrubFieldTimeline />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c1c1aca4bc60f4279a159c79ec68de84bc25613d5224f842cc3db30ffe93352a",
+      "sizeBytes": 410
     }
   ],
   "tags": [

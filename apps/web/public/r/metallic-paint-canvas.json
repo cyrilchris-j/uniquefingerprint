@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "metallic-paint-canvas",
   "type": "registry:component",
   "title": "Metallic Paint Canvas",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function MetallicPaintCanvas({ className = \"w-full h-48 relative overflow-hidden cursor-crosshair\" }: { className?: string }): React.JSX.Element {\n  const canvasRef = React.useRef<HTMLCanvasElement>(null);\n  const mouseRef = React.useRef({ x: -1, y: -1, active: false });\n  React.useEffect(() => {\n    const canvas = canvasRef.current!;\n    const ctx = canvas.getContext(\"2d\")!;\n    let w = (canvas.width = canvas.parentElement!.clientWidth);\n    let h = (canvas.height = canvas.parentElement!.clientHeight);\n    let t = 0, animId: number;\n    const draw = () => {\n      const { x: mx, y: my, active } = mouseRef.current;\n      t += 0.012;\n      const imageData = ctx.createImageData(w, h);\n      for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) {\n        const dx = active ? (x - mx) / 80 : 0, dy = active ? (y - my) / 80 : 0;\n        const v = Math.sin(x/40 + t + dx) * Math.cos(y/40 + t * 0.7 + dy);\n        const bright = Math.floor(60 + v * 80 + (active ? Math.max(0, 60 - Math.hypot(x-mx,y-my)*0.3) : 0));\n        const i = (y*w+x)*4;\n        imageData.data[i] = bright+30; imageData.data[i+1] = bright; imageData.data[i+2] = bright+50; imageData.data[i+3] = 255;\n      }\n      ctx.putImageData(imageData, 0, 0);\n      animId = requestAnimationFrame(draw);\n    };\n    draw();\n    const onMove = (e: MouseEvent) => { const r = canvas.getBoundingClientRect(); mouseRef.current = { x: e.clientX-r.left, y: e.clientY-r.top, active: true }; };\n    const onLeave = () => { mouseRef.current.active = false; };\n    canvas.addEventListener(\"mousemove\", onMove); canvas.addEventListener(\"mouseleave\", onLeave);\n    return () => { cancelAnimationFrame(animId); canvas.removeEventListener(\"mousemove\", onMove); canvas.removeEventListener(\"mouseleave\", onLeave); };\n  }, []);\n  return <div className={className}><canvas ref={canvasRef} className=\"w-full h-full block\" /></div>;\n}\n",
       "contentHash": "4f4a355dad29ce3decdd6e6740942e7680b46b4ac9a1b532ca74a119cf3d5253",
       "sizeBytes": 1920
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MetallicPaintCanvas } from \"./metallic-paint-canvas\";\n\nexport default function MetallicPaintCanvasDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <MetallicPaintCanvas />\n    </div>\n  );\n}\n",
+      "contentHash": "ccbeab7c7ba3887964e9364ede58c52c14f3dc60d317f96d1f5638dbcf3ef858",
+      "sizeBytes": 359
     }
   ],
   "tags": [

@@ -20,19 +20,19 @@
 
 @layer base {
   :root {
-    /* --- Colour -------------------------------------------------------- */
-    --paper: 42 33% 96%;
-    --ink: 60 4% 5%;
-    --graphite: 40 4% 33%;
-    --line: 60 4% 5%;
-    --oxide: 13 76% 37%;
-    --moss: 137 22% 24%;
-    --azure: 214 45% 34%;
+    /* --- Colour (Dark Theme Enforced) --------------------------------- */
+    --paper: 60 5% 5%;
+    --ink: 40 20% 93%;
+    --graphite: 40 5% 64%;
+    --line: 40 20% 93%;
+    --oxide: 13 72% 58%;
+    --moss: 137 20% 58%;
+    --azure: 214 55% 68%;
 
     /* Alpha variants are separate tokens so a theme can change the *rule*
        weight without touching the colour. */
     --line-alpha: 0.22;
-    --wash-alpha: 0.04;
+    --wash-alpha: 0.07;
 
     /* --- Typography ---------------------------------------------------- */
     --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;

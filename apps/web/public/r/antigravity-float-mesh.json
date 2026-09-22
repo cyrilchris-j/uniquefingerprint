@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "antigravity-float-mesh",
   "type": "registry:component",
   "title": "Antigravity Float Mesh",
@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface AntigravityFloatMeshProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Antigravity Float Mesh\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function AntigravityFloatMesh({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: AntigravityFloatMeshProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Antigravity Float Mesh\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "84f415eecfc6f4ecb551fda78dcad60bf8ff2e4189bcbeda2f1135d3f63408a4",
       "sizeBytes": 1447
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { AntigravityFloatMesh } from \"./antigravity-float-mesh\";\n\nexport default function AntigravityFloatMeshDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <AntigravityFloatMesh />\n    </div>\n  );\n}\n",
+      "contentHash": "62644360f96fb8b10559e40edc2da94163d47c2f34bbe9babb99bbd3541eeac4",
+      "sizeBytes": 363
     }
   ],
   "tags": [

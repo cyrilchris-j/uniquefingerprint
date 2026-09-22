@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openui.dev/schema/registry-item.json",
+  "$schema": "https://uniquefingerprint.web.app/schema/registry-item.json",
   "name": "comet-dial-gauge",
   "type": "registry:component",
   "title": "Comet Dial Gauge",
@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useEffect, useRef, useState } from \"react\";\nexport interface CometDialGaugeProps { className?: string; value?: number; label?: string; }\nexport function CometDialGauge({ className = \"\", value = 72, label = \"Performance\" }: CometDialGaugeProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  const [current, setCurrent] = useState(value);\n  useEffect(() => {\n    const canvas = canvasRef.current!; const ctx = canvas.getContext(\"2d\")!; let animId: number;\n    let angle = -Math.PI * 0.8; const targetAngle = -Math.PI * 0.8 + (current / 100) * Math.PI * 1.6;\n    const draw = () => {\n      const s = canvas.width; ctx.clearRect(0, 0, s, s); const cx = s / 2, cy = s / 2, r = s * 0.38;\n      ctx.strokeStyle = \"#1a1a1a\"; ctx.lineWidth = 10; ctx.lineCap = \"round\"; ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI * 0.8, Math.PI * 0.8); ctx.stroke();\n      ctx.strokeStyle = \"#ba442c\"; ctx.lineWidth = 10; ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI * 0.8, angle); ctx.stroke();\n      const tx = cx + Math.cos(angle) * r, ty = cy + Math.sin(angle) * r;\n      const grd = ctx.createRadialGradient(tx, ty, 0, tx, ty, 20); grd.addColorStop(0, \"rgba(186,68,44,0.8)\"); grd.addColorStop(1, \"transparent\");\n      ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(tx, ty, 20, 0, Math.PI * 2); ctx.fill();\n      ctx.fillStyle = \"#ffffff\"; ctx.font = `bold ${s * 0.18}px monospace`; ctx.textAlign = \"center\"; ctx.textBaseline = \"middle\"; ctx.fillText(`${current}`, cx, cy);\n      if (Math.abs(angle - targetAngle) > 0.01) { angle += (targetAngle - angle) * 0.06; animId = requestAnimationFrame(draw); }\n    };\n    draw(); return () => cancelAnimationFrame(animId);\n  }, [current]);\n  return (\n    <div className={`flex flex-col items-center gap-4 ${className}`}>\n      <canvas ref={canvasRef} width={160} height={160} className=\"w-40 h-40\" />\n      <div className=\"flex flex-col items-center gap-1\"><span className=\"font-mono text-[9px] text-[#555] uppercase\">{label}</span><input type=\"range\" min={0} max={100} value={current} onChange={(e) => setCurrent(Number(e.target.value))} className=\"w-32 accent-[#ba442c]\" /></div>\n    </div>\n  );\n}",
       "contentHash": "b6d73df82baad1577a2d957eff213d46dbc55923b3fe6faf9c210a894adf9228",
       "sizeBytes": 2153
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { CometDialGauge } from \"./comet-dial-gauge\";\n\nexport default function CometDialGaugeDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <CometDialGauge />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "f3553fe0652d3fb62d42caf054500d23fbb64f9c13297c3c930d662505fe4d73",
+      "sizeBytes": 394
     }
   ],
   "tags": [

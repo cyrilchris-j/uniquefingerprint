@@ -91,4 +91,5 @@ export * from "./text/all-text-previews.js";
 export * from "./micro/all-ui-previews.js";
 export * from "./motion/all-motion-previews.js";
 export * from "./backgrounds/all-background-previews.js";
+export { LensMagnifyTextPreview } from "./catalogue-previews.js";
 
