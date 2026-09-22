@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface RefineFrameSliderProps { className?: string; beforeLabel?: string; afterLabel?: string; }\nexport function RefineFrameSlider({ className = \"\", beforeLabel = \"Before\", afterLabel = \"After\" }: RefineFrameSliderProps) {\n  const [pos, setPos] = useState(50);\n  const ref = useRef<HTMLDivElement>(null);\n  const move = (e: React.MouseEvent) => { const r = ref.current!.getBoundingClientRect(); setPos(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100))); };\n  return (\n    <div ref={ref} onMouseMove={move} className={`relative overflow-hidden rounded-2xl cursor-ew-resize ${className}`} style={{ height: 200 }}>\n      <div className=\"absolute inset-0 bg-[#1a0d0d] flex items-center justify-center\"><div className=\"w-full h-full\" style={{ background: \"radial-gradient(circle at 30% 50%, #ba442c33, transparent)\" }} /><span className=\"absolute font-mono text-[10px] text-[#ba442c44] font-bold\">{beforeLabel}</span></div>\n      <div className=\"absolute inset-0 bg-[#0d1a0d] flex items-center justify-center\" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}><div className=\"w-full h-full\" style={{ background: \"radial-gradient(circle at 70% 50%, #2a604033, transparent)\" }} /><span className=\"absolute font-mono text-[10px] text-[#2a604044] font-bold\">{afterLabel}</span></div>\n      <div className=\"absolute top-0 bottom-0 w-0.5 bg-white opacity-80 pointer-events-none\" style={{ left: `${pos}%` }}><div className=\"absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white shadow-lg flex items-center justify-center\"><span className=\"font-mono text-[8px] text-black\">⇆</span></div></div>\n    </div>\n  );\n}",
       "contentHash": "59df1afa4f76dfa3a312e658c6f888d010b6b4666347645744153f4a6caa37d8",
       "sizeBytes": 1711
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RefineFrameSlider } from \"./refine-frame-slider\";\n\nexport default function RefineFrameSliderDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <RefineFrameSlider />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "0caf2aef552c721b281513ba28e10f9232e06562f4d81849d94c8630458bbdc2",
+      "sizeBytes": 406
     }
   ],
   "tags": [

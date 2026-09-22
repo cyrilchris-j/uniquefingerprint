@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface ShapeBlurLensProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Shape Blur Lens\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function ShapeBlurLens({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: ShapeBlurLensProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Shape Blur Lens\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "0685bb01a652f07787bb9735e481e860132c53ff303fec577ee57d5938b6cfca",
       "sizeBytes": 1412
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { ShapeBlurLens } from \"./shape-blur-lens\";\n\nexport default function ShapeBlurLensDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <ShapeBlurLens />\n    </div>\n  );\n}\n",
+      "contentHash": "4286f076d3e74778a7384c72870e7090c2bf04c02f99bb1e6bc1f5536294e9da",
+      "sizeBytes": 335
     }
   ],
   "tags": [

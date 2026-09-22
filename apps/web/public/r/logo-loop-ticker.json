@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nconst LOGOS = [\"OPENUI\", \"MOTION\", \"CANVAS\", \"THREE.JS\", \"SPRING\", \"RUNTIME\", \"DESIGN\"];\nexport function LogoLoopTicker({ speed = 40, className = \"w-full overflow-hidden bg-paper border-y border-line py-3\" }: { speed?: number; className?: string }): React.JSX.Element {\n  return (\n    <div className={className}>\n      <div className=\"flex gap-12 whitespace-nowrap\" style={{ animation: `ticker ${speed}s linear infinite` }}>\n        {[...LOGOS, ...LOGOS].map((l, i) => (\n          <span key={i} className=\"font-mono text-xs font-bold text-graphite uppercase tracking-widest flex items-center gap-3\">\n            <span className=\"text-oxide\">✦</span> {l}\n          </span>\n        ))}\n      </div>\n      <style>{`@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>\n    </div>\n  );\n}\n",
       "contentHash": "486dea69632ba9b551fab7dcdb03bc98c702e044357d1685b9f078c716e7a611",
       "sizeBytes": 868
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { LogoLoopTicker } from \"./logo-loop-ticker\";\n\nexport default function LogoLoopTickerDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <LogoLoopTicker />\n    </div>\n  );\n}\n",
+      "contentHash": "27da6299581891fd7dfaea9394ab5c5e9961998e3b254217be591f805671b3eb",
+      "sizeBytes": 339
     }
   ],
   "tags": [

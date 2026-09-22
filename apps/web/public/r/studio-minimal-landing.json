@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface StudioMinimalKineticLandingProps {\n  title?: string;\n}\n\n/**\n * Studio Minimal Kinetic Landing\n * Full-scale production landing page composition.\n */\nexport function StudioMinimalKineticLanding({ title = \"Studio Minimal Kinetic Landing\" }: StudioMinimalKineticLandingProps): React.JSX.Element {\n  return (\n    <div className=\"w-full min-h-screen bg-paper text-ink font-sans\">\n      <header className=\"px-8 py-4 border-b border-line flex items-center justify-between\">\n        <span className=\"font-display font-bold text-lg\">OPENUI</span>\n        <nav className=\"flex gap-6 font-mono text-xs text-graphite\">\n          <a href=\"#catalogue\" className=\"hover:text-ink\">Catalogue</a>\n          <a href=\"#runtime\" className=\"hover:text-ink\">Runtime</a>\n          <a href=\"#engine\" className=\"hover:text-ink\">Engine</a>\n        </nav>\n      </header>\n      <main className=\"max-w-5xl mx-auto px-8 py-16 space-y-12\">\n        <div className=\"space-y-4\">\n          <span className=\"font-mono text-xs text-oxide uppercase font-bold\">FULL PAGE ARCHITECTURE</span>\n          <h1 className=\"font-display font-black text-5xl\">{title}</h1>\n        </div>\n        <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">\n          {[1, 2, 3].map((item) => (\n            <div key={item} className=\"p-6 rounded-2xl border border-line bg-surface/50\">\n              <span className=\"font-mono text-xs text-oxide font-bold\">0{item}</span>\n              <h3 className=\"font-display font-bold text-lg mt-2\">Architecture Core</h3>\n              <p className=\"font-mono text-xs text-graphite mt-2\">\n                Scalable design system with seamless integration and high performance runtime.\n              </p>\n            </div>\n          ))}\n        </div>\n      </main>\n    </div>\n  );\n}\n",
       "contentHash": "57cb43e18c0b81160b85aaec188e13f7f942c755f7466b529e72b749cc91fc1a",
       "sizeBytes": 1816
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { StudioMinimalKineticLanding } from \"./studio-minimal-landing\";\n\nexport default function StudioMinimalKineticLandingDemo(): React.JSX.Element {\n  return (\n    <div className=\"w-full overflow-hidden rounded-2xl bg-neutral-950 border border-neutral-800\">\n      <StudioMinimalKineticLanding />\n    </div>\n  );\n}\n",
+      "contentHash": "e38464b62e94f8af6ee7d2153a7ba450739e15f4b891464bbf6547e37f164f82",
+      "sizeBytes": 349
     }
   ],
   "tags": [

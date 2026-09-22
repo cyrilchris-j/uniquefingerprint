@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function PixelCardRetro({ className = \"\" }: { className?: string }) {\n  const [hovered, setHovered] = useState(false);\n  const pixelBorder = \"4px solid #0ff\";\n  return (\n    <div className={`flex gap-4 flex-wrap justify-center ${className}`}>\n      {[\n        { label: \"HERO\", pts: 9850, icon: \"🗡️\", color: \"#0ff\" },\n        { label: \"MAGE\", pts: 7320, icon: \"🔮\", color: \"#f0f\" },\n        { label: \"ROGUE\", pts: 6100, icon: \"🗄️\", color: \"#ff0\" },\n      ].map((card, i) => (\n        <div key={i} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}\n          style={{ width: 100, padding: \"12px 8px\", background: \"#000\", border: `3px solid ${card.color}`, imageRendering: \"pixelated\", fontFamily: \"monospace\", textAlign: \"center\", cursor: \"pointer\", transition: \"transform 0.1s, box-shadow 0.1s\", transform: hovered && i === 0 ? \"scale(1.05)\" : \"scale(1)\", boxShadow: `0 0 ${hovered && i === 0 ? 20 : 8}px ${card.color}`, position: \"relative\" }}>\n          <div style={{ fontSize: 28 }}>{card.icon}</div>\n          <div style={{ color: card.color, fontSize: 10, fontWeight: 700, marginTop: 6, letterSpacing: 1 }}>{card.label}</div>\n          <div style={{ width: \"100%\", height: 2, background: card.color, margin: \"6px 0\", opacity: 0.5 }} />\n          <div style={{ color: card.color, fontSize: 11 }}>PTS</div>\n          <div style={{ color: \"#fff\", fontSize: 13, fontWeight: 700 }}>{card.pts.toLocaleString()}</div>\n          <div style={{ position: \"absolute\", top: 0, right: 0, width: 4, height: 4, background: card.color }} />\n          <div style={{ position: \"absolute\", bottom: 0, left: 0, width: 4, height: 4, background: card.color }} />\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "32c76a21a41478b3dd014e88bb5c37f4ea1faf545bf3a3912029d8e55ee22526",
       "sizeBytes": 1774
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { PixelCardRetro } from \"./pixel-card-retro\";\n\nexport default function PixelCardRetroDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <PixelCardRetro />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c8e2501818d7c2c4682cf36b2dcad1505f189633da149724e2998827d1919e5a",
+      "sizeBytes": 394
     }
   ],
   "tags": [

@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function CountUpRoller({ target = 9841, duration = 2200, className = \"\" }: { target?: number; duration?: number; className?: string }): React.JSX.Element {\n  const [value, setValue] = React.useState(0);\n  React.useEffect(() => {\n    const start = Date.now();\n    const id = setInterval(() => {\n      const p = Math.min(1, (Date.now() - start) / duration);\n      const ease = 1 - Math.pow(1 - p, 4);\n      setValue(Math.floor(ease * target));\n      if (p >= 1) clearInterval(id);\n    }, 16);\n    return () => clearInterval(id);\n  }, [target, duration]);\n  return (\n    <div className={`font-mono font-black text-6xl text-ink tabular-nums select-none ${className}`}>\n      {String(value).padStart(String(target).length, \"0\").split(\"\").map((d, i) => (\n        <span key={i} className=\"inline-block\" style={{ transition: \"transform 0.1s ease\" }}>{d}</span>\n      ))}\n    </div>\n  );\n}\n",
       "contentHash": "253e02c2750ae95016b88aa317215db67f74b18c8c1c0600d5d292450ec19d00",
       "sizeBytes": 921
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { CountUpRoller } from \"./count-up-roller\";\n\nexport default function CountUpRollerDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <CountUpRoller\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "11b028053292feed2339cbca40339670b4f7ad078ad71202e8669f25e2f264f2",
+      "sizeBytes": 486
     }
   ],
   "tags": [

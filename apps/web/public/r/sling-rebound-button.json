@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function SlingReboundButton({ children = \"Sling\", onClick }: { children?: React.ReactNode; onClick?: () => void }): React.JSX.Element {\n  const [drag, setDrag] = React.useState({ x: 0, y: 0 });\n  const [dragging, setDragging] = React.useState(false);\n  const startRef = React.useRef({ x: 0, y: 0 });\n  const onDown = (e: React.PointerEvent) => { setDragging(true); startRef.current = { x: e.clientX, y: e.clientY }; };\n  const onMove = (e: React.PointerEvent) => { if (!dragging) return; setDrag({ x: Math.max(-40, Math.min(40, e.clientX - startRef.current.x)), y: Math.max(-30, Math.min(30, e.clientY - startRef.current.y)) }); };\n  const onUp = () => { setDragging(false); setDrag({ x: 0, y: 0 }); onClick?.(); };\n  return (\n    <button onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp}\n      className=\"px-6 py-3 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg select-none touch-none\"\n      style={{ transform: `translate(${drag.x}px, ${drag.y}px)`, transition: dragging ? \"none\" : \"transform 0.5s cubic-bezier(0.34,1.56,0.64,1)\", cursor: dragging ? \"grabbing\" : \"grab\" }}>\n      {children}\n    </button>\n  );\n}\n",
       "contentHash": "e79eb4f2003bed35e0e19c74cffa507d1d3e55d6807f5af87a51301724d9f216",
       "sizeBytes": 1241
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SlingReboundButton } from \"./sling-rebound-button\";\n\nexport default function SlingReboundButtonDemo(): React.JSX.Element {\n  const handleClick = () => {\n    console.log(\"Sling Rebound Button triggered!\");\n  };\n\n  return (\n    <div className=\"flex min-h-[280px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <SlingReboundButton onClick={handleClick}>\n        Sling Rebound Button\n      </SlingReboundButton>\n    </div>\n  );\n}\n",
+      "contentHash": "f8c715f08c0398fc52ca09cae067d0811dc6e3f983956854e01886f6262aaeca",
+      "sizeBytes": 520
     }
   ],
   "tags": [

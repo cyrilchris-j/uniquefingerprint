@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function HoldToConfirmButton({ onConfirm }: { onConfirm?: () => void }): React.JSX.Element {\n  const [progress, setProgress] = React.useState(0);\n  const [confirmed, setConfirmed] = React.useState(false);\n  const intervalRef = React.useRef<ReturnType<typeof setInterval>>();\n  const start = () => { intervalRef.current = setInterval(() => setProgress(p => { if (p >= 100) { clearInterval(intervalRef.current); setConfirmed(true); onConfirm?.(); return 100; } return p + 2; }), 20); };\n  const stop = () => { clearInterval(intervalRef.current); if (!confirmed) setProgress(0); };\n  return (\n    <button onMouseDown={start} onMouseUp={stop} onMouseLeave={stop} className=\"relative px-8 py-3 rounded-xl border border-oxide bg-paper font-mono text-xs font-bold uppercase tracking-wider overflow-hidden select-none\" style={{ minWidth: 180 }}>\n      <div className=\"absolute inset-0 bg-oxide/20 transition-none\" style={{ width: `${progress}%`, transition: \"none\" }} />\n      <span className=\"relative z-10 text-ink\">{confirmed ? \"✓ Confirmed\" : progress > 0 ? \"Hold...\" : \"Hold to Confirm\"}</span>\n    </button>\n  );\n}\n",
       "contentHash": "0d3ce820caadcf07e5e9e722fb089dc145627ccb7de96617e81fccd64203e1c7",
       "sizeBytes": 1155
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { HoldToConfirmButton } from \"./hold-to-confirm-button\";\n\nexport default function HoldToConfirmButtonDemo(): React.JSX.Element {\n  const handleClick = () => {\n    console.log(\"Hold To Confirm Button triggered!\");\n  };\n\n  return (\n    <div className=\"flex min-h-[280px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <HoldToConfirmButton onClick={handleClick}>\n        Hold To Confirm Button\n      </HoldToConfirmButton>\n    </div>\n  );\n}\n",
+      "contentHash": "ffb023e81bd825fb388300ca63da253c7d3df986911ac74024a546df83eea348",
+      "sizeBytes": 530
     }
   ],
   "tags": [

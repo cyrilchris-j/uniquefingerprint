@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst TOOLS = [\"◈ Design\", \"〰 Motion\", \"▦ Grid\", \"✦ More\"];\nexport interface PromptBarActionProps { className?: string; placeholder?: string; onSubmit?: (value: string) => void; }\nexport function PromptBarAction({ className = \"\", placeholder = \"Describe your component…\", onSubmit }: PromptBarActionProps) {\n  const [value, setValue] = useState(\"\"); const [focused, setFocused] = useState(false);\n  const submit = () => { if (value.trim()) { onSubmit?.(value); setValue(\"\"); } };\n  return (\n    <div className={`flex flex-col gap-2 ${className}`}>\n      <div className=\"relative rounded-2xl overflow-hidden\" style={{ border: `1.5px solid ${focused ? \"#ba442c\" : \"#1e1e1e\"}`, boxShadow: focused ? \"0 0 24px rgba(186,68,44,0.2)\" : \"none\", transition: \"all 0.3s ease\", background: \"#0d0f14\" }}>\n        <textarea value={value} onChange={(e) => setValue(e.target.value)} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onKeyDown={(e) => { if (e.key === \"Enter\" && !e.shiftKey) { e.preventDefault(); submit(); } }} placeholder={placeholder} rows={2} className=\"w-full bg-transparent px-4 pt-4 pb-2 font-mono text-sm text-white outline-none placeholder:text-[#2a2a2a] resize-none\" />\n        <div className=\"flex items-center justify-between px-4 py-2\">\n          <div className=\"flex gap-1\">{TOOLS.map((tool) => <button key={tool} className=\"px-2 py-0.5 rounded-full border border-[#1e1e1e] font-mono text-[8px] text-[#444] hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">{tool}</button>)}</div>\n          <button onClick={submit} disabled={!value.trim()} className=\"px-4 py-1.5 rounded-xl bg-[#ba442c] text-white font-mono text-[9px] font-bold disabled:opacity-30 hover:bg-[#c84830] transition-colors\">Generate ↑</button>\n        </div>\n      </div>\n    </div>\n  );\n}",
       "contentHash": "31535c65c4918291fe22c18780fde00042ff8161ecfa25c04aea646b54d10257",
       "sizeBytes": 1856
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { PromptBarAction } from \"./prompt-bar-action\";\n\nexport default function PromptBarActionDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <PromptBarAction />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "660707be4dc80a851fbab0f721e62e28c5664f5747c39b7bae01532c337c6ad8",
+      "sizeBytes": 398
     }
   ],
   "tags": [

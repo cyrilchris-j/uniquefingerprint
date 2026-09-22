@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst NAV = [\"Home\", \"Work\", \"Lab\", \"About\"];\nexport interface GooeyNavLiquidProps { className?: string; onSelect?: (label: string) => void; }\nexport function GooeyNavLiquid({ className = \"\", onSelect }: GooeyNavLiquidProps) {\n  const [active, setActive] = useState(0);\n  return (\n    <div className={`relative flex flex-col items-center gap-4 ${className}`}>\n      <svg style={{ position: \"absolute\", width: 0, height: 0 }}><defs><filter id=\"gooey\"><feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"8\" result=\"blur\" /><feColorMatrix in=\"blur\" mode=\"matrix\" values=\"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9\" /></filter></defs></svg>\n      <div className=\"flex gap-1 p-2 rounded-full bg-[#0d0f14] border border-[#1e1e1e]\" style={{ filter: \"url(#gooey)\" }}>\n        {NAV.map((item, i) => (\n          <button key={item} onClick={() => { setActive(i); onSelect?.(item); }}\n            style={{ background: active === i ? \"#ba442c\" : \"transparent\", transition: \"all 0.4s cubic-bezier(0.16,1,0.3,1)\", color: active === i ? \"white\" : \"#555\" }}\n            className=\"px-5 py-2 rounded-full font-mono text-xs\">{item}</button>\n        ))}\n      </div>\n    </div>\n  );\n}",
       "contentHash": "1b0f5842ce09fdc767e97ffae967d3061838c7297a5add409aa0b3d20440d4cd",
       "sizeBytes": 1211
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GooeyNavLiquid } from \"./gooey-nav-liquid\";\n\nexport default function GooeyNavLiquidDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <GooeyNavLiquid />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "35ee9544940a7fe12c20bdaf92f7a09fd6201b850c2c57c432d0b73ba84b4afe",
+      "sizeBytes": 394
     }
   ],
   "tags": [

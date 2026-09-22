@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function FolderFloatHover({ className = \"\" }: { className?: string }) {\n  const [hov, setHov] = useState<number | null>(null);\n  const folders = [\n    { name: \"Assets\", count: 48, color: \"#f59e0b\" },\n    { name: \"Components\", count: 127, color: \"#8b5cf6\" },\n    { name: \"Designs\", count: 23, color: \"#3b82f6\" },\n    { name: \"Exports\", count: 9, color: \"#10b981\" },\n  ];\n  return (\n    <div className={`flex flex-wrap gap-4 justify-center ${className}`}>\n      {folders.map((f, i) => (\n        <div key={i} onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}\n          style={{ width: 100, cursor: \"pointer\", transition: \"transform 0.3s cubic-bezier(0.34,1.56,0.64,1)\", transform: hov === i ? \"translateY(-8px) scale(1.05)\" : \"translateY(0) scale(1)\" }}>\n          <div style={{ position: \"relative\", height: 72 }}>\n            <div style={{ position: \"absolute\", top: 0, left: 8, right: 0, height: 12, background: f.color, borderRadius: \"8px 8px 0 0\", opacity: 0.8 }} />\n            <div style={{ position: \"absolute\", top: 8, left: 0, right: 0, bottom: 0, background: f.color, borderRadius: \"0 8px 8px 8px\", display: \"flex\", alignItems: \"center\", justifyContent: \"center\", boxShadow: hov === i ? `0 12px 30px ${f.color}44` : \"0 4px 12px rgba(0,0,0,0.2)\", transition: \"box-shadow 0.3s\" }}>\n              <span style={{ color: \"rgba(255,255,255,0.9)\", fontSize: 11, fontWeight: 700 }}>{f.count} files</span>\n            </div>\n          </div>\n          <div style={{ textAlign: \"center\", marginTop: 6, color: hov === i ? \"#fff\" : \"rgba(255,255,255,0.6)\", fontSize: 12, fontWeight: 600, transition: \"color 0.2s\" }}>{f.name}</div>\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "efe145064bf2233bd98ee6c1cab25ecffc19569516cc1991b29d325d956b14c3",
       "sizeBytes": 1733
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { FolderFloatHover } from \"./folder-float-hover\";\n\nexport default function FolderFloatHoverDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <FolderFloatHover />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "c9a23ec6da1ac804aca2eccfd4fa66e0b3a65b029a4b9b1e1d5a5adab6908338",
+      "sizeBytes": 402
     }
   ],
   "tags": [

@@ -18,6 +18,13 @@
       "content": "\"use client\";\nexport interface LatticeLoaderOrbitProps { className?: string; size?: number; }\nexport function LatticeLoaderOrbit({ className = \"\", size = 80 }: LatticeLoaderOrbitProps) {\n  return (\n    <div className={`flex items-center justify-center ${className}`}>\n      <div style={{ width: size, height: size, position: \"relative\" }}>\n        <style>{`@keyframes orbitA{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes orbitB{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}} @keyframes pulsate{0%,100%{opacity:0.4;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}`}</style>\n        <div style={{ position: \"absolute\", inset: 0, border: \"1.5px solid #ba442c44\", borderRadius: \"50%\", animation: \"orbitA 3s linear infinite\" }}><div style={{ position: \"absolute\", top: -4, left: \"50%\", transform: \"translateX(-50%)\", width: 8, height: 8, borderRadius: \"50%\", background: \"#ba442c\" }} /></div>\n        <div style={{ position: \"absolute\", inset: \"15%\", border: \"1.5px solid #ba442c66\", borderRadius: \"50%\", animation: \"orbitB 2s linear infinite\" }}><div style={{ position: \"absolute\", bottom: -3, left: \"50%\", transform: \"translateX(-50%)\", width: 6, height: 6, borderRadius: \"50%\", background: \"#ba442c\" }} /></div>\n        <div style={{ position: \"absolute\", inset: \"35%\", borderRadius: \"50%\", background: \"#ba442c\", animation: \"pulsate 1.5s ease-in-out infinite\" }} />\n      </div>\n    </div>\n  );\n}",
       "contentHash": "a0a68242d2dadee97629a8ea348c3b33586e6b43b847f32934c57b6b329b6464",
       "sizeBytes": 1437
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { LatticeLoaderOrbit } from \"./lattice-loader-orbit\";\n\nexport default function LatticeLoaderOrbitDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <LatticeLoaderOrbit />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "002adc0806f75c23b66aa731184ed5cab89ceba7f773601471b608a5e7864870",
+      "sizeBytes": 410
     }
   ],
   "tags": [

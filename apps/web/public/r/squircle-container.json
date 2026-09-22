@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface SquircleGeometricContainerProps {\n  className?: string;\n}\n\n/**\n * Squircle Geometric Container\n */\nexport function SquircleGeometricContainer({ className = \"\" }: SquircleGeometricContainerProps): React.JSX.Element {\n  return (\n    <div className={`relative p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl ${className}`}>\n      <div className=\"space-y-3 select-none\">\n        <span className=\"font-mono text-[10px] text-white/80 uppercase tracking-widest font-bold\">\n          PURE CSS PRIMITIVE\n        </span>\n        <h2 className=\"font-display font-bold text-2xl text-white\">Squircle Geometric Container</h2>\n        <p className=\"font-mono text-xs text-white/70\">\n          Crafted with modern CSS variables, backdrop filters, and hardware compositing.\n        </p>\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "d04739f910ca453c42c38212fed6d86003e9fcf1b8865aef3d2cd781f27f4177",
       "sizeBytes": 882
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SquircleGeometricContainer } from \"./squircle-container\";\n\nexport default function SquircleGeometricContainerDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[400px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-2xl\">\n        <SquircleGeometricContainer className=\"w-full\" />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "91a1e818c27081f9416cb6927a6702fa34179a62aed7dab8d8c9ff2f0cdeaf95",
+      "sizeBytes": 452
     }
   ],
   "tags": [

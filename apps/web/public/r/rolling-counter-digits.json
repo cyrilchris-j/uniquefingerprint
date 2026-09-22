@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nfunction Digit({ value }: { value: number }) {\n  return (\n    <div className=\"relative h-10 w-7 overflow-hidden\">\n      {Array.from({ length: 10 }, (_, i) => (\n        <div key={i} className=\"absolute w-full h-10 flex items-center justify-center font-mono font-bold text-xl text-white\"\n          style={{ top: `${(i - value) * 40}px`, transition: \"top 0.4s cubic-bezier(0.16,1,0.3,1)\" }}>{i}</div>\n      ))}\n    </div>\n  );\n}\nexport interface RollingCounterDigitsProps { className?: string; initialValue?: number; }\nexport function RollingCounterDigits({ className = \"\", initialValue = 0 }: RollingCounterDigitsProps) {\n  const [count, setCount] = useState(initialValue);\n  return (\n    <div className={`flex flex-col items-center gap-6 ${className}`}>\n      <div className=\"flex items-center gap-0.5 bg-[#0d0f14] border border-[#1e1e1e] rounded-xl px-4 py-2 overflow-hidden\">\n        {String(count).padStart(5, \"0\").split(\"\").map((d, i) => <Digit key={i} value={parseInt(d)} />)}\n      </div>\n      <div className=\"flex gap-3\">\n        <button onClick={() => setCount((c) => Math.max(0, c - 1))} className=\"w-10 h-10 rounded-xl bg-[#0d0f14] border border-[#1e1e1e] font-mono text-white hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">−</button>\n        <button onClick={() => setCount((c) => c + 1)} className=\"w-10 h-10 rounded-xl bg-[#ba442c] text-white font-mono font-bold hover:bg-[#c84830] transition-colors\">+</button>\n      </div>\n    </div>\n  );\n}",
       "contentHash": "4eb1a0f40d3e7a8d953397d956d68fbd6aa4c287bd8969efd78f541a49798b48",
       "sizeBytes": 1521
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RollingCounterDigits } from \"./rolling-counter-digits\";\n\nexport default function RollingCounterDigitsDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <RollingCounterDigits />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "acbf193684b4029c9bb0cd235bc27352ff954fc89fe53194af9754ff3261bed9",
+      "sizeBytes": 418
     }
   ],
   "tags": [

@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function FallingPhysicsText({ text = \"FALL\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [letters, setLetters] = React.useState(() =>\n    text.split(\"\").map((c, i) => ({ char: c, y: -60, vy: 0, settled: false, delay: i * 120 }))\n  );\n  const floor = 0;\n  React.useEffect(() => {\n    let startTime = Date.now();\n    const id = setInterval(() => {\n      const elapsed = Date.now() - startTime;\n      setLetters(prev => prev.map(l => {\n        if (elapsed < l.delay) return l;\n        if (l.settled) return l;\n        const vy = l.vy + 1.2;\n        const y = l.y + vy;\n        if (y >= floor) return { ...l, y: floor, vy: -vy * 0.4, settled: Math.abs(vy * 0.4) < 1 };\n        return { ...l, y, vy };\n      }));\n    }, 16);\n    return () => clearInterval(id);\n  }, [text]);\n  return (\n    <div className={`flex gap-1 items-end h-24 select-none ${className}`}>\n      {letters.map((l, i) => (\n        <span key={i} className=\"font-display font-black text-4xl text-ink\" style={{ display: \"inline-block\", transform: `translateY(${-l.y}px)` }}>\n          {l.char === \" \" ? \" \" : l.char}\n        </span>\n      ))}\n    </div>\n  );\n}\n",
       "contentHash": "1da9acab2f6e79d1eb30da7d653ed10dc43f213ea0f9fd09abce28937184aad2",
       "sizeBytes": 1205
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { FallingPhysicsText } from \"./falling-physics-text\";\n\nexport default function FallingPhysicsTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <FallingPhysicsText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "02ec1dbc863b6a9fb6ad0b4714bb4bf8845524beb327a93fc8ef02b1671598e1",
+      "sizeBytes": 506
     }
   ],
   "tags": [

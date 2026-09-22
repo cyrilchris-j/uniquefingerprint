@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function FlowingMenuHover({ className = \"\" }: { className?: string }) {\n  const [hov, setHov] = useState<number | null>(null);\n  const items = [\"Home\", \"Work\", \"About\", \"Blog\", \"Contact\"];\n  return (\n    <nav className={`${className}`} style={{ width: \"100%\", maxWidth: 280 }}>\n      {items.map((item, i) => (\n        <div key={i} onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}\n          style={{ position: \"relative\", padding: \"12px 20px\", cursor: \"pointer\", overflow: \"hidden\", borderRadius: 10, transition: \"padding-left 0.3s cubic-bezier(0.34,1.56,0.64,1)\" }}>\n          <div style={{ position: \"absolute\", inset: 0, background: \"rgba(139,92,246,0.1)\", transform: hov === i ? \"scaleX(1)\" : \"scaleX(0)\", transformOrigin: \"left\", transition: \"transform 0.3s cubic-bezier(0.25,1,0.5,1)\", borderRadius: 10 }} />\n          <div style={{ display: \"flex\", alignItems: \"center\", gap: 12, position: \"relative\" }}>\n            <div style={{ width: 20, height: 2, background: \"#8b5cf6\", transform: hov === i ? \"scaleX(1)\" : \"scaleX(0)\", transformOrigin: \"left\", transition: \"transform 0.3s cubic-bezier(0.34,1.56,0.64,1)\" }} />\n            <span style={{ color: hov === i ? \"#e9d5ff\" : \"rgba(255,255,255,0.6)\", fontWeight: hov === i ? 700 : 400, fontSize: 15, transition: \"color 0.3s, font-weight 0.2s\", transform: hov === i ? \"translateX(4px)\" : \"none\", display: \"inline-block\", transition2: \"transform 0.3s\" }}>{item}</span>\n          </div>\n        </div>\n      ))}\n    </nav>\n  );\n}",
       "contentHash": "5e68c58055f08766b33e407b313cdc193e189a8f09509eb1017dd5c88a4033c1",
       "sizeBytes": 1546
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { FlowingMenuHover } from \"./flowing-menu-hover\";\n\nexport default function FlowingMenuHoverDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <FlowingMenuHover />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "2660146acebd0410286b3f042906363389055638e58925716a130e3cb8979b05",
+      "sizeBytes": 402
     }
   ],
   "tags": [

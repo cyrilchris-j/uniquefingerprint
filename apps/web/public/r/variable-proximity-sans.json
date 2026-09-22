@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function VariableProximitySans({ text = \"PROXIMITY\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [mouse, setMouse] = React.useState({ x: 0, y: 0 });\n  const ref = React.useRef<HTMLDivElement>(null);\n  return (\n    <div ref={ref} className={`flex gap-1 select-none cursor-default ${className}`} onMouseMove={e => { const r = ref.current!.getBoundingClientRect(); setMouse({ x: e.clientX - r.left, y: e.clientY - r.top }); }}>\n      {text.split(\"\").map((c, i) => {\n        const letterX = (i / text.length) * 280 + 14;\n        const dist = Math.hypot(letterX - mouse.x, 30 - mouse.y);\n        const weight = Math.max(100, 900 - dist * 4);\n        return (\n          <span key={i} className=\"font-sans text-4xl text-ink transition-none\" style={{ fontVariationSettings: `\"wght\" ${weight}`, fontWeight: weight }}>\n            {c}\n          </span>\n        );\n      })}\n    </div>\n  );\n}\n",
       "contentHash": "4eee220ce009dce0a2c33d5b574f2a75bb0564841d3b0849e397b3599a263071",
       "sizeBytes": 964
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { VariableProximitySans } from \"./variable-proximity-sans\";\n\nexport default function VariableProximitySansDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <VariableProximitySans\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "cf246c5f09850ac7db008cbd063f7242d78140f6a06f18afd8acd293c4c44e35",
+      "sizeBytes": 518
     }
   ],
   "tags": [

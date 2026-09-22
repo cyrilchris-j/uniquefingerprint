@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst INIT_CARDS = [{ id: 0, text: \"Design review at 3pm\", color: \"#ba442c\" }, { id: 1, text: \"Canvas engine merged\", color: \"#2a6040\" }, { id: 2, text: \"Registry deployed\", color: \"#2a4060\" }];\nexport interface StackCardsDragProps { className?: string; }\nexport function StackCardsDrag({ className = \"\" }: StackCardsDragProps) {\n  const [cards, setCards] = useState(INIT_CARDS);\n  return (\n    <div className={`flex flex-col items-center gap-6 ${className}`}>\n      <div className=\"relative w-72 h-40\">\n        {cards.map((card, i) => (\n          <div key={card.id} style={{ position: \"absolute\", inset: 0, transform: `translateY(${i * -6}px) scale(${1 - i * 0.03})`, zIndex: cards.length - i, background: card.color + \"18\", border: `1px solid ${card.color}44`, transition: \"all 0.4s cubic-bezier(0.16,1,0.3,1)\" }} className=\"rounded-2xl p-5 flex items-end\">\n            <p className=\"font-mono text-xs text-[#aaa]\">{card.text}</p>\n          </div>\n        ))}\n        {cards.length === 0 && <div className=\"absolute inset-0 flex items-center justify-center rounded-2xl border border-dashed border-[#2a2a2a]\"><span className=\"font-mono text-xs text-[#333]\">Stack empty</span></div>}\n      </div>\n      <div className=\"flex gap-3\">\n        {cards.length > 0 && <button onClick={() => setCards((c) => c.slice(1))} className=\"px-4 py-1.5 rounded-lg bg-[#ba442c] text-white font-mono text-xs\">Dismiss →</button>}\n        {cards.length === 0 && <button onClick={() => setCards(INIT_CARDS)} className=\"px-4 py-1.5 rounded-lg border border-[#2a2a2a] text-[#888] font-mono text-xs hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">Reset</button>}\n      </div>\n    </div>\n  );\n}",
       "contentHash": "76445c982d9d4f7f2f7082c0843462e141f1f94dc927548bb29c17541b7b605e",
       "sizeBytes": 1733
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { StackCardsDrag } from \"./stack-cards-drag\";\n\nexport default function StackCardsDragDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <StackCardsDrag />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "b0f12de8e48ac775b04933eb5731c422f65f4de608823371eb8643fab6728cd0",
+      "sizeBytes": 394
     }
   ],
   "tags": [

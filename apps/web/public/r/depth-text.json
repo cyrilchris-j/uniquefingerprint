@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function DepthText({ text = \"DEPTH\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const layers = 5;\n  return (\n    <div className={`relative select-none font-display font-black text-6xl ${className}`}>\n      {Array.from({ length: layers }, (_, i) => (\n        <span key={i} className=\"absolute inset-0\" style={{ color: i === layers - 1 ? \"#f1f0ec\" : `rgba(186,68,44,${0.15 + i * 0.1})`, transform: `translate(${(layers - 1 - i) * 2}px, ${(layers - 1 - i) * 2}px)`, zIndex: i }}>\n          {text}\n        </span>\n      ))}\n      <span style={{ color: \"transparent\" }}>{text}</span>\n    </div>\n  );\n}\n",
       "contentHash": "dce33a1d3d531d30a89b4424765138c80be568152e2079c15c2de00b405746a9",
       "sizeBytes": 674
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { DepthText } from \"./depth-text\";\n\nexport default function DepthTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <DepthText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "f888439255db2e64d2ec422a4d70d23073c0edc2ccee658f1a185db0b0b32c09",
+      "sizeBytes": 469
     }
   ],
   "tags": [

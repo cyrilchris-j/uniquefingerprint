@@ -18,6 +18,13 @@
       "content": "import { useState, useRef } from \"react\";\nexport default function MorphSliderPath({ className = \"\" }: { className?: string }) {\n  const [value, setValue] = useState(50);\n  const trackRef = useRef<HTMLDivElement>(null);\n  const d = `M 0 40 Q ${value * 3} ${value < 50 ? 80 : value < 75 ? 60 : 20} 300 40`;\n  return (\n    <div className={`flex flex-col gap-6 items-center ${className}`}>\n      <svg width=\"300\" height=\"80\" viewBox=\"0 0 300 80\">\n        <path d={d} fill=\"none\" stroke=\"rgba(139,92,246,0.3)\" strokeWidth=\"2\" />\n        <path d={`M 0 40 L 300 40`} fill=\"none\" stroke=\"rgba(255,255,255,0.1)\" strokeWidth=\"1\" strokeDasharray=\"4,4\" />\n        <circle cx={value * 3} cy={value < 50 ? 80 : value < 75 ? 60 : 20} r={8} fill=\"#8b5cf6\" style={{ filter: \"drop-shadow(0 0 8px #8b5cf6)\" }} />\n      </svg>\n      <div ref={trackRef} style={{ position: \"relative\", width: 300, height: 6, borderRadius: 3, background: \"rgba(255,255,255,0.1)\", cursor: \"pointer\" }}\n        onClick={(e) => { const r = trackRef.current!.getBoundingClientRect(); setValue(Math.round(((e.clientX - r.left) / r.width) * 100)); }}>\n        <div style={{ position: \"absolute\", left: 0, top: 0, height: \"100%\", width: `${value}%`, borderRadius: 3, background: \"linear-gradient(90deg,#7c3aed,#8b5cf6)\", transition: \"width 0.1s\" }} />\n        <div style={{ position: \"absolute\", top: -7, left: `${value}%`, transform: \"translateX(-50%)\", width: 20, height: 20, borderRadius: \"50%\", background: \"#8b5cf6\", boxShadow: \"0 0 12px #8b5cf6\", border: \"2px solid #fff\", transition: \"left 0.1s\" }} />\n      </div>\n      <span style={{ fontFamily: \"monospace\", fontSize: 14, color: \"#8b5cf6\", fontWeight: 700 }}>{value}%</span>\n    </div>\n  );\n}",
       "contentHash": "c5260410af579efaafb4e568b731bd2e7faf7468f2f665259f28731acd6345eb",
       "sizeBytes": 1706
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MorphSliderPath } from \"./morph-slider-path\";\n\nexport default function MorphSliderPathDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <MorphSliderPath />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "dfee0443dff3a3d41b0b28912687be57f73810ed5de54a5eeec24e2e0d5f0ba2",
+      "sizeBytes": 398
     }
   ],
   "tags": [

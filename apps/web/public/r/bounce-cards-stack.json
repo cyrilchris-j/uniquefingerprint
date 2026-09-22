@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst CARDS = [{ label: \"Token\", rotate: -6 }, { label: \"Motion\", rotate: -2 }, { label: \"Canvas\", rotate: 3 }, { label: \"System\", rotate: 7 }];\nexport interface BounceCardsStackProps { className?: string; }\nexport function BounceCardsStack({ className = \"\" }: BounceCardsStackProps) {\n  const [fanned, setFanned] = useState(false);\n  return (\n    <div className={`relative flex items-center justify-center h-48 w-48 cursor-pointer ${className}`} onMouseEnter={() => setFanned(true)} onMouseLeave={() => setFanned(false)}>\n      {CARDS.map((card, i) => (\n        <div key={card.label} style={{ position: \"absolute\", transform: fanned ? `translateX(${(i - 1.5) * 44}px) rotate(${card.rotate}deg) translateY(-8px)` : `translateX(${i * 3}px) rotate(${i * 1.5}deg)`, transition: `transform 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 0.04}s`, zIndex: i + 1 }} className=\"w-28 h-40 rounded-2xl bg-[#0d0f14] border border-[#1e1e1e] flex items-end p-3\">\n          <span className=\"font-mono text-[9px] text-[#ba442c] font-bold\">{card.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "64f5a83f3517f0a9fea86f5e506d2cb041ad4495d8acc353efcc6cde64fba531",
       "sizeBytes": 1125
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { BounceCardsStack } from \"./bounce-cards-stack\";\n\nexport default function BounceCardsStackDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <BounceCardsStack />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "2c8e2f74043aebdfcbb47d19fcdd5598341a682e76b079f7b47f77654f1bf04d",
+      "sizeBytes": 402
     }
   ],
   "tags": [

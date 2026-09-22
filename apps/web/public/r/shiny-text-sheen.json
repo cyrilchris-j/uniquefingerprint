@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function ShinyTextSheen({ text = \"Prismatic\", className = \"\" }: { text?: string; className?: string }): React.JSX.Element {\n  const [x, setX] = React.useState(-50);\n  React.useEffect(() => { const id = setInterval(() => setX(p => p >= 150 ? -50 : p + 1.5), 16); return () => clearInterval(id); }, []);\n  return (\n    <div className={`relative inline-block select-none font-display font-black text-5xl ${className}`} style={{ WebkitBackgroundClip: \"text\", WebkitTextFillColor: \"transparent\", backgroundClip: \"text\", background: `linear-gradient(105deg, #888 ${x - 20}%, #fff ${x}%, #e0c87c ${x + 8}%, #fff ${x + 16}%, #888 ${x + 36}%)` }}>\n      {text}\n    </div>\n  );\n}\n",
       "contentHash": "a8af274028c704120d237976fb00de149e64959cc3c81210a0c1179f4931ab44",
       "sizeBytes": 710
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { ShinyTextSheen } from \"./shiny-text-sheen\";\n\nexport default function ShinyTextSheenDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <ShinyTextSheen\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "6666b0c047c3f73611b243b65c2b4b6df6cb7193573349a000c0c9dcf9286b79",
+      "sizeBytes": 490
     }
   ],
   "tags": [

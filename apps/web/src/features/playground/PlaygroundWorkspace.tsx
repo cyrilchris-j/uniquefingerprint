@@ -16,7 +16,11 @@ import { buildSandboxFiles } from "./files.js";
 import { useRegistryIndex, useRegistryItem } from "../resources/use-catalogue.js";
 import { categorySegmentFor } from "../../components/ResourceTile.js";
 import { useDocumentTitle } from "../../hooks/use-document-title.js";
-import { ADVANCED_RESOURCES, getAdvancedItemBySlug } from "../../advanced/index.js";
+import {
+  ADVANCED_RESOURCES,
+  getAdvancedItemBySlug,
+  generateAdvancedDemoCode,
+} from "../../advanced/index.js";
 
 export interface PlaygroundWorkspaceProps {
   initialItem?: string;
@@ -97,16 +101,7 @@ export function PlaygroundWorkspace({
           {
             path: "demo.tsx",
             type: "registry:component",
-            content: `import React from "react";
-import { ${advItem.title.replace(/[^a-zA-Z0-9]/g, "")} } from "./${advItem.slug}";
-
-export default function Demo() {
-  return (
-    <div className="w-full min-h-screen flex items-center justify-center p-4">
-      <${advItem.title.replace(/[^a-zA-Z0-9]/g, "")} />
-    </div>
-  );
-}`,
+            content: generateAdvancedDemoCode(advItem),
           },
         ],
         meta: {

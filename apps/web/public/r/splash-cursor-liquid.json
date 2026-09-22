@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface SplashCursorLiquidProps {\n  className?: string;\n  damping?: number;\n}\n\n/**\n * Splash Cursor Liquid\n * Physics-calibrated motion design primitive responding to real-time user vectors.\n */\nexport function SplashCursorLiquid({\n  className = \"w-full h-48 flex items-center justify-center\",\n  damping = 0.85,\n}: SplashCursorLiquidProps): React.JSX.Element {\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = React.useState(false);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: (e.clientX - rect.left - rect.width / 2) * (1 - damping),\n          y: (e.clientY - rect.top - rect.height / 2) * (1 - damping),\n        });\n      }}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => { setPos({ x: 0, y: 0 }); setHovered(false); }}\n      className={`relative overflow-hidden bg-paper border border-line rounded-2xl cursor-crosshair ${className}`}\n    >\n      <div\n        style={{\n          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${hovered ? 1.05 : 1})`,\n          transition: \"transform 0.12s cubic-bezier(0.16,1,0.3,1)\",\n        }}\n        className=\"px-6 py-3 rounded-xl bg-ink text-paper font-mono text-xs font-bold uppercase shadow-lg tracking-wider\"\n      >\n        ✦ Splash Cursor Liquid\n      </div>\n    </div>\n  );\n}\n",
       "contentHash": "8f90915681d3618e1f9f75f7192dbf995683cacfb9763d674396c14fdcf2a4c8",
       "sizeBytes": 1437
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SplashCursorLiquid } from \"./splash-cursor-liquid\";\n\nexport default function SplashCursorLiquidDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <SplashCursorLiquid />\n    </div>\n  );\n}\n",
+      "contentHash": "dfd1e0469aac128b3e07930dc939756f357027a9bb1f7e81fad13cb035cb92cb",
+      "sizeBytes": 355
     }
   ],
   "tags": [

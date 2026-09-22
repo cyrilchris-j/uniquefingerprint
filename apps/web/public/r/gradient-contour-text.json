@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport interface GradientContourTextProps {\n  text?: string;\n  className?: string;\n  delayMs?: number;\n}\n\n/**\n * Gradient Contour Text\n * Character-by-character reveal with spring-loaded entrance per glyph.\n */\nexport function GradientContourText({\n  text = \"Gradient Contour Text\",\n  className = \"\",\n  delayMs = 50,\n}: GradientContourTextProps): React.JSX.Element {\n  const [chars, setChars] = React.useState(0);\n  const [loop, setLoop] = React.useState(0);\n\n  React.useEffect(() => {\n    let i = 0;\n    const id = setInterval(() => {\n      i++;\n      setChars(i);\n      if (i >= text.length) {\n        clearInterval(id);\n        setTimeout(() => { setChars(0); setLoop(l => l + 1); }, 2000);\n      }\n    }, delayMs);\n    return () => clearInterval(id);\n  }, [text, delayMs, loop]);\n\n  return (\n    <div className={`select-none font-display font-bold ${className}`}>\n      <span className=\"text-3xl text-ink tracking-tight\">\n        {text.split(\"\").map((c, i) => (\n          <span\n            key={i}\n            style={{\n              display: \"inline-block\",\n              opacity: i < chars ? 1 : 0,\n              transform: i < chars ? \"translateY(0) scale(1)\" : \"translateY(12px) scale(0.8)\",\n              transition: `opacity 0.25s ${i * 0.02}s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.02}s`,\n            }}\n          >\n            {c === \" \" ? \" \" : c}\n          </span>\n        ))}\n      </span>\n      <span className=\"inline-block w-0.5 h-7 bg-oxide align-middle ml-1 animate-pulse\" />\n    </div>\n  );\n}\n",
       "contentHash": "5cca664e1ca57c7c3719748616d93161a7555b0da3b7d0da48762da9ab0ba2e4",
       "sizeBytes": 1563
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GradientContourText } from \"./gradient-contour-text\";\n\nexport default function GradientContourTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <GradientContourText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "73ee4ac80f2dc83be856ca534ed1cb0f7bec622b47552acb7f17a1f6c47f1241",
+      "sizeBytes": 510
     }
   ],
   "tags": [

@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst LINKS = [\"Components\", \"Motion\", \"Canvas\", \"Systems\", \"Registry\", \"About\"];\nexport interface StaggeredMenuCascadeProps { className?: string; }\nexport function StaggeredMenuCascade({ className = \"\" }: StaggeredMenuCascadeProps) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div className={`relative ${className}`}>\n      <button onClick={() => setOpen((o) => !o)} className=\"px-5 py-2.5 rounded-xl bg-[#0d0f14] border border-[#1e1e1e] font-mono text-xs text-[#888] hover:text-white hover:border-[#ba442c] transition-colors\">{open ? \"Close ✕\" : \"Menu ≡\"}</button>\n      <div className={`absolute top-12 left-0 bg-[#080a0f] border border-[#1e1e1e] rounded-2xl overflow-hidden ${open ? \"w-56 py-4\" : \"w-0 py-0\"}`} style={{ transition: \"all 0.4s cubic-bezier(0.16,1,0.3,1)\" }}>\n        {LINKS.map((link, i) => (<div key={link} className=\"px-6 py-2.5 hover:bg-[#1a1a1a] cursor-pointer\" style={{ opacity: open ? 1 : 0, transform: open ? \"translateX(0)\" : \"translateX(-20px)\", transition: `all 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 0.05}s`, whiteSpace: \"nowrap\" }}><span className=\"font-mono text-xs text-[#888] hover:text-white transition-colors\">{link}</span></div>))}\n      </div>\n    </div>\n  );\n}",
       "contentHash": "546e94ab955c51ba3efdaa3d08f244f04522f6bccf0efa623f40f5465fe20d75",
       "sizeBytes": 1266
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { StaggeredMenuCascade } from \"./staggered-menu-cascade\";\n\nexport default function StaggeredMenuCascadeDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <StaggeredMenuCascade />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "2186881dae3df6179c849b62bb1365097c8c530408f0c9d0c4d1a5a1d0133bce",
+      "sizeBytes": 418
     }
   ],
   "tags": [

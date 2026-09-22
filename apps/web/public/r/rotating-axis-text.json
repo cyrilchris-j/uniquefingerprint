@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function RotatingAxisText({ phrases = [\"Design Systems\", \"Motion Language\", \"Spatial UI\", \"Canvas Runtime\"], className = \"\" }: { phrases?: string[]; className?: string }): React.JSX.Element {\n  const [i, setI] = React.useState(0);\n  const [flipping, setFlipping] = React.useState(false);\n  React.useEffect(() => {\n    const id = setInterval(() => {\n      setFlipping(true);\n      setTimeout(() => { setI(p => (p + 1) % phrases.length); setFlipping(false); }, 350);\n    }, 2500);\n    return () => clearInterval(id);\n  }, [phrases.length]);\n  return (\n    <div className={`select-none overflow-hidden ${className}`} style={{ perspective: \"600px\" }}>\n      <span className=\"font-display font-black text-4xl text-ink inline-block\" style={{ display: \"inline-block\", transition: \"transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s\", transform: flipping ? \"rotateX(90deg)\" : \"rotateX(0deg)\", opacity: flipping ? 0 : 1 }}>\n        {phrases[i]}\n      </span>\n    </div>\n  );\n}\n",
       "contentHash": "3b0b28097d9d8584e8031697bd3a039a967a132fee0688fb5f0a7f06cb1ac4b9",
       "sizeBytes": 1014
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RotatingAxisText } from \"./rotating-axis-text\";\n\nexport default function RotatingAxisTextDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[360px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <RotatingAxisText\n        text=\"Next Generation Web Interfaces\"\n        className=\"text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white text-center\"\n      />\n    </div>\n  );\n}\n",
+      "contentHash": "ecac1f34e7e39099b80a6f3b7626c947dfc9c17fc151854dd79bb9c28fc36ae1",
+      "sizeBytes": 498
     }
   ],
   "tags": [

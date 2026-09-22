@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useRef, useState } from \"react\";\nexport interface TiltedCardPerspectiveProps { className?: string; title?: string; badge?: string; }\nexport function TiltedCardPerspective({ className = \"\", title = \"Editorial Future\", badge = \"ADV\" }: TiltedCardPerspectiveProps) {\n  const ref = useRef<HTMLDivElement>(null);\n  const [t, setT] = useState({ rx: 0, ry: 0, sx: 0, sy: 0 });\n  const move = (e: React.MouseEvent) => { const r = ref.current!.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5; const y = (e.clientY - r.top) / r.height - 0.5; setT({ rx: y * -18, ry: x * 18, sx: x * 8, sy: y * 8 }); };\n  return (\n    <div ref={ref} onMouseMove={move} onMouseLeave={() => setT({ rx: 0, ry: 0, sx: 0, sy: 0 })}\n      style={{ transform: `perspective(900px) rotateX(${t.rx}deg) rotateY(${t.ry}deg)`, transition: t.rx === 0 ? \"transform 0.6s cubic-bezier(0.16,1,0.3,1)\" : \"transform 0.12s ease\" }}\n      className={`relative w-64 h-80 rounded-3xl overflow-hidden cursor-pointer select-none bg-[#0d0f14] border border-[#1e1e1e] ${className}`}>\n      <div className=\"absolute inset-0\" style={{ background: \"linear-gradient(135deg,#ba442c12,transparent)\" }} />\n      <div className=\"absolute inset-0 flex flex-col justify-between p-6\" style={{ transform: `translate(${t.sx}px, ${t.sy}px)`, transition: \"transform 0.15s ease\" }}>\n        <span className=\"font-mono text-[9px] text-[#ba442c] uppercase font-bold tracking-widest bg-[#ba442c18] px-2 py-0.5 rounded-full w-fit\">{badge}</span>\n        <div><h3 className=\"font-bold text-white text-xl leading-tight\">{title}</h3><p className=\"font-mono text-[10px] text-[#555] mt-1\">Pointer-reactive parallax depth layers</p></div>\n      </div>\n    </div>\n  );\n}",
       "contentHash": "fb56f6e082ce150e4ab7607e2d084be9a181f24320a12dfec66b4ed047073adb",
       "sizeBytes": 1735
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { TiltedCardPerspective } from \"./tilted-card-perspective\";\n\nexport default function TiltedCardPerspectiveDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <TiltedCardPerspective />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "eeb07d56e2f530572ff969b0c6b965d7eb45e12fa8ba16b77d5f6741493ef035",
+      "sizeBytes": 422
     }
   ],
   "tags": [

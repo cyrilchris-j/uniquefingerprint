@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function DriftWallParallax({ className = \"\" }: { className?: string }) {\n  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });\n  const layers = [\n    { depth: 0.05, items: [\"⬛\",\"⬛\",\"⬛\"], color: \"rgba(255,255,255,0.03)\", size: 80 },\n    { depth: 0.12, items: [\"◆\",\"◆\"], color: \"rgba(139,92,246,0.15)\", size: 40 },\n    { depth: 0.22, items: [\"●\",\"●\",\"●\"], color: \"rgba(59,130,246,0.2)\", size: 24 },\n    { depth: 0.38, items: [\"✦\",\"✦\"], color: \"rgba(236,72,153,0.3)\", size: 14 },\n  ];\n  return (\n    <div className={`relative w-full h-64 overflow-hidden rounded-xl ${className}`}\n      style={{ background: \"linear-gradient(135deg,#0f0f1a,#1a0f2e)\", cursor: \"crosshair\" }}\n      onMouseMove={e => { const r = e.currentTarget.getBoundingClientRect(); setMouse({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height }); }}>\n      {layers.map((l, li) =>\n        l.items.map((item, ii) => (\n          <div key={`${li}-${ii}`} style={{\n            position: \"absolute\",\n            left: `${20 + ii * 30 + li * 10}%`,\n            top: `${15 + li * 20 + ii * 15}%`,\n            transform: `translate(${(mouse.x - 0.5) * l.depth * -200}px, ${(mouse.y - 0.5) * l.depth * -200}px)`,\n            transition: \"transform 0.1s ease-out\",\n            fontSize: l.size,\n            color: l.color,\n            userSelect: \"none\",\n            lineHeight: 1,\n          }}>{item}</div>\n        ))\n      )}\n      <div style={{ position: \"absolute\", bottom: 16, left: \"50%\", transform: \"translateX(-50%)\", color: \"rgba(255,255,255,0.4)\", fontSize: 12, fontFamily: \"monospace\" }}>Move cursor to drift layers</div>\n    </div>\n  );\n}",
       "contentHash": "ed0353c8515980924488ee28e830e0b88d5708dbd84550b9a13f238acd5db421",
       "sizeBytes": 1696
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { DriftWallParallax } from \"./drift-wall-parallax\";\n\nexport default function DriftWallParallaxDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <DriftWallParallax />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "1df82c86a7a97662e58fad00e14730e567ae0eb9120d8feed51fde8421cc209d",
+      "sizeBytes": 406
     }
   ],
   "tags": [

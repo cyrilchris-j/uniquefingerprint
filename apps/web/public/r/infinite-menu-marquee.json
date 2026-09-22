@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function InfiniteMenuMarquee({ className = \"\" }: { className?: string }) {\n  const [paused, setPaused] = useState(false);\n  const items = [\"Design Systems\", \"Motion Design\", \"3D Interfaces\", \"AI Components\", \"Spring Physics\", \"Glass Morphism\", \"Type Kinetics\", \"Spatial UI\"];\n  const doubled = [...items, ...items];\n  return (\n    <div className={`flex flex-col gap-4 ${className}`}>\n      {[1, -1].map((dir, row) => (\n        <div key={row} style={{ overflow: \"hidden\", borderRadius: 10 }}>\n          <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}\n            style={{ display: \"flex\", gap: 12, animation: `marquee${dir > 0 ? \"Fwd\" : \"Rev\"} 20s linear infinite`, animationPlayState: paused ? \"paused\" : \"running\" }}>\n            {doubled.map((item, i) => (\n              <div key={i} style={{ flexShrink: 0, padding: \"8px 16px\", borderRadius: 20, background: \"rgba(255,255,255,0.05)\", border: \"1px solid rgba(255,255,255,0.1)\", color: \"rgba(255,255,255,0.7)\", fontSize: 13, whiteSpace: \"nowrap\", cursor: \"pointer\", transition: \"background 0.2s, color 0.2s\" }}\n                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = \"rgba(139,92,246,0.2)\"; (e.currentTarget as HTMLElement).style.color = \"#fff\"; }}\n                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = \"rgba(255,255,255,0.05)\"; (e.currentTarget as HTMLElement).style.color = \"rgba(255,255,255,0.7)\"; }}>\n                {item}\n              </div>\n            ))}\n          </div>\n        </div>\n      ))}\n      <style>{`@keyframes marqueeFwd { from { transform: translateX(0) } to { transform: translateX(-50%) } } @keyframes marqueeRev { from { transform: translateX(-50%) } to { transform: translateX(0) } }`}</style>\n    </div>\n  );\n}",
       "contentHash": "fd63f38b7e31721575508efebf4b772e776b6edc009e2880acd23ddba8047e2d",
       "sizeBytes": 1839
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { InfiniteMenuMarquee } from \"./infinite-menu-marquee\";\n\nexport default function InfiniteMenuMarqueeDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <InfiniteMenuMarquee />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "209b7d0efbd253821f87c455aca47487ed5c7282c61e932a1191de577ebd0dbd",
+      "sizeBytes": 414
     }
   ],
   "tags": [

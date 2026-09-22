@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function RubberSegmentSwitch({ className = \"\" }: { className?: string }) {\n  const [active, setActive] = useState(1);\n  const [pressed, setPressed] = useState(false);\n  const segments = [[\"☀️\", \"Light\"], [\"⚡\", \"Auto\"], [\"🌙\", \"Dark\"]];\n  return (\n    <div className={`flex flex-col items-center gap-6 ${className}`}>\n      <div style={{ position: \"relative\", display: \"inline-flex\", background: \"rgba(255,255,255,0.06)\", borderRadius: 14, padding: 4, border: \"1px solid rgba(255,255,255,0.1)\" }}>\n        <div style={{ position: \"absolute\", top: 4, left: `${active * 33.33 + 0.5}%`, width: \"32%\", height: \"calc(100% - 8px)\", background: \"rgba(139,92,246,0.8)\", borderRadius: 10, transition: \"left 0.4s cubic-bezier(0.34,1.56,0.64,1)\", backdropFilter: \"blur(8px)\", boxShadow: \"0 4px 16px rgba(139,92,246,0.3)\", transform: pressed ? \"scaleY(0.9)\" : \"scaleY(1)\", transitionDuration: \"0.3s\" }} />\n        {segments.map(([icon, label], i) => (\n          <button key={i} onClick={() => { setActive(i); setPressed(true); setTimeout(() => setPressed(false), 200); }}\n            style={{ position: \"relative\", zIndex: 1, padding: \"8px 18px\", borderRadius: 10, border: \"none\", background: \"transparent\", color: i === active ? \"#fff\" : \"rgba(255,255,255,0.4)\", fontWeight: i === active ? 700 : 400, cursor: \"pointer\", transition: \"color 0.3s\", fontSize: 13, display: \"flex\", alignItems: \"center\", gap: 6 }}>\n            {icon} {label}\n          </button>\n        ))}\n      </div>\n      <div style={{ color: \"rgba(255,255,255,0.4)\", fontSize: 12 }}>Mode: {segments[active][1]}</div>\n    </div>\n  );\n}",
       "contentHash": "b29658ce6bbc6525577fb21eba842a28916fd7164f2785a471370e440f751cfe",
       "sizeBytes": 1646
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { RubberSegmentSwitch } from \"./rubber-segment-switch\";\n\nexport default function RubberSegmentSwitchDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <RubberSegmentSwitch />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "7c2890b16ca8d913c43e93cb93daa5cbe22dc7bf93a03b60bcc9aea8523b3b5b",
+      "sizeBytes": 414
     }
   ],
   "tags": [

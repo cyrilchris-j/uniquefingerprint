@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function HalftoneRevealMask({ className = \"w-full h-48 relative overflow-hidden bg-[#0a0d14] cursor-pointer\" }: { className?: string }): React.JSX.Element {\n  const [revealed, setRevealed] = React.useState(false);\n  return (\n    <div className={className} onClick={() => setRevealed(r => !r)}>\n      <div className=\"absolute inset-0 flex items-center justify-center\">\n        <span className=\"font-display font-black text-4xl text-white\">REVEALED</span>\n      </div>\n      <div className=\"absolute inset-0 pointer-events-none transition-opacity duration-700\" style={{ opacity: revealed ? 0 : 1, backgroundImage: `radial-gradient(circle, #0a0d14 40%, transparent 40%)`, backgroundSize: \"16px 16px\" }} />\n      <span className=\"absolute bottom-3 right-4 font-mono text-[10px] text-white/30\">Click to reveal</span>\n    </div>\n  );\n}\n",
       "contentHash": "deac40e3b7b89b4eb4e2f384613b9bdf61452ff1379c6156bffcada95f9870c9",
       "sizeBytes": 870
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { HalftoneRevealMask } from \"./halftone-reveal-mask\";\n\nexport default function HalftoneRevealMaskDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <HalftoneRevealMask />\n    </div>\n  );\n}\n",
+      "contentHash": "39ce8ff4b9afbd4157ad9c0a1dd6ea56646dd461e635bf7820d59a26a613f90e",
+      "sizeBytes": 355
     }
   ],
   "tags": [

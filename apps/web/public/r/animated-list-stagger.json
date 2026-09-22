@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useEffect, useState } from \"react\";\nconst TASKS = [\"Design tokens finalized\", \"Motion spec approved\", \"Canvas engine v2 shipped\", \"Registry deployed\", \"CLI published\"];\nexport interface AnimatedListStaggerProps { className?: string; }\nexport function AnimatedListStagger({ className = \"\" }: AnimatedListStaggerProps) {\n  const [visible, setVisible] = useState<number[]>([]);\n  useEffect(() => { TASKS.forEach((_, i) => setTimeout(() => setVisible((v) => [...v, i]), i * 120)); }, []);\n  return (\n    <ul className={`flex flex-col gap-2 ${className}`}>\n      {TASKS.map((task, i) => (\n        <li key={i} style={{ opacity: visible.includes(i) ? 1 : 0, transform: visible.includes(i) ? \"translateY(0)\" : \"translateY(16px)\", transition: `opacity 0.4s ${i * 0.05}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 0.05}s` }}\n          className=\"flex items-center justify-between px-4 py-3 rounded-xl border border-[#1e1e1e] bg-[#0d0f14]\">\n          <span className=\"font-mono text-xs text-[#aaa]\">{task}</span>\n          <button onClick={() => setVisible((v) => v.filter((x) => x !== i))} className=\"text-[#333] hover:text-[#ba442c] font-mono text-xs transition-colors\">✕</button>\n        </li>\n      ))}\n    </ul>\n  );\n}",
       "contentHash": "1c529ec133a8990b7e27c7f45f14512973c6b42f86b03d1c31f57b6730276294",
       "sizeBytes": 1243
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { AnimatedListStagger } from \"./animated-list-stagger\";\n\nexport default function AnimatedListStaggerDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <AnimatedListStagger />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "71b596ed3626e5745192b303e52cb2afa210f9b816e68cdc346b308ba48cafbe",
+      "sizeBytes": 414
     }
   ],
   "tags": [

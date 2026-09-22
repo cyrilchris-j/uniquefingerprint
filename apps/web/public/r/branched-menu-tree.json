@@ -18,6 +18,13 @@
       "content": "import { useState } from \"react\";\nexport default function BranchedMenuTree({ className = \"\" }: { className?: string }) {\n  const [open, setOpen] = useState<Set<string>>(new Set([\"root\"]));\n  const tree = { id: \"root\", label: \"📁 Project Root\", children: [\n    { id: \"src\", label: \"📂 src\", children: [\n      { id: \"comp\", label: \"📂 components\", children: [{ id: \"btn\", label: \"🔵 Button.tsx\" }, { id: \"nav\", label: \"🔵 Nav.tsx\" }] },\n      { id: \"pages\", label: \"📂 pages\", children: [{ id: \"home\", label: \"📄 Home.tsx\" }] },\n    ]},\n    { id: \"public\", label: \"📂 public\", children: [{ id: \"favicon\", label: \"🖼 favicon.ico\" }] },\n  ]};\n  const toggle = (id: string) => setOpen(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });\n  const render = (node: any, depth = 0): React.ReactNode => (\n    <div key={node.id} style={{ marginLeft: depth * 16 }}>\n      <div onClick={() => toggle(node.id)} style={{ display: \"flex\", alignItems: \"center\", gap: 6, padding: \"5px 8px\", borderRadius: 6, cursor: \"pointer\", color: \"rgba(255,255,255,0.8)\", fontSize: 13, transition: \"background 0.15s\" }}\n        onMouseEnter={e => (e.currentTarget.style.background = \"rgba(255,255,255,0.06)\")}\n        onMouseLeave={e => (e.currentTarget.style.background = \"\")}>\n        {node.children && <span style={{ transition: \"transform 0.2s\", display: \"inline-block\", transform: open.has(node.id) ? \"rotate(90deg)\" : \"rotate(0deg)\", color: \"rgba(255,255,255,0.3)\", fontSize: 10 }}>▶</span>}\n        {!node.children && <span style={{ width: 14 }} />}\n        {node.label}\n      </div>\n      {node.children && open.has(node.id) && node.children.map((c: any) => render(c, depth + 1))}\n    </div>\n  );\n  return <div className={`${className}`} style={{ padding: 8, background: \"rgba(255,255,255,0.02)\", borderRadius: 12, border: \"1px solid rgba(255,255,255,0.08)\" }}>{render(tree)}</div>;\n}",
       "contentHash": "ffd18d798f2177d5300fc51c816e0a8d7a2067dd9fad622ef4c915e2fd4451eb",
       "sizeBytes": 1909
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { BranchedMenuTree } from \"./branched-menu-tree\";\n\nexport default function BranchedMenuTreeDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <BranchedMenuTree />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "0af2b5adb468da7d3bc89511ea87a24a20ef990139463b08fb3f488f3344f5c8",
+      "sizeBytes": 402
     }
   ],
   "tags": [

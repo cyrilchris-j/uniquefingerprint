@@ -18,6 +18,13 @@
       "content": "export default function MasonryGridFluid({ className = \"\" }: { className?: string }) {\n  const items = [\n    { h: 140, color: \"#1e1b4b\", label: \"Tall A\" },\n    { h: 90, color: \"#1a2035\", label: \"Short B\" },\n    { h: 110, color: \"#0f1d2e\", label: \"Mid C\" },\n    { h: 80, color: \"#1a0f20\", label: \"Short D\" },\n    { h: 160, color: \"#14161f\", label: \"Tall E\" },\n    { h: 100, color: \"#1a1a2e\", label: \"Mid F\" },\n  ];\n  return (\n    <div className={`${className}`} style={{ columns: 3, gap: 10, width: \"100%\" }}>\n      {items.map((item, i) => (\n        <div key={i} style={{ breakInside: \"avoid\", marginBottom: 10, height: item.h, background: item.color, borderRadius: 12, border: \"1px solid rgba(255,255,255,0.08)\", display: \"flex\", alignItems: \"center\", justifyContent: \"center\", cursor: \"pointer\", transition: \"transform 0.2s, box-shadow 0.2s\" }}\n          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = \"scale(1.02)\"; (e.currentTarget as HTMLElement).style.boxShadow = \"0 8px 30px rgba(0,0,0,0.4)\"; }}\n          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = \"\"; (e.currentTarget as HTMLElement).style.boxShadow = \"\"; }}>\n          <span style={{ color: \"rgba(255,255,255,0.4)\", fontSize: 12 }}>{item.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "4d07e129e1da79c5c39853b78ebdec029a35fcbf46c615ff45dccb53b5053670",
       "sizeBytes": 1307
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { MasonryGridFluid } from \"./masonry-grid-fluid\";\n\nexport default function MasonryGridFluidDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <MasonryGridFluid />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "cc2934aef30fc20103f89afc9eb498d0d19349cedf1841a749b88374cfa7f73b",
+      "sizeBytes": 402
     }
   ],
   "tags": [

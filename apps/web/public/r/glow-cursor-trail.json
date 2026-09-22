@@ -18,6 +18,13 @@
       "content": "import * as React from \"react\";\n\nexport function GlowCursorTrail({ className = \"w-full h-48 cursor-none relative overflow-hidden bg-[#08090f]\" }: { className?: string }): React.JSX.Element {\n  const [trail, setTrail] = React.useState<{ x: number; y: number; id: number }[]>([]);\n  const idRef = React.useRef(0);\n  return (\n    <div className={className} onMouseMove={e => {\n      const r = e.currentTarget.getBoundingClientRect();\n      const pt = { x: e.clientX - r.left, y: e.clientY - r.top, id: idRef.current++ };\n      setTrail(t => [...t.slice(-18), pt]);\n    }}>\n      {trail.map((pt, i) => {\n        const age = i / trail.length;\n        return (\n          <div key={pt.id} className=\"absolute rounded-full pointer-events-none\" style={{\n            width: 8 + age * 24, height: 8 + age * 24,\n            left: pt.x - (4 + age * 12), top: pt.y - (4 + age * 12),\n            background: `radial-gradient(circle, rgba(186,68,44,${age * 0.8}) 0%, transparent 70%)`,\n            filter: `blur(${(1 - age) * 4}px)`,\n          }} />\n        );\n      })}\n    </div>\n  );\n}\n",
       "contentHash": "9c3e47ea317d5ae2f19666ec1c58b9a96d6cd0d72a7f2cfe4cf34eacced6da06",
       "sizeBytes": 1073
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { GlowCursorTrail } from \"./glow-cursor-trail\";\n\nexport default function GlowCursorTrailDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <GlowCursorTrail />\n    </div>\n  );\n}\n",
+      "contentHash": "0adde9e05be6fe061705ba8a81bab29fa8d2f3c3c0a64403b8d45da38781f309",
+      "sizeBytes": 343
     }
   ],
   "tags": [

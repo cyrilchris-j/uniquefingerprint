@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface WarmTooltipFloatProps { className?: string; label?: string; tip?: string; }\nexport function WarmTooltipFloat({ className = \"\", label = \"Hover me\", tip = \"This is a warm tooltip with spring entrance animation.\" }: WarmTooltipFloatProps) {\n  const [visible, setVisible] = useState(false);\n  return (\n    <div className={`relative inline-flex flex-col items-center gap-2 ${className}`}>\n      <div className=\"absolute bottom-full mb-3 w-52 rounded-xl px-4 py-3 pointer-events-none\"\n        style={{ background: \"#12141a\", border: \"1px solid #2a2a2a\", boxShadow: \"0 8px 24px rgba(0,0,0,0.4)\", opacity: visible ? 1 : 0, transform: visible ? \"translateY(0) scale(1)\" : \"translateY(4px) scale(0.95)\", transition: \"all 0.3s cubic-bezier(0.16,1,0.3,1)\" }}>\n        <p className=\"font-mono text-[10px] text-[#aaa] leading-relaxed\">{tip}</p>\n        <div className=\"absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-[#12141a] border-r border-b border-[#2a2a2a]\" />\n      </div>\n      <button onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className=\"px-6 py-2.5 rounded-xl bg-[#0d0f14] border border-[#1e1e1e] font-mono text-xs text-[#888] hover:border-[#ba442c] hover:text-[#ba442c] transition-colors\">{label}</button>\n    </div>\n  );\n}",
       "contentHash": "a5e19614110c63012f2d298f3779928b4c67c581898fa8a90e96dc2b802e4610",
       "sizeBytes": 1339
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { WarmTooltipFloat } from \"./warm-tooltip-float\";\n\nexport default function WarmTooltipFloatDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <WarmTooltipFloat />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "8f9ff91c9b9faf14d114383c4e66d366c19ba15750ada6fa031a2d92935627cb",
+      "sizeBytes": 402
     }
   ],
   "tags": [

@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nconst PANELS = [{ id: 0, label: \"Editorial\", bg: \"#ba442c20\" }, { id: 1, label: \"Spatial\", bg: \"#2a3a5020\" }, { id: 2, label: \"Systems\", bg: \"#1a3a2a20\" }, { id: 3, label: \"Motion\", bg: \"#3a2a4020\" }];\nexport interface AccordionGallerySplitProps { className?: string; }\nexport function AccordionGallerySplit({ className = \"\" }: AccordionGallerySplitProps) {\n  const [hovered, setHovered] = useState<number | null>(null);\n  return (\n    <div className={`flex h-48 w-full overflow-hidden rounded-2xl border border-[#2a2a2a] ${className}`}>\n      {PANELS.map((panel) => (\n        <div key={panel.id} onMouseEnter={() => setHovered(panel.id)} onMouseLeave={() => setHovered(null)}\n          style={{ flex: hovered === panel.id ? \"3 0 0\" : \"1 0 0\", background: panel.bg, borderRight: \"1px solid #2a2a2a\", transition: \"flex 0.5s cubic-bezier(0.16,1,0.3,1)\", overflow: \"hidden\" }}\n          className=\"flex items-end pb-4 px-3 cursor-pointer\">\n          <span className=\"font-mono text-xs font-bold whitespace-nowrap\" style={{ color: hovered === panel.id ? \"#ba442c\" : \"#444\", transition: \"color 0.3s\" }}>{panel.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}",
       "contentHash": "96b72fe88ec392f1a95b85ab3ff7010c34cf51bdd5e1267ed549425af285f797",
       "sizeBytes": 1209
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { AccordionGallerySplit } from \"./accordion-gallery-split\";\n\nexport default function AccordionGallerySplitDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <AccordionGallerySplit />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "81f2daa94d12fffdd05debfce4b56f7bbdefd2dcfa24464b4cdee5fabeb08b04",
+      "sizeBytes": 422
     }
   ],
   "tags": [

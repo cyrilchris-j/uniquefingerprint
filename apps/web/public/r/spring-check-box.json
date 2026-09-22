@@ -18,6 +18,13 @@
       "content": "\"use client\";\nimport { useState } from \"react\";\nexport interface SpringCheckBoxProps { className?: string; label?: string; defaultChecked?: boolean; onChange?: (checked: boolean) => void; }\nexport function SpringCheckBox({ className = \"\", label = \"Accept terms and conditions\", defaultChecked = false, onChange }: SpringCheckBoxProps) {\n  const [checked, setChecked] = useState(defaultChecked); const [spring, setSpring] = useState(false);\n  const toggle = () => { const next = !checked; setChecked(next); onChange?.(next); if (next) { setSpring(true); setTimeout(() => setSpring(false), 400); } };\n  return (\n    <label className={`flex items-center gap-3 cursor-pointer select-none group ${className}`} onClick={toggle}>\n      <div className=\"relative w-5 h-5 rounded-md flex items-center justify-center\" style={{ border: `1.5px solid ${checked ? \"#ba442c\" : \"#2a2a2a\"}`, background: checked ? \"#ba442c18\" : \"#0d0f14\", transition: \"all 0.3s ease\" }}>\n        {checked && <svg width=\"12\" height=\"10\" viewBox=\"0 0 12 10\" fill=\"none\"><path d=\"M1 5 L4 8 L11 1\" stroke=\"#ba442c\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" style={{ strokeDasharray: 18, strokeDashoffset: spring ? 18 : 0, transition: \"stroke-dashoffset 0.3s cubic-bezier(0.16,1,0.3,1)\" }} /></svg>}\n      </div>\n      <span className=\"font-mono text-xs transition-colors group-hover:text-white\" style={{ color: checked ? \"#aaa\" : \"#555\" }}>{label}</span>\n    </label>\n  );\n}",
       "contentHash": "dd9b31a4f769000f5b111a680ff8577ad73ef4edd2312b3143bcecf13a637fb3",
       "sizeBytes": 1454
+    },
+    {
+      "path": "demo.tsx",
+      "type": "registry:component",
+      "content": "import * as React from \"react\";\nimport { SpringCheckBox } from \"./spring-check-box\";\n\nexport default function SpringCheckBoxDemo(): React.JSX.Element {\n  return (\n    <div className=\"flex min-h-[320px] w-full items-center justify-center rounded-2xl bg-neutral-950 p-8 border border-neutral-800\">\n      <div className=\"w-full max-w-md\">\n        <SpringCheckBox />\n      </div>\n    </div>\n  );\n}\n",
+      "contentHash": "a38ff2cb4ef4c6a7813b322c297898dd69c264ff282909e910c0e12abb88451c",
+      "sizeBytes": 394
     }
   ],
   "tags": [
